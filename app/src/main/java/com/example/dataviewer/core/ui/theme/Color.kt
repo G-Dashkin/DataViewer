@@ -1,4 +1,4 @@
-package com.example.dataviewer.ui.theme
+package com.example.dataviewer.core.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
