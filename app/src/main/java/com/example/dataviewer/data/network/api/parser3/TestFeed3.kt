@@ -7,13 +7,13 @@ class TestFeed3 {
                 "<name>Ситилинк</name>" +
                 "<company>Общество с ограниченной ответственностью &#34;Ситилинк&#34;</company>" +
                 "<url>https://www.citilink.ru/</url>" +
-                "<currencies>" +
-                "<currency id=\"RUR\" rate=\"1\"></currency>" +
-                "<currency id=\"USD\" rate=\"CBRF\"></currency>" +
-                "<currency id=\"EUR\" rate=\"CBRF\"></currency>" +
-                "<currency id=\"UAH\" rate=\"CBRF\"></currency>" +
-                "</currencies>" +
-                "<categories>" +
+                    "<currencies>" +
+                        "<currency id=\"RUR\" rate=\"1\"></currency>" +
+                        "<currency id=\"USD\" rate=\"CBRF\"></currency>" +
+                        "<currency id=\"EUR\" rate=\"CBRF\"></currency>" +
+                        "<currency id=\"UAH\" rate=\"CBRF\"></currency>" +
+                    "</currencies>" +
+            "<categories>" +
             "<category id=\"1\">Ноутбуки и компьютеры</category>" +
             "<category id=\"2\" parentId=\"1588\">Компьютеры</category>" +
             "<category id=\"3\" parentId=\"1\">Ноутбуки</category>" +

@@ -27,7 +27,6 @@ class NewParser3 {
                     if (oldElement == newElement) {
                         if (feedElements.size < 500) feedElements.set(feedElements.size-1, feedElements.last() + "<$varTag>")
                     } else {
-
                         if(checkSameElement(feedElements, varTag) && feedElements.size < 500) {
                             feedElements.add("<$varTag>")
                         } else {
