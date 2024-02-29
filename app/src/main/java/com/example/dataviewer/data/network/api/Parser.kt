@@ -1,6 +1,6 @@
-package com.example.dataviewer.data.network.api.parser3
+package com.example.dataviewer.data.network.api
 
-class NewParser3 {
+class Parser {
 
     companion object {
 

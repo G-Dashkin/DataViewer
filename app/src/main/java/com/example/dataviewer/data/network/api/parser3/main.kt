@@ -1,11 +1,11 @@
 package com.example.dataviewer.data.network.api.parser3
 
-import java.net.HttpURLConnection
-import java.net.URL
+import com.example.dataviewer.data.network.api.FeedApiNetwork
+import com.example.dataviewer.data.network.api.TestFeed
 
 fun main() {
 
-    val mockFeed = TestFeed3().mockFeed
+    val mockFeed = TestFeed().mockFeed
 
     val CITI = "https://feeds-mic.s1.citilink.ru/context/context_msk_cl.xml"
     val PIZZA = "https://api2.kiparo.com/static/it_news.xml"
@@ -14,7 +14,9 @@ fun main() {
 //    val con = url.openConnection() as HttpURLConnection
 //    val citiFeed = con.inputStream.bufferedReader().use { it.readText() }
 
-    val arrayFeed = NewParser3.parsingToList(mockFeed)
+//    val arrayFeed = Parser.parsingToList(mockFeed)
+
+    val arrayFeed = FeedApiNetwork(mockFeed).getData()
 
     arrayFeed.forEach {
         println(it)

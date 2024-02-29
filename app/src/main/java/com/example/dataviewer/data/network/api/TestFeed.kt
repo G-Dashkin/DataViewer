@@ -1,6 +1,6 @@
-package com.example.dataviewer.data.network.api.parser3
+package com.example.dataviewer.data.network.api
 
-class TestFeed3 {
+class TestFeed {
     val mockFeed =
         "<yml_catalog date=\"2024-01-13 00:11\">" +
                 "<shop>" +
