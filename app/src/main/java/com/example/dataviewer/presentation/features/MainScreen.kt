@@ -1,4 +1,4 @@
-package com.example.dataviewer.presentation.main
+package com.example.dataviewer.presentation.features
 
 import android.util.Log
 import androidx.compose.foundation.background
@@ -17,6 +17,8 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -31,6 +33,8 @@ import kotlinx.coroutines.Dispatchers
 
 @Composable
 fun MainScreen() {
+
+    val articles = remember { mutableStateOf(emptyList<String>()) }
 
     val feedRepository: FeedRepository = FeedRepositoryImpl (
         feedApi = provideFeedApi(
@@ -105,10 +109,12 @@ fun MainScreen() {
 
             LaunchedEffect(Unit) {
 //                withContext(Dispatchers.IO){
-                    val someArray2 = feedUseCase.execute()
-                someArray2.forEach {
-                    someArray.add(it)
-                }
+
+                articles.value = feedUseCase.execute()
+//                    val someArray2 = feedUseCase.execute()
+//                someArray2.forEach {
+//                    someArray.add(it)
+//                }
 //                    Log.d("MyLog", someArray.toString())
 
 //                }
@@ -118,7 +124,7 @@ fun MainScreen() {
 
 
             LazyColumn(modifier = Modifier.fillMaxSize()){
-                items(someArray) {element -> 
+                items(articles.value) {element ->
                     Log.d("MyLog", element)
                     Text(text = element)
                     
