@@ -1,4 +1,4 @@
-package com.example.dataviewer.data.network.api
+package com.example.dataviewer.data.network.api.test
 
 class TestFeed {
     val mockFeed =

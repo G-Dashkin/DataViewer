@@ -1,10 +1,8 @@
-package com.example.dataviewer.data.network.api.parser3
+package com.example.dataviewer.data.network.api.test
 
 import com.example.dataviewer.data.network.api.FeedApiNetwork
-import com.example.dataviewer.data.network.api.TestFeed
 
 fun main() {
-
     val mockFeed = TestFeed().mockFeed
 
     val CITI = "https://feeds-mic.s1.citilink.ru/context/context_msk_cl.xml"
@@ -23,5 +21,4 @@ fun main() {
     }
 
     println(arrayFeed.size)
-
 }

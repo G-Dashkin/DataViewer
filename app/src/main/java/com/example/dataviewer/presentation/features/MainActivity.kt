@@ -8,9 +8,6 @@ import com.example.dataviewer.core.ui.theme.DataViewerTheme
 
 class MainActivity : ComponentActivity() {
 
-
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
