@@ -1,4 +1,10 @@
 <resources>
     <string name="app_name">DataViewer</string>
     <string name="email">Email</string>
+
+    <string name="home">Главная</string>
+    <string name="feeds">Фиды</string>
+    <string name="projects">Проекты</string>
+    <string name="scanning">Сканирование фида</string>
+    <string name="settings">Настройки</string>
 </resources>

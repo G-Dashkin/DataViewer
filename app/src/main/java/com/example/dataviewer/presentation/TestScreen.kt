@@ -1,6 +1,5 @@
-package com.example.dataviewer.presentation.features
+package com.example.dataviewer.presentation
 
-import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -18,8 +17,6 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
@@ -37,7 +34,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 @Composable
-fun MainScreen() {
+fun TestScreen() {
 
     val articles = remember { mutableStateOf(emptyList<String>()) }
     val rememberScope = rememberCoroutineScope()
@@ -86,10 +83,7 @@ fun MainScreen() {
 
             LazyColumn(modifier = Modifier.fillMaxSize()){
                 items(articles.value) {element ->
-                    Text(
-                        modifier = Modifier.clickable {
-
-                        },
+                    Text(modifier = Modifier.clickable {},
                         text = element
                     )
                 }
@@ -102,6 +96,6 @@ fun MainScreen() {
 @Composable
 fun MainScreenPreview(){
     DataViewerTheme {
-        MainScreen()
+        TestScreen()
     }
 }
