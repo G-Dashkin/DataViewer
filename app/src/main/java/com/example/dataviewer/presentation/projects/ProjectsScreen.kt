@@ -8,6 +8,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
+import com.example.dataviewer.core.ui.theme.DataViewerTheme
+import com.example.dataviewer.presentation.home.HomeScreen
 
 @Composable
 fun ProjectsScreen() {
@@ -19,8 +21,10 @@ fun ProjectsScreen() {
     }
 }
 
-@Composable
 @Preview(showBackground = true)
-private fun Preview() {
-    // TODO Implement
+@Composable
+fun ProjectsScreenPreview() {
+    DataViewerTheme {
+        ProjectsScreen()
+    }
 }
