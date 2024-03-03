@@ -52,7 +52,9 @@ fun DataViewerTopMenu(
             ) {
                 //--------------------------------------------------------------------------------------
                 // Сами элементы меню перебираемые в цикле
-                destinations.forEachIndexed { index, item ->
+                destinations.filter {
+                    it.route != "scanning"
+                }.forEachIndexed { index, item ->
                     DropdownMenuItem(
                         text = { Text(text = stringResource(id = item.titleId)) },
                         onClick = {

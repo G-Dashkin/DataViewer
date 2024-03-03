@@ -9,24 +9,7 @@ import com.example.dataviewer.presentation.scanning.ScanningScreen
 
 fun NavGraphBuilder.navigateToScanning(){
     composable(route = ScanningDestination.route) {
-
-//        val homeViewModel: HomeViewModel = viewModel(
-//            factory = HomeViewModel.Factory(
-//                getMenuSectionsUseCase = DiProvider.di.get(GetMenuSectionsUseCase::class),
-//                getMenuItemsUseCase = DiProvider.di.get(GetMenuItemsUseCase::class),
-//                addCartUseCase = DiProvider.di.get(AddCartUseCase::class)
-//            )
-//        )
-//        val menuUiState by homeViewModel.uiStateMenu.collectAsStateWithLifecycle()
-//
-        ScanningScreen(
-//            menuUiState = menuUiState,
-//            onOfferClick = onOfferClick,
-//            onItemSelected = onItemSelected,
-//            onPickedSection = homeViewModel::updateMenu,
-//            addToCartClick = homeViewModel::addToCart
-        )
-
+        ScanningScreen()
     }
 }
 

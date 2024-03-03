@@ -10,7 +10,7 @@ import com.example.dataviewer.presentation.menu.TopLevelDestination
 
 const val BOTTOM_MENU_GRAPH = "bottom_menu_graph"
 
-fun NavHostController.navigateToMenuScreen() {
+fun NavHostController.navigateToBottomMenu() {
     popBackStack()
     navigate(BottomMenuDestination.route)
 }

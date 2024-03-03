@@ -12,17 +12,17 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.dataviewer.core.ui.theme.DataViewerTheme
+import com.example.dataviewer.presentation.feeds.navigation.navigateToFeeds
 import com.example.dataviewer.presentation.home.navigation.HomeDestination
 import com.example.dataviewer.presentation.home.navigation.navigateToHome
+import com.example.dataviewer.presentation.projects.navigation.navigateToProjects
 import com.example.dataviewer.presentation.scanning.navigation.navigateToScanning
 import com.example.dataviewer.presentation.settings.navigation.navigateToSettings
 
 @Composable
 fun MenuScreen(
     topLevelDestinations: List<TopLevelDestination>,
-//    onItemSelected: (String) -> Unit,
     onLogout: () -> Unit,
-//    onOffer: () -> Unit
 ) {
 
     val navController: NavHostController = rememberNavController()
@@ -57,6 +57,8 @@ fun MenuScreen(
                 navigateToHome()
                 navigateToScanning()
                 navigateToSettings()
+                navigateToProjects()
+                navigateToFeeds()
             }
         }
     }

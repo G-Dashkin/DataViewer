@@ -19,6 +19,6 @@ object ProjectsDestination : NavigationDestination {
 
 object ProjectsTopLevelDestination : TopLevelDestination {
     override val route = ProjectsDestination.route
-    override val iconId = 0
+    override val iconId = R.drawable.ic_bottom_menu_home
     override val titleId = R.string.projects
 }

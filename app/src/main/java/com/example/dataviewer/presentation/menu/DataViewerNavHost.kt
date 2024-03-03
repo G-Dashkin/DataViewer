@@ -16,9 +16,9 @@ import com.example.dataviewer.presentation.auth.navigation.navigateToReset
 import com.example.dataviewer.presentation.feeds.navigation.FeedsTopLevelDestination
 import com.example.dataviewer.presentation.menu.navigation.BOTTOM_MENU_GRAPH
 import com.example.dataviewer.presentation.menu.navigation.bottomMenu
-import com.example.dataviewer.presentation.menu.navigation.navigateToMenuScreen
 import com.example.dataviewer.presentation.home.navigation.HomeTopLevelDestination
 import com.example.dataviewer.presentation.main.MainViewModel
+import com.example.dataviewer.presentation.menu.navigation.navigateToBottomMenu
 import com.example.dataviewer.presentation.menu.navigation.topMenu
 import com.example.dataviewer.presentation.projects.navigation.ProjectsTopLevelDestination
 import com.example.dataviewer.presentation.scanning.navigation.ScanningTopLevelDestination
@@ -47,25 +47,27 @@ fun DataViewerNavHost() {
             }
         )
         authentication(
-            onLoginClicked = navController::navigateToMenuScreen,
+            onLoginClicked = navController::navigateToBottomMenu,
             onNavigateToLogin = navController::navigateToLogin,
             onNavigateToRegister = navController::navigateToRegister,
             onNavigateToReset = navController::navigateToReset
         )
-        topMenu(
-            topLevelDestinations = immutableListOf(
-                HomeTopLevelDestination,
-                ProjectsTopLevelDestination,
-                FeedsTopLevelDestination,
-                SettingsTopLevelDestination
-            ),
-            onLogout = navController::logout
-        )
+//        topMenu(
+//            topLevelDestinations = immutableListOf(
+//                HomeTopLevelDestination,
+//                ProjectsTopLevelDestination,
+//                FeedsTopLevelDestination,
+//                SettingsTopLevelDestination
+//            ),
+//            onLogout = navController::logout
+//        )
         bottomMenu(
             topLevelDestinations = immutableListOf(
                 HomeTopLevelDestination,
                 ScanningTopLevelDestination,
-                SettingsTopLevelDestination
+                ProjectsTopLevelDestination,
+                FeedsTopLevelDestination,
+                SettingsTopLevelDestination,
             ),
             onNavigateUp = navController::popBackStack,
             onLogout = navController::logout

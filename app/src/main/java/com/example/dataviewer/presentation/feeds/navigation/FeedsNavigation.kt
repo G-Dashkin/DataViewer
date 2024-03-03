@@ -20,6 +20,6 @@ object FeedsDestination : NavigationDestination {
 
 object FeedsTopLevelDestination : TopLevelDestination {
     override val route = FeedsDestination.route
-    override val iconId = 0
+    override val iconId = R.drawable.ic_bottom_menu_home
     override val titleId = R.string.feeds
 }
