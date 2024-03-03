@@ -15,4 +15,3 @@ dependencyResolutionManagement {
 
 rootProject.name = "DataViewer"
 include(":app")
- 

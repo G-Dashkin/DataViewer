@@ -1,4 +1,4 @@
-package com.example.dataviewer.presentation.navigation
+package com.example.dataviewer.presentation.bottom_menu
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.MoreVert
@@ -28,7 +28,7 @@ private const val OFFSET_Y = (-60)
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun TopBar(
+fun TopMenuNavigation(
     modifier: Modifier = Modifier,
     onHomeClick: () -> Unit = {},
     onProjectsClick: () -> Unit = {},
@@ -96,5 +96,5 @@ fun TopBar(
 @Composable
 @Preview(showBackground = true)
 private fun Preview() {
-    TopBar()
+    TopMenuNavigation()
 }

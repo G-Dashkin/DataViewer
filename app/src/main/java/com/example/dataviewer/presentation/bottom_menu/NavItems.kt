@@ -1,4 +1,4 @@
-package com.example.dataviewer.presentation.navigation
+package com.example.dataviewer.presentation.bottom_menu
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Home

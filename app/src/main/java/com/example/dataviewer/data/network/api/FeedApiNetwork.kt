@@ -1,10 +1,6 @@
 package com.example.dataviewer.data.network.api
 
-import android.os.Environment
 import com.example.dataviewer.data.network.api.test.TestFeed
-import java.io.File
-import java.io.FileOutputStream
-import java.io.InputStream
 import java.net.HttpURLConnection
 import java.net.URL
 

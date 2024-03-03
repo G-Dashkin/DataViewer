@@ -1,13 +1,11 @@
 package com.example.dataviewer.presentation.main
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.material3.Surface
-import androidx.compose.runtime.getValue
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.dataviewer.core.ui.theme.DataViewerTheme
+import com.example.dataviewer.presentation.bottom_menu.DataViewerNavHost
 
 class MainActivity : ComponentActivity() {
 
@@ -15,19 +13,25 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             DataViewerTheme {
-                Surface {
-                    val mainViewModel: MainViewModel = viewModel()
-                    val state by mainViewModel.uiState.collectAsStateWithLifecycle()
-                    MainScreen(
-                        state = state,
-                        onHomeScreen = mainViewModel::onHomeClick,
-//                        onScanningScreen = mainViewModel::onScanningClick,
-                        onProjectsScreen = mainViewModel::onProjectsClick,
-                        onFeedsScreen = mainViewModel::onFeedsClick
-                    )
-                }
+                DataViewerNavHost()
+
+//                Surface {
+//                    val mainViewModel: MainViewModel = viewModel()
+//                    val state by mainViewModel.uiState.collectAsStateWithLifecycle()
+//                    MainScreen(
+//                        state = state,
+//                        onHomeScreen = mainViewModel::onHomeClick,
+////                        onScanningScreen = mainViewModel::onScanningClick,
+//                        onProjectsScreen = mainViewModel::onProjectsClick,
+//                        onFeedsScreen = mainViewModel::onFeedsClick
+//                    )
+//                }
             }
         }
+
+    }
+    override fun onNewIntent(intent: Intent?) {
+        super.onNewIntent(intent)
     }
 }
 

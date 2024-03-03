@@ -17,13 +17,11 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.sp
 import com.example.dataviewer.core.ui.theme.DataViewerTheme
-import com.example.dataviewer.core.ui.theme.borderRadius16
-import com.example.dataviewer.core.ui.theme.height40
 
 @Composable
 fun DefaultButton(
     modifier: Modifier = Modifier,
-    height: Dp = height40,
+    height: Dp = com.example.dataviewer.core.ui.theme.height40,
     title: String,
     color: Color = MaterialTheme.colorScheme.secondary,
     textColor : Color = MaterialTheme.colorScheme.onSecondary,
@@ -38,7 +36,7 @@ fun DefaultButton(
             onClick.invoke()
             onClickState.invoke()
             },
-        shape = RoundedCornerShape(borderRadius16),
+        shape = RoundedCornerShape(com.example.dataviewer.core.ui.theme.borderRadius16),
         colors = ButtonDefaults.buttonColors(containerColor = color)
     ) {
         Text(
