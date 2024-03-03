@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace = "com.example.dataviewer"
+    namespace = "com.perfomax.dataviewer"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.example.dataviewer"
+        applicationId = "com.perfomax.dataviewer"
         minSdk = 24
         targetSdk = 34
         versionCode = 1
