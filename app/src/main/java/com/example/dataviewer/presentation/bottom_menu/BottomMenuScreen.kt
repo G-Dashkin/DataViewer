@@ -33,6 +33,33 @@ fun BottomMenuScreen(
     val currentRoute = navBackStackEntry?.destination?.route
 
     Scaffold(
+        topBar = {
+            TopMenuNavigation(
+                onHomeClick = { },
+                onFeedsClick = { },
+                onProjectsClick = { }
+            )
+//            when (state.screen) {
+//
+//                Screens.HOME -> {
+//                    HomeScreen()
+//                }
+//                Screens.SCANNING -> {
+//                    ScanningScreen()
+//                }
+//                Screens.SETTINGS -> {
+//
+//                }
+//
+//                Screens.PROJECTS -> {
+//                    ProjectsScreen()
+//                }
+//
+//                Screens.FEEDS -> {
+//                    FeedsScreen()
+//                }
+//            }
+        },
         bottomBar = {
             DataViewerBottomBar(
                 currentDestination = currentRoute,
