@@ -1,4 +1,4 @@
-package com.example.dataviewer.presentation.bottom_menu
+package com.example.dataviewer.presentation.menu
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
@@ -17,11 +17,8 @@ import com.example.dataviewer.presentation.home.navigation.navigateToHome
 import com.example.dataviewer.presentation.scanning.navigation.navigateToScanning
 import com.example.dataviewer.presentation.settings.navigation.navigateToSettings
 
-class BottomMenuScreen {
-}
-
 @Composable
-fun BottomMenuScreen(
+fun MenuScreen(
     topLevelDestinations: List<TopLevelDestination>,
 //    onItemSelected: (String) -> Unit,
     onLogout: () -> Unit,
@@ -34,7 +31,7 @@ fun BottomMenuScreen(
 
     Scaffold(
         topBar = {
-            TopMenuNavigation(
+            DataViewerTopMenu(
                 destinations = topLevelDestinations,
                 onNavigateToTopLevel = { route ->
                     navController.navigateSingleTopTo(route)

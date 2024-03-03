@@ -3,8 +3,8 @@ package com.example.dataviewer.presentation.scanning.navigation
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import com.example.dataviewer.R
-import com.example.dataviewer.presentation.bottom_menu.NavigationDestination
-import com.example.dataviewer.presentation.bottom_menu.TopLevelDestination
+import com.example.dataviewer.presentation.menu.NavigationDestination
+import com.example.dataviewer.presentation.menu.TopLevelDestination
 import com.example.dataviewer.presentation.scanning.ScanningScreen
 
 fun NavGraphBuilder.navigateToScanning(){

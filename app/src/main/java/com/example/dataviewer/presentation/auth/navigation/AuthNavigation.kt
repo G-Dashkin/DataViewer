@@ -13,7 +13,7 @@ import com.example.dataviewer.presentation.auth.registration.RegisterScreen
 import com.example.dataviewer.presentation.auth.registration.RegisterViewModel
 import com.example.dataviewer.presentation.auth.reset.ResetScreen
 import com.example.dataviewer.presentation.auth.reset.ResetViewModel
-import com.example.dataviewer.presentation.bottom_menu.NavigationDestination
+import com.example.dataviewer.presentation.menu.NavigationDestination
 
 const val AUTH_GRAPH = "authentication"
 

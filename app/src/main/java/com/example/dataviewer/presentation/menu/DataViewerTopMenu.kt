@@ -1,6 +1,5 @@
-package com.example.dataviewer.presentation.bottom_menu
+package com.example.dataviewer.presentation.menu
 
-import android.util.Log
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.MoreVert
 import androidx.compose.material3.DropdownMenu
@@ -8,10 +7,8 @@ import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
-import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -29,7 +26,7 @@ private const val OFFSET_Y = (-60)
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun TopMenuNavigation(
+fun DataViewerTopMenu(
     modifier: Modifier = Modifier,
     destinations: List<TopLevelDestination>,
     onNavigateToTopLevel: (topRoute: String) -> Unit
@@ -72,7 +69,7 @@ fun TopMenuNavigation(
 @Composable
 @Preview(showBackground = true)
 private fun Preview() {
-    TopMenuNavigation(
+    DataViewerTopMenu(
         destinations = listOf(),
         onNavigateToTopLevel = {},
     )

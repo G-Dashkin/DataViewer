@@ -1,4 +1,4 @@
-package com.example.dataviewer.presentation.bottom_menu
+package com.example.dataviewer.presentation.menu
 
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.material3.Badge

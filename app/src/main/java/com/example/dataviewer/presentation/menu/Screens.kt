@@ -1,4 +1,4 @@
-package com.example.dataviewer.presentation.bottom_menu
+package com.example.dataviewer.presentation.menu
 
 enum class Screens {
     HOME,

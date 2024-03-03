@@ -46,11 +46,6 @@ fun TestScreen() {
     )
     val feedUseCase = GetFeedDataUseCase(feedRepository)
 
-//    LaunchedEffect(Unit) {
-//        articles.value = feedUseCase.execute()
-//    }
-
-
     Column(
         modifier = Modifier
             .fillMaxSize()

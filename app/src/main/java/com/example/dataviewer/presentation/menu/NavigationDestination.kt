@@ -1,4 +1,4 @@
-package com.example.dataviewer.presentation.bottom_menu
+package com.example.dataviewer.presentation.menu
 
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes

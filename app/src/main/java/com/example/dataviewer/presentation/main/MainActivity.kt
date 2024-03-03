@@ -5,7 +5,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import com.example.dataviewer.core.ui.theme.DataViewerTheme
-import com.example.dataviewer.presentation.bottom_menu.DataViewerNavHost
+import com.example.dataviewer.presentation.menu.DataViewerNavHost
 
 class MainActivity : ComponentActivity() {
 
@@ -14,21 +14,8 @@ class MainActivity : ComponentActivity() {
         setContent {
             DataViewerTheme {
                 DataViewerNavHost()
-
-//                Surface {
-//                    val mainViewModel: MainViewModel = viewModel()
-//                    val state by mainViewModel.uiState.collectAsStateWithLifecycle()
-//                    MainScreen(
-//                        state = state,
-//                        onHomeScreen = mainViewModel::onHomeClick,
-////                        onScanningScreen = mainViewModel::onScanningClick,
-//                        onProjectsScreen = mainViewModel::onProjectsClick,
-//                        onFeedsScreen = mainViewModel::onFeedsClick
-//                    )
-//                }
             }
         }
-
     }
     override fun onNewIntent(intent: Intent?) {
         super.onNewIntent(intent)
