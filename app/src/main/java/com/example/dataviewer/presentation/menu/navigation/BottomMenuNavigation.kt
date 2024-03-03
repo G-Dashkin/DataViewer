@@ -21,9 +21,7 @@ private object BottomMenuDestination: NavigationDestination {
 
 fun NavGraphBuilder.bottomMenu(
     topLevelDestinations: List<TopLevelDestination>,
-//    onNavigateToDetails: (String) -> Unit,
     onLogout: () -> Unit,
-//    onOffer: () -> Unit,
     onNavigateUp: () -> Unit
 ) {
     navigation(startDestination = BottomMenuDestination.route, route = BOTTOM_MENU_GRAPH) {
@@ -35,17 +33,13 @@ fun NavGraphBuilder.bottomMenu(
 }
 
 private fun NavGraphBuilder.bottomMenuInner(
-//    navigateToDetails: (String) -> Unit,
     onLogout: () -> Unit,
-//    onOffer: () -> Unit,
     topLevelDestinations: List<TopLevelDestination>
 ) {
     composable(BottomMenuDestination.route) {
         MenuScreen(
             topLevelDestinations = topLevelDestinations,
-//            onItemSelected = navigateToDetails,
             onLogout = onLogout,
-//            onOffer = onOffer
         )
     }
 }
