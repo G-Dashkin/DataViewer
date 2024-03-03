@@ -1,4 +1,4 @@
-package com.example.dataviewer.presentation.bottom_menu
+package com.example.dataviewer.presentation.menu
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -13,11 +13,14 @@ import com.example.dataviewer.presentation.auth.navigation.logout
 import com.example.dataviewer.presentation.auth.navigation.navigateToLogin
 import com.example.dataviewer.presentation.auth.navigation.navigateToRegister
 import com.example.dataviewer.presentation.auth.navigation.navigateToReset
-import com.example.dataviewer.presentation.bottom_menu.navigation.BOTTOM_MENU_GRAPH
-import com.example.dataviewer.presentation.bottom_menu.navigation.bottomMenu
-import com.example.dataviewer.presentation.bottom_menu.navigation.navigateToBottomMenu
+import com.example.dataviewer.presentation.feeds.navigation.FeedsTopLevelDestination
+import com.example.dataviewer.presentation.menu.navigation.BOTTOM_MENU_GRAPH
+import com.example.dataviewer.presentation.menu.navigation.bottomMenu
+import com.example.dataviewer.presentation.menu.navigation.navigateToMenuScreen
 import com.example.dataviewer.presentation.home.navigation.HomeTopLevelDestination
 import com.example.dataviewer.presentation.main.MainViewModel
+import com.example.dataviewer.presentation.menu.navigation.topMenu
+import com.example.dataviewer.presentation.projects.navigation.ProjectsTopLevelDestination
 import com.example.dataviewer.presentation.scanning.navigation.ScanningTopLevelDestination
 import com.example.dataviewer.presentation.settings.navigation.SettingsTopLevelDestination
 import com.example.dataviewer.presentation.start.navigation.StartDestination
@@ -44,10 +47,19 @@ fun DataViewerNavHost() {
             }
         )
         authentication(
-            onLoginClicked = navController::navigateToBottomMenu,
+            onLoginClicked = navController::navigateToMenuScreen,
             onNavigateToLogin = navController::navigateToLogin,
             onNavigateToRegister = navController::navigateToRegister,
             onNavigateToReset = navController::navigateToReset
+        )
+        topMenu(
+            topLevelDestinations = immutableListOf(
+                HomeTopLevelDestination,
+                ProjectsTopLevelDestination,
+                FeedsTopLevelDestination,
+                SettingsTopLevelDestination
+            ),
+            onLogout = navController::logout
         )
         bottomMenu(
             topLevelDestinations = immutableListOf(
@@ -55,11 +67,10 @@ fun DataViewerNavHost() {
                 ScanningTopLevelDestination,
                 SettingsTopLevelDestination
             ),
-//            onNavigateToDetails = navController::navigateToDetails,
             onNavigateUp = navController::popBackStack,
-            onLogout = navController::logout,
-//            onOffer = navController::offer
+            onLogout = navController::logout
         )
+
 //        bottomMenu(
 //            topLevelDestinations = immutableListOf(
 //                HomeTopLevelDestination,
