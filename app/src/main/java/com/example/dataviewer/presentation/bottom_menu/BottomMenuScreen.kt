@@ -35,30 +35,12 @@ fun BottomMenuScreen(
     Scaffold(
         topBar = {
             TopMenuNavigation(
-                onHomeClick = { },
-                onFeedsClick = { },
-                onProjectsClick = { }
+                destinations = topLevelDestinations,
+                onNavigateToTopLevel = { route ->
+                    navController.navigateSingleTopTo(route)
+                }
+
             )
-//            when (state.screen) {
-//
-//                Screens.HOME -> {
-//                    HomeScreen()
-//                }
-//                Screens.SCANNING -> {
-//                    ScanningScreen()
-//                }
-//                Screens.SETTINGS -> {
-//
-//                }
-//
-//                Screens.PROJECTS -> {
-//                    ProjectsScreen()
-//                }
-//
-//                Screens.FEEDS -> {
-//                    FeedsScreen()
-//                }
-//            }
         },
         bottomBar = {
             DataViewerBottomBar(
@@ -75,10 +57,7 @@ fun BottomMenuScreen(
                 navController = navController,
                 startDestination = HomeDestination.route
             ) {
-                navigateToHome(
-//                    onItemSelected = onItemSelected,
-//                    onOfferClick = onOffer
-                )
+                navigateToHome()
                 navigateToScanning()
                 navigateToSettings()
             }

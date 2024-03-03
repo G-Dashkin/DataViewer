@@ -1,5 +1,6 @@
 package com.example.dataviewer.presentation.bottom_menu
 
+import android.util.Log
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.MoreVert
 import androidx.compose.material3.DropdownMenu
@@ -30,64 +31,39 @@ private const val OFFSET_Y = (-60)
 @Composable
 fun TopMenuNavigation(
     modifier: Modifier = Modifier,
-    onHomeClick: () -> Unit = {},
-    onProjectsClick: () -> Unit = {},
-    onFeedsClick: () -> Unit = {}
+    destinations: List<TopLevelDestination>,
+    onNavigateToTopLevel: (topRoute: String) -> Unit
 ) {
 
     var dropDownMenuExpanded by remember { mutableStateOf(false) }
 
     TopAppBar(
-        modifier = modifier,
-        colors = TopAppBarDefaults.topAppBarColors(
-            containerColor = MaterialTheme.colorScheme.surface,
-        ),
-        title = {
-            Text(
-                text = stringResource(id = R.string.app_name),
-                color = MaterialTheme.colorScheme.onSurface,
-                style = MaterialTheme.typography.titleLarge
-            )
-        },
-
+        title = { Text(text = stringResource(id = R.string.app_name)) },
         actions = {
-
-            IconButton(onClick = {
-                dropDownMenuExpanded = true
-            }) {
+            //--------------------------------------------------------------------------------------
+            // Кнопка меню, три точки ...
+            IconButton(onClick = { dropDownMenuExpanded = true }) {
                 Icon(imageVector = Icons.Outlined.MoreVert, contentDescription = "Options")
             }
 
+            //--------------------------------------------------------------------------------------
+            // Раскрывающееся меню при клике
             DropdownMenu(
                 expanded = dropDownMenuExpanded,
-                onDismissRequest = {
-                    dropDownMenuExpanded = false
-                },
+                onDismissRequest = { dropDownMenuExpanded = false },
                 offset = DpOffset(x = OFFSET_X.dp, y = OFFSET_Y.dp)
             ) {
-
-
-                DropdownMenuItem(onClick = {
-                    dropDownMenuExpanded = false
-                    onHomeClick.invoke()
-                }, text = {
-                    Text(text = stringResource(id = R.string.home))
-                })
-
-                DropdownMenuItem(onClick = {
-                    dropDownMenuExpanded = false
-                    onProjectsClick.invoke()
-                }, text = {
-                    Text(text = stringResource(id = R.string.projects))
-                })
-
-                DropdownMenuItem(onClick = {
-                    dropDownMenuExpanded = false
-                    onFeedsClick.invoke()
-                }, text = {
-                    Text(text = stringResource(id = R.string.feeds))
-                })
-
+                //--------------------------------------------------------------------------------------
+                // Сами элементы меню перебираемые в цикле
+                destinations.forEachIndexed { index, item ->
+                    DropdownMenuItem(
+                        text = { Text(text = stringResource(id = item.titleId)) },
+                        onClick = {
+                            dropDownMenuExpanded = false
+                            onNavigateToTopLevel(item.route)
+                        }
+                    )
+                }
             }
         }
     )
@@ -96,5 +72,8 @@ fun TopMenuNavigation(
 @Composable
 @Preview(showBackground = true)
 private fun Preview() {
-    TopMenuNavigation()
+    TopMenuNavigation(
+        destinations = listOf(),
+        onNavigateToTopLevel = {},
+    )
 }
