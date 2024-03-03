@@ -19,6 +19,7 @@ import com.example.dataviewer.presentation.bottom_menu.navigation.navigateToBott
 import com.example.dataviewer.presentation.home.navigation.HomeTopLevelDestination
 import com.example.dataviewer.presentation.main.MainViewModel
 import com.example.dataviewer.presentation.scanning.navigation.ScanningTopLevelDestination
+import com.example.dataviewer.presentation.settings.navigation.SettingsTopLevelDestination
 import com.example.dataviewer.presentation.start.navigation.StartDestination
 import com.example.dataviewer.presentation.start.navigation.start
 import okhttp3.internal.immutableListOf
@@ -52,7 +53,7 @@ fun DataViewerNavHost() {
             topLevelDestinations = immutableListOf(
                 HomeTopLevelDestination,
                 ScanningTopLevelDestination,
-                ScanningTopLevelDestination
+                SettingsTopLevelDestination
             ),
 //            onNavigateToDetails = navController::navigateToDetails,
             onNavigateUp = navController::popBackStack,

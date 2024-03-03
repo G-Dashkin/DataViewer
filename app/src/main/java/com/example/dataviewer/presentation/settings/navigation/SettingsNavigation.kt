@@ -6,10 +6,11 @@ import com.example.dataviewer.R
 import com.example.dataviewer.presentation.bottom_menu.NavigationDestination
 import com.example.dataviewer.presentation.bottom_menu.TopLevelDestination
 import com.example.dataviewer.presentation.scanning.navigation.ScanningDestination
+import com.example.dataviewer.presentation.settings.SettingsScreen
 
 
 fun NavGraphBuilder.navigateToSettings(){
-    composable(route = ScanningDestination.route) {
+    composable(route = SettingsDestination.route) {
 
 //        val homeViewModel: HomeViewModel = viewModel(
 //            factory = HomeViewModel.Factory(
@@ -20,13 +21,13 @@ fun NavGraphBuilder.navigateToSettings(){
 //        )
 //        val menuUiState by homeViewModel.uiStateMenu.collectAsStateWithLifecycle()
 //
-//        HomeScreen(
+        SettingsScreen(
 //            menuUiState = menuUiState,
 //            onOfferClick = onOfferClick,
 //            onItemSelected = onItemSelected,
 //            onPickedSection = homeViewModel::updateMenu,
 //            addToCartClick = homeViewModel::addToCart
-//        )
+        )
 
     }
 }

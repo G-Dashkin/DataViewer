@@ -7,4 +7,5 @@
     <string name="projects">Проекты</string>
     <string name="scanning">Сканирование фида</string>
     <string name="settings">Настройки</string>
+    <string name="empty">""</string>
 </resources>

@@ -23,9 +23,9 @@ class BottomMenuScreen {
 @Composable
 fun BottomMenuScreen(
     topLevelDestinations: List<TopLevelDestination>,
-    onItemSelected: (String) -> Unit,
+//    onItemSelected: (String) -> Unit,
     onLogout: () -> Unit,
-    onOffer: () -> Unit
+//    onOffer: () -> Unit
 ) {
 
     val navController: NavHostController = rememberNavController()
@@ -49,8 +49,8 @@ fun BottomMenuScreen(
                 startDestination = HomeDestination.route
             ) {
                 navigateToHome(
-                    onItemSelected = onItemSelected,
-                    onOfferClick = onOffer
+//                    onItemSelected = onItemSelected,
+//                    onOfferClick = onOffer
                 )
                 navigateToScanning()
                 navigateToSettings()

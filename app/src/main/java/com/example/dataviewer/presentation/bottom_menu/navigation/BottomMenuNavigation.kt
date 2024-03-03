@@ -4,6 +4,7 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
+import com.example.dataviewer.presentation.bottom_menu.BottomMenuScreen
 import com.example.dataviewer.presentation.bottom_menu.NavigationDestination
 import com.example.dataviewer.presentation.bottom_menu.TopLevelDestination
 
@@ -45,12 +46,12 @@ private fun NavGraphBuilder.bottomMenuInner(
     topLevelDestinations: List<TopLevelDestination>
 ) {
     composable(BottomMenuDestination.route) {
-//        BottomMenuScreen(
-//            topLevelDestinations = topLevelDestinations,
+        BottomMenuScreen(
+            topLevelDestinations = topLevelDestinations,
 //            onItemSelected = navigateToDetails,
-//            onLogout = onLogout,
+            onLogout = onLogout,
 //            onOffer = onOffer
-//        )
+        )
     }
 }
 

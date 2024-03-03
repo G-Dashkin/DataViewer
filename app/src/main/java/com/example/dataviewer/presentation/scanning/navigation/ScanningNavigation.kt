@@ -5,6 +5,7 @@ import androidx.navigation.compose.composable
 import com.example.dataviewer.R
 import com.example.dataviewer.presentation.bottom_menu.NavigationDestination
 import com.example.dataviewer.presentation.bottom_menu.TopLevelDestination
+import com.example.dataviewer.presentation.scanning.ScanningScreen
 
 fun NavGraphBuilder.navigateToScanning(){
     composable(route = ScanningDestination.route) {
@@ -18,13 +19,13 @@ fun NavGraphBuilder.navigateToScanning(){
 //        )
 //        val menuUiState by homeViewModel.uiStateMenu.collectAsStateWithLifecycle()
 //
-//        HomeScreen(
+        ScanningScreen(
 //            menuUiState = menuUiState,
 //            onOfferClick = onOfferClick,
 //            onItemSelected = onItemSelected,
 //            onPickedSection = homeViewModel::updateMenu,
 //            addToCartClick = homeViewModel::addToCart
-//        )
+        )
 
     }
 }
