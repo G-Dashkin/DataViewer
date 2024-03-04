@@ -1,5 +1,7 @@
 package com.perfomax.dataviewer.presentation.start
 
+import android.os.Handler
+import android.os.Looper
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -8,6 +10,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
@@ -19,16 +22,24 @@ import com.perfomax.dataviewer.core.ui.theme.DataViewerTheme
 fun StartedScreen(
     onStartClicked: () -> Unit
 ) {
+
+    Handler(Looper.getMainLooper()).postDelayed({
+        onStartClicked.invoke()
+    }, 1000)
+
     Column(
         modifier = Modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
         Text(text = "StartedScreen", fontSize = 22.sp)
-        Button(
-            modifier = Modifier.width(200.dp).padding(bottom = 20.dp),
-            onClick = onStartClicked
-        ) { Text(text = "Get Started", fontSize = 22.sp) }
+
+//        Button(
+//            modifier = Modifier
+//                .width(200.dp)
+//                .padding(bottom = 20.dp),
+//            onClick = onStartClicked
+//        ) { Text(text = "Get Started", fontSize = 22.sp) }
     }
 }
 

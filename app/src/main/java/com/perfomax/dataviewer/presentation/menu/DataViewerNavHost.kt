@@ -31,10 +31,12 @@ import okhttp3.internal.immutableListOf
 fun DataViewerNavHost() {
 
     val navController: NavHostController = rememberNavController()
-    val viewModel: MainViewModel = viewModel()
+//    val viewModel: MainViewModel = viewModel()
 
-    val authentication by viewModel.authenticated.collectAsState()
-    val startDestination = if (authentication) BOTTOM_MENU_GRAPH else AUTH_GRAPH
+//    val authentication by viewModel.authenticated.collectAsState()
+//    val startDestination = if (authentication) BOTTOM_MENU_GRAPH else AUTH_GRAPH
+
+    val startDestination = BOTTOM_MENU_GRAPH
 
     NavHost(
         navController = navController,
