@@ -19,6 +19,6 @@ object ScanningDestination : NavigationDestination {
 
 object ScanningTopLevelDestination : TopLevelDestination {
     override val route = ScanningDestination.route
-    override val iconId = R.drawable.ic_bottom_menu_home
+    override val iconId = R.drawable.ic_bottom_menu_search
     override val titleId = R.string.scanning
 }

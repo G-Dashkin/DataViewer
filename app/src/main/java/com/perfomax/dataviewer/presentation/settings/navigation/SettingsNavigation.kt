@@ -37,6 +37,6 @@ object SettingsDestination : NavigationDestination {
 
 object SettingsTopLevelDestination : TopLevelDestination {
     override val route = SettingsDestination.route
-    override val iconId = R.drawable.ic_bottom_menu_home
+    override val iconId = R.drawable.ic_bottom_menu_settings
     override val titleId = R.string.settings
 }
