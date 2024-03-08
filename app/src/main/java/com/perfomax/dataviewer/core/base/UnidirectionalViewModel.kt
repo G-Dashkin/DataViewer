@@ -11,6 +11,7 @@ interface UnidirectionalViewModel<EVENT, STATE, EFFECT> {
     val effect: StateFlow<EFFECT>
     fun event(event:EVENT)
     fun consume()
+
 }
 
 @Composable
