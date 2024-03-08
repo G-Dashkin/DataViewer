@@ -14,20 +14,19 @@ interface HomeContract : UnidirectionalViewModel <HomeContract.Event, HomeContra
                 text = EMPTY,
                 textError = false
             )
-            fun notAuthorized(): State = State(
+            fun notCorrect(): State = State(
                 text = EMPTY,
                 textError = false
             )
         }
     }
 
-    sealed interface Event{
+    sealed interface Event {
         data object ClickEvent: Event
         data class TextChangeEvent(val text: String): Event
     }
 
     sealed interface Effect {
-
         data object Click : Effect
     }
 

@@ -6,14 +6,12 @@ import androidx.compose.runtime.getValue
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import kotlinx.coroutines.flow.StateFlow
 
-interface EffectEvent
 interface UnidirectionalViewModel<EVENT, STATE, EFFECT> {
     val uiState: StateFlow<STATE>
     val effect: StateFlow<EFFECT>
     fun event(event:EVENT)
     fun consume()
 }
-
 
 @Composable
 fun <EVENT, STATE, EFFECT>UnidirectionalViewModel<EVENT, STATE, EFFECT>.useEffects(
