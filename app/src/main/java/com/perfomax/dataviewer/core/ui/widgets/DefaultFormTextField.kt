@@ -1,9 +1,12 @@
 package com.perfomax.dataviewer.core.ui.widgets
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
@@ -16,7 +19,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color.Companion.Gray
 import androidx.compose.ui.graphics.Color.Companion.White
+import androidx.compose.ui.graphics.painter.Painter
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import com.perfomax.dataviewer.R
 import com.perfomax.dataviewer.core.ui.theme.DataViewerTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -26,22 +35,29 @@ fun DefaultFormTextField(
     text: String,
     labelText: String,
     isError: Boolean,
+    icon: Painter,
     onChange: (value: String) -> Unit
 ) {
     TextField(
         modifier = Modifier
-            .fillMaxWidth()
-            .clip(shape = RoundedCornerShape(com.perfomax.dataviewer.core.ui.theme.shape8))
-            .background(color = White)
-            .height(com.perfomax.dataviewer.core.ui.theme.height56),
+//            .fillMaxWidth()
+            .width(300.dp)
+            .clip(shape = RoundedCornerShape(24.dp))
+            .background(color = MaterialTheme.colorScheme.background)
+            .height(60.dp),
         value = text,
-        onValueChange = onChange,
-        shape = RoundedCornerShape(com.perfomax.dataviewer.core.ui.theme.borderRadius8),
-        label = {
-            Text(modifier = Modifier.padding(top = com.perfomax.dataviewer.core.ui.theme.padding5),
-                text = labelText, style = MaterialTheme.typography.labelMedium, color = Gray)
+        leadingIcon = {
+            Image(modifier = Modifier.size(24.dp), painter = icon, contentDescription = text)
         },
-        textStyle = MaterialTheme.typography.labelMedium,
+        onValueChange = onChange,
+        shape = RoundedCornerShape(8.dp),
+        label = {
+            Text(modifier = Modifier,
+                text = labelText, style = MaterialTheme.typography.labelMedium,
+                color = MaterialTheme.colorScheme.onSurface)
+        },
+        textStyle = MaterialTheme.typography.labelMedium
+            .merge(color = MaterialTheme.colorScheme.onBackground, textDecoration = TextDecoration.None),
         isError = isError
     )
 }
@@ -57,8 +73,9 @@ fun DefaultFormTextFieldPreview() {
             modifier = Modifier.fillMaxWidth(),
             text = textState.value,
             onChange = onTextChange,
-            labelText = "labelText",
-            isError = false
+            labelText = stringResource(id = R.string.email),
+            isError = false,
+            icon = painterResource(id = R.drawable.ic_bottom_menu_search),
         )
     }
 }

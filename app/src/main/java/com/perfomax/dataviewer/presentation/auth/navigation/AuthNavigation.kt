@@ -13,7 +13,7 @@ import com.perfomax.dataviewer.presentation.auth.registration.RegisterScreen
 import com.perfomax.dataviewer.presentation.auth.registration.RegisterViewModel
 import com.perfomax.dataviewer.presentation.auth.reset.ResetScreen
 import com.perfomax.dataviewer.presentation.auth.reset.ResetViewModel
-import com.perfomax.dataviewer.presentation.menu.NavigationDestination
+import com.perfomax.dataviewer.core.navigaion.NavigationDestination
 
 const val AUTH_GRAPH = "authentication"
 
@@ -55,6 +55,7 @@ fun NavGraphBuilder.authentication(
     navigation(startDestination = LoginDestination.route, route = AUTH_GRAPH){
 
         composable(route = LoginDestination.route) {
+
             val loginViewModel: LoginViewModel = viewModel()
             val loginUiState by loginViewModel.loginUiState.collectAsStateWithLifecycle()
             LoginScreen(

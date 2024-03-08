@@ -1,9 +1,9 @@
-package com.perfomax.dataviewer.presentation.menu
+package com.perfomax.dataviewer.presentation.menu.menu_bottom
 
-import android.util.Log
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import com.perfomax.dataviewer.core.navigaion.TopLevelDestination
 
 @Composable
 fun DataViewerBottomBar(
@@ -12,7 +12,6 @@ fun DataViewerBottomBar(
     destinations: List<TopLevelDestination>,
     onNavigateToTopLevel: (topRoute: String) -> Unit
 ) {
-
     DataViewerNavBar(containerColor = MaterialTheme.colorScheme.onPrimary) {
         destinations.filter {
             it.route != "feeds" &&

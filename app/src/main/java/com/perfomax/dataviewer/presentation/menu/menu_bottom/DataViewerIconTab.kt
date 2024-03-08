@@ -1,7 +1,6 @@
-package com.perfomax.dataviewer.presentation.menu
+package com.perfomax.dataviewer.presentation.menu.menu_bottom
 
 import androidx.compose.foundation.layout.RowScope
-import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Badge
 import androidx.compose.material3.BadgedBox
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -15,10 +14,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.unit.TextUnit
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.perfomax.dataviewer.R
 
 @Composable
@@ -56,7 +51,6 @@ fun RowScope.DataViewerIconTab(
     )
 }
 
-//--------------------------------------------------------------------------------------------------
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun DefaultBadgedBox(
@@ -81,4 +75,3 @@ fun DefaultBadgedBox(
         Icon(painter = painterResource(id = itemIconId), contentDescription = stringResource(itemTitleId))
     }
 }
-//--------------------------------------------------------------------------------------------------

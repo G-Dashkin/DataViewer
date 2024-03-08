@@ -3,8 +3,8 @@ package com.perfomax.dataviewer.presentation.scanning.navigation
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import com.perfomax.dataviewer.R
-import com.perfomax.dataviewer.presentation.menu.NavigationDestination
-import com.perfomax.dataviewer.presentation.menu.TopLevelDestination
+import com.perfomax.dataviewer.core.navigaion.NavigationDestination
+import com.perfomax.dataviewer.core.navigaion.TopLevelDestination
 import com.perfomax.dataviewer.presentation.scanning.ScanningScreen
 
 fun NavGraphBuilder.navigateToScanning(){

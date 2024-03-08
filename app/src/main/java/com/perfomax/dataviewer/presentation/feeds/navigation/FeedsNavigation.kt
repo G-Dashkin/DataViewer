@@ -4,9 +4,8 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import com.perfomax.dataviewer.R
 import com.perfomax.dataviewer.presentation.feeds.FeedsScreen
-import com.perfomax.dataviewer.presentation.menu.NavigationDestination
-import com.perfomax.dataviewer.presentation.menu.TopLevelDestination
-import com.perfomax.dataviewer.presentation.projects.ProjectsScreen
+import com.perfomax.dataviewer.core.navigaion.NavigationDestination
+import com.perfomax.dataviewer.core.navigaion.TopLevelDestination
 
 fun NavGraphBuilder.navigateToFeeds(){
     composable(route = FeedsDestination.route) {

@@ -1,35 +1,27 @@
 package com.perfomax.dataviewer.presentation.home.navigation
 
+import androidx.compose.runtime.getValue
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import com.perfomax.dataviewer.R
-import com.perfomax.dataviewer.presentation.menu.NavigationDestination
-import com.perfomax.dataviewer.presentation.menu.TopLevelDestination
+import com.perfomax.dataviewer.core.navigaion.NavigationDestination
+import com.perfomax.dataviewer.core.navigaion.TopLevelDestination
+import com.perfomax.dataviewer.presentation.home.HomeContract
 import com.perfomax.dataviewer.presentation.home.HomeScreen
+import com.perfomax.dataviewer.presentation.home.HomeViewModel
 
-fun NavGraphBuilder.navigateToHome(
-//    onItemSelected: (String) -> Unit,
-//    onOfferClick: () -> Unit
-){
+fun NavGraphBuilder.navigateToHome(){
+
     composable(route = HomeDestination.route) {
-
-//        val homeViewModel: HomeViewModel = viewModel(
-////            factory = HomeViewModel.Factory(
-////                getMenuSectionsUseCase = DiProvider.di.get(GetMenuSectionsUseCase::class),
-////                getMenuItemsUseCase = DiProvider.di.get(GetMenuItemsUseCase::class),
-////                addCartUseCase = DiProvider.di.get(AddCartUseCase::class)
-////            )
-//        )
-//        val menuUiState by homeViewModel.uiStateMenu.collectAsStateWithLifecycle()
-
-        HomeScreen(
-//            menuUiState = menuUiState,
-//            onOfferClick = onOfferClick,
-//            onItemSelected = onItemSelected,
-//            onPickedSection = homeViewModel::updateMenu,
-//            addToCartClick = homeViewModel::addToCart
+        val homeViewModel: HomeViewModel = viewModel()
+        val homeUiState by homeViewModel.textFieldUiState.collectAsStateWithLifecycle()
+        HomeScreen (
+            uiState = homeUiState,
+            onTextChange = { text -> homeViewModel.event(HomeContract.Event.TextChangeEvent(text)) },
+            onTestClick = { homeViewModel.event(HomeContract.Event.ClickEvent) }
         )
-
     }
 }
 

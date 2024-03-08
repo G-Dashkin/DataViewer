@@ -1,4 +1,4 @@
-package com.perfomax.dataviewer.presentation.menu
+package com.perfomax.dataviewer.presentation.menu.menu_top
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.MoreVert
@@ -20,6 +20,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.DpOffset
 import androidx.compose.ui.unit.dp
 import com.perfomax.dataviewer.R
+import com.perfomax.dataviewer.core.navigaion.TopLevelDestination
 
 private const val OFFSET_X = 50
 private const val OFFSET_Y = (-60)
@@ -37,21 +38,14 @@ fun DataViewerTopMenu(
     TopAppBar(
         title = { Text(text = stringResource(id = R.string.app_name)) },
         actions = {
-            //--------------------------------------------------------------------------------------
-            // Кнопка меню, три точки ...
             IconButton(onClick = { dropDownMenuExpanded = true }) {
                 Icon(imageVector = Icons.Outlined.MoreVert, contentDescription = "Options")
             }
-
-            //--------------------------------------------------------------------------------------
-            // Раскрывающееся меню при клике
             DropdownMenu(
                 expanded = dropDownMenuExpanded,
                 onDismissRequest = { dropDownMenuExpanded = false },
                 offset = DpOffset(x = OFFSET_X.dp, y = OFFSET_Y.dp)
             ) {
-                //--------------------------------------------------------------------------------------
-                // Сами элементы меню перебираемые в цикле
                 destinations.filter {
                     it.route != "scanning"
                 }.forEachIndexed { index, item ->

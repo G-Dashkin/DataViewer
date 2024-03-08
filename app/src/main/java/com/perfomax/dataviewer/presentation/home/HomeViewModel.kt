@@ -1,10 +1,15 @@
 package com.perfomax.dataviewer.presentation.home
 
+import android.util.Log
 import androidx.compose.runtime.Immutable
 import androidx.lifecycle.ViewModel
+import com.perfomax.dataviewer.domain.EMPTY
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
+
 
 sealed interface MenuUiState {
 //    data object Loading : MenuUiState
@@ -20,20 +25,53 @@ sealed interface MenuUiState {
     }
 }
 
-class HomeViewModel: ViewModel() {
+@Immutable
+data class TextFieldUiState(
+    val text: String,
+    val textError: Boolean
+)
 
-    private val _uiStateMenu = MutableStateFlow<MenuUiState>(MenuUiState.Loading)
-    val uiStateMenu = _uiStateMenu.asStateFlow()
+class HomeViewModel: ViewModel(), HomeContract {
+
+    private val _uiState = MutableStateFlow(HomeContract.State.initial())
+    override val uiState: StateFlow<HomeContract.State> = _uiState.asStateFlow()
+
+    private val _effect = MutableStateFlow<HomeContract.Effect?>(null)
+    override val effect: StateFlow<HomeContract.Effect?> = _effect.asStateFlow()
+
+    override fun event(event: HomeContract.Event) {
+        when(event) {
+            is HomeContract.Event.TextChangeEvent -> onTextFieldsChange(event.text)
+            HomeContract.Event.ClickEvent -> onClickTest()
+        }
+    }
+
+    override fun consume() {
+        _effect.update { null }
+    }
 
 
+    private val _textFieldUiState = MutableStateFlow(
+        TextFieldUiState(
+            text = EMPTY,
+            textError = false
+        )
+    )
 
-//    internal class Factory(
-//        private val getMenuSectionsUseCase: GetMenuSectionsUseCase,
-//        private val getMenuItemsUseCase: GetMenuItemsUseCase,
-//        private val addCartUseCase: AddCartUseCase
-//    ) : ViewModelProvider.NewInstanceFactory() {
-//        @Suppress("UNCHECKED_CAST")
-//        override fun <T : ViewModel> create(modelClass: Class<T>): T =
-//            HomeViewModel(getMenuSectionsUseCase, getMenuItemsUseCase, addCartUseCase) as T
-//    }
+    val textFieldUiState: StateFlow<TextFieldUiState> = _textFieldUiState
+
+    private fun onTextFieldsChange(text: String) {
+        _textFieldUiState.update { currentState ->
+            currentState.copy(
+                text = text,
+                textError = text.isNotBlank()
+            )
+        }
+    }
+
+    fun onClickTest() {
+        Log.d("MyLog", "ClickTest")
+    }
+
+
 }

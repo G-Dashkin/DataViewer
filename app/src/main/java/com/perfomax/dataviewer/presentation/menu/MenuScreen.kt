@@ -11,10 +11,14 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.perfomax.dataviewer.core.navigaion.TopLevelDestination
+import com.perfomax.dataviewer.core.navigaion.navigateSingleTopTo
 import com.perfomax.dataviewer.core.ui.theme.DataViewerTheme
 import com.perfomax.dataviewer.presentation.feeds.navigation.navigateToFeeds
 import com.perfomax.dataviewer.presentation.home.navigation.HomeDestination
 import com.perfomax.dataviewer.presentation.home.navigation.navigateToHome
+import com.perfomax.dataviewer.presentation.menu.menu_bottom.DataViewerBottomBar
+import com.perfomax.dataviewer.presentation.menu.menu_top.DataViewerTopMenu
 import com.perfomax.dataviewer.presentation.projects.navigation.navigateToProjects
 import com.perfomax.dataviewer.presentation.scanning.navigation.navigateToScanning
 import com.perfomax.dataviewer.presentation.settings.navigation.navigateToSettings

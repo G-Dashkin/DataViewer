@@ -1,4 +1,4 @@
-package com.perfomax.dataviewer.presentation.menu
+package com.perfomax.dataviewer.presentation.menu.menu_bottom
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row

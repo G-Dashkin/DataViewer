@@ -5,38 +5,41 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
 import com.perfomax.dataviewer.presentation.menu.MenuScreen
-import com.perfomax.dataviewer.presentation.menu.NavigationDestination
-import com.perfomax.dataviewer.presentation.menu.TopLevelDestination
+import com.perfomax.dataviewer.core.navigaion.NavigationDestination
+import com.perfomax.dataviewer.core.navigaion.TopLevelDestination
 
-const val BOTTOM_MENU_GRAPH = "bottom_menu_graph"
+const val MENU_GRAPH = "menu_graph"
 
-fun NavHostController.navigateToBottomMenu() {
+fun NavHostController.navigateToMenu() {
     popBackStack()
-    navigate(BottomMenuDestination.route)
+    navigate(MenuDestination.route)
 }
 
-private object BottomMenuDestination: NavigationDestination {
-    override val route = "bottom_menu"
+private object MenuDestination: NavigationDestination {
+    override val route = "menu"
 }
 
-fun NavGraphBuilder.bottomMenu(
+fun NavGraphBuilder.menu(
     topLevelDestinations: List<TopLevelDestination>,
     onLogout: () -> Unit,
     onNavigateUp: () -> Unit
 ) {
-    navigation(startDestination = BottomMenuDestination.route, route = BOTTOM_MENU_GRAPH) {
-        bottomMenuInner(
+    navigation(
+        startDestination = MenuDestination.route,
+        route = MENU_GRAPH
+    ) {
+        menuInner(
             topLevelDestinations = topLevelDestinations,
             onLogout = onLogout,
         )
     }
 }
 
-private fun NavGraphBuilder.bottomMenuInner(
+private fun NavGraphBuilder.menuInner(
     onLogout: () -> Unit,
     topLevelDestinations: List<TopLevelDestination>
 ) {
-    composable(BottomMenuDestination.route) {
+    composable(MenuDestination.route) {
         MenuScreen(
             topLevelDestinations = topLevelDestinations,
             onLogout = onLogout,

@@ -1,4 +1,4 @@
-package com.perfomax.dataviewer.presentation.menu
+package com.perfomax.dataviewer.core.navigaion
 
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes

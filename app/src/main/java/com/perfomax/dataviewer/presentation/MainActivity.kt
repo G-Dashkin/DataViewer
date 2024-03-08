@@ -1,11 +1,11 @@
-package com.perfomax.dataviewer.presentation.main
+package com.perfomax.dataviewer.presentation
 
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import com.perfomax.dataviewer.core.ui.theme.DataViewerTheme
-import com.perfomax.dataviewer.presentation.menu.DataViewerNavHost
+import com.perfomax.dataviewer.core.navigaion.DataViewerNavHost
 
 class MainActivity : ComponentActivity() {
 

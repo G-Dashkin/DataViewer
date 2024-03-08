@@ -1,4 +1,6 @@
 package com.perfomax.dataviewer.presentation.details
 
-class DetailsViewModel {
+import androidx.lifecycle.ViewModel
+
+class DetailsViewModel: ViewModel() {
 }

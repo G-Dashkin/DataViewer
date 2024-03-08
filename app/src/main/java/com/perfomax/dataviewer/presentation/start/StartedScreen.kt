@@ -33,13 +33,6 @@ fun StartedScreen(
         verticalArrangement = Arrangement.Center
     ) {
         Text(text = "StartedScreen", fontSize = 22.sp)
-
-//        Button(
-//            modifier = Modifier
-//                .width(200.dp)
-//                .padding(bottom = 20.dp),
-//            onClick = onStartClicked
-//        ) { Text(text = "Get Started", fontSize = 22.sp) }
     }
 }
 
