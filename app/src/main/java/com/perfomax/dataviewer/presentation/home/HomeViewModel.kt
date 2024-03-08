@@ -25,12 +25,6 @@ sealed interface MenuUiState {
     }
 }
 
-@Immutable
-data class TextFieldUiState(
-    val text: String,
-    val textError: Boolean
-)
-
 class HomeViewModel: ViewModel(), HomeContract {
 
     private val _uiState = MutableStateFlow(HomeContract.State.initial())
@@ -39,7 +33,7 @@ class HomeViewModel: ViewModel(), HomeContract {
     private val _effect = MutableStateFlow<HomeContract.Effect?>(null)
     override val effect: StateFlow<HomeContract.Effect?> = _effect.asStateFlow()
 
-    override fun event(event: HomeContract.Event) {
+    override fun intent(event: HomeContract.Event) {
         when(event) {
             is HomeContract.Event.TextChangeEvent -> onTextFieldsChange(event.text)
             HomeContract.Event.ClickEvent -> onClickTest()
@@ -50,18 +44,8 @@ class HomeViewModel: ViewModel(), HomeContract {
         _effect.update { null }
     }
 
-
-    private val _textFieldUiState = MutableStateFlow(
-        TextFieldUiState(
-            text = EMPTY,
-            textError = false
-        )
-    )
-
-    val textFieldUiState: StateFlow<TextFieldUiState> = _textFieldUiState
-
     private fun onTextFieldsChange(text: String) {
-        _textFieldUiState.update { currentState ->
+        _uiState.update { currentState ->
             currentState.copy(
                 text = text,
                 textError = text.isNotBlank()
@@ -69,7 +53,7 @@ class HomeViewModel: ViewModel(), HomeContract {
         }
     }
 
-    fun onClickTest() {
+    private fun onClickTest() {
         Log.d("MyLog", "ClickTest")
     }
 

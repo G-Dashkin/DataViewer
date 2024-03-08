@@ -29,7 +29,7 @@ import com.perfomax.dataviewer.core.ui.widgets.DefaultFormTextField
 
 @Composable
 fun HomeScreen(
-    uiState: TextFieldUiState,
+    uiState: HomeContract.State,
     onTextChange: (String) -> Unit,
     onTestClick: () -> Unit,
 ) {
@@ -69,12 +69,12 @@ fun HomeScreen(
 fun HomeScreenPreview() {
     DataViewerTheme {
         val homeViewModel: HomeViewModel = viewModel()
-        val homeUiState by homeViewModel.textFieldUiState.collectAsStateWithLifecycle()
+        val homeUiState by homeViewModel.uiState.collectAsStateWithLifecycle()
         val homeEffects by homeViewModel.effect.collectAsStateWithLifecycle()
         HomeScreen (
             uiState = homeUiState,
-            onTextChange = {  },
-            onTestClick = {  }
+            onTextChange = { text -> homeViewModel.intent(HomeContract.Event.TextChangeEvent(text)) },
+            onTestClick = { homeViewModel.intent(HomeContract.Event.ClickEvent) }
         )
     }
 }

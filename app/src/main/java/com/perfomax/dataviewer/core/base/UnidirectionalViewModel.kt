@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.StateFlow
 interface UnidirectionalViewModel<EVENT, STATE, EFFECT> {
     val uiState: StateFlow<STATE>
     val effect: StateFlow<EFFECT>
-    fun event(event:EVENT)
+    fun intent(event:EVENT)
     fun consume()
 
 }

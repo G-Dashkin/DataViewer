@@ -16,11 +16,11 @@ fun NavGraphBuilder.navigateToHome(){
 
     composable(route = HomeDestination.route) {
         val homeViewModel: HomeViewModel = viewModel()
-        val homeUiState by homeViewModel.textFieldUiState.collectAsStateWithLifecycle()
+        val homeUiState by homeViewModel.uiState.collectAsStateWithLifecycle()
         HomeScreen (
             uiState = homeUiState,
-            onTextChange = { text -> homeViewModel.event(HomeContract.Event.TextChangeEvent(text)) },
-            onTestClick = { homeViewModel.event(HomeContract.Event.ClickEvent) }
+            onTextChange = { text -> homeViewModel.intent(HomeContract.Event.TextChangeEvent(text)) },
+            onTestClick = { homeViewModel.intent(HomeContract.Event.ClickEvent) }
         )
     }
 }
