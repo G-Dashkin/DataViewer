@@ -8,9 +8,9 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.runBlocking
-import javax.inject.Inject
+//import javax.inject.Inject
 
-class ProjectsViewModel @Inject constructor(
+class ProjectsViewModel (
     private val datastoreRepository : DatastoreRepository
 ): ViewModel(), ProjectsContract {
 
