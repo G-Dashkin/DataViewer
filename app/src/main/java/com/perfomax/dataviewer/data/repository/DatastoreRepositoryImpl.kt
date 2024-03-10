@@ -17,6 +17,8 @@ private val Context.dataStore : DataStore<Preferences> by preferencesDataStore(n
 class DatastoreRepositoryImpl @Inject constructor(
     private val context: Context
 ): DatastoreRepository {
+
+    // https://www.youtube.com/watch?v=wkt59jo7Nh0&list=PLBUydZdSJP_2Kst6z3tkfxUWeHyiJZDPY&index=9
     override suspend fun putString(key: String, value: String) {
         val prefereneKay = stringPreferencesKey(key)
         context.dataStore.edit {
