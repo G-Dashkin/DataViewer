@@ -1,6 +1,9 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+    id("dagger.hilt.android.plugin")
+    id("kotlin-kapt")
+    id("com.google.dagger.hilt.android")
 }
 
 android {
@@ -75,8 +78,17 @@ dependencies {
     implementation(libs.lifecycle.viewmodel.ktx)
     implementation(libs.coil.compose)
 
+    kapt(libs.lifecycle.compiler)
+
     // parsing
     implementation(libs.moshi.kotlin)
+
+    // hilt
+    implementation(libs.hilt)
+    implementation(libs.hilt.compiler)
+
+    // Datastore
+    implementation(libs.datastore.preferences)
 
     // tests
     testImplementation(libs.junit)

@@ -59,8 +59,6 @@ fun HomeScreen(
             Text(text = "TestClick", fontSize = 22.sp)
         }
 
-
-
     }
 }
 

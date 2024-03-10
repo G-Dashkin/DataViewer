@@ -1,10 +1,10 @@
-package com.perfomax.dataviewer.presentation.home
+package com.perfomax.dataviewer.presentation.projects
 
 import com.perfomax.dataviewer.core.base.UnidirectionalViewModel
 import com.perfomax.dataviewer.domain.EMPTY
 
-interface HomeContract:
-    UnidirectionalViewModel <HomeContract.Event, HomeContract.State, HomeContract.Effect?> {
+interface ProjectsContract:
+    UnidirectionalViewModel<ProjectsContract.Event, ProjectsContract.State, ProjectsContract.Effect?> {
 
     data class State(
         val text: String,
