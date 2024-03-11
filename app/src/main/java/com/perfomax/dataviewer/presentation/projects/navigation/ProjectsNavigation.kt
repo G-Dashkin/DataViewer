@@ -18,6 +18,7 @@ fun NavGraphBuilder.navigateToProjects(){
     composable(route = ProjectsDestination.route) {
 
 //        val projectsViewModel : ProjectsViewModel by viewModels()
+        // https://www.youtube.com/watch?v=23Gj0z88H2U
 
         val projectsViewModel: ProjectsViewModel = viewModel()
         val projectsUiState by projectsViewModel.uiState.collectAsStateWithLifecycle()

@@ -14,7 +14,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ProjectsViewModel
-@Inject constructor (
+@Inject constructor
+    (
     private val datastoreRepository : DatastoreRepository
 )
     : ViewModel(), ProjectsContract {
