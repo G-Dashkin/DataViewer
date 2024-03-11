@@ -21,6 +21,8 @@ lifecycle-compiler = "2.6.2"
 lifecycle-viewmodel-ktx = "2.6.2"
 coil-compose = "2.4.0"
 
+lifecycle-livedata-ktx  = "2.7.0"
+
 # compose
 composecompiler = "1.5.3"
 activity-compose = "1.8.0"
@@ -62,6 +64,7 @@ kotlinx-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutine
 lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycle-runtime-ktx" }
 lifecycle-viewmodel-ktx = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-ktx" }
 lifecycle-compiler = { group = "androidx.lifecycle", name = "lifecycle-compiler", version.ref = "lifecycle-compiler" }
+lifecycle-livedata-ktx = { group = "androidx.lifecycle", name = "lifecycle-livedata-ktx", version.ref = "lifecycle-livedata-ktx" }
 
 # compose
 activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "activity-compose" }

@@ -14,8 +14,8 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object AppModule {
 
-    @Singleton
     @Provides
+    @Singleton
     fun provideSharedPreferences(
         @ApplicationContext context: Context
     ): DatastoreRepository = DatastoreRepositoryImpl(context)

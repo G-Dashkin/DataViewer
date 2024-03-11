@@ -16,6 +16,9 @@ import com.perfomax.dataviewer.presentation.projects.ProjectsViewModel
 
 fun NavGraphBuilder.navigateToProjects(){
     composable(route = ProjectsDestination.route) {
+
+//        val projectsViewModel : ProjectsViewModel by viewModels()
+
         val projectsViewModel: ProjectsViewModel = viewModel()
         val projectsUiState by projectsViewModel.uiState.collectAsStateWithLifecycle()
         ProjectsScreen(

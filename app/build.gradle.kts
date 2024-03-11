@@ -102,6 +102,12 @@ dependencies {
     implementation(libs.hilt.navigation.compose)
 //    implementation(libs.hilt.lifecycle.viewmodel)
 
+    implementation(libs.lifecycle.viewmodel.ktx)
+//    implementation(libs.lifecycle.livedata.ktx)
+    kapt(libs.lifecycle.livedata.ktx)
+    kapt(libs.lifecycle.compiler)
+
+
     // Datastore
     implementation(libs.datastore)
     implementation(libs.datastore.preferences)
