@@ -16,7 +16,7 @@ import javax.inject.Inject
 class ProjectsViewModel
 @Inject constructor
     (
-    private val datastoreRepository : DatastoreRepository
+//    private val datastoreRepository : DatastoreRepository
 )
     : ViewModel(), ProjectsContract {
 
