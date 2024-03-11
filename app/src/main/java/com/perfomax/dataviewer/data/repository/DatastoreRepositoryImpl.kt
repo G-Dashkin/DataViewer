@@ -11,10 +11,10 @@ import com.perfomax.dataviewer.domain.repository.DatastoreRepository
 import kotlinx.coroutines.flow.first
 import javax.inject.Inject
 
-private val Context.dataStore : DataStore<Preferences> by preferencesDataStore(name = "DATASTORE_DATAVIEWER")
+val Context.dataStore : DataStore<Preferences> by preferencesDataStore(name = "DATASTORE_DATAVIEWER")
 
 class DatastoreRepositoryImpl @Inject constructor(
-    private val context: Context
+    val context: Context
 ): DatastoreRepository {
 
     override suspend fun putString(key: String, value: String) {

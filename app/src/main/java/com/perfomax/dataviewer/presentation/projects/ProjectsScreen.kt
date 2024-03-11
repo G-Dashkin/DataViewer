@@ -30,9 +30,9 @@ import kotlinx.coroutines.launch
 
 @Composable
 fun ProjectsScreen(
-    uiState: ProjectsContract.State,
-    onTextChange: (String) -> Unit,
-    onTestClick: () -> Unit,
+//    uiState: ProjectsContract.State,
+//    onTextChange: (String) -> Unit,
+//    onTestClick: () -> Unit,
 ) {
 
     Column(
@@ -84,9 +84,9 @@ fun ProjectsScreenPreview() {
         val projectsUiState by projectsViewModel.uiState.collectAsStateWithLifecycle()
         val projectsEffects by projectsViewModel.effect.collectAsStateWithLifecycle()
         ProjectsScreen(
-            uiState = projectsUiState,
-            onTextChange = { text -> projectsViewModel.intent(ProjectsContract.Event.TextChangeEvent(text)) },
-            onTestClick = { projectsViewModel.intent(ProjectsContract.Event.ClickEvent) }
+//            uiState = projectsUiState,
+//            onTextChange = { text -> projectsViewModel.intent(ProjectsContract.Event.TextChangeEvent(text)) },
+//            onTestClick = { projectsViewModel.intent(ProjectsContract.Event.ClickEvent) }
         )
     }
 }

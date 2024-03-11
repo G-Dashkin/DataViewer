@@ -23,9 +23,9 @@ fun NavGraphBuilder.navigateToProjects(){
         val projectsViewModel: ProjectsViewModel = viewModel()
         val projectsUiState by projectsViewModel.uiState.collectAsStateWithLifecycle()
         ProjectsScreen(
-            uiState = projectsUiState,
-            onTextChange = { text -> projectsViewModel.intent(ProjectsContract.Event.TextChangeEvent(text)) },
-            onTestClick = { projectsViewModel.intent(ProjectsContract.Event.ClickEvent) }
+//            uiState = projectsUiState,
+//            onTextChange = { text -> projectsViewModel.intent(ProjectsContract.Event.TextChangeEvent(text)) },
+//            onTestClick = { projectsViewModel.intent(ProjectsContract.Event.ClickEvent) }
         )
     }
 }

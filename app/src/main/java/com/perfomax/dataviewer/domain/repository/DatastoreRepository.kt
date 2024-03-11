@@ -1,5 +1,6 @@
 package com.perfomax.dataviewer.domain.repository
 
+
 interface DatastoreRepository {
     suspend fun putString(key:String, value:String)
     suspend fun putBoolean(key:String, value:Boolean)
