@@ -97,15 +97,19 @@ dependencies {
     implementation(libs.moshi.kotlin)
 
     // hilt
-    implementation(libs.hilt)
+    implementation(libs.hilt.android)
     kapt(libs.hilt.compiler)
     implementation(libs.hilt.navigation.compose)
 //    implementation(libs.hilt.lifecycle.viewmodel)
 
     implementation(libs.lifecycle.viewmodel.ktx)
 //    implementation(libs.lifecycle.livedata.ktx)
-    kapt(libs.lifecycle.livedata.ktx)
-    kapt(libs.lifecycle.compiler)
+    implementation (libs.lifecycle.livedata.ktx)
+    implementation (libs.lifecycle.compiler)
+
+    implementation (libs.lifecycle.viewmodel.compose)
+
+
 
 
     // Datastore
