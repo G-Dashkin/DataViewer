@@ -49,6 +49,18 @@ android {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
             excludes += "**/*"
+//            exclude 'META-INF/DEPENDENCIES'
+//            exclude 'META-INF/LICENSE'
+//            exclude 'META-INF/LICENSE.txt'
+//            exclude 'META-INF/license.txt'
+//            exclude 'META-INF/NOTICE'
+//            exclude 'META-INF/NOTICE.txt'
+//            exclude 'META-INF/notice.txt'
+//            exclude 'META-INF/ASL2.0'
+//            exclude 'META-INF/AL2.0'
+//            exclude 'META-INF/LGPL2.1'
+//            exclude 'META-INF/gradle/incremental.annotation.processors'
+//            exclude("META-INF/*.kotlin_module")
         }
     }
 }
@@ -86,9 +98,12 @@ dependencies {
 
     // hilt
     implementation(libs.hilt)
-    implementation(libs.hilt.compiler)
+    kapt(libs.hilt.compiler)
+    implementation(libs.hilt.navigation.compose)
+//    implementation(libs.hilt.lifecycle.viewmodel)
 
     // Datastore
+    implementation(libs.datastore)
     implementation(libs.datastore.preferences)
 
     // tests

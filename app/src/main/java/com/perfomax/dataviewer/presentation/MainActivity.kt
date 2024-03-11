@@ -6,10 +6,9 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import com.perfomax.dataviewer.core.ui.theme.DataViewerTheme
 import com.perfomax.dataviewer.core.navigaion.DataViewerNavHost
-//import dagger.hilt.android.AndroidEntryPoint
+import dagger.hilt.android.AndroidEntryPoint
 
-
-//@AndroidEntryPoint
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
