@@ -6,6 +6,57 @@ import javax.inject.Inject
 class SharedPreferenceManager @Inject constructor(
    private val sharedPreferences: SharedPreferences
 ) {
+
+
+
+
+
+//    //saving list in Shared Preference
+//    fun setLists(list:ArrayList<String>){
+//        val gson = Gson()
+//        val json = gson.toJson(list)//converting list to Json
+//        editor.putString("LIST",json)
+//        editor.commit()
+//    }
+//    //getting the list from shared preference
+//    fun getList():ArrayList<String>{
+//        val gson = Gson()
+//        val json = preferences.getString("LIST",null)
+//        val type = object :TypeToken<ArrayList<String>>(){}.type//converting the json to list
+//        return gson.fromJson(json,type)//returning the list
+//    }
+
+
+//    interface LocalPreferencesRepository {
+//        fun getSearchHistoryItems(): List<String>
+//        fun addSearchHistoryItem(item: String)
+//    }
+//
+//    class LocalPreferencesRepositoryImpl(
+//        private val sharedPreferences: SharedPreferences
+//    ) : LocalPreferencesRepository {
+//
+//        override fun getSearchHistoryItems(): List<String> {
+//            return Gson().fromJson(
+//                sharedPreferences.getString(PREF_SEARCH_HISTORY, ""),
+//                object : TypeToken<ArrayList<String>>() {}.type
+//            ).orEmpty()
+//        }
+//
+//        override fun addSearchHistoryItem(item: String) {
+//            val listToSave = listOf(item).plus(getSearchHistoryItems())
+//            val json = Gson().toJson(listToSave)
+//            sharedPreferences.edit { putString(PREF_SEARCH_HISTORY, json) }
+//        }
+//
+//        companion object {
+//            private const val PREF_SEARCH_HISTORY = "PREF_SEARCH_HISTORY"
+//        }
+//    }
+
+
+
+
     fun sava(keyName: String, text: String) {
         val editor: SharedPreferences.Editor = sharedPreferences.edit()
         editor.putString(keyName, text)
