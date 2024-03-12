@@ -47,6 +47,7 @@ fun ProjectsScreen(
             modifier = Modifier.fillMaxWidth(),
             shape = RoundedCornerShape(10.dp),
             onClick = {
+                onTestClick.invoke()
 //                    rememberScope.launch {
 //                        articles.value = feedUseCase.execute()
 ////                    feedUseCase.execute()

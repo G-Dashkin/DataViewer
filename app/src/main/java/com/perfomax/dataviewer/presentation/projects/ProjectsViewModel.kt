@@ -1,5 +1,6 @@
 package com.perfomax.dataviewer.presentation.projects
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import com.perfomax.dataviewer.domain.utill.SharedPreferenceManager
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -25,7 +26,11 @@ class ProjectsViewModel
     override fun intent(event: ProjectsContract.Event) {
         when(event) {
             is ProjectsContract.Event.TextChangeEvent -> { onTextFieldsChange(event.text) }
-            ProjectsContract.Event.ClickEvent -> {}
+            ProjectsContract.Event.ClickEvent -> {
+                sharedPreferenceManager.sava("name", "test")
+                val x = sharedPreferenceManager.getValueString("name")
+                Log.d("MyLog", x!!)
+            }
 //            ProjectsContract.Event.ClickEvent -> { Log.d("MyLog", getUserName()) }
         }
     }
