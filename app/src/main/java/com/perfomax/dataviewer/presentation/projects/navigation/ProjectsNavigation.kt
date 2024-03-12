@@ -13,19 +13,18 @@ import com.perfomax.dataviewer.presentation.home.HomeViewModel
 import com.perfomax.dataviewer.presentation.projects.ProjectsContract
 import com.perfomax.dataviewer.presentation.projects.ProjectsScreen
 import com.perfomax.dataviewer.presentation.projects.ProjectsViewModel
+import androidx.hilt.navigation.compose.hiltViewModel
 
 fun NavGraphBuilder.navigateToProjects(){
     composable(route = ProjectsDestination.route) {
 
-//        val projectsViewModel : ProjectsViewModel by viewModels()
-        // https://www.youtube.com/watch?v=23Gj0z88H2U
-
-        val projectsViewModel: ProjectsViewModel = viewModel()
+        val projectsViewModel = hiltViewModel<ProjectsViewModel>()
+//        val projectsViewModel: ProjectsViewModel = viewModel()
         val projectsUiState by projectsViewModel.uiState.collectAsStateWithLifecycle()
         ProjectsScreen(
-//            uiState = projectsUiState,
-//            onTextChange = { text -> projectsViewModel.intent(ProjectsContract.Event.TextChangeEvent(text)) },
-//            onTestClick = { projectsViewModel.intent(ProjectsContract.Event.ClickEvent) }
+            uiState = projectsUiState,
+            onTextChange = { text -> projectsViewModel.intent(ProjectsContract.Event.TextChangeEvent(text)) },
+            onTestClick = { projectsViewModel.intent(ProjectsContract.Event.ClickEvent) }
         )
     }
 }

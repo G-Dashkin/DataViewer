@@ -1,8 +1,8 @@
 package com.perfomax.dataviewer.core.di
 
 import android.content.Context
-import com.perfomax.dataviewer.data.repository.DatastoreRepositoryImpl
-import com.perfomax.dataviewer.domain.repository.DatastoreRepository
+import android.content.SharedPreferences
+import com.perfomax.dataviewer.app.Application
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -12,12 +12,11 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-object AppModule {
+object SharedPreferencesModule {
 
-    @Provides
     @Singleton
-    fun provideSharedPreferences(
-        @ApplicationContext context: Context
-    ): DatastoreRepository = DatastoreRepositoryImpl(context)
-
+    @Provides
+    fun provideSharedPreferences(@ApplicationContext context: Context): SharedPreferences {
+        return context.getSharedPreferences("DB1", Context.MODE_PRIVATE)
+    }
 }

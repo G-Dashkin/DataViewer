@@ -1,22 +1,18 @@
 package com.perfomax.dataviewer.presentation.projects
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
-import com.perfomax.dataviewer.domain.repository.DatastoreRepository
-import com.perfomax.dataviewer.presentation.home.HomeContract
+import com.perfomax.dataviewer.domain.utill.SharedPreferenceManager
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
-import kotlinx.coroutines.runBlocking
 import javax.inject.Inject
 
 @HiltViewModel
 class ProjectsViewModel
-@Inject constructor
-    (
-//    val datastoreRepository : DatastoreRepository
+@Inject constructor(
+    private val sharedPreferenceManager: SharedPreferenceManager
 )
     : ViewModel(), ProjectsContract {
 
@@ -29,9 +25,7 @@ class ProjectsViewModel
     override fun intent(event: ProjectsContract.Event) {
         when(event) {
             is ProjectsContract.Event.TextChangeEvent -> { onTextFieldsChange(event.text) }
-            ProjectsContract.Event.ClickEvent -> {
-//                storeUserName(_uiState.value.text)
-            }
+            ProjectsContract.Event.ClickEvent -> {}
 //            ProjectsContract.Event.ClickEvent -> { Log.d("MyLog", getUserName()) }
         }
     }

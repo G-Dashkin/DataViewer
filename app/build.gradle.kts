@@ -1,7 +1,7 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
-//    id("dagger.hilt.android.plugin")
+    id("dagger.hilt.android.plugin")
     id("kotlin-kapt")
     id("com.google.dagger.hilt.android")
 }
@@ -108,6 +108,7 @@ dependencies {
     implementation (libs.lifecycle.compiler)
 
     implementation (libs.lifecycle.viewmodel.compose)
+    implementation("androidx.hilt:hilt-navigation-fragment:1.0.0")
 
 
 

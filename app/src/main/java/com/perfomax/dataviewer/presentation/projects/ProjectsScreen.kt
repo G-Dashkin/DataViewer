@@ -27,12 +27,13 @@ import com.perfomax.dataviewer.presentation.home.HomeContract
 import com.perfomax.dataviewer.presentation.home.HomeScreen
 import com.perfomax.dataviewer.presentation.home.HomeViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @Composable
 fun ProjectsScreen(
-//    uiState: ProjectsContract.State,
-//    onTextChange: (String) -> Unit,
-//    onTestClick: () -> Unit,
+    uiState: ProjectsContract.State,
+    onTextChange: (String) -> Unit,
+    onTestClick: () -> Unit,
 ) {
 
     Column(
@@ -83,10 +84,10 @@ fun ProjectsScreenPreview() {
         val projectsViewModel: ProjectsViewModel = viewModel()
         val projectsUiState by projectsViewModel.uiState.collectAsStateWithLifecycle()
         val projectsEffects by projectsViewModel.effect.collectAsStateWithLifecycle()
-        ProjectsScreen(
-//            uiState = projectsUiState,
-//            onTextChange = { text -> projectsViewModel.intent(ProjectsContract.Event.TextChangeEvent(text)) },
-//            onTestClick = { projectsViewModel.intent(ProjectsContract.Event.ClickEvent) }
-        )
+//        ProjectsScreen(
+////            uiState = projectsUiState,
+////            onTextChange = { text -> projectsViewModel.intent(ProjectsContract.Event.TextChangeEvent(text)) },
+////            onTestClick = { projectsViewModel.intent(ProjectsContract.Event.ClickEvent) }
+//        )
     }
 }
