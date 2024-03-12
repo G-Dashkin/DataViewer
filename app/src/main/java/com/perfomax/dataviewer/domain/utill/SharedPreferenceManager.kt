@@ -7,7 +7,12 @@ class SharedPreferenceManager @Inject constructor(
    private val sharedPreferences: SharedPreferences
 ) {
 
+//    https://www.youtube.com/watch?v=wkt59jo7Nh0&t=1470s
 
+    // про сторажд:
+    // -нехорошо делать сохранение данных в репозитории
+    // -репозиторий это связующиее звено между доменном и датой
+    // -логика хранения данных выносится в отдельный класс
 
 
 
