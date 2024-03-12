@@ -7,7 +7,13 @@ class SharedPreferenceManager @Inject constructor(
    private val sharedPreferences: SharedPreferences
 ) {
 
-//    https://www.youtube.com/watch?v=wkt59jo7Nh0&t=1470s
+    //    https://www.youtube.com/watch?v=wkt59jo7Nh0&t=1470s
+    // https://www.youtube.com/watch?v=zG4YgeSqjmQ
+    // https://www.youtube.com/watch?v=vRNn9D_P2tc&t=819s
+    // https://www.youtube.com/watch?v=McnVx7l5awk&t=417s
+    // https://www.youtube.com/watch?v=MKcvEQOom3s
+    // https://www.youtube.com/watch?v=tYZ2pGS95K4
+//    https://www.youtube.com/watch?v=rpBYw5JMZHk
 
     // про сторажд:
     // -нехорошо делать сохранение данных в репозитории
