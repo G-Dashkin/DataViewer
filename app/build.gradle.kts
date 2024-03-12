@@ -3,7 +3,6 @@ plugins {
     id("org.jetbrains.kotlin.android")
     id("dagger.hilt.android.plugin")
     id("kotlin-kapt")
-    id("com.google.dagger.hilt.android")
 }
 
 android {
@@ -49,18 +48,6 @@ android {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
             excludes += "**/*"
-//            exclude 'META-INF/DEPENDENCIES'
-//            exclude 'META-INF/LICENSE'
-//            exclude 'META-INF/LICENSE.txt'
-//            exclude 'META-INF/license.txt'
-//            exclude 'META-INF/NOTICE'
-//            exclude 'META-INF/NOTICE.txt'
-//            exclude 'META-INF/notice.txt'
-//            exclude 'META-INF/ASL2.0'
-//            exclude 'META-INF/AL2.0'
-//            exclude 'META-INF/LGPL2.1'
-//            exclude 'META-INF/gradle/incremental.annotation.processors'
-//            exclude("META-INF/*.kotlin_module")
         }
     }
 }
@@ -68,7 +55,6 @@ android {
 dependencies {
 
     implementation(libs.core.ktx)
-
     implementation(libs.lifecycle.runtime.ktx)
 
     // ui compose
@@ -91,8 +77,6 @@ dependencies {
     implementation(libs.lifecycle.viewmodel.ktx)
     implementation(libs.coil.compose)
 
-//    kapt(libs.lifecycle.compiler)
-
     // parsing
     implementation(libs.moshi.kotlin)
 
@@ -100,22 +84,6 @@ dependencies {
     implementation(libs.hilt.android)
     kapt(libs.hilt.compiler)
     implementation(libs.hilt.navigation.compose)
-//    implementation(libs.hilt.lifecycle.viewmodel)
-
-    implementation(libs.lifecycle.viewmodel.ktx)
-//    implementation(libs.lifecycle.livedata.ktx)
-    implementation (libs.lifecycle.livedata.ktx)
-    implementation (libs.lifecycle.compiler)
-
-    implementation (libs.lifecycle.viewmodel.compose)
-    implementation("androidx.hilt:hilt-navigation-fragment:1.0.0")
-
-
-
-
-    // Datastore
-    implementation(libs.datastore)
-    implementation(libs.datastore.preferences)
 
     // tests
     testImplementation(libs.junit)

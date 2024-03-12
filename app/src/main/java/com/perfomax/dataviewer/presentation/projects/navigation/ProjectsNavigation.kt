@@ -19,7 +19,6 @@ fun NavGraphBuilder.navigateToProjects(){
     composable(route = ProjectsDestination.route) {
 
         val projectsViewModel = hiltViewModel<ProjectsViewModel>()
-//        val projectsViewModel: ProjectsViewModel = viewModel()
         val projectsUiState by projectsViewModel.uiState.collectAsStateWithLifecycle()
         ProjectsScreen(
             uiState = projectsUiState,
