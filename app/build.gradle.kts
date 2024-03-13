@@ -85,6 +85,10 @@ dependencies {
     kapt(libs.hilt.compiler)
     implementation(libs.hilt.navigation.compose)
 
+    // datastore
+    implementation(libs.datastore.preferences)
+    implementation("com.google.code.gson:gson:2.10.1")
+
     // tests
     testImplementation(libs.junit)
     testImplementation(libs.mockk)

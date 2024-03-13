@@ -2,18 +2,21 @@ package com.perfomax.dataviewer.presentation.projects
 
 import android.util.Log
 import androidx.lifecycle.ViewModel
+import com.perfomax.dataviewer.domain.repository.DatastoreRepository
 import com.perfomax.dataviewer.domain.utill.SharedPreferenceManager
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.runBlocking
 import javax.inject.Inject
 
 @HiltViewModel
 class ProjectsViewModel
 @Inject constructor(
-    private val sharedPreferenceManager: SharedPreferenceManager
+    private val sharedPreferenceManager: SharedPreferenceManager, //SharedPreferenceManager
+    private val datastoreRepository: DatastoreRepository // Datastore
 )
     : ViewModel(), ProjectsContract {
 
@@ -58,5 +61,19 @@ class ProjectsViewModel
                 textError = text.isNotBlank()
             )
         }
+    }
+    //----------------------------------------------------------------------------------------------
+    //----------------------------------------------------------------------------------------------
+    //----------------------------------------------------------------------------------------------
+    // Datastore----------------------------------------
+    fun storeUserName(value:String) = runBlocking {
+        datastoreRepository.putString("USER_NAME",value)
+    }
+    fun getUserName():String = runBlocking {
+        datastoreRepository.getString("USER_NAME")!!
+    }
+
+    fun clearPreferences(key:String) = runBlocking {
+        datastoreRepository.clearPreferences(key)
     }
 }
