@@ -19,6 +19,10 @@ class ProjectsViewModel
     private val datastoreRepository: DatastoreRepository
 ): ViewModel(), ProjectsContract {
 
+    // Во вью модель должны передаваться только юзкейсы
+    // Да и то через фабрику
+
+
     private val _uiState = MutableStateFlow(ProjectsContract.State.initial())
     override val uiState: StateFlow<ProjectsContract.State> = _uiState.asStateFlow()
 
