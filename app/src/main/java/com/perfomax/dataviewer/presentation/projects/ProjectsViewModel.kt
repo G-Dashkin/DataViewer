@@ -2,23 +2,22 @@ package com.perfomax.dataviewer.presentation.projects
 
 import android.util.Log
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.perfomax.dataviewer.domain.repository.DatastoreRepository
-import com.perfomax.dataviewer.domain.utill.SharedPreferenceManager
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import javax.inject.Inject
 
 @HiltViewModel
 class ProjectsViewModel
 @Inject constructor(
-    private val sharedPreferenceManager: SharedPreferenceManager, //SharedPreferenceManager
-    private val datastoreRepository: DatastoreRepository // Datastore
-)
-    : ViewModel(), ProjectsContract {
+    private val datastoreRepository: DatastoreRepository
+): ViewModel(), ProjectsContract {
 
     private val _uiState = MutableStateFlow(ProjectsContract.State.initial())
     override val uiState: StateFlow<ProjectsContract.State> = _uiState.asStateFlow()
@@ -28,13 +27,18 @@ class ProjectsViewModel
 
     override fun intent(event: ProjectsContract.Event) {
         when(event) {
-            is ProjectsContract.Event.TextChangeEvent -> { onTextFieldsChange(event.text) }
-            ProjectsContract.Event.ClickEvent -> {
-                sharedPreferenceManager.sava("name", "test")
-                val x = sharedPreferenceManager.getValueString("name")
-                Log.d("MyLog", x!!)
+            is ProjectsContract.Event.ProjectNameChangeEvent -> {
+                onProjectNameFieldsChange(event.projectName)
             }
-//            ProjectsContract.Event.ClickEvent -> { Log.d("MyLog", getUserName()) }
+            is ProjectsContract.Event.GetProjectClickEvent -> {
+                getProjectName()
+            }
+            is ProjectsContract.Event.ClearProjectNameEvent -> {
+                onClearUiState()
+            }
+            ProjectsContract.Event.CreateNewProjectClickEvent -> {
+                onCreateNewProject()
+            }
         }
     }
 
@@ -42,38 +46,47 @@ class ProjectsViewModel
         _effect.update { null }
     }
 
-//    fun storeUserName(value:String) = runBlocking {
-//        datastoreRepository.putString("USER_NAME",value)
-//    }
-//    fun getUserName():String = runBlocking {
-//        datastoreRepository.getString("USER_NAME")!!
-//    }
-//
-//    fun clearPreferences(key:String) = runBlocking {
-//        datastoreRepository.clearPreferences(key)
-//    }
-
-
-    private fun onTextFieldsChange(text: String) {
+    private fun onProjectNameFieldsChange(text: String) {
         _uiState.update { currentState ->
             currentState.copy(
-                text = text,
-                textError = text.isNotBlank()
+                projectName = text,
+                projectNameError = text.isNotBlank()
             )
         }
     }
-    //----------------------------------------------------------------------------------------------
-    //----------------------------------------------------------------------------------------------
-    //----------------------------------------------------------------------------------------------
-    // Datastore----------------------------------------
-    fun storeUserName(value:String) = runBlocking {
-        datastoreRepository.putString("USER_NAME",value)
-    }
-    fun getUserName():String = runBlocking {
-        datastoreRepository.getString("USER_NAME")!!
+
+    private fun onClearUiState(){
+        _uiState.update { currentState ->
+            currentState.copy(
+                projectName = ""
+            )
+        }
     }
 
-    fun clearPreferences(key:String) = runBlocking {
-        datastoreRepository.clearPreferences(key)
+    private fun onCreateNewProject() {
+        val newProjectName = _uiState.value.projectName
+        viewModelScope.launch {
+            datastoreRepository.putString("PROJECT_NAME", newProjectName)
+        }
     }
+
+    private fun getProjectName() {
+        viewModelScope.launch {
+            val projectNameInDatastore = datastoreRepository.getString("PROJECT_NAME")!!
+            Log.d("MyLog", "ProjectName из DataBase: $projectNameInDatastore")
+        }
+    }
+
+//    fun getUserName():String = runBlocking {
+//        datastoreRepository.getString("PROJECT_NAME")!!
+//    }
+
+    fun clearPreferences(key:String) {
+        viewModelScope.launch {
+            datastoreRepository.removePreferences(key)
+        }
+    }
+
+
+
 }

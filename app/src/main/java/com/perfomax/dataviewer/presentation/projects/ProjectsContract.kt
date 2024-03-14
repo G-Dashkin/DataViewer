@@ -7,24 +7,26 @@ interface ProjectsContract:
     UnidirectionalViewModel<ProjectsContract.Event, ProjectsContract.State, ProjectsContract.Effect?> {
 
     data class State(
-        val text: String,
-        val textError: Boolean
+        val projectName: String,
+        val projectNameError: Boolean
     ) {
         companion object {
             fun initial(): State = State(
-                text = EMPTY,
-                textError = false
+                projectName = EMPTY,
+                projectNameError = false
             )
             fun notCorrect(): State = State(
-                text = EMPTY,
-                textError = false
+                projectName = EMPTY,
+                projectNameError = false
             )
         }
     }
 
     sealed interface Event {
-        data object ClickEvent: Event
-        data class TextChangeEvent(val text: String): Event
+        data object CreateNewProjectClickEvent: Event
+        data object GetProjectClickEvent: Event
+        data class ProjectNameChangeEvent(val projectName: String): Event
+        data object ClearProjectNameEvent: Event
     }
 
     sealed interface Effect {

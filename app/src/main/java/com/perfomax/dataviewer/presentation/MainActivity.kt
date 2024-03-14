@@ -6,9 +6,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import com.perfomax.dataviewer.core.ui.theme.DataViewerTheme
 import com.perfomax.dataviewer.core.navigaion.DataViewerNavHost
-import com.perfomax.dataviewer.domain.utill.SharedPreferenceManager
 import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {

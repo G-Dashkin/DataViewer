@@ -24,30 +24,10 @@ class DataStoreRepositoryImpl @Inject constructor(
         val address = stringPreferencesKey("ADDRESS")
     }
 
-    override suspend fun savePhoneBook(phone: String) {
-        val preferenceKay = stringPreferencesKey("key")
-        context.dataStore.edit { phonebook ->
-            phonebook[preferenceKay] = phone
-        }
-    }
-
-    override suspend fun getPhoneBook(): String {
-        val preferenceKay = stringPreferencesKey("key")
-        val preference = context.dataStore.data.first()
-        return preference[preferenceKay]!!
-    }
-
     override suspend fun putString(key: String, value: String) {
-        val prefereneKay = stringPreferencesKey(key)
-        context.dataStore.edit {
-            it[prefereneKay] = value
-        }
-    }
-
-    override suspend fun putBoolean(key: String, value: Boolean) {
-        val prefernceKey = booleanPreferencesKey(key)
-        context.dataStore.edit {
-            it[prefernceKey] = value
+        val preferenceKay = stringPreferencesKey(key)
+        context.dataStore.edit { preferences ->
+            preferences[preferenceKay] = value
         }
     }
 
@@ -56,18 +36,41 @@ class DataStoreRepositoryImpl @Inject constructor(
             val preferenceKey = stringPreferencesKey(key)
             val preference = context.dataStore.data.first()
             preference[preferenceKey]
-        }catch (e:Exception){
+        } catch (e:Exception){
             e.printStackTrace()
             null
         }
     }
 
-    override suspend fun clearPreferences(key: String) {
+    override suspend fun removePreferences(key: String) {
         val preferenceKey = stringPreferencesKey(key)
-        context.dataStore.edit {
-            if (it.contains(preferenceKey)){
-                it.remove(preferenceKey)
+        context.dataStore.edit {preferences ->
+            if (preferences.contains(preferenceKey)){
+                preferences.remove(preferenceKey)
             }
         }
     }
+
+//    override suspend fun savePhoneBook(phone: String) {
+//        val preferenceKay = stringPreferencesKey("key")
+//        context.dataStore.edit { phonebook ->
+//            phonebook[preferenceKay] = phone
+//        }
+//    }
+//
+//    override suspend fun getPhoneBook(): String {
+//        val preferenceKay = stringPreferencesKey("key")
+//        val preference = context.dataStore.data.first()
+//        return preference[preferenceKay]!!
+//    }
+
+//    override suspend fun putBoolean(key: String, value: Boolean) {
+//        val prefernceKey = booleanPreferencesKey(key)
+//        context.dataStore.edit {
+//            it[prefernceKey] = value
+//        }
+//    }
+
+
+
 }
