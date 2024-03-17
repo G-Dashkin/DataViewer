@@ -1,21 +1,20 @@
 package com.perfomax.dataviewer.core.di
 
-import android.content.Context
-import com.perfomax.dataviewer.data.datastore.memory.ProjectsDataStoreImpl
+import com.perfomax.dataviewer.data.storage.api.ProjectsStorage
+import com.perfomax.dataviewer.data.storage.memory.ProjectsStorageImpl
 import com.perfomax.dataviewer.data.datastore.api.ProjectsDataStore
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-object DataStoreModule {
+object StorageModule {
     @Singleton
     @Provides
-    fun provideDatastoreRepository(
-        @ApplicationContext context: Context
-    ): ProjectsDataStore = ProjectsDataStoreImpl(context)
+    fun provideProjectsStorage(
+        projectsDataStore: ProjectsDataStore
+    ): ProjectsStorage = ProjectsStorageImpl(datastore = projectsDataStore)
 }

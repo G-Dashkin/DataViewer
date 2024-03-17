@@ -8,25 +8,36 @@ interface ProjectsContract:
 
     data class State(
         val projectName: String,
-        val projectNameError: Boolean
+        val projectNameError: Boolean,
+        val removedProject: String,
+        val projectsList: List<String>,
+        val selectedProject: String
     ) {
         companion object {
             fun initial(): State = State(
                 projectName = EMPTY,
-                projectNameError = false
+                projectNameError = false,
+                removedProject = EMPTY,
+                projectsList = emptyList(),
+                selectedProject = EMPTY
             )
             fun notCorrect(): State = State(
                 projectName = EMPTY,
-                projectNameError = false
+                projectNameError = false,
+                removedProject = EMPTY,
+                projectsList = emptyList(),
+                selectedProject = EMPTY
             )
         }
     }
 
     sealed interface Event {
-        data object CreateNewProjectClickEvent: Event
-        data object GetProjectClickEvent: Event
         data class ProjectNameChangeEvent(val projectName: String): Event
-        data object ClearProjectNameEvent: Event
+        data object CreateNewProjectClickEvent: Event
+        data object ClearProjectNameFieldEvent: Event
+        data class SelectRemovedProject(val removedProject: String): Event
+        data object RemoveProjectClickEvent : Event
+        data class SelectProject(val selectedProject: String): Event
     }
 
     sealed interface Effect {

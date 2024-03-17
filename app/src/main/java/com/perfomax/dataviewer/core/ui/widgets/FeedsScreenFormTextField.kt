@@ -26,7 +26,6 @@ import androidx.compose.ui.unit.sp
 import com.perfomax.dataviewer.R
 import com.perfomax.dataviewer.core.ui.theme.DataViewerTheme
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun FeedsScreenFormTextField(
     modifier: Modifier = Modifier,

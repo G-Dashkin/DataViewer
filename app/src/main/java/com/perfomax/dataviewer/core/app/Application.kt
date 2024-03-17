@@ -1,4 +1,4 @@
-package com.perfomax.dataviewer.app
+package com.perfomax.dataviewer.core.app
 
 import android.app.Application
 import dagger.hilt.android.HiltAndroidApp

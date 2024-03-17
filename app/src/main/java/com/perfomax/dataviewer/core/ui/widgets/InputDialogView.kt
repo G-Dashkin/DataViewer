@@ -14,10 +14,6 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
@@ -28,56 +24,56 @@ import com.perfomax.dataviewer.presentation.projects.ProjectsContract
 
 @Composable
 fun InputDialogView(
-    uiState: ProjectsContract.State,
-    onConfirm:() -> Unit,
+    textValue: String,
+    title: String = "",
+    addFieldValue: Boolean = false,
+    openDialog: MutableState<Boolean>,
     onCancel:() -> Unit,
-    onProjectNameChange:(String) -> Unit
+    onConfirm:() -> Unit,
+    onFieldChange:(String) -> Unit
 ) {
 
-    val context = LocalContext.current
-
-    Dialog(
-        onDismissRequest = {}
-    ) {
-        Card(
-            shape = RoundedCornerShape(10.dp),
-            modifier = Modifier.padding(10.dp)
+    if (openDialog.value){
+        Dialog(
+            onDismissRequest = {
+                openDialog.value = false
+            }
         ) {
-            Column(
-                Modifier.background(Color.White)
+            Card(
+                shape = RoundedCornerShape(10.dp),
+                modifier = Modifier.padding(10.dp)
             ) {
+                Column(
+                    Modifier.background(Color.White)
+                ) {
 
-                Text(
-                    text = "Название нового проекта",
-                    modifier = Modifier.padding(10.dp),
-                    fontSize = 20.sp
-                )
-                OutlinedTextField(
-                    value = uiState.projectName,
-                    onValueChange = { onProjectNameChange.invoke(it) }, modifier = Modifier.padding(8.dp)
-                )
-
-                Row {
-                    OutlinedButton(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(10.dp)
-                            .weight(1F),
-                        onClick = onCancel
-                    ) {
-                        Text(text = "Отменить")
+                    Text(
+                        text = title,
+                        modifier = Modifier.padding(10.dp),
+                        fontSize = 20.sp
+                    )
+                    if (addFieldValue) {
+                        OutlinedTextField(
+                            modifier = Modifier.padding(8.dp),
+                            value = textValue,
+                            onValueChange = { onFieldChange.invoke(it) }
+                        )
                     }
-                    Button(
-                       modifier = Modifier
-                           .fillMaxWidth()
-                           .padding(10.dp)
-                           .weight(1F),
-                        onClick = {
-                            Toast.makeText(context, uiState.projectName, Toast.LENGTH_SHORT).show()
-                            onConfirm.invoke()
-                        },
-                    ) {
-                        Text(text = "Подтвердить")
+                    Row {
+                        OutlinedButton(
+                            modifier = Modifier.fillMaxWidth().padding(10.dp).weight(1F),
+                            onClick = onCancel
+                        ) {
+                            Text(text = "Отменить")
+                        }
+                        Button(
+                            modifier = Modifier.fillMaxWidth().padding(10.dp).weight(1F),
+                            onClick = {
+                                onConfirm.invoke()
+                            },
+                        ) {
+                            Text(text = "Подтвердить")
+                        }
                     }
                 }
             }

@@ -1,5 +1,6 @@
 package com.perfomax.dataviewer.presentation.projects.navigation
 
+import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -20,17 +21,23 @@ fun NavGraphBuilder.navigateToProjects(){
         val projectsUiState by projectsViewModel.uiState.collectAsStateWithLifecycle()
         ProjectsScreen(
             uiState = projectsUiState,
-            onProjectNameChange = {
-                projectName -> projectsViewModel.intent(ProjectsContract.Event.ProjectNameChangeEvent(projectName))
+            onProjectNameChange = { projectName ->
+                projectsViewModel.intent(ProjectsContract.Event.ProjectNameChangeEvent(projectName))
             },
             onCreateNewProjectClick = {
                 projectsViewModel.intent(ProjectsContract.Event.CreateNewProjectClickEvent)
             },
-            onGetProjectClick = {
-                projectsViewModel.intent(ProjectsContract.Event.GetProjectClickEvent)
+            onSelectRemovedProjectNameClick = { removedProjectName ->
+                projectsViewModel.intent(ProjectsContract.Event.SelectRemovedProject(removedProjectName))
             },
-            onClearProjectNameClick = {
-                projectsViewModel.intent(ProjectsContract.Event.ClearProjectNameEvent)
+            onRemoveProjectClick = {
+                projectsViewModel.intent(ProjectsContract.Event.RemoveProjectClickEvent)
+            },
+            onClearProjectNameFieldClick = {
+                projectsViewModel.intent(ProjectsContract.Event.ClearProjectNameFieldEvent)
+            },
+            onSelectProjectClick = { selectedProject ->
+                projectsViewModel.intent(ProjectsContract.Event.SelectProject(selectedProject))
             }
         )
     }
