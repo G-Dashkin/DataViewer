@@ -41,24 +41,12 @@ class ProjectsViewModel @Inject constructor(
 
     override fun intent(event: ProjectsContract.Event) {
         when(event) {
-            is ProjectsContract.Event.ProjectNameChangeEvent -> {
-                onProjectNameFieldsChange(event.projectName)
-            }
-            is ProjectsContract.Event.CreateNewProjectClickEvent -> {
-                onCreateNewProject()
-            }
-            is ProjectsContract.Event.ClearProjectNameFieldEvent -> {
-                onClearUiFieldsState()
-            }
-            is ProjectsContract.Event.RemoveProjectClickEvent -> {
-                onRemoveProject()
-            }
-            is ProjectsContract.Event.SelectRemovedProject -> {
-                onSelectRemovedProject(removeProjectName = event.removedProject)
-            }
-            is ProjectsContract.Event.SelectProject -> {
-                onSelectProject(selectedProjectName = event.selectedProject)
-            }
+            is ProjectsContract.Event.ProjectNameChangeEvent -> onProjectNameFieldsChange(event.projectName)
+            is ProjectsContract.Event.SelectRemovedProjectEvent -> onSelectRemovedProject(event.removedProject)
+            is ProjectsContract.Event.SelectProjectEvent -> onSelectProject(event.selectedProject)
+            ProjectsContract.Event.CreateNewProjectClickEvent -> onCreateNewProject()
+            ProjectsContract.Event.ClearProjectNameFieldEvent -> onClearUiFieldsState()
+            ProjectsContract.Event.RemoveProjectClickEvent -> onRemoveProject()
         }
     }
 

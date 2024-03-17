@@ -1,9 +1,7 @@
 package com.perfomax.dataviewer.presentation.projects.navigation
 
-import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import com.perfomax.dataviewer.R
@@ -28,7 +26,7 @@ fun NavGraphBuilder.navigateToProjects(){
                 projectsViewModel.intent(ProjectsContract.Event.CreateNewProjectClickEvent)
             },
             onSelectRemovedProjectNameClick = { removedProjectName ->
-                projectsViewModel.intent(ProjectsContract.Event.SelectRemovedProject(removedProjectName))
+                projectsViewModel.intent(ProjectsContract.Event.SelectRemovedProjectEvent(removedProjectName))
             },
             onRemoveProjectClick = {
                 projectsViewModel.intent(ProjectsContract.Event.RemoveProjectClickEvent)
@@ -37,7 +35,7 @@ fun NavGraphBuilder.navigateToProjects(){
                 projectsViewModel.intent(ProjectsContract.Event.ClearProjectNameFieldEvent)
             },
             onSelectProjectClick = { selectedProject ->
-                projectsViewModel.intent(ProjectsContract.Event.SelectProject(selectedProject))
+                projectsViewModel.intent(ProjectsContract.Event.SelectProjectEvent(selectedProject))
             }
         )
     }

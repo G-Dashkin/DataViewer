@@ -35,9 +35,9 @@ interface ProjectsContract:
         data class ProjectNameChangeEvent(val projectName: String): Event
         data object CreateNewProjectClickEvent: Event
         data object ClearProjectNameFieldEvent: Event
-        data class SelectRemovedProject(val removedProject: String): Event
+        data class SelectRemovedProjectEvent(val removedProject: String): Event
         data object RemoveProjectClickEvent : Event
-        data class SelectProject(val selectedProject: String): Event
+        data class SelectProjectEvent(val selectedProject: String): Event
     }
 
     sealed interface Effect {

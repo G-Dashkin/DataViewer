@@ -10,9 +10,12 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
+import androidx.compose.material3.Divider
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -29,23 +32,22 @@ fun ProjectItem(
 ) {
     val selectedProject = if (isChanged) Modifier.background(Color.Gray) else Modifier.background(Color.White)
     Row(modifier = selectedProject
-        .border(1.dp, Color.Blue)
         .fillMaxWidth()
     ) {
         Box(modifier = Modifier
             .clickable { onSelect.invoke(projectName) }
             .padding(10.dp)
             .fillMaxWidth(0.7f)
-            .border(1.dp, Color.Red)
+//            .border(1.dp, Color.Red)
         ) {
                 Text(color = Color.Black, text = projectName)
             }
         Box(modifier = Modifier
             .fillMaxWidth()
-            .border(1.dp, Color.Green)
         ) {
             Button(
                 modifier = Modifier.fillMaxWidth(),
+                shape = RoundedCornerShape(10.dp),
                 contentPadding = PaddingValues(
                     start = 10.dp,
                     top = 10.dp,
@@ -58,4 +60,10 @@ fun ProjectItem(
             }
         }
     }
+    Divider (
+        modifier = Modifier
+            .height(1.dp)
+            .fillMaxWidth(),
+        color = Color.Black
+    )
 }

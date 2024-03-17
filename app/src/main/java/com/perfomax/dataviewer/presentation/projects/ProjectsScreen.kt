@@ -46,9 +46,6 @@ fun ProjectsScreen(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Top
     ) {
-        Text(text = "----Выбранный проект----")
-        Text(text = uiState.selectedProject)
-        Text(text = "-----------------------------------------")
         Button(
             modifier = Modifier.fillMaxWidth(),
             shape = RoundedCornerShape(10.dp),

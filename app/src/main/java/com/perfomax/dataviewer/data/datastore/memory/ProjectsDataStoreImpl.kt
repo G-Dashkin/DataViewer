@@ -18,7 +18,7 @@ import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
-private val Context.dataStore : DataStore<Preferences> by preferencesDataStore(PROJECTS_DATASTORE)
+private val Context.dataStore : DataStore<Preferences> by preferencesDataStore(PROJECTS_DATASTORE )
 
 class ProjectsDataStoreImpl @Inject constructor(
     private val context: Context

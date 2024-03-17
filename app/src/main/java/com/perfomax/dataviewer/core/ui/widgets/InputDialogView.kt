@@ -3,6 +3,7 @@ package com.perfomax.dataviewer.core.ui.widgets
 import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -62,12 +63,26 @@ fun InputDialogView(
                     Row {
                         OutlinedButton(
                             modifier = Modifier.fillMaxWidth().padding(10.dp).weight(1F),
+                            shape = RoundedCornerShape(10.dp),
+                            contentPadding = PaddingValues(
+                                start = 10.dp,
+                                top = 10.dp,
+                                end = 10.dp,
+                                bottom = 10.dp,
+                            ),
                             onClick = onCancel
                         ) {
                             Text(text = "Отменить")
                         }
                         Button(
                             modifier = Modifier.fillMaxWidth().padding(10.dp).weight(1F),
+                            shape = RoundedCornerShape(10.dp),
+                            contentPadding = PaddingValues(
+                                start = 10.dp,
+                                top = 10.dp,
+                                end = 10.dp,
+                                bottom = 10.dp,
+                            ),
                             onClick = {
                                 onConfirm.invoke()
                             },
