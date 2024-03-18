@@ -29,7 +29,6 @@ class ProjectsStorageImpl @Inject constructor(
     }
 
     override suspend fun getSelected(): String {
-        Log.d("MyLog", "GET: ${datastore.getSelectedProject()}")
         return datastore.getSelectedProject()
     }
 }

@@ -1,5 +1,6 @@
 package com.perfomax.dataviewer.presentation.projects
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.perfomax.dataviewer.domain.usecases.projects.CreateNewProjectUseCase
@@ -68,6 +69,9 @@ class ProjectsViewModel @Inject constructor(
     private fun onCreateNewProject() {
         val newProjectName = _uiState.value.projectName
         val newProjectNameValid = newProjectName.isNotBlank()
+        val newProjectNameValid2 = newProjectName.contains("|")
+        val newProjectNameValid3 = _uiState.value.projectsList.contains(newProjectName)
+
         if (newProjectNameValid) {
             viewModelScope.launch {
                 createNewProjectUseCase.execute(newProjectName)
@@ -75,7 +79,12 @@ class ProjectsViewModel @Inject constructor(
                 onClearUiFieldsState()
                 loadProjectsList()
             }
+        } else if (!newProjectNameValid2) {
+            Log.d("MyLog", "Поле проект не должно содержать знаков | ")
+        } else if(!newProjectNameValid3) {
+            Log.d("MyLog", "Прокт с названием $newProjectName уже создан" )
         } else {
+            Log.d("MyLog", "Поле проект не должно быть пустым")
             _uiState.update { state ->
                 ProjectsContract.State.notCreate()
                 state.copy(
