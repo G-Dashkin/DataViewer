@@ -1,5 +1,6 @@
 package com.perfomax.dataviewer.presentation.projects
 
+import android.util.Log
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -32,14 +33,13 @@ fun ProjectsScreen(
     uiState: ProjectsContract.State,
     onProjectNameChange: (String) -> Unit,
     onCreateNewProjectClick: () -> Unit,
+    onSelectProjectClick: (String) -> Unit,
+    onOpenDialogCreateClick: () -> Unit,
+    onCloseDialogCreateClick: () -> Unit,
     onRemoveProjectClick: () -> Unit,
     onSelectRemovedProjectNameClick: (String) -> Unit,
-    onClearProjectNameFieldClick: () -> Unit,
-    onSelectProjectClick: (String) -> Unit
+    onCloseDialogRemoveClick: () -> Unit
 ) {
-
-    val openDialogCreateNewProject = remember { mutableStateOf(false) }
-    val openDialogRemoveProject = remember { mutableStateOf(false) }
 
     Column(
         modifier = Modifier.fillMaxSize().padding(15.dp),
@@ -49,7 +49,7 @@ fun ProjectsScreen(
         Button(
             modifier = Modifier.fillMaxWidth(),
             shape = RoundedCornerShape(10.dp),
-            onClick = { openDialogCreateNewProject.value = true }
+            onClick = onOpenDialogCreateClick
         ) { Text(text = "Создать новый проект", fontSize = 14.sp) }
 
         LazyColumn {
@@ -58,10 +58,7 @@ fun ProjectsScreen(
                     projectName = uiState.projectsList[projectIndex],
                     isChanged = uiState.selectedProject == uiState.projectsList[projectIndex],
                     onSelect = onSelectProjectClick,
-                    onRemove = {
-                        onSelectRemovedProjectNameClick.invoke(uiState.projectsList[projectIndex])
-                        openDialogRemoveProject.value = true
-                    }
+                    onRemove = onSelectRemovedProjectNameClick
                 )
             }
         }
@@ -70,28 +67,18 @@ fun ProjectsScreen(
             textValue = uiState.projectName,
             title = "Название нового проекта",
             addFieldValue = true,
-            openDialog = openDialogCreateNewProject,
-            onCancel = {
-                onClearProjectNameFieldClick.invoke()
-                openDialogCreateNewProject.value = false
-            },
-            onConfirm = {
-                onCreateNewProjectClick.invoke()
-                onClearProjectNameFieldClick.invoke()
-                openDialogCreateNewProject.value = false
-            },
+            openDialog = uiState.openDialogCreateNewProject,
+            onCancel = onCloseDialogCreateClick,
+            onConfirm = onCreateNewProjectClick,
             onFieldChange = onProjectNameChange
         )
 
         InputDialogView(
             textValue = uiState.projectName,
             title = "Удалить проект ${uiState.removedProject}",
-            openDialog = openDialogRemoveProject,
-            onCancel = { openDialogRemoveProject.value = false },
-            onConfirm = {
-                onRemoveProjectClick.invoke()
-                openDialogRemoveProject.value = false
-            },
+            openDialog = uiState.openDialogRemoveProject,
+            onCancel = onCloseDialogRemoveClick,
+            onConfirm = onRemoveProjectClick,
             onFieldChange = onProjectNameChange
         )
     }
@@ -107,14 +94,18 @@ fun ProjectsScreenPreview() {
                 projectNameError = false,
                 removedProject = "",
                 projectsList = listOf("FirstProject", "SecondProject", "TriedProject"),
-                selectedProject = "FirstProject"
+                selectedProject = "FirstProject",
+                openDialogCreateNewProject = false,
+                openDialogRemoveProject = false
             ),
             onProjectNameChange = { },
             onCreateNewProjectClick = { },
-            onSelectRemovedProjectNameClick = { },
             onRemoveProjectClick = { },
-            onClearProjectNameFieldClick = { },
-            onSelectProjectClick = { }
+            onSelectProjectClick = { },
+            onOpenDialogCreateClick = { },
+            onCloseDialogCreateClick = { },
+            onSelectRemovedProjectNameClick = { },
+            onCloseDialogRemoveClick = { }
         )
     }
 }

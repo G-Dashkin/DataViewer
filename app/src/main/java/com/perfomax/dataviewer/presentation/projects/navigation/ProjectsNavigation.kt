@@ -31,11 +31,17 @@ fun NavGraphBuilder.navigateToProjects(){
             onRemoveProjectClick = {
                 projectsViewModel.intent(ProjectsContract.Event.RemoveProjectClickEvent)
             },
-            onClearProjectNameFieldClick = {
-                projectsViewModel.intent(ProjectsContract.Event.ClearProjectNameFieldEvent)
-            },
             onSelectProjectClick = { selectedProject ->
                 projectsViewModel.intent(ProjectsContract.Event.SelectProjectEvent(selectedProject))
+            },
+            onOpenDialogCreateClick = {
+                projectsViewModel.intent(ProjectsContract.Event.OpenDialogCreateEvent)
+            },
+            onCloseDialogCreateClick = {
+                projectsViewModel.intent(ProjectsContract.Event.CloseDialogCreateEvent)
+            },
+            onCloseDialogRemoveClick = {
+                projectsViewModel.intent(ProjectsContract.Event.CloseDialogRemoveEvent)
             }
         )
     }

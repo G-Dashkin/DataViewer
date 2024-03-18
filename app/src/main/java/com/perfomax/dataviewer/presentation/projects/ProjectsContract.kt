@@ -11,7 +11,9 @@ interface ProjectsContract:
         val projectNameError: Boolean,
         val removedProject: String,
         val projectsList: List<String>,
-        val selectedProject: String
+        val selectedProject: String,
+        val openDialogCreateNewProject: Boolean,
+        val openDialogRemoveProject: Boolean
     ) {
         companion object {
             fun initial(): State = State(
@@ -19,14 +21,18 @@ interface ProjectsContract:
                 projectNameError = false,
                 removedProject = EMPTY,
                 projectsList = emptyList(),
-                selectedProject = EMPTY
+                selectedProject = EMPTY,
+                openDialogCreateNewProject = false,
+                openDialogRemoveProject = false
             )
-            fun notCorrect(): State = State(
+            fun notCreate(): State = State(
                 projectName = EMPTY,
                 projectNameError = false,
                 removedProject = EMPTY,
                 projectsList = emptyList(),
-                selectedProject = EMPTY
+                selectedProject = EMPTY,
+                openDialogCreateNewProject = false,
+                openDialogRemoveProject = false
             )
         }
     }
@@ -34,14 +40,16 @@ interface ProjectsContract:
     sealed interface Event {
         data class ProjectNameChangeEvent(val projectName: String): Event
         data object CreateNewProjectClickEvent: Event
-        data object ClearProjectNameFieldEvent: Event
         data class SelectRemovedProjectEvent(val removedProject: String): Event
         data object RemoveProjectClickEvent : Event
         data class SelectProjectEvent(val selectedProject: String): Event
+        data object OpenDialogCreateEvent : Event
+        data object CloseDialogCreateEvent : Event
+        data object CloseDialogRemoveEvent : Event
     }
 
     sealed interface Effect {
-        data object Click : Effect
+
     }
 
 }

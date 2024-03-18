@@ -1,5 +1,6 @@
 package com.perfomax.dataviewer.core.ui.widgets
 
+import android.util.Log
 import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
@@ -28,17 +29,14 @@ fun InputDialogView(
     textValue: String,
     title: String = "",
     addFieldValue: Boolean = false,
-    openDialog: MutableState<Boolean>,
+    openDialog: Boolean,
     onCancel:() -> Unit,
     onConfirm:() -> Unit,
     onFieldChange:(String) -> Unit
 ) {
-
-    if (openDialog.value){
+    if (openDialog){
         Dialog(
-            onDismissRequest = {
-                openDialog.value = false
-            }
+            onDismissRequest = {}
         ) {
             Card(
                 shape = RoundedCornerShape(10.dp),
@@ -57,7 +55,7 @@ fun InputDialogView(
                         OutlinedTextField(
                             modifier = Modifier.padding(8.dp),
                             value = textValue,
-                            onValueChange = { onFieldChange.invoke(it) }
+                            onValueChange = onFieldChange
                         )
                     }
                     Row {
@@ -71,9 +69,7 @@ fun InputDialogView(
                                 bottom = 10.dp,
                             ),
                             onClick = onCancel
-                        ) {
-                            Text(text = "Отменить")
-                        }
+                        ) { Text(text = "Отменить") }
                         Button(
                             modifier = Modifier.fillMaxWidth().padding(10.dp).weight(1F),
                             shape = RoundedCornerShape(10.dp),
@@ -83,12 +79,8 @@ fun InputDialogView(
                                 end = 10.dp,
                                 bottom = 10.dp,
                             ),
-                            onClick = {
-                                onConfirm.invoke()
-                            },
-                        ) {
-                            Text(text = "Подтвердить")
-                        }
+                            onClick = onConfirm,
+                        ) { Text(text = "Подтвердить") }
                     }
                 }
             }

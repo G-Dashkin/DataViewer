@@ -45,8 +45,10 @@ class ProjectsViewModel @Inject constructor(
             is ProjectsContract.Event.SelectRemovedProjectEvent -> onSelectRemovedProject(event.removedProject)
             is ProjectsContract.Event.SelectProjectEvent -> onSelectProject(event.selectedProject)
             ProjectsContract.Event.CreateNewProjectClickEvent -> onCreateNewProject()
-            ProjectsContract.Event.ClearProjectNameFieldEvent -> onClearUiFieldsState()
             ProjectsContract.Event.RemoveProjectClickEvent -> onRemoveProject()
+            ProjectsContract.Event.OpenDialogCreateEvent -> openDialogCreateNewProject()
+            ProjectsContract.Event.CloseDialogCreateEvent -> closeDialogCreateNewProject()
+            ProjectsContract.Event.CloseDialogRemoveEvent -> closeDialogRemoveProject()
         }
     }
 
@@ -65,9 +67,21 @@ class ProjectsViewModel @Inject constructor(
 
     private fun onCreateNewProject() {
         val newProjectName = _uiState.value.projectName
-        viewModelScope.launch {
-            createNewProjectUseCase.execute(newProjectName)
-            loadProjectsList()
+        val newProjectNameValid = newProjectName.isNotBlank()
+        if (newProjectNameValid) {
+            viewModelScope.launch {
+                createNewProjectUseCase.execute(newProjectName)
+                closeDialogCreateNewProject()
+                onClearUiFieldsState()
+                loadProjectsList()
+            }
+        } else {
+            _uiState.update { state ->
+                ProjectsContract.State.notCreate()
+                state.copy(
+                    projectNameError = newProjectName.isEmpty()
+                )
+            }
         }
     }
 
@@ -93,12 +107,14 @@ class ProjectsViewModel @Inject constructor(
                 removedProject = removeProjectName
             )
         }
+        openDialogRemoveProject()
     }
 
     private fun onRemoveProject() {
         viewModelScope.launch {
             removeProjectUseCase.execute(_uiState.value.removedProject)
             loadProjectsList()
+            closeDialogRemoveProject()
         }
     }
 
@@ -113,6 +129,38 @@ class ProjectsViewModel @Inject constructor(
         _uiState.update { currentState ->
             currentState.copy(
                 selectedProject = getSelectedProjectUseCase.execute()
+            )
+        }
+    }
+
+    private fun openDialogCreateNewProject() {
+        _uiState.update { currentState ->
+            currentState.copy(
+                openDialogCreateNewProject = true
+            )
+        }
+    }
+    private fun closeDialogCreateNewProject() {
+        _uiState.update { currentState ->
+            currentState.copy(
+                openDialogCreateNewProject = false
+            )
+        }
+        onClearUiFieldsState()
+    }
+
+    private fun openDialogRemoveProject() {
+        _uiState.update { currentState ->
+            currentState.copy(
+                openDialogRemoveProject = true,
+            )
+        }
+    }
+
+    private fun closeDialogRemoveProject() {
+        _uiState.update { currentState ->
+            currentState.copy(
+                openDialogRemoveProject = false,
             )
         }
     }
