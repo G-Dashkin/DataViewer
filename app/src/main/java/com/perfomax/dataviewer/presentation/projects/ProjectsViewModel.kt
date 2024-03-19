@@ -61,34 +61,47 @@ class ProjectsViewModel @Inject constructor(
         _uiState.update { currentState ->
             currentState.copy(
                 projectName = text,
-                projectNameError = text.isNotBlank()
+                projectNameError = text.isNotEmpty()
             )
         }
     }
 
     private fun onCreateNewProject() {
         val newProjectName = _uiState.value.projectName
-        val newProjectNameValid = newProjectName.isNotBlank()
+        val newProjectNameValid = newProjectName.isNotEmpty()
         val newProjectNameValid2 = newProjectName.contains("|")
         val newProjectNameValid3 = _uiState.value.projectsList.contains(newProjectName)
 
-        if (newProjectNameValid) {
+        if (newProjectNameValid && !newProjectNameValid2 && !newProjectNameValid3) {
             viewModelScope.launch {
                 createNewProjectUseCase.execute(newProjectName)
                 closeDialogCreateNewProject()
                 onClearUiFieldsState()
                 loadProjectsList()
             }
-        } else if (!newProjectNameValid2) {
-            Log.d("MyLog", "Поле проект не должно содержать знаков | ")
-        } else if(!newProjectNameValid3) {
-            Log.d("MyLog", "Прокт с названием $newProjectName уже создан" )
-        } else {
-            Log.d("MyLog", "Поле проект не должно быть пустым")
+        } else if (newProjectNameValid2) {
             _uiState.update { state ->
                 ProjectsContract.State.notCreate()
                 state.copy(
-                    projectNameError = newProjectName.isEmpty()
+                    projectNameError = newProjectName.contains("|"),
+                    errorMessage = "Поле проект не должно содержать знаков | "
+
+                )
+            }
+        } else if(newProjectNameValid3) {
+            _uiState.update { state ->
+                ProjectsContract.State.notCreate()
+                state.copy(
+                    projectNameError = _uiState.value.projectsList.contains(newProjectName),
+                    errorMessage = "Прокт с названием $newProjectName уже создан"
+                )
+            }
+        } else {
+            _uiState.update { state ->
+                ProjectsContract.State.notCreate()
+                state.copy(
+                    projectNameError = newProjectName.isEmpty(),
+                    errorMessage = "Поле проект не должно быть пустым"
                 )
             }
         }
@@ -97,7 +110,8 @@ class ProjectsViewModel @Inject constructor(
     private fun onClearUiFieldsState(){
         _uiState.update { currentState ->
             currentState.copy(
-                projectName = ""
+                projectName = "",
+                errorMessage = ""
             )
         }
     }

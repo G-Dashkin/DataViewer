@@ -9,6 +9,7 @@ interface ProjectsContract:
     data class State(
         val projectName: String,
         val projectNameError: Boolean,
+        val errorMessage: String,
         val removedProject: String,
         val projectsList: List<String>,
         val selectedProject: String,
@@ -19,6 +20,7 @@ interface ProjectsContract:
             fun initial(): State = State(
                 projectName = EMPTY,
                 projectNameError = false,
+                errorMessage = EMPTY,
                 removedProject = EMPTY,
                 projectsList = emptyList(),
                 selectedProject = EMPTY,
@@ -28,6 +30,7 @@ interface ProjectsContract:
             fun notCreate(): State = State(
                 projectName = EMPTY,
                 projectNameError = false,
+                errorMessage = EMPTY,
                 removedProject = EMPTY,
                 projectsList = emptyList(),
                 selectedProject = EMPTY,

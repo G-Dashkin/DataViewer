@@ -62,7 +62,6 @@ fun ProjectsScreen(
                 )
             }
         }
-
         InputDialogView(
             textValue = uiState.projectName,
             title = "Название нового проекта",
@@ -70,7 +69,9 @@ fun ProjectsScreen(
             openDialog = uiState.openDialogCreateNewProject,
             onCancel = onCloseDialogCreateClick,
             onConfirm = onCreateNewProjectClick,
-            onFieldChange = onProjectNameChange
+            onFieldChange = onProjectNameChange,
+            hasError = uiState.projectNameError,
+            errorMessage = uiState.errorMessage
         )
 
         InputDialogView(
@@ -79,7 +80,8 @@ fun ProjectsScreen(
             openDialog = uiState.openDialogRemoveProject,
             onCancel = onCloseDialogRemoveClick,
             onConfirm = onRemoveProjectClick,
-            onFieldChange = onProjectNameChange
+            onFieldChange = onProjectNameChange,
+            errorMessage = uiState.errorMessage
         )
     }
 }
@@ -92,6 +94,7 @@ fun ProjectsScreenPreview() {
             uiState = ProjectsContract.State(
                 projectName = "",
                 projectNameError = false,
+                errorMessage = "",
                 removedProject = "",
                 projectsList = listOf("FirstProject", "SecondProject", "TriedProject"),
                 selectedProject = "FirstProject",
