@@ -5,8 +5,10 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -17,53 +19,38 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.RectangleShape
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.perfomax.dataviewer.R
 import com.perfomax.dataviewer.core.ui.theme.DataViewerTheme
+import com.perfomax.dataviewer.core.ui.widgets.FeedsDialogView
 import com.perfomax.dataviewer.core.ui.widgets.FeedsScreenFormTextField
-import com.perfomax.dataviewer.data.network.provideFeedApi
-import com.perfomax.dataviewer.data.repository.FeedRepositoryImpl
-import com.perfomax.dataviewer.domain.repository.FeedRepository
-import com.perfomax.dataviewer.domain.usecases.GetFeedDataUseCase
-import com.perfomax.dataviewer.presentation.home.HomeContract
-import com.perfomax.dataviewer.presentation.home.HomeScreen
-import com.perfomax.dataviewer.presentation.home.HomeViewModel
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
+import com.perfomax.dataviewer.core.ui.widgets.ProjectsDialogView
 
 @Composable
 fun FeedsScreen(
     uiState: FeedsContract.State,
-    onFeedFieldChange: (String) -> Unit,
+    onFeedUrlFieldChange: (String) -> Unit,
     onAddFeedClick: () -> Unit,
+
+    onOpenDialogSelectedFeedElementClick: () -> Unit,
+    onCloseDialogSelectedFeedElement: () -> Unit,
+
+    onFeedNameFieldChange: (String) -> Unit,
+    onSelectFeedElement: (String) -> Unit,
+
+    onAddNewFeed: () -> Unit
+
 ) {
-
-    val articles = remember { mutableStateOf(emptyList<String>()) }
-    val rememberScope = rememberCoroutineScope()
-    val feedRepository: FeedRepository = FeedRepositoryImpl (
-        feedApi = provideFeedApi(
-            apiUrl = "https://feeds-mic.s1.citilink.ru/yandex_offer/msk_cl.xml"
-        ),
-        dispatcher = Dispatchers.IO
-    )
-    val feedUseCase = GetFeedDataUseCase(feedRepository)
-
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -71,37 +58,49 @@ fun FeedsScreen(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Top
     ) {
+        Text(modifier = Modifier,
+            fontSize = 18.sp,
+            text =  "Загрузить новый фид",
+            style = MaterialTheme.typography.labelMedium,
+            color = MaterialTheme.colorScheme.onSurface)
+        Spacer(modifier = Modifier.height(20.dp))
         Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(20.dp)
-                .border(1.dp, Color.Red),
+            modifier = Modifier.fillMaxWidth(),
             verticalAlignment = Alignment.Top,
-            horizontalArrangement = Arrangement.Center
+            horizontalArrangement = Arrangement.Start
         ) {
             FeedsScreenFormTextField(
+                modifier = Modifier
+                    .fillMaxWidth(0.7f)
+                    .height(50.dp)
+                    .defaultMinSize(minHeight = 50.dp)
+                    .background(color = MaterialTheme.colorScheme.background)
+                    .border(1.dp, Color.Red)
+                    .padding(0.dp),
+
                 text = uiState.feedUrl,
                 labelText = "Feed Url",
                 isError = uiState.feedUrlError,
-                onChange = onFeedFieldChange
+                onChange = onFeedUrlFieldChange
             )
             Spacer(modifier = Modifier.width(10.dp))
-
-            Button(
-                modifier = Modifier
-                    .width(200.dp),
-                shape = RoundedCornerShape(10.dp),
-                onClick = {
-                    rememberScope.launch {
-                        articles.value = feedUseCase.execute()
-//                    feedUseCase.execute()
-                    }
-                }
+            Button(modifier = Modifier
+                .fillMaxWidth()
+                .height(50.dp)
+                .defaultMinSize(minHeight = 50.dp)
+                .border(1.dp, Color.Red),
+                shape = RoundedCornerShape(5.dp),
+                contentPadding = PaddingValues(
+                    start = 0.dp,
+                    top = 0.dp,
+                    end = 0.dp,
+                    bottom = 0.dp,
+                ),
+                onClick = onAddFeedClick
             ) {
-                Text(text = "Загрузить новый фид", fontSize = 14.sp)
+                Text(text = "Загрузить", fontSize = 18.sp)
             }
         }
-
         Spacer(modifier = Modifier.height(5.dp))
         Column(
             modifier = Modifier
@@ -111,24 +110,36 @@ fun FeedsScreen(
                 .padding(15.dp)
         ) {
             LazyColumn(modifier = Modifier.fillMaxSize()) {
-                items(articles.value) { element ->
+                items(uiState.loadedFeed) { element ->
                     Text(
-                        modifier = Modifier.clickable {},
+                        modifier = Modifier.clickable {
+                            onSelectFeedElement.invoke(element)
+                            onOpenDialogSelectedFeedElementClick.invoke()
+                        },
                         text = element
                     )
                 }
             }
         }
-
     }
 
+    FeedsDialogView(
+        title = "Добвление фида",
 
+        feedNameValue = uiState.feedName,
+        onFeedNameFieldChangeValue = onFeedNameFieldChange,
 
+        feedElementNameValue = uiState.selectedFeedElement,
+        onFeedElementFieldChangeValue = onSelectFeedElement,
 
+        hasDateElement = true,
+        dateElement = "<yml_catalog date=\"2024-03-21 20:52\">",
+        useDateElement = {},
 
-
-
-
+        openDialog = uiState.openDialogSelectedFeedElement,
+        onCancel = onCloseDialogSelectedFeedElement,
+        onConfirm = onAddNewFeed
+    )
 }
 
 @Preview(showBackground = true)
@@ -137,13 +148,19 @@ fun FeedsScreenPreview() {
     val feedsViewModel: FeedsViewModel = viewModel()
     val feedsUiState by feedsViewModel.uiState.collectAsStateWithLifecycle()
     val feedsEffects by feedsViewModel.effect.collectAsStateWithLifecycle()
-    FeedsScreen (
-        uiState = feedsUiState,
-        onFeedFieldChange = { text -> feedsViewModel.intent(FeedsContract.Event.FeedUrlChangeEvent(text)) },
-        onAddFeedClick = { feedsViewModel.intent(FeedsContract.Event.AddFeedClickEvent) }
-    )
-
     DataViewerTheme {
-//        FeedsScreen()
+//        FeedsScreen(
+//            uiState = feedsUiState,
+//            onFeedFieldChange = { text ->
+//                feedsViewModel.intent(
+//                    FeedsContract.Event.FeedUrlChangeEvent(
+//                        text
+//                    )
+//                )
+//            },
+//            onAddFeedClick = { feedsViewModel.intent(FeedsContract.Event.AddFeedClickEvent) },
+//            onSelectFeedElement = { }
+//
+//        )
     }
 }

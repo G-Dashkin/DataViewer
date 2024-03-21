@@ -25,13 +25,11 @@ class ProjectsViewModel @Inject constructor(
     private val getSelectedProjectUseCase: GetSelectedProjectUseCase
 ): ViewModel(), ProjectsContract {
 
-
     private val _uiState = MutableStateFlow(ProjectsContract.State.initial())
     override val uiState: StateFlow<ProjectsContract.State> = _uiState.asStateFlow()
 
     private val _effect = MutableStateFlow<ProjectsContract.Effect?>(null)
     override val effect: StateFlow<ProjectsContract.Effect?> = _effect.asStateFlow()
-
 
     init {
         viewModelScope.launch {
@@ -189,25 +187,3 @@ class ProjectsViewModel @Inject constructor(
     }
 
 }
-
-//class ProjectsViewModelFactory @Inject constructor(
-//    private val createNewProjectUseCase: CreateNewProjectUseCase,
-//    private val getAllProjectsUseCase: GetAllProjectsUseCase,
-//    removeProjectUseCase: RemoveProjectUseCase
-////    private val context: Context,
-////    private val getAllStudentsUseCase: GetAllStudentsUseCase,
-////    private val filterByNameUseCase: FilterByNameUseCase
-//):  ViewModelProvider.Factory {
-//    @Suppress("UNCHECKED_CAST")
-//    override fun <T : ViewModel> create(
-//        modelClass: Class<T>,
-//        extras: CreationExtras,
-//    ): T {
-//        return ProjectsViewModel(
-//            cre
-////            context = context,
-////            getAllStudentsUseCase = getAllStudentsUseCase,
-////            filterByNameUseCase = filterByNameUseCase
-//        ) as T
-//    }
-//}

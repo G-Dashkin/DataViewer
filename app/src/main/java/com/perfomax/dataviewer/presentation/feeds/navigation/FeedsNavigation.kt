@@ -1,6 +1,7 @@
 package com.perfomax.dataviewer.presentation.feeds.navigation
 
 import androidx.compose.runtime.getValue
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavGraphBuilder
@@ -13,15 +14,33 @@ import com.perfomax.dataviewer.presentation.feeds.FeedsContract
 import com.perfomax.dataviewer.presentation.feeds.FeedsViewModel
 import com.perfomax.dataviewer.presentation.home.HomeContract
 import com.perfomax.dataviewer.presentation.home.HomeViewModel
+import com.perfomax.dataviewer.presentation.projects.ProjectsViewModel
 
 fun NavGraphBuilder.navigateToFeeds(){
     composable(route = FeedsDestination.route) {
-        val feedsViewModel: FeedsViewModel = viewModel()
-        val feedsUiState by feedsViewModel.uiState.collectAsStateWithLifecycle()
+        val feedsViewModel = hiltViewModel<FeedsViewModel>()
+        val projectsUiState by feedsViewModel.uiState.collectAsStateWithLifecycle()
         FeedsScreen(
-            uiState = feedsUiState,
-            onFeedFieldChange = { text -> feedsViewModel.intent(FeedsContract.Event.FeedUrlChangeEvent(text)) },
-            onAddFeedClick = { feedsViewModel.intent(FeedsContract.Event.AddFeedClickEvent) }
+            uiState = projectsUiState,
+            onFeedUrlFieldChange = { feedUrl ->
+                feedsViewModel.intent(FeedsContract.Event.FeedUrlChangeEvent(feedUrl))
+            },
+            onAddFeedClick = { feedsViewModel.intent(FeedsContract.Event.AddFeedClickEvent) },
+            onSelectFeedElement = { feedElement ->
+                feedsViewModel.intent(FeedsContract.Event.SelectFeedElementEvent(feedElement))
+            },
+
+            onOpenDialogSelectedFeedElementClick = {
+                feedsViewModel.intent(FeedsContract.Event.OpenDialogSelectedFeedElementEvent)
+            },
+            onCloseDialogSelectedFeedElement = {
+                feedsViewModel.intent(FeedsContract.Event.CloseDialogSelectedFeedElementEvent)
+            },
+            onFeedNameFieldChange = { feedName ->
+                feedsViewModel.intent(FeedsContract.Event.FeedNameEvent(feedName))
+            },
+            onAddNewFeed = { feedsViewModel.intent(FeedsContract.Event.AddNewFeedEvent) }
+
         )
     }
 }

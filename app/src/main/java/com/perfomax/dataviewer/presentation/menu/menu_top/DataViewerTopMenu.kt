@@ -29,6 +29,7 @@ private const val OFFSET_Y = (-60)
 @Composable
 fun DataViewerTopMenu(
     modifier: Modifier = Modifier,
+    titleTomMenu: String,
     destinations: List<TopLevelDestination>,
     onNavigateToTopLevel: (topRoute: String) -> Unit
 ) {
@@ -36,7 +37,7 @@ fun DataViewerTopMenu(
     var dropDownMenuExpanded by remember { mutableStateOf(false) }
 
     TopAppBar(
-        title = { Text(text = stringResource(id = R.string.app_name)) },
+        title = { Text(text = titleTomMenu) },
         actions = {
             IconButton(onClick = { dropDownMenuExpanded = true }) {
                 Icon(imageVector = Icons.Outlined.MoreVert, contentDescription = "Options")
@@ -67,6 +68,7 @@ fun DataViewerTopMenu(
 private fun Preview() {
     DataViewerTopMenu(
         destinations = listOf(),
+        titleTomMenu = "",
         onNavigateToTopLevel = {},
     )
 }

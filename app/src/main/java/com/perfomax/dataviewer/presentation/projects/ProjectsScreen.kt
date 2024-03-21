@@ -1,7 +1,5 @@
 package com.perfomax.dataviewer.presentation.projects
 
-import android.util.Log
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -12,21 +10,14 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.perfomax.dataviewer.core.ui.theme.DataViewerTheme
-import com.perfomax.dataviewer.core.ui.widgets.InputDialogView
+import com.perfomax.dataviewer.core.ui.widgets.ProjectsDialogView
 import com.perfomax.dataviewer.core.ui.widgets.ProjectItem
-import com.perfomax.dataviewer.core.utils.removeElement
 
 @Composable
 fun ProjectsScreen(
@@ -38,7 +29,8 @@ fun ProjectsScreen(
     onCloseDialogCreateClick: () -> Unit,
     onRemoveProjectClick: () -> Unit,
     onSelectRemovedProjectNameClick: (String) -> Unit,
-    onCloseDialogRemoveClick: () -> Unit
+    onCloseDialogRemoveClick: () -> Unit,
+    onUpdateTitleClick: (String) -> Unit
 ) {
 
     Column(
@@ -58,11 +50,12 @@ fun ProjectsScreen(
                     projectName = uiState.projectsList[projectIndex],
                     isChanged = uiState.selectedProject == uiState.projectsList[projectIndex],
                     onSelect = onSelectProjectClick,
-                    onRemove = onSelectRemovedProjectNameClick
+                    onRemove = onSelectRemovedProjectNameClick,
+                    onUpdateTitleClick = onUpdateTitleClick
                 )
             }
         }
-        InputDialogView(
+        ProjectsDialogView(
             textValue = uiState.projectName,
             title = "Название нового проекта",
             addFieldValue = true,
@@ -74,7 +67,7 @@ fun ProjectsScreen(
             errorMessage = uiState.errorMessage
         )
 
-        InputDialogView(
+        ProjectsDialogView(
             textValue = uiState.projectName,
             title = "Удалить проект ${uiState.removedProject}",
             openDialog = uiState.openDialogRemoveProject,
@@ -108,7 +101,8 @@ fun ProjectsScreenPreview() {
             onOpenDialogCreateClick = { },
             onCloseDialogCreateClick = { },
             onSelectRemovedProjectNameClick = { },
-            onCloseDialogRemoveClick = { }
+            onCloseDialogRemoveClick = { },
+            onUpdateTitleClick = { }
         )
     }
 }

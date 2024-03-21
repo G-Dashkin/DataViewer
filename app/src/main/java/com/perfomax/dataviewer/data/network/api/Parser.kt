@@ -4,8 +4,6 @@ class Parser {
 
     companion object {
 
-
-        // Конвертация xml-фида в массив
         fun parsingToList(feed: String): List<String> {
 
             val feedElements = ArrayList<String>() // Массив элементов фида

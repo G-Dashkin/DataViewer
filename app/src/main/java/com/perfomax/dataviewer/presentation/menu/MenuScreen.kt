@@ -1,10 +1,13 @@
 package com.perfomax.dataviewer.presentation.menu
 
+import android.util.Log
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.key
+import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavHostController
@@ -19,14 +22,17 @@ import com.perfomax.dataviewer.presentation.home.navigation.HomeDestination
 import com.perfomax.dataviewer.presentation.home.navigation.navigateToHome
 import com.perfomax.dataviewer.presentation.menu.menu_bottom.DataViewerBottomBar
 import com.perfomax.dataviewer.presentation.menu.menu_top.DataViewerTopMenu
+import com.perfomax.dataviewer.presentation.projects.ProjectsContract
 import com.perfomax.dataviewer.presentation.projects.navigation.navigateToProjects
 import com.perfomax.dataviewer.presentation.scanning.navigation.navigateToScanning
 import com.perfomax.dataviewer.presentation.settings.navigation.navigateToSettings
 
 @Composable
 fun MenuScreen(
+    uiState: MenuContract.State,
     topLevelDestinations: List<TopLevelDestination>,
     onLogout: () -> Unit,
+    onUpdateTitle: (String) -> Unit
 ) {
 
     val navController: NavHostController = rememberNavController()
@@ -36,11 +42,11 @@ fun MenuScreen(
     Scaffold(
         topBar = {
             DataViewerTopMenu(
+                titleTomMenu = uiState.selectedProject,
                 destinations = topLevelDestinations,
                 onNavigateToTopLevel = { route ->
                     navController.navigateSingleTopTo(route)
                 }
-
             )
         },
         bottomBar = {
@@ -61,7 +67,7 @@ fun MenuScreen(
                 navigateToHome()
                 navigateToScanning()
                 navigateToSettings()
-                navigateToProjects()
+                navigateToProjects(onUpdateTitle = onUpdateTitle)
                 navigateToFeeds()
             }
         }

@@ -11,8 +11,11 @@ import com.perfomax.dataviewer.presentation.projects.ProjectsContract
 import com.perfomax.dataviewer.presentation.projects.ProjectsScreen
 import com.perfomax.dataviewer.presentation.projects.ProjectsViewModel
 import androidx.hilt.navigation.compose.hiltViewModel
+import kotlin.concurrent.thread
 
-fun NavGraphBuilder.navigateToProjects(){
+fun NavGraphBuilder.navigateToProjects(
+    onUpdateTitle:(String) -> Unit
+){
     composable(route = ProjectsDestination.route) {
 
         val projectsViewModel = hiltViewModel<ProjectsViewModel>()
@@ -42,7 +45,8 @@ fun NavGraphBuilder.navigateToProjects(){
             },
             onCloseDialogRemoveClick = {
                 projectsViewModel.intent(ProjectsContract.Event.CloseDialogRemoveEvent)
-            }
+            },
+            onUpdateTitleClick = onUpdateTitle
         )
     }
 }
