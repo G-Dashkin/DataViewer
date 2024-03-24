@@ -1,6 +1,7 @@
 package com.perfomax.dataviewer.presentation.home.navigation
 
 import androidx.compose.runtime.getValue
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavGraphBuilder
@@ -8,6 +9,7 @@ import androidx.navigation.compose.composable
 import com.perfomax.dataviewer.R
 import com.perfomax.dataviewer.core.navigaion.NavigationDestination
 import com.perfomax.dataviewer.core.navigaion.TopLevelDestination
+import com.perfomax.dataviewer.presentation.feeds.FeedsViewModel
 import com.perfomax.dataviewer.presentation.home.HomeContract
 import com.perfomax.dataviewer.presentation.home.HomeScreen
 import com.perfomax.dataviewer.presentation.home.HomeViewModel
@@ -15,12 +17,11 @@ import com.perfomax.dataviewer.presentation.home.HomeViewModel
 fun NavGraphBuilder.navigateToHome(){
 
     composable(route = HomeDestination.route) {
-        val homeViewModel: HomeViewModel = viewModel()
+        val homeViewModel = hiltViewModel<HomeViewModel>()
         val homeUiState by homeViewModel.uiState.collectAsStateWithLifecycle()
         HomeScreen (
             uiState = homeUiState,
-            onTextChange = { text -> homeViewModel.intent(HomeContract.Event.TextChangeEvent(text)) },
-            onTestClick = { homeViewModel.intent(HomeContract.Event.ClickEvent) }
+            onUpdateFeedsClick = {  }
         )
     }
 }

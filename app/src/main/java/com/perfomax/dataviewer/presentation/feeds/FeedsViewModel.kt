@@ -1,6 +1,7 @@
 package com.perfomax.dataviewer.presentation.feeds
 
 import android.util.Log
+import androidx.compose.runtime.Immutable
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.perfomax.dataviewer.domain.usecases.feeds.GetAllFeedsUseCase
@@ -10,6 +11,7 @@ import com.perfomax.dataviewer.domain.usecases.feeds.SaveFeedUseCase
 import com.perfomax.dataviewer.domain.usecases.projects.GetSelectedProjectUseCase
 import com.perfomax.dataviewer.domain.usecases.projects.RemoveProjectUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.collections.immutable.ImmutableList
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -22,6 +24,7 @@ import java.time.LocalDateTime
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
 import javax.inject.Inject
+
 
 @HiltViewModel
 class FeedsViewModel @Inject constructor(
@@ -62,6 +65,9 @@ class FeedsViewModel @Inject constructor(
             FeedsContract.Event.AddNewFeedEvent -> onAddNewFeed()
             FeedsContract.Event.CloseDialogRemoveEvent -> closeDialogRemoveFeed()
             FeedsContract.Event.RemoveFeedClickEvent -> onRemoveFeed()
+            FeedsContract.Event.UpdateProjectEvent -> updateCart()
+            FeedsContract.Event.SwitchScreenToFeedsListEvent -> onSwitchToFeedsList()
+
         }
     }
 
@@ -81,7 +87,7 @@ class FeedsViewModel @Inject constructor(
     private suspend fun loadFeedsList() {
         _uiState.update { currentState ->
             currentState.copy(
-                feedsList = getAllFeedsUseCase.execute()
+                feedsList = getAllFeedsUseCase.execute(getSelectedProjectUseCase.execute())
             )
         }
     }
@@ -185,6 +191,13 @@ class FeedsViewModel @Inject constructor(
             currentState.copy(
                 isFeedsList = false
             )
+        }
+    }
+
+
+    fun updateCart(){
+        viewModelScope.launch {
+            loadFeedsList()
         }
     }
 

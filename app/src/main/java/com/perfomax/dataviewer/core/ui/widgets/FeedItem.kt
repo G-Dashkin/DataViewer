@@ -25,7 +25,7 @@ import androidx.compose.ui.unit.dp
 @Composable
 fun FeedItem(
     modifier: Modifier = Modifier,
-    feedName: String,
+    feedElement: String,
     onRemove: (String) -> Unit
 ) {
     Row(modifier = Modifier.fillMaxWidth()
@@ -34,7 +34,7 @@ fun FeedItem(
             .padding(10.dp)
             .fillMaxWidth(0.7f)
         ) {
-                Text(color = Color.Black, text = feedName)
+                Text(color = Color.Black, text = feedElement)
             }
         Box(modifier = Modifier
             .fillMaxWidth()
@@ -48,7 +48,7 @@ fun FeedItem(
                     end = 10.dp,
                     bottom = 10.dp,
                 ),
-                onClick = { onRemove.invoke(feedName) }
+                onClick = { onRemove.invoke(feedElement) }
             ) {
                 Text(text = "Удалить")
             }

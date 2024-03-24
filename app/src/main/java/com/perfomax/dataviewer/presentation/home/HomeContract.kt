@@ -7,24 +7,19 @@ interface HomeContract:
     UnidirectionalViewModel <HomeContract.Event, HomeContract.State, HomeContract.Effect?> {
 
     data class State(
-        val text: String,
-        val textError: Boolean
+        val feedsList: List<String>,
     ) {
         companion object {
             fun initial(): State = State(
-                text = EMPTY,
-                textError = false
+                feedsList = emptyList(),
             )
             fun notCorrect(): State = State(
-                text = EMPTY,
-                textError = false
+                feedsList = emptyList(),
             )
         }
     }
 
     sealed interface Event {
-        data object ClickEvent: Event
-        data class TextChangeEvent(val text: String): Event
     }
 
     sealed interface Effect {

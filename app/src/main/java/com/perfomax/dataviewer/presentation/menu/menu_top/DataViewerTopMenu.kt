@@ -31,7 +31,8 @@ fun DataViewerTopMenu(
     modifier: Modifier = Modifier,
     titleTomMenu: String,
     destinations: List<TopLevelDestination>,
-    onNavigateToTopLevel: (topRoute: String) -> Unit
+    onNavigateToTopLevel: (topRoute: String) -> Unit,
+    updateMainProject:() -> Unit
 ) {
 
     var dropDownMenuExpanded by remember { mutableStateOf(false) }
@@ -55,6 +56,7 @@ fun DataViewerTopMenu(
                         onClick = {
                             dropDownMenuExpanded = false
                             onNavigateToTopLevel(item.route)
+                            updateMainProject.invoke()
                         }
                     )
                 }
@@ -70,5 +72,6 @@ private fun Preview() {
         destinations = listOf(),
         titleTomMenu = "",
         onNavigateToTopLevel = {},
+        updateMainProject = { }
     )
 }

@@ -6,6 +6,10 @@ fun String.parsToList(): List<String> {
     return this.split("|")
 }
 
+fun String.parsToListByProject(): List<String> {
+    return this.split("|")
+}
+
 fun String.addElement(newProject: String): String {
     return if(this.isEmpty()) "$this$newProject" else "$this|$newProject"
 }

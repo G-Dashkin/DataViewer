@@ -32,7 +32,7 @@ fun MenuScreen(
     uiState: MenuContract.State,
     topLevelDestinations: List<TopLevelDestination>,
     onLogout: () -> Unit,
-    onUpdateTitle: (String) -> Unit
+    updateMainProject: () -> Unit
 ) {
 
     val navController: NavHostController = rememberNavController()
@@ -46,7 +46,8 @@ fun MenuScreen(
                 destinations = topLevelDestinations,
                 onNavigateToTopLevel = { route ->
                     navController.navigateSingleTopTo(route)
-                }
+                },
+                updateMainProject = updateMainProject
             )
         },
         bottomBar = {
@@ -67,7 +68,7 @@ fun MenuScreen(
                 navigateToHome()
                 navigateToScanning()
                 navigateToSettings()
-                navigateToProjects(onUpdateTitle = onUpdateTitle)
+                navigateToProjects(onUpdateTitle = updateMainProject)
                 navigateToFeeds()
             }
         }

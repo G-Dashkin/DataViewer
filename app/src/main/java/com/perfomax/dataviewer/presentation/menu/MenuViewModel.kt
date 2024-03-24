@@ -1,5 +1,6 @@
 package com.perfomax.dataviewer.presentation.menu
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.perfomax.dataviewer.domain.usecases.projects.CreateNewProjectUseCase
@@ -34,7 +35,8 @@ class MenuViewModel @Inject constructor(
 
     override fun intent(event: MenuContract.Event) {
         when(event){
-            is MenuContract.Event.UpdateProjectEvent -> updateProjectName(event.updatedProjectName)
+//            is MenuContract.Event.UpdateProjectEvent -> updateProjectName(event.updatedProjectName)
+            MenuContract.Event.UpdateProjectEventTest -> updateProject()
         }
     }
 
@@ -42,18 +44,14 @@ class MenuViewModel @Inject constructor(
         _effect.update { null }
     }
 
-    private fun updateProjectName(updatedProjectName: String) {
+    private fun updateProject() {
         viewModelScope.launch {
-            while (_uiState.value.selectedProject != updatedProjectName) {
-                delay(100)
-                _uiState.update { currentState ->
-                    currentState.copy(
-                        selectedProject = getSelectedProjectUseCase.execute()
-                    )
-                }
-            }
+//            while (_uiState.value.selectedProject == getSelectedProjectUseCase.execute()) {
+            delay(100)
+            getSelectedProject()
         }
     }
+
 
     private fun getSelectedProject() {
         viewModelScope.launch {

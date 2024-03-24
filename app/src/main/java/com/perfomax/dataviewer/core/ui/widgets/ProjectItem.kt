@@ -29,7 +29,7 @@ fun ProjectItem(
     isChanged: Boolean,
     onSelect: (String) -> Unit,
     onRemove: (String) -> Unit,
-    onUpdateTitleClick: (String) -> Unit
+    onUpdateTitleClick: () -> Unit
 ) {
     val selectedProject = if (isChanged) Modifier.background(Color.Gray) else Modifier.background(Color.White)
     Row(modifier = selectedProject
@@ -38,7 +38,7 @@ fun ProjectItem(
         Box(modifier = Modifier
             .clickable {
                 onSelect.invoke(projectName)
-                onUpdateTitleClick.invoke(projectName)
+                onUpdateTitleClick.invoke()
             }
             .padding(10.dp)
             .fillMaxWidth(0.7f)

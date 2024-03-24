@@ -31,7 +31,7 @@ fun ProjectsScreen(
     onRemoveProjectClick: () -> Unit,
     onSelectRemovedProjectNameClick: (String) -> Unit,
     onCloseDialogRemoveClick: () -> Unit,
-    onUpdateTitleClick: (String) -> Unit
+    onUpdateProjectClick: () -> Unit
 ) {
 
     Column(
@@ -52,7 +52,7 @@ fun ProjectsScreen(
                     isChanged = uiState.selectedProject == uiState.projectsList[projectIndex],
                     onSelect = onSelectProjectClick,
                     onRemove = onSelectRemovedProjectNameClick,
-                    onUpdateTitleClick = onUpdateTitleClick
+                    onUpdateTitleClick = onUpdateProjectClick
                 )
             }
         }
@@ -102,7 +102,7 @@ fun ProjectsScreenPreview() {
             onCloseDialogCreateClick = { },
             onSelectRemovedProjectNameClick = { },
             onCloseDialogRemoveClick = { },
-            onUpdateTitleClick = { }
+            onUpdateProjectClick = { }
         )
     }
 }

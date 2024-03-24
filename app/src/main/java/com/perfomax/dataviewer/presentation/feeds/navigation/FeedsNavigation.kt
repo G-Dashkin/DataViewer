@@ -20,9 +20,9 @@ import com.perfomax.dataviewer.presentation.projects.ProjectsViewModel
 fun NavGraphBuilder.navigateToFeeds(){
     composable(route = FeedsDestination.route) {
         val feedsViewModel = hiltViewModel<FeedsViewModel>()
-        val projectsUiState by feedsViewModel.uiState.collectAsStateWithLifecycle()
+        val feedsUiState by feedsViewModel.uiState.collectAsStateWithLifecycle()
         FeedsScreen(
-            uiState = projectsUiState,
+            uiState = feedsUiState,
             onFeedUrlFieldChange = { feedUrl ->
                 feedsViewModel.intent(FeedsContract.Event.FeedUrlChangeEvent(feedUrl))
             },
@@ -30,7 +30,6 @@ fun NavGraphBuilder.navigateToFeeds(){
             onSelectFeedElement = { feedElement ->
                 feedsViewModel.intent(FeedsContract.Event.SelectFeedElementEvent(feedElement))
             },
-
             onOpenDialogSelectedFeedElementClick = {
                 feedsViewModel.intent(FeedsContract.Event.OpenDialogSelectedFeedElementEvent)
             },
@@ -49,6 +48,12 @@ fun NavGraphBuilder.navigateToFeeds(){
             },
             onRemoveFeedClick = {
                 feedsViewModel.intent(FeedsContract.Event.RemoveFeedClickEvent)
+            },
+            updateProject = {
+                feedsViewModel.intent(FeedsContract.Event.UpdateProjectEvent)
+            },
+            onSwitchToFeedsListClick = {
+                feedsViewModel.intent(FeedsContract.Event.SwitchScreenToFeedsListEvent)
             }
         )
     }

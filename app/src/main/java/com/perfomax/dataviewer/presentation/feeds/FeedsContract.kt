@@ -62,6 +62,9 @@ interface FeedsContract:
         data object CloseDialogSelectedFeedElementEvent : Event
         data object AddNewFeedEvent : Event
         data object CloseDialogRemoveEvent : Event
+        data object UpdateProjectEvent : Event
+        data object SwitchScreenToFeedsListEvent : Event
+
     }
 
     sealed interface Effect {

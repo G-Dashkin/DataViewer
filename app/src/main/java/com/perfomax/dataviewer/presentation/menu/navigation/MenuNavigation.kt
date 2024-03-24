@@ -53,8 +53,8 @@ private fun NavGraphBuilder.menuInner(
             uiState = menuUiState,
             topLevelDestinations = topLevelDestinations,
             onLogout = onLogout,
-            onUpdateTitle = { updatedProjectName ->
-                menuViewModel.intent(MenuContract.Event.UpdateProjectEvent(updatedProjectName))
+            updateMainProject = {
+                menuViewModel.intent(MenuContract.Event.UpdateProjectEventTest)
             }
         )
     }

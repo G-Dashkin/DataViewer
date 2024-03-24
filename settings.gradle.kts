@@ -15,3 +15,6 @@ dependencyResolutionManagement {
 
 rootProject.name = "DataViewer"
 include(":app")
+include(":domain")
+include(":data")
+include(":presentation")
