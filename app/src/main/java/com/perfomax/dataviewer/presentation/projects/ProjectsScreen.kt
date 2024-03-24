@@ -16,6 +16,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.perfomax.dataviewer.core.ui.theme.DataViewerTheme
+import com.perfomax.dataviewer.core.ui.widgets.DefaultDialogView
 import com.perfomax.dataviewer.core.ui.widgets.ProjectsDialogView
 import com.perfomax.dataviewer.core.ui.widgets.ProjectItem
 
@@ -67,13 +68,12 @@ fun ProjectsScreen(
             errorMessage = uiState.errorMessage
         )
 
-        ProjectsDialogView(
+        DefaultDialogView(
             textValue = uiState.projectName,
             title = "Удалить проект ${uiState.removedProject}",
             openDialog = uiState.openDialogRemoveProject,
             onCancel = onCloseDialogRemoveClick,
             onConfirm = onRemoveProjectClick,
-            onFieldChange = onProjectNameChange,
             errorMessage = uiState.errorMessage
         )
     }

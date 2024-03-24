@@ -1,5 +1,6 @@
 package com.perfomax.dataviewer.data.repository
 
+import android.util.Log
 import com.perfomax.dataviewer.data.network.api.FeedApi
 import com.perfomax.dataviewer.data.storage.api.FeedsStorage
 import com.perfomax.dataviewer.data.storage.api.ProjectsStorage
@@ -21,6 +22,10 @@ class FeedsRepositoryImpl @Inject constructor(
 
     override suspend fun saveFeed(feedName: String) {
         feedsStorage.add(feedName)
+    }
+
+    override suspend fun remove(feedName: String) {
+        feedsStorage.remove(feedName)
     }
 
     override suspend fun getAll(): List<String> {

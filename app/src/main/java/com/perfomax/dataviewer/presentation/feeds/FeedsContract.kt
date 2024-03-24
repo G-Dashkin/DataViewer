@@ -2,6 +2,7 @@ package com.perfomax.dataviewer.presentation.feeds
 
 import com.perfomax.dataviewer.core.base.UnidirectionalViewModel
 import com.perfomax.dataviewer.domain.EMPTY
+import com.perfomax.dataviewer.presentation.projects.ProjectsContract
 
 interface FeedsContract:
     UnidirectionalViewModel<FeedsContract.Event, FeedsContract.State, FeedsContract.Effect?> {
@@ -10,11 +11,16 @@ interface FeedsContract:
         val feedUrl: String,
         val feedUrlError: Boolean,
         val loadedFeed: List<String>,
+        val feedsList: List<String>,
 
         val feedName: String,
         val selectedFeedElement: String,
+        val removedFeed: String,
 
         val openDialogSelectedFeedElement: Boolean,
+
+        val isFeedsList: Boolean,
+        val openDialogRemoveFeed: Boolean
 
     ) {
         companion object {
@@ -22,17 +28,25 @@ interface FeedsContract:
                 feedUrl = EMPTY,
                 feedUrlError = false,
                 loadedFeed = emptyList(),
+                feedsList = emptyList(),
                 feedName = EMPTY,
                 selectedFeedElement = EMPTY,
-                openDialogSelectedFeedElement = false
+                removedFeed = EMPTY,
+                openDialogSelectedFeedElement = false,
+                isFeedsList = true,
+                openDialogRemoveFeed = false
             )
             fun notCorrect(): State = State(
                 feedUrl = EMPTY,
                 feedUrlError = false,
                 loadedFeed = emptyList(),
+                feedsList = emptyList(),
                 feedName = EMPTY,
                 selectedFeedElement = EMPTY,
-                openDialogSelectedFeedElement = false
+                removedFeed = EMPTY,
+                openDialogSelectedFeedElement = false,
+                isFeedsList = true,
+                openDialogRemoveFeed = false
             )
         }
     }
@@ -41,10 +55,13 @@ interface FeedsContract:
         data object AddFeedClickEvent: Event
         data class FeedUrlChangeEvent(val text: String): Event
         data class SelectFeedElementEvent(val selectedFeedElement: String): Event
+        data class SelectRemovedFeedEvent(val removedFeed: String): Event
+        data object RemoveFeedClickEvent : Event
         data class FeedNameEvent(val feedName: String): Event
         data object OpenDialogSelectedFeedElementEvent: Event
         data object CloseDialogSelectedFeedElementEvent : Event
         data object AddNewFeedEvent : Event
+        data object CloseDialogRemoveEvent : Event
     }
 
     sealed interface Effect {

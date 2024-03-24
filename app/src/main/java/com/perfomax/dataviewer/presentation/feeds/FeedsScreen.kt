@@ -32,9 +32,13 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.perfomax.dataviewer.core.ui.theme.DataViewerTheme
+import com.perfomax.dataviewer.core.ui.widgets.DefaultDialogView
+import com.perfomax.dataviewer.core.ui.widgets.FeedItem
 import com.perfomax.dataviewer.core.ui.widgets.FeedsDialogView
 import com.perfomax.dataviewer.core.ui.widgets.FeedsScreenFormTextField
+import com.perfomax.dataviewer.core.ui.widgets.ProjectItem
 import com.perfomax.dataviewer.core.ui.widgets.ProjectsDialogView
+import com.perfomax.dataviewer.core.utils.getFeedName
 
 @Composable
 fun FeedsScreen(
@@ -48,8 +52,11 @@ fun FeedsScreen(
     onFeedNameFieldChange: (String) -> Unit,
     onSelectFeedElement: (String) -> Unit,
 
-    onAddNewFeed: () -> Unit
+    onSelectRemovedFeedNameClick: (String) -> Unit,
+    onCloseDialogRemoveFeedClick:() -> Unit,
+    onRemoveFeedClick: () -> Unit,
 
+    onAddNewFeed: () -> Unit
 ) {
     Column(
         modifier = Modifier
@@ -109,17 +116,31 @@ fun FeedsScreen(
                 .border(1.dp, Color.Red)
                 .padding(15.dp)
         ) {
-            LazyColumn(modifier = Modifier.fillMaxSize()) {
-                items(uiState.loadedFeed) { element ->
-                    Text(
-                        modifier = Modifier.clickable {
-                            onSelectFeedElement.invoke(element)
-                            onOpenDialogSelectedFeedElementClick.invoke()
-                        },
-                        text = element
-                    )
+
+            if (uiState.isFeedsList){
+                LazyColumn(modifier = Modifier.fillMaxSize()) {
+                    items(uiState.feedsList.size) { element ->
+                        FeedItem(
+                            feedName = uiState.feedsList[element].getFeedName(),
+                            onRemove = onSelectRemovedFeedNameClick,
+                        )
+                    }
+                }
+            } else {
+                LazyColumn(modifier = Modifier.fillMaxSize()) {
+                    items(uiState.loadedFeed) { element ->
+                        Text(
+                            modifier = Modifier.clickable {
+                                onSelectFeedElement.invoke(element)
+                                onOpenDialogSelectedFeedElementClick.invoke()
+                            },
+                            text = element
+                        )
+                    }
                 }
             }
+
+
         }
     }
 
@@ -140,6 +161,15 @@ fun FeedsScreen(
         onCancel = onCloseDialogSelectedFeedElement,
         onConfirm = onAddNewFeed
     )
+
+    DefaultDialogView(
+        textValue = uiState.feedName,
+        title = "Удалить фид ${uiState.removedFeed}",
+        openDialog = uiState.openDialogRemoveFeed,
+        onCancel = onCloseDialogRemoveFeedClick,
+        onConfirm = onRemoveFeedClick
+    )
+
 }
 
 @Preview(showBackground = true)

@@ -1,9 +1,8 @@
 package com.perfomax.dataviewer.data.storage.memory
 
-import android.util.Log
 import com.perfomax.dataviewer.core.utils.addElement
 import com.perfomax.dataviewer.core.utils.parsToList
-import com.perfomax.dataviewer.core.utils.removeElement
+import com.perfomax.dataviewer.core.utils.removeProject
 import com.perfomax.dataviewer.data.storage.api.ProjectsStorage
 import com.perfomax.dataviewer.data.datastore.api.ProjectsDataStore
 import javax.inject.Inject
@@ -21,7 +20,7 @@ class ProjectsStorageImpl @Inject constructor(
     }
 
     override suspend fun remove(projectName: String) {
-        datastore.updateProjectsList(datastore.getAllProjects().removeElement(projectName))
+        datastore.updateProjectsList(datastore.getAllProjects().removeProject(projectName))
     }
 
     override suspend fun select(projectName: String) {

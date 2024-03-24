@@ -14,6 +14,7 @@ import com.perfomax.dataviewer.presentation.feeds.FeedsContract
 import com.perfomax.dataviewer.presentation.feeds.FeedsViewModel
 import com.perfomax.dataviewer.presentation.home.HomeContract
 import com.perfomax.dataviewer.presentation.home.HomeViewModel
+import com.perfomax.dataviewer.presentation.projects.ProjectsContract
 import com.perfomax.dataviewer.presentation.projects.ProjectsViewModel
 
 fun NavGraphBuilder.navigateToFeeds(){
@@ -39,8 +40,16 @@ fun NavGraphBuilder.navigateToFeeds(){
             onFeedNameFieldChange = { feedName ->
                 feedsViewModel.intent(FeedsContract.Event.FeedNameEvent(feedName))
             },
-            onAddNewFeed = { feedsViewModel.intent(FeedsContract.Event.AddNewFeedEvent) }
-
+            onAddNewFeed = { feedsViewModel.intent(FeedsContract.Event.AddNewFeedEvent) },
+            onSelectRemovedFeedNameClick = { removedFeedName ->
+                feedsViewModel.intent(FeedsContract.Event.SelectRemovedFeedEvent(removedFeedName))
+            },
+            onCloseDialogRemoveFeedClick = {
+                feedsViewModel.intent(FeedsContract.Event.CloseDialogRemoveEvent)
+            },
+            onRemoveFeedClick = {
+                feedsViewModel.intent(FeedsContract.Event.RemoveFeedClickEvent)
+            }
         )
     }
 }
