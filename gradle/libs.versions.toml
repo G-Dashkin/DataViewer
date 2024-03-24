@@ -45,6 +45,7 @@ hilt = "2.51"
 hilt-navigation-compose = "1.2.0"
 hilt-lifecycle-viewmode = "1.0.0-alpha03"
 
+
 # tests
 junit = "4.13.2"
 mockk = "1.13.7"
@@ -99,6 +100,7 @@ hilt-android = { group = "com.google.dagger", name = "hilt-android", version.ref
 hilt-compiler = { group = "com.google.dagger", name = "hilt-compiler", version.ref = "hilt" }
 hilt-lifecycle-viewmodel = { group = "androidx.hilt", name = "hilt-lifecycle-viewmodel", version.ref = "hilt-lifecycle-viewmode" }
 hilt-navigation-compose = { group = "androidx.hilt", name = "hilt-navigation-compose", version.ref = "hilt-navigation-compose" }
+javax-inject = { group = "javax.inject", name = "javax.inject", version = "1" }
 
 # Datastore
 datastore = { group = "androidx.datastore", name = "datastore", version.ref = "datastore" }
