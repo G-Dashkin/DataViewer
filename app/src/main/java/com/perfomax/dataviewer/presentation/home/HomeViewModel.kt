@@ -44,7 +44,7 @@ class HomeViewModel @Inject constructor(
     override val effect: StateFlow<HomeContract.Effect?> = _effect.asStateFlow()
 
     init {
-        loadFeedsList()
+//        loadFeedsList()
     }
 
     override fun intent(event: HomeContract.Event) {
