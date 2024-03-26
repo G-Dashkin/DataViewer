@@ -1,6 +1,5 @@
-package com.perfomax.dataviewer.ui.utils
+package com.perfomax.dataviewer.domain.utils
 
-import android.util.Log
 
 fun String.parsToList(): List<String> {
     return this.split("|")

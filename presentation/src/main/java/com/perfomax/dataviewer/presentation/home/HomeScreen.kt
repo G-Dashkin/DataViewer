@@ -22,8 +22,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.perfomax.dataviewer.domain.utils.getFeedName
 import com.perfomax.dataviewer.ui.theme.DataViewerTheme
-import com.perfomax.dataviewer.ui.utils.getFeedName
 import com.perfomax.dataviewer.ui.widgets.FeedItem
 
 @Composable

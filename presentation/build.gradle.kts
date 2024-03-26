@@ -43,7 +43,6 @@ android {
 
 dependencies {
 
-//    implementation(project(":app"))
     implementation(project(":domain"))
     implementation(project(":core:ui"))
     implementation(project(":core:navigation"))
@@ -51,7 +50,6 @@ dependencies {
     implementation(libs.core.ktx)
     implementation(libs.appcompat)
     implementation(libs.material)
-
 
     // ui compose
     implementation(libs.activity.compose)
