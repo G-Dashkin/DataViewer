@@ -8,17 +8,20 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.perfomax.dataviewer.ui.theme.DataViewerTheme
+import com.perfomax.dataviewer.ui.theme.padding15
+import com.perfomax.dataviewer.ui.theme.shape8
 import com.perfomax.dataviewer.ui.widgets.DefaultDialogView
 import com.perfomax.dataviewer.ui.widgets.ProjectItem
 import com.perfomax.dataviewer.ui.widgets.ProjectsDialogView
+import com.perfomax.ui.R
 
 @Composable
 fun ProjectsScreen(
@@ -35,15 +38,21 @@ fun ProjectsScreen(
 ) {
 
     Column(
-        modifier = Modifier.fillMaxSize().padding(15.dp),
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(padding15),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Top
     ) {
         Button(
             modifier = Modifier.fillMaxWidth(),
-            shape = RoundedCornerShape(10.dp),
+            shape = RoundedCornerShape(shape8),
             onClick = onOpenDialogCreateClick
-        ) { Text(text = "Создать новый проект", fontSize = 14.sp) }
+        ) {
+            Text(text = stringResource(id = R.string.create_new_project),
+            color = MaterialTheme.colorScheme.onSurface,
+            style = MaterialTheme.typography.titleSmall)
+        }
 
         LazyColumn {
             items(uiState.projectsList.size) { projectIndex ->
@@ -58,7 +67,7 @@ fun ProjectsScreen(
         }
         ProjectsDialogView(
             textValue = uiState.projectName,
-            title = "Название нового проекта",
+            title = stringResource(id = R.string.name_new_project),
             addFieldValue = true,
             openDialog = uiState.openDialogCreateNewProject,
             onCancel = onCloseDialogCreateClick,
@@ -67,10 +76,9 @@ fun ProjectsScreen(
             hasError = uiState.projectNameError,
             errorMessage = uiState.errorMessage
         )
-
         DefaultDialogView(
             textValue = uiState.projectName,
-            title = "Удалить проект ${uiState.removedProject}",
+            title = stringResource(id = R.string.name_new_project) + uiState.removedProject,
             openDialog = uiState.openDialogRemoveProject,
             onCancel = onCloseDialogRemoveClick,
             onConfirm = onRemoveProjectClick,

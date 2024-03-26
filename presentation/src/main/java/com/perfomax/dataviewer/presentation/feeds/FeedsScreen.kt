@@ -25,18 +25,26 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.perfomax.dataviewer.domain.utils.getFeedName
 import com.perfomax.dataviewer.ui.theme.DataViewerTheme
+import com.perfomax.dataviewer.ui.theme.fillMaxWidth07
+import com.perfomax.dataviewer.ui.theme.height15
+import com.perfomax.dataviewer.ui.theme.height2
+import com.perfomax.dataviewer.ui.theme.height50
+import com.perfomax.dataviewer.ui.theme.padding15
+import com.perfomax.dataviewer.ui.theme.shape8
+import com.perfomax.dataviewer.ui.theme.zeroVal
 import com.perfomax.dataviewer.ui.widgets.DefaultDialogView
 import com.perfomax.dataviewer.ui.widgets.FeedItem
 import com.perfomax.dataviewer.ui.widgets.FeedsDialogView
 import com.perfomax.dataviewer.ui.widgets.FeedsScreenFormTextField
 import com.perfomax.dataviewer.ui.widgets.LoadingIndicator
+import com.perfomax.ui.R
 
 @Composable
 fun FeedsScreen(
@@ -60,16 +68,14 @@ fun FeedsScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(15.dp),
+            .padding(padding15),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Top
     ) {
-        Text(modifier = Modifier,
-            fontSize = 18.sp,
-            text =  "Загрузить новый фид",
-            style = MaterialTheme.typography.labelMedium,
-            color = MaterialTheme.colorScheme.onSurface)
-        Spacer(modifier = Modifier.height(20.dp))
+        Text(text = stringResource(id = R.string.load_new_feed),
+            color = MaterialTheme.colorScheme.primary,
+            style = MaterialTheme.typography.headlineLarge)
+        Spacer(modifier = Modifier.height(height15))
         Row(
             modifier = Modifier.fillMaxWidth(),
             verticalAlignment = Alignment.Top,
@@ -77,14 +83,13 @@ fun FeedsScreen(
         ) {
             FeedsScreenFormTextField(
                 modifier = Modifier
-                    .fillMaxWidth(0.7f)
-                    .height(50.dp)
-                    .defaultMinSize(minHeight = 50.dp)
+                    .fillMaxWidth(fillMaxWidth07)
+                    .height(height50)
+                    .defaultMinSize(minHeight = height50)
                     .background(color = MaterialTheme.colorScheme.background)
-                    .padding(0.dp),
-
+                    .padding(zeroVal),
                 text = uiState.feedUrl,
-                labelText = "Feed Url",
+                labelText = stringResource(id = R.string.feed_url),
                 isError = uiState.feedUrlError,
                 onChange = onFeedUrlFieldChange
             )
@@ -93,34 +98,28 @@ fun FeedsScreen(
             if (uiState.isFeedsList){
                 Button(modifier = Modifier
                     .fillMaxWidth()
-                    .height(50.dp)
-                    .defaultMinSize(minHeight = 50.dp),
-                    shape = RoundedCornerShape(5.dp),
-                    contentPadding = PaddingValues(
-                        start = 0.dp,
-                        top = 0.dp,
-                        end = 0.dp,
-                        bottom = 0.dp,
-                    ),
+                    .height(height50)
+                    .defaultMinSize(minHeight = height50),
+                    shape = RoundedCornerShape(shape8),
+                    contentPadding = PaddingValues(zeroVal),
                     onClick = onAddFeedClick
                 ) {
-                    Text(text = "Загрузить", fontSize = 18.sp)
+                    Text(text = stringResource(id = R.string.load),
+                        color = MaterialTheme.colorScheme.primary,
+                        style = MaterialTheme.typography.headlineLarge)
                 }
             } else {
                 Button(modifier = Modifier
                     .fillMaxWidth()
-                    .height(50.dp)
-                    .defaultMinSize(minHeight = 50.dp),
-                    shape = RoundedCornerShape(5.dp),
-                    contentPadding = PaddingValues(
-                        start = 0.dp,
-                        top = 0.dp,
-                        end = 0.dp,
-                        bottom = 0.dp,
-                    ),
+                    .height(height50)
+                    .defaultMinSize(minHeight = height50),
+                    shape = RoundedCornerShape(shape8),
+                    contentPadding = PaddingValues(zeroVal),
                     onClick = onSwitchToFeedsListClick
                 ) {
-                    Text(text = "Отменить", fontSize = 18.sp)
+                    Text(text = stringResource(id = R.string.cancel),
+                        color = MaterialTheme.colorScheme.primary,
+                        style = MaterialTheme.typography.headlineLarge)
                 }
             }
 
@@ -149,7 +148,8 @@ fun FeedsScreen(
                 LazyColumn(modifier = Modifier.fillMaxSize()) {
                     items(uiState.loadedFeed) { element ->
                         Text(
-                            modifier = Modifier.background(Color.Gray)
+                            modifier = Modifier
+                                .background(Color.Gray)
                                 .clickable {
                                     onSelectFeedElement.invoke(element)
                                     onOpenDialogSelectedFeedElementClick.invoke()
@@ -157,7 +157,7 @@ fun FeedsScreen(
                             text = element,
                             color = Color.White
                         )
-                        Spacer(modifier = Modifier.height(2.dp))
+                        Spacer(modifier = Modifier.height(height2))
                     }
                 }
             }
@@ -165,7 +165,7 @@ fun FeedsScreen(
     }
 
     FeedsDialogView(
-        title = "Добвление фида",
+        title = stringResource(id = R.string.adding_feed),
         feedNameValue = uiState.feedName,
         onFeedNameFieldChangeValue = onFeedNameFieldChange,
         feedElementNameValue = uiState.selectedFeedElement,
@@ -180,7 +180,7 @@ fun FeedsScreen(
 
     DefaultDialogView(
         textValue = uiState.feedName,
-        title = "Удалить фид ${uiState.removedFeed}",
+        title = stringResource(id = R.string.delete_feed) + uiState.removedFeed,
         openDialog = uiState.openDialogRemoveFeed,
         onCancel = onCloseDialogRemoveFeedClick,
         onConfirm = onRemoveFeedClick
