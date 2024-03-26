@@ -1,5 +1,6 @@
 package com.perfomax.dataviewer.presentation.home
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.perfomax.dataviewer.domain.usecases.feeds.GetAllFeedsUseCase
@@ -57,6 +58,12 @@ class HomeViewModel @Inject constructor(
     private fun loadFeedsList() {
         viewModelScope.launch {
             _uiState.update { currentState ->
+
+                val selectedProject = getSelectedProjectUseCase.execute()
+                Log.d("MyLog", "selectedProject: $selectedProject")
+                val allFeeds = getAllFeedsUseCase.execute(getSelectedProjectUseCase.execute())
+                Log.d("MyLog", "allFeeds: $allFeeds")
+
                 currentState.copy(
                     feedsList = getAllFeedsUseCase.execute(getSelectedProjectUseCase.execute())
                 )
