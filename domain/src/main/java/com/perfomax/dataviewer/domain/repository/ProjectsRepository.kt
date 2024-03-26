@@ -6,5 +6,4 @@ interface ProjectsRepository {
     suspend fun remove(projectName: String)
     suspend fun select(projectName: String)
     suspend fun getSelected(): String
-
 }

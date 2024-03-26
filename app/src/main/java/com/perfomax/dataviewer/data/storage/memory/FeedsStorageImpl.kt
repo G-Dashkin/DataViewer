@@ -1,11 +1,11 @@
 package com.perfomax.dataviewer.data.storage.memory
 
 import android.util.Log
-import com.perfomax.dataviewer.core.utils.addElement
-import com.perfomax.dataviewer.core.utils.parsToList
-import com.perfomax.dataviewer.core.utils.parsToListByProject
-import com.perfomax.dataviewer.core.utils.removeFeed
-import com.perfomax.dataviewer.core.utils.removeProject
+import com.perfomax.dataviewer.ui.utils.addElement
+import com.perfomax.dataviewer.ui.utils.parsToList
+import com.perfomax.dataviewer.ui.utils.parsToListByProject
+import com.perfomax.dataviewer.ui.utils.removeFeed
+import com.perfomax.dataviewer.ui.utils.removeProject
 import com.perfomax.dataviewer.data.datastore.api.FeedsDataStore
 import com.perfomax.dataviewer.data.storage.api.FeedsStorage
 import javax.inject.Inject

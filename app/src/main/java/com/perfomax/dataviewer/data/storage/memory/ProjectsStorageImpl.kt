@@ -1,8 +1,8 @@
 package com.perfomax.dataviewer.data.storage.memory
 
-import com.perfomax.dataviewer.core.utils.addElement
-import com.perfomax.dataviewer.core.utils.parsToList
-import com.perfomax.dataviewer.core.utils.removeProject
+import com.perfomax.dataviewer.ui.utils.addElement
+import com.perfomax.dataviewer.ui.utils.parsToList
+import com.perfomax.dataviewer.ui.utils.removeProject
 import com.perfomax.dataviewer.data.storage.api.ProjectsStorage
 import com.perfomax.dataviewer.data.datastore.api.ProjectsDataStore
 import javax.inject.Inject

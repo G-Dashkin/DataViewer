@@ -11,7 +11,6 @@ java {
 
 dependencies {
 
-//    implementation(project(":app"))
     implementation(libs.javax.inject)
 
 }

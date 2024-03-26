@@ -7,11 +7,11 @@ plugins {
 }
 
 android {
-    namespace = "com.example.presentation"
-    compileSdk = 34
+    namespace = "com.perfomax.presentation"
+    compileSdk = libs.versions.compileSdk.get().toInt()
 
     defaultConfig {
-        minSdk = 24
+        minSdk = libs.versions.minSdk.get().toInt()
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
@@ -30,20 +30,23 @@ android {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
     }
-    kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_17.toString()
-    }
     buildFeatures {
         compose = true
     }
     composeOptions {
         kotlinCompilerExtensionVersion = libs.versions.composecompiler.get()
     }
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_17.toString()
+    }
 }
 
 dependencies {
 
-    implementation(project(":app"))
+//    implementation(project(":app"))
+    implementation(project(":domain"))
+    implementation(project(":core:ui"))
+    implementation(project(":core:navigation"))
 
     implementation(libs.core.ktx)
     implementation(libs.appcompat)
@@ -78,8 +81,6 @@ dependencies {
     // datastore
     implementation(libs.datastore.preferences)
     implementation("com.google.code.gson:gson:2.10.1")
-
-
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.test.ext.junit)
