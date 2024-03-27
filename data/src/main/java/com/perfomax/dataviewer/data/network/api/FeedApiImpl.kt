@@ -12,4 +12,8 @@ class FeedApiImpl: FeedApi {
         val arrayFeed = Parser.parsingToList(citiFeed)
         return arrayFeed
     }
+
+    override fun countElement(feedName: String, projectName: String): Int {
+        return 1
+    }
 }
