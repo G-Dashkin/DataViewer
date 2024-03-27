@@ -13,6 +13,7 @@ val space8 = 8.dp
 
 val fillMaxWidth07 = 0.7f
 
+val padding10 = 10.dp
 val padding15 = 15.dp
 
 val width40 = 40.dp

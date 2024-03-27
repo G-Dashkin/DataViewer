@@ -21,7 +21,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.perfomax.dataviewer.domain.utils.getFeedName
 import com.perfomax.dataviewer.ui.theme.DataViewerTheme
 import com.perfomax.dataviewer.ui.theme.height50
 import com.perfomax.dataviewer.ui.theme.padding15
@@ -56,7 +55,7 @@ fun HomeScreen(
         LazyColumn(modifier = Modifier.fillMaxSize()) {
             items(uiState.feedsList) { element ->
                 FeedItem(
-                    feedElement = element.feedName,
+                    feedName = element.feedName,
                     countElements = element.feedElementCount,
                     updateTime = element.feedUpdateTime,
                     loadTime = element.feedLoadTime
