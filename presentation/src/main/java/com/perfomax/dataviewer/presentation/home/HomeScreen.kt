@@ -50,14 +50,16 @@ fun HomeScreen(
             onClick = onUpdateFeedsClick
         ) {
             Text(text = stringResource(id = R.string.feed_update),
-                color = MaterialTheme.colorScheme.primary,
-                style = MaterialTheme.typography.headlineLarge)
+                color = MaterialTheme.colorScheme.onSecondary,
+                style = MaterialTheme.typography.titleLarge)
             }
         LazyColumn(modifier = Modifier.fillMaxSize()) {
             items(uiState.feedsList) { element ->
                 FeedItem(
-                    feedElement = element.getFeedName(),
-                    onRemove = {},
+                    feedElement = element.feedName,
+                    countElements = element.feedElementCount,
+                    updateTime = element.feedUpdateTime,
+                    loadTime = element.feedLoadTime
                 )
             }
         }

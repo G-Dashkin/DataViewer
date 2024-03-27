@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -26,38 +27,51 @@ import androidx.compose.ui.unit.dp
 fun FeedItem(
     modifier: Modifier = Modifier,
     feedElement: String,
-    onRemove: (String) -> Unit
+    onRemove: (String) -> Unit = {},
+    onRemoveBottom: Boolean = false,
+    countElements: Int = 0,
+    updateTime: String = "",
+    loadTime: String = ""
 ) {
     Row(modifier = Modifier.fillMaxWidth()
     ) {
         Box(modifier = Modifier
             .padding(10.dp)
-            .fillMaxWidth(0.7f)
-        ) {
-                Text(color = Color.Black, text = feedElement)
-            }
-        Box(modifier = Modifier
-            .fillMaxWidth()
-        ) {
-            Button(
-                modifier = Modifier.fillMaxWidth(),
-                shape = RoundedCornerShape(10.dp),
-                contentPadding = PaddingValues(
-                    start = 10.dp,
-                    top = 10.dp,
-                    end = 10.dp,
-                    bottom = 10.dp,
-                ),
-                onClick = { onRemove.invoke(feedElement) }
+            .fillMaxWidth(0.7f).border(1.dp, Color.Gray)
+        ) { Text(color = Color.Black, text = feedElement) }
+
+        if (onRemoveBottom){
+            Box(modifier = Modifier
+                .fillMaxWidth()
+                .border(1.dp, Color.Red)
             ) {
-                Text(text = "Удалить")
+                Button(
+                    modifier = Modifier.fillMaxWidth(),
+                    shape = RoundedCornerShape(10.dp),
+                    contentPadding = PaddingValues(
+                        start = 10.dp,
+                        top = 10.dp,
+                        end = 10.dp,
+                        bottom = 10.dp,
+                    ),
+                    onClick = { onRemove.invoke(feedElement) }
+                ) { Text(text = "Удалить") }
+            }
+        } else {
+            Column() {
+                Text(text = countElements.toString())
+                Text(text = updateTime)
+                Text(text = loadTime)
+            }
+
             }
         }
-    }
-    Divider (
+        Divider (
         modifier = Modifier
             .height(1.dp)
             .fillMaxWidth(),
         color = Color.Black
     )
 }
+
+

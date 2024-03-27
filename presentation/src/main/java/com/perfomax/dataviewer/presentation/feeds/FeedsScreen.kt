@@ -131,7 +131,8 @@ fun FeedsScreen(
                 LazyColumn(modifier = Modifier.fillMaxSize()) {
                     items(uiState.feedsList) { element ->
                         FeedItem(
-                            feedElement = element.getFeedName(),
+                            feedElement = element.feedName,
+                            onRemoveBottom = true,
                             onRemove = onSelectRemovedFeedNameClick,
                         )
                     }

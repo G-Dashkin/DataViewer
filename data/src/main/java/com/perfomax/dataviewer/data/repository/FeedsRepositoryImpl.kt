@@ -1,9 +1,11 @@
 package com.perfomax.dataviewer.data.repository
 
 import android.util.Log
+import com.perfomax.dataviewer.data.mappers.toDomainFeed
 import com.perfomax.dataviewer.data.network.api.FeedApi
 import com.perfomax.dataviewer.data.storage.api.FeedsStorage
 import com.perfomax.dataviewer.data.storage.api.ProjectsStorage
+import com.perfomax.dataviewer.domain.models.Feed
 import com.perfomax.dataviewer.domain.repository.FeedsRepository
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
@@ -28,8 +30,12 @@ class FeedsRepositoryImpl @Inject constructor(
         feedsStorage.remove(feedName)
     }
 
-    override suspend fun getAllByProject(project: String): List<String> {
-        return feedsStorage.getAllByProject(project)
+    override suspend fun getAllByProject(project: String): List<Feed> {
+        val feedList = mutableListOf<Feed>()
+        feedsStorage.getAllByProject(project).forEach {
+            feedList.add(it.toDomainFeed())
+        }
+        return feedList
     }
 
     override suspend fun selectFeedElement(feedElement: String) {

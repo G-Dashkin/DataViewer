@@ -1,6 +1,7 @@
 package com.perfomax.dataviewer.presentation.feeds
 
 import com.perfomax.dataviewer.domain.EMPTY
+import com.perfomax.dataviewer.domain.models.Feed
 import com.perfomax.dataviewer.ui.base.UnidirectionalViewModel
 
 interface FeedsContract:
@@ -10,7 +11,7 @@ interface FeedsContract:
         val feedUrl: String,
         val feedUrlError: Boolean,
         val loadedFeed: List<String>,
-        val feedsList: List<String>,
+        val feedsList: List<Feed>,
 
         val feedName: String,
         val selectedFeedElement: String,

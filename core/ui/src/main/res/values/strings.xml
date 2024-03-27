@@ -18,6 +18,7 @@
     <string name="cancel">Отменить</string>
     <string name="adding_feed">Добвление фида</string>
     <string name="delete_feed">Удалить фид</string>
+    <string name="project">Проект: </string>
     <string name="feed_url">Feed Url</string>
 
     <string name="started_screen">Started Screen</string>

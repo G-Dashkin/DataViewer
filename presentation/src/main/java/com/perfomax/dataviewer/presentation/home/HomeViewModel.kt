@@ -58,12 +58,6 @@ class HomeViewModel @Inject constructor(
     private fun loadFeedsList() {
         viewModelScope.launch {
             _uiState.update { currentState ->
-
-                val selectedProject = getSelectedProjectUseCase.execute()
-                Log.d("MyLog", "selectedProject: $selectedProject")
-                val allFeeds = getAllFeedsUseCase.execute(getSelectedProjectUseCase.execute())
-                Log.d("MyLog", "allFeeds: $allFeeds")
-
                 currentState.copy(
                     feedsList = getAllFeedsUseCase.execute(getSelectedProjectUseCase.execute())
                 )

@@ -1,7 +1,9 @@
 package com.perfomax.dataviewer.data.storage.memory
 
 import com.perfomax.dataviewer.data.datastore.api.FeedsDataStore
+import com.perfomax.dataviewer.data.mappers.toDomain
 import com.perfomax.dataviewer.data.storage.api.FeedsStorage
+import com.perfomax.dataviewer.domain.models.Feed
 import com.perfomax.dataviewer.domain.utils.addElement
 import com.perfomax.dataviewer.domain.utils.parsToListByProject
 import com.perfomax.dataviewer.domain.utils.removeFeed
@@ -24,5 +26,4 @@ class FeedsStorageImpl @Inject constructor(
             it.split("projectName:")[1].split(";")[0] == project
         }
     }
-
 }

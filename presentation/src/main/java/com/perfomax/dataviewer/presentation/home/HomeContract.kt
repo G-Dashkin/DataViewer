@@ -1,12 +1,13 @@
 package com.perfomax.dataviewer.presentation.home
 
+import com.perfomax.dataviewer.domain.models.Feed
 import com.perfomax.dataviewer.ui.base.UnidirectionalViewModel
 
 interface HomeContract:
     UnidirectionalViewModel<HomeContract.Event, HomeContract.State, HomeContract.Effect?> {
 
     data class State(
-        val feedsList: List<String>,
+        val feedsList: List<Feed>,
     ) {
         companion object {
             fun initial(): State = State(
