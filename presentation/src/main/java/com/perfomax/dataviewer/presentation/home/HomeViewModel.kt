@@ -3,8 +3,11 @@ package com.perfomax.dataviewer.presentation.home
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.perfomax.dataviewer.domain.usecases.feeds.CountFeedElementsUseCase
 import com.perfomax.dataviewer.domain.usecases.feeds.GetAllFeedsUseCase
 import com.perfomax.dataviewer.domain.usecases.projects.GetSelectedProjectUseCase
+import com.perfomax.dataviewer.domain.utils.getFeedElement
+import com.perfomax.dataviewer.domain.utils.getFeedUrl
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -32,6 +35,7 @@ import javax.inject.Inject
 class HomeViewModel @Inject constructor(
     private val getAllFeedsUseCase: GetAllFeedsUseCase,
     private val getSelectedProjectUseCase: GetSelectedProjectUseCase,
+    private val countFeedElementsUseCase: CountFeedElementsUseCase
 ): ViewModel(), HomeContract {
 
     private val _uiState = MutableStateFlow(HomeContract.State.initial())
@@ -45,10 +49,9 @@ class HomeViewModel @Inject constructor(
     }
 
     override fun intent(event: HomeContract.Event) {
-//        when(event) {
-//            is HomeContract.Event.TextChangeEvent -> onTextFieldsChange(event.text)
-//            HomeContract.Event.ClickEvent -> onClickTest()
-//        }
+        when(event) {
+            HomeContract.Event.CountFeedElementEvent -> countFeedElements()
+        }
     }
 
     override fun consume() {
@@ -62,6 +65,18 @@ class HomeViewModel @Inject constructor(
                     feedsList = getAllFeedsUseCase.execute(getSelectedProjectUseCase.execute())
                 )
             }
+        }
+    }
+
+    private fun countFeedElements() {
+        viewModelScope.launch {
+            _uiState.value.feedsList.forEach {
+                val feedElements = countFeedElementsUseCase.execute(
+                    "feedElement:${it.feedElement};feedUrl:${it.feedUrl}"
+                )
+                Log.d("MyLog", "Количество элементов в фиде ${it.feedName}: $feedElements")
+            }
+
         }
     }
 

@@ -22,6 +22,9 @@ class FeedsRepositoryImpl @Inject constructor(
         feedApi.getData(feedUrl)
     }
 
+    override suspend fun countFeedElements(feedElement: String, feedUrl: String): Int = withContext(dispatcher) {
+        feedApi.countFeedElements(feedElement = feedElement, feedUrl =  feedUrl)
+    }
     override suspend fun saveFeed(feedName: String) {
         feedsStorage.add(feedName)
     }

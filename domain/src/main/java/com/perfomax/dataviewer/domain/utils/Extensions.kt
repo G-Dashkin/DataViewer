@@ -26,3 +26,11 @@ fun String.removeFeed(feedName: String): String {
 fun String.getFeedName(): String {
     return this.split("feedName:")[1].split(";")[0]
 }
+
+fun String.getFeedElement(): String {
+    return this.split("feedElement:")[1].split(";")[0]
+}
+
+fun String.getFeedUrl(): String {
+    return this.split("feedUrl:")[1].split(";")[0]
+}

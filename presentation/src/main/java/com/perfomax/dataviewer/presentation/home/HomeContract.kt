@@ -1,6 +1,7 @@
 package com.perfomax.dataviewer.presentation.home
 
 import com.perfomax.dataviewer.domain.models.Feed
+import com.perfomax.dataviewer.presentation.feeds.FeedsContract
 import com.perfomax.dataviewer.ui.base.UnidirectionalViewModel
 
 interface HomeContract:
@@ -20,6 +21,7 @@ interface HomeContract:
     }
 
     sealed interface Event {
+        data object CountFeedElementEvent: Event
     }
 
     sealed interface Effect {

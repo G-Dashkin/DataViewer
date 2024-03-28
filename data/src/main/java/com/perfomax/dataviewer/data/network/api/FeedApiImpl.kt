@@ -1,5 +1,6 @@
 package com.perfomax.dataviewer.data.network.api
 
+import android.util.Log
 import java.net.HttpURLConnection
 import java.net.URL
 
@@ -13,7 +14,18 @@ class FeedApiImpl: FeedApi {
         return arrayFeed
     }
 
-    override fun countElement(feedName: String, projectName: String): Int {
-        return 1
+    override fun countFeedElements(feedElement: String, feedUrl: String): Int {
+        val url = URL(feedUrl)
+        val connection = url.openConnection() as HttpURLConnection
+        val feedString = connection.inputStream.bufferedReader().use { it.readText() }
+        val processedFeed = feedString.replace("\\s+".toRegex(), " ").replace("> <", "><")
+        var elementCounter = 0
+
+        processedFeed.split("><").forEach {
+            if (it.contains(feedElement)){
+                elementCounter = elementCounter.inc()
+            }
+        }
+        return elementCounter
     }
 }
