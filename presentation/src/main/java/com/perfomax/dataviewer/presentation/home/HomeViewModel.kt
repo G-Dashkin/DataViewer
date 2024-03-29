@@ -70,13 +70,7 @@ class HomeViewModel @Inject constructor(
 
     private fun countFeedElements() {
         viewModelScope.launch {
-            _uiState.value.feedsList.forEach {
-                val feedElements = countFeedElementsUseCase.execute(
-                    "feedElement:${it.feedElement};feedUrl:${it.feedUrl}"
-                )
-                Log.d("MyLog", "Количество элементов в фиде ${it.feedName}: $feedElements")
-            }
-
+            countFeedElementsUseCase.execute(_uiState.value.feedsList)
         }
     }
 

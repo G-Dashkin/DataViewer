@@ -1,5 +1,6 @@
 package com.perfomax.dataviewer.data.storage.memory
 
+import android.util.Log
 import com.perfomax.dataviewer.data.datastore.api.FeedsDataStore
 import com.perfomax.dataviewer.data.storage.api.FeedsStorage
 import com.perfomax.dataviewer.domain.utils.addElement
@@ -16,6 +17,11 @@ class FeedsStorageImpl @Inject constructor(
 
     override suspend fun remove(feedName: String) {
         datastore.updateFeedsList(datastore.getAllFeeds().removeFeed(feedName))
+    }
+
+    override suspend fun update(updatedFeedList: String) {
+        Log.d("MyLog", "updatedFeedList: $updatedFeedList")
+        Log.d("MyLog", "getAllFeeds(): ${datastore.getAllFeeds()}")
     }
 
     override suspend fun getAllByProject(project: String): List<String> {

@@ -22,9 +22,25 @@ class FeedsRepositoryImpl @Inject constructor(
         feedApi.getData(feedUrl)
     }
 
-    override suspend fun countFeedElements(feedElement: String, feedUrl: String): Int = withContext(dispatcher) {
-        feedApi.countFeedElements(feedElement = feedElement, feedUrl =  feedUrl)
+    override suspend fun countFeedElements(feedList: List<Feed>) = withContext(dispatcher) {
+        Log.d("MyLog", feedList.toString())
+        val updatedFeedList = mutableListOf<Feed>()
+        feedList.forEach { feed ->
+            feedApi.countFeedElements(feedElement = feed.feedElement, feedUrl =  feed.feedUrl)
+            val updatedFeed = feed.copy(
+                projectName = feed.projectName,
+                feedName = feed.feedName,
+                feedElement = feed.feedElement,
+                feedElementCount = feedApi.countFeedElements(feedElement = feed.feedElement, feedUrl =  feed.feedUrl),
+                feedUrl = feed.feedUrl,
+                feedUpdateTime = feed.feedUpdateTime,
+                feedLoadTime = feed.feedLoadTime
+            )
+            updatedFeedList.add(updatedFeed)
+        }
+        feedsStorage.update(updatedFeedList.joinToString(separator = ";"))
     }
+
     override suspend fun saveFeed(feedName: String) {
         feedsStorage.add(feedName)
     }
