@@ -72,6 +72,7 @@ class HomeViewModel @Inject constructor(
         viewModelScope.launch {
             countFeedElementsUseCase.execute(_uiState.value.feedsList)
         }
+        loadFeedsList()
     }
 
 

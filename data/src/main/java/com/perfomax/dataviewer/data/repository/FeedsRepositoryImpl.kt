@@ -7,6 +7,7 @@ import com.perfomax.dataviewer.data.storage.api.FeedsStorage
 import com.perfomax.dataviewer.data.storage.api.ProjectsStorage
 import com.perfomax.dataviewer.domain.models.Feed
 import com.perfomax.dataviewer.domain.repository.FeedsRepository
+import com.perfomax.dataviewer.domain.utils.parsToString
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -23,7 +24,7 @@ class FeedsRepositoryImpl @Inject constructor(
     }
 
     override suspend fun countFeedElements(feedList: List<Feed>) = withContext(dispatcher) {
-        Log.d("MyLog", feedList.toString())
+
         val updatedFeedList = mutableListOf<Feed>()
         feedList.forEach { feed ->
             feedApi.countFeedElements(feedElement = feed.feedElement, feedUrl =  feed.feedUrl)
@@ -38,7 +39,7 @@ class FeedsRepositoryImpl @Inject constructor(
             )
             updatedFeedList.add(updatedFeed)
         }
-        feedsStorage.update(updatedFeedList.joinToString(separator = ";"))
+        feedsStorage.update(updatedFeedList.parsToString())
     }
 
     override suspend fun saveFeed(feedName: String) {

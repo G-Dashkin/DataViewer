@@ -1,5 +1,7 @@
 package com.perfomax.dataviewer.domain.utils
 
+import com.perfomax.dataviewer.domain.models.Feed
+
 
 fun String.parsToList(): List<String> {
     return this.split("|")
@@ -7,6 +9,15 @@ fun String.parsToList(): List<String> {
 
 fun String.parsToListByProject(): List<String> {
     return this.split("|")
+}
+
+fun MutableList<Feed>.parsToString(): String {
+    return this.joinToString()
+               .replace(oldValue = "Feed(", newValue = "")
+               .replace(oldValue = "), ", newValue = "|")
+               .replace(oldValue = ", ", newValue = ";")
+               .replace(oldValue = "=", newValue = ":")
+               .replace(oldValue = ")", newValue = "")
 }
 
 fun String.addElement(newProject: String): String {
@@ -22,6 +33,16 @@ fun String.removeFeed(feedName: String): String {
         it.split("feedName:")[1].split(";")[0] != feedName
     }.joinToString("|")
 }
+
+fun String.updateFeed(feed: String): String {
+    var newFeed = ""
+    this.split("|").forEach {
+        newFeed += if(it.getFeedName() == feed.getFeedName()) "$feed|"
+                   else "$it|"
+    }
+    return newFeed.dropLast(1)
+}
+
 
 fun String.getFeedName(): String {
     return this.split("feedName:")[1].split(";")[0]

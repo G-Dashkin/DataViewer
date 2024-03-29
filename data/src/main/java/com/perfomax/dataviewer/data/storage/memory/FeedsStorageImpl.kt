@@ -4,8 +4,10 @@ import android.util.Log
 import com.perfomax.dataviewer.data.datastore.api.FeedsDataStore
 import com.perfomax.dataviewer.data.storage.api.FeedsStorage
 import com.perfomax.dataviewer.domain.utils.addElement
+import com.perfomax.dataviewer.domain.utils.parsToList
 import com.perfomax.dataviewer.domain.utils.parsToListByProject
 import com.perfomax.dataviewer.domain.utils.removeFeed
+import com.perfomax.dataviewer.domain.utils.updateFeed
 import javax.inject.Inject
 
 class FeedsStorageImpl @Inject constructor(
@@ -20,8 +22,9 @@ class FeedsStorageImpl @Inject constructor(
     }
 
     override suspend fun update(updatedFeedList: String) {
-        Log.d("MyLog", "updatedFeedList: $updatedFeedList")
-        Log.d("MyLog", "getAllFeeds(): ${datastore.getAllFeeds()}")
+        updatedFeedList.parsToList().forEach { feedItem ->
+            datastore.updateFeedsList(datastore.getAllFeeds().updateFeed(feedItem))
+        }
     }
 
     override suspend fun getAllByProject(project: String): List<String> {
