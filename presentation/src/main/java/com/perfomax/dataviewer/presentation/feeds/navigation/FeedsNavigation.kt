@@ -49,6 +49,9 @@ fun NavGraphBuilder.navigateToFeeds(){
             },
             onSwitchToFeedsListClick = {
                 feedsViewModel.intent(FeedsContract.Event.SwitchScreenToFeedsListEvent)
+            },
+            onCloseDialogFeedUrlError = {
+                feedsViewModel.intent(FeedsContract.Event.CloseDialogFeedUrlErrorEvent)
             }
         )
     }

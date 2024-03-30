@@ -1,5 +1,6 @@
 package com.perfomax.dataviewer.presentation.feeds
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -59,7 +60,8 @@ fun FeedsScreen(
     onRemoveFeedClick:() -> Unit,
     onAddNewFeed:() -> Unit,
     updateProject:() -> Unit,
-    onSwitchToFeedsListClick:() -> Unit
+    onSwitchToFeedsListClick:() -> Unit,
+    onCloseDialogFeedUrlError:() -> Unit
 ) {
 
     updateProject.invoke()
@@ -93,7 +95,6 @@ fun FeedsScreen(
                 onChange = onFeedUrlFieldChange
             )
             Spacer(modifier = Modifier.width(10.dp))
-
             if (uiState.isFeedsList){
                 Button(modifier = Modifier
                     .fillMaxWidth()
@@ -104,8 +105,8 @@ fun FeedsScreen(
                     onClick = onAddFeedClick
                 ) {
                     Text(text = stringResource(id = R.string.load),
-                        color = MaterialTheme.colorScheme.primary,
-                        style = MaterialTheme.typography.headlineLarge)
+                        color = MaterialTheme.colorScheme.onSecondary,
+                        style = MaterialTheme.typography.titleMedium)
                 }
             } else {
                 Button(modifier = Modifier
@@ -117,12 +118,10 @@ fun FeedsScreen(
                     onClick = onSwitchToFeedsListClick
                 ) {
                     Text(text = stringResource(id = R.string.cancel),
-                        color = MaterialTheme.colorScheme.primary,
-                        style = MaterialTheme.typography.headlineLarge)
+                        color = MaterialTheme.colorScheme.onSecondary,
+                        style = MaterialTheme.typography.titleMedium)
                 }
             }
-
-
         }
         Spacer(modifier = Modifier.height(5.dp))
         Column(modifier = Modifier.fillMaxSize()) {
@@ -175,7 +174,13 @@ fun FeedsScreen(
         useDateElement = {},
         openDialog = uiState.openDialogSelectedFeedElement,
         onCancel = onCloseDialogSelectedFeedElement,
-        onConfirm = onAddNewFeed
+        onConfirm = onAddNewFeed,
+
+        hasFeedNameError = uiState.feedNameError,
+        errorFeedNameMessage = uiState.feedNameErrorMessage,
+
+        hasUrlFeedError = uiState.selectedFeedElementError,
+        errorUrlFeedMessage = uiState.selectedFeedElementErrorMessage,
     )
 
     DefaultDialogView(
@@ -184,6 +189,13 @@ fun FeedsScreen(
         openDialog = uiState.openDialogRemoveFeed,
         onCancel = onCloseDialogRemoveFeedClick,
         onConfirm = onRemoveFeedClick
+    )
+
+    DefaultDialogView(
+        title = "Фид с указанным URL уже присутствуем в данннм проекте",
+        openDialog = uiState.openDialogFeedUrlErrorElement,
+        onlyCancel = true,
+        onCancel = onCloseDialogFeedUrlError
     )
 
 }

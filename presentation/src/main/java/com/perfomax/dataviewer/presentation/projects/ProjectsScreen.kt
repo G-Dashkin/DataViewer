@@ -74,7 +74,8 @@ fun ProjectsScreen(
             onConfirm = onCreateNewProjectClick,
             onFieldChange = onProjectNameChange,
             hasError = uiState.projectNameError,
-            errorMessage = uiState.errorMessage
+            errorMessage = uiState.errorMessage,
+            onUpdateProjectClick = onUpdateProjectClick
         )
         DefaultDialogView(
             textValue = uiState.projectName,

@@ -29,6 +29,7 @@ class FeedsStorageImpl @Inject constructor(
 
     override suspend fun getAllByProject(project: String): List<String> {
         return if (project.isEmpty()) emptyList()
+        else if (datastore.getAllFeeds().isEmpty()) emptyList()
         else datastore.getAllFeeds().parsToListByProject().filter {
             it.split("projectName:")[1].split(";")[0] == project
         }

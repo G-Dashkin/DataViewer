@@ -14,10 +14,17 @@ interface FeedsContract:
         val feedsList: List<Feed>,
 
         val feedName: String,
+        val feedNameError: Boolean,
+        val feedNameErrorMessage: String,
+
         val selectedFeedElement: String,
+        val selectedFeedElementError: Boolean,
+        val selectedFeedElementErrorMessage: String,
+
         val removedFeed: String,
 
         val openDialogSelectedFeedElement: Boolean,
+        val openDialogFeedUrlErrorElement: Boolean,
 
         val isFeedsList: Boolean,
         val openDialogRemoveFeed: Boolean
@@ -30,11 +37,16 @@ interface FeedsContract:
                 loadedFeed = emptyList(),
                 feedsList = emptyList(),
                 feedName = EMPTY,
+                feedNameError = false,
+                feedNameErrorMessage = EMPTY,
                 selectedFeedElement = EMPTY,
+                selectedFeedElementError = false,
+                selectedFeedElementErrorMessage = EMPTY,
                 removedFeed = EMPTY,
                 openDialogSelectedFeedElement = false,
                 isFeedsList = true,
-                openDialogRemoveFeed = false
+                openDialogRemoveFeed = false,
+                openDialogFeedUrlErrorElement = false
             )
             fun notCorrect(): State = State(
                 feedUrl = EMPTY,
@@ -42,11 +54,16 @@ interface FeedsContract:
                 loadedFeed = emptyList(),
                 feedsList = emptyList(),
                 feedName = EMPTY,
+                feedNameError = false,
+                feedNameErrorMessage = EMPTY,
                 selectedFeedElement = EMPTY,
+                selectedFeedElementError = false,
+                selectedFeedElementErrorMessage = EMPTY,
                 removedFeed = EMPTY,
                 openDialogSelectedFeedElement = false,
                 isFeedsList = true,
-                openDialogRemoveFeed = false
+                openDialogRemoveFeed = false,
+                openDialogFeedUrlErrorElement = false
             )
         }
     }
@@ -64,6 +81,7 @@ interface FeedsContract:
         data object CloseDialogRemoveEvent : Event
         data object UpdateProjectEvent : Event
         data object SwitchScreenToFeedsListEvent : Event
+        data object CloseDialogFeedUrlErrorEvent : Event
 
     }
 

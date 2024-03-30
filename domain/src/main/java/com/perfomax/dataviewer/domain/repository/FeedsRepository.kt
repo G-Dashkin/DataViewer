@@ -8,5 +8,5 @@ interface FeedsRepository {
     suspend fun saveFeed(feedName:String)
     suspend fun remove(feedName: String)
     suspend fun selectFeedElement(feedElement: String)
-    suspend fun getAllByProject(project: String): List<Feed>
+    suspend fun getAllFeedsByProject(project: String): List<Feed>
 }

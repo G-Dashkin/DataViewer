@@ -1,5 +1,6 @@
 package com.perfomax.dataviewer.ui.widgets
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -40,6 +41,11 @@ fun FeedsDialogView(
     onCancel:() -> Unit,
     onConfirm:() -> Unit,
 
+    hasFeedNameError: Boolean = false,
+    errorFeedNameMessage: String = "",
+
+    hasUrlFeedError: Boolean = false,
+    errorUrlFeedMessage: String = ""
 ) {
     if (openDialog){
         Dialog(
@@ -64,10 +70,17 @@ fun FeedsDialogView(
                         value = feedNameValue,
                         onValueChange = onFeedNameFieldChangeValue,
                         label = {
-                            Text(
-                                color = Color.Black,
-                                text = "Название фида"
-                            )
+                            if (hasFeedNameError) {
+                                Text(
+                                    color = Color.Red,
+                                    text = errorFeedNameMessage
+                                )
+                            } else {
+                                Text(
+                                    color = Color.Black,
+                                    text = "Название фида"
+                                )
+                            }
                         }
                     )
                     //----------------------------------------
@@ -76,10 +89,18 @@ fun FeedsDialogView(
                         value = feedElementNameValue,
                         onValueChange = onFeedElementFieldChangeValue,
                         label = {
-                            Text(
-                                color = Color.Black,
-                                text = "Выбранный элемент (без угловых скобок <>)"
-                            )
+                            if (hasUrlFeedError) {
+                                Text(
+                                    color = Color.Red,
+                                    text = errorUrlFeedMessage
+                                )
+                            } else {
+                                Text(
+                                    color = Color.Black,
+                                    text = "Выбранный элемент (без угловых скобок <>)"
+                                )
+                            }
+
                         }
                     )
 

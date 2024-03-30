@@ -50,7 +50,7 @@ class FeedsRepositoryImpl @Inject constructor(
         feedsStorage.remove(feedName)
     }
 
-    override suspend fun getAllByProject(project: String): List<Feed> {
+    override suspend fun getAllFeedsByProject(project: String): List<Feed> {
         val feedList = mutableListOf<Feed>()
         feedsStorage.getAllByProject(project).forEach {
             feedList.add(it.toDomainFeed())

@@ -29,7 +29,8 @@ fun ProjectsDialogView(
     onConfirm:() -> Unit,
     onFieldChange:(String) -> Unit,
     hasError: Boolean = false,
-    errorMessage: String = ""
+    errorMessage: String = "",
+    onUpdateProjectClick: () -> Unit
 ) {
     if (openDialog){
         Dialog(
@@ -64,7 +65,6 @@ fun ProjectsDialogView(
                         )
                     }
                     Row {
-
                         OutlinedButton(
                             modifier = Modifier
                                 .fillMaxWidth()
@@ -92,7 +92,11 @@ fun ProjectsDialogView(
                                 end = 10.dp,
                                 bottom = 10.dp,
                             ),
-                            onClick = onConfirm,
+                            onClick = {
+                                onConfirm.invoke()
+                                onUpdateProjectClick.invoke()
+                            },
+
                         ) { Text(text = "Подтвердить") }
                     }
                 }

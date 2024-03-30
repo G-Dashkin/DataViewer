@@ -32,8 +32,11 @@ import com.perfomax.ui.R
 @Composable
 fun HomeScreen(
     uiState: HomeContract.State,
+    updateFeedsList:() -> Unit,
     onUpdateFeedsClick:() -> Unit
 ) {
+    updateFeedsList.invoke()
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -75,6 +78,7 @@ fun HomeScreenPreview() {
         val homeEffects by homeViewModel.effect.collectAsStateWithLifecycle()
         HomeScreen (
             uiState = homeUiState,
+            updateFeedsList = {},
             onUpdateFeedsClick = {}
         )
     }

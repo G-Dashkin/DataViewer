@@ -7,7 +7,6 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import com.perfomax.dataviewer.navigation.NavigationDestination
 import com.perfomax.dataviewer.navigation.TopLevelDestination
-import com.perfomax.dataviewer.presentation.feeds.FeedsContract
 import com.perfomax.dataviewer.presentation.home.HomeContract
 import com.perfomax.dataviewer.presentation.home.HomeScreen
 import com.perfomax.dataviewer.presentation.home.HomeViewModel
@@ -20,6 +19,7 @@ fun NavGraphBuilder.navigateToHome(){
         val homeUiState by homeViewModel.uiState.collectAsStateWithLifecycle()
         HomeScreen (
             uiState = homeUiState,
+            updateFeedsList = { homeViewModel.intent(HomeContract.Event.UpdateFeedsListEvent) },
             onUpdateFeedsClick = { homeViewModel.intent(HomeContract.Event.CountFeedElementEvent) }
         )
     }

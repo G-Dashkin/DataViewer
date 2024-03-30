@@ -1,13 +1,10 @@
 package com.perfomax.dataviewer.presentation.home
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.perfomax.dataviewer.domain.usecases.feeds.CountFeedElementsUseCase
 import com.perfomax.dataviewer.domain.usecases.feeds.GetAllFeedsUseCase
 import com.perfomax.dataviewer.domain.usecases.projects.GetSelectedProjectUseCase
-import com.perfomax.dataviewer.domain.utils.getFeedElement
-import com.perfomax.dataviewer.domain.utils.getFeedUrl
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -15,21 +12,6 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
-
-
-//sealed interface MenuUiState {
-////    data object Loading : MenuUiState
-//    object Loading : MenuUiState
-//
-//    @Immutable
-//    data class Success(
-//        val feedsList: ImmutableList<String>,
-//        val selectedSectionIndex: Int = 0,
-////        val product: ImmutableList<MenuItem>
-//    ): MenuUiState {
-//        fun selectionTitle(): String = feedsList[selectedSectionIndex]
-//    }
-//}
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
@@ -44,13 +26,11 @@ class HomeViewModel @Inject constructor(
     private val _effect = MutableStateFlow<HomeContract.Effect?>(null)
     override val effect: StateFlow<HomeContract.Effect?> = _effect.asStateFlow()
 
-    init {
-        loadFeedsList()
-    }
 
     override fun intent(event: HomeContract.Event) {
         when(event) {
             HomeContract.Event.CountFeedElementEvent -> countFeedElements()
+            HomeContract.Event.UpdateFeedsListEvent -> loadFeedsList()
         }
     }
 
@@ -71,9 +51,7 @@ class HomeViewModel @Inject constructor(
     private fun countFeedElements() {
         viewModelScope.launch {
             countFeedElementsUseCase.execute(_uiState.value.feedsList)
+            loadFeedsList()
         }
-        loadFeedsList()
     }
-
-
 }

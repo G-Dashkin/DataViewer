@@ -21,13 +21,14 @@ import androidx.compose.ui.window.Dialog
 
 @Composable
 fun DefaultDialogView(
-    textValue: String,
+    textValue: String = "",
     title: String = "",
     addFieldValue: Boolean = false,
     openDialog: Boolean,
-    onCancel:() -> Unit,
-    onConfirm:() -> Unit,
+    onCancel:() -> Unit = { },
+    onConfirm:() -> Unit = { },
     hasError: Boolean = false,
+    onlyCancel: Boolean = false,
     errorMessage: String = ""
 ) {
     if (openDialog){
@@ -79,20 +80,22 @@ fun DefaultDialogView(
                             onClick = onCancel
                         ) { Text(text = "Отменить") }
 
-                        Button(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(10.dp)
-                                .weight(1F),
-                            shape = RoundedCornerShape(10.dp),
-                            contentPadding = PaddingValues(
-                                start = 10.dp,
-                                top = 10.dp,
-                                end = 10.dp,
-                                bottom = 10.dp,
-                            ),
-                            onClick = onConfirm,
-                        ) { Text(text = "Подтвердить") }
+                        if (!onlyCancel){
+                            Button(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(10.dp)
+                                    .weight(1F),
+                                shape = RoundedCornerShape(10.dp),
+                                contentPadding = PaddingValues(
+                                    start = 10.dp,
+                                    top = 10.dp,
+                                    end = 10.dp,
+                                    bottom = 10.dp,
+                                ),
+                                onClick = onConfirm,
+                            ) { Text(text = "Подтвердить") }
+                        }
                     }
                 }
             }

@@ -75,6 +75,8 @@ class ProjectsViewModel @Inject constructor(
                 closeDialogCreateNewProject()
                 onClearUiFieldsState()
                 loadProjectsList()
+                selectProjectUseCase.execute(newProjectName)
+                getSelectedProject()
             }
         } else if (newProjectNameValid2) {
             _uiState.update { state ->

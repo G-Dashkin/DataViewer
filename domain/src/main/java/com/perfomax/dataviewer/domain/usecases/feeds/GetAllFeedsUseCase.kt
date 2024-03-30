@@ -10,6 +10,6 @@ class GetAllFeedsUseCase @Inject constructor(
 ): UseCaseWithParams<List<Feed>, String> {
 
     override suspend fun execute(project: String): List<Feed> {
-        return repository.getAllByProject(project = project)
+        return repository.getAllFeedsByProject(project = project)
     }
 }

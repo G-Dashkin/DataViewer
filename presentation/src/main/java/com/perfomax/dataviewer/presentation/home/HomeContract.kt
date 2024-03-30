@@ -21,6 +21,7 @@ interface HomeContract:
     }
 
     sealed interface Event {
+        data object UpdateFeedsListEvent: Event
         data object CountFeedElementEvent: Event
     }
 
