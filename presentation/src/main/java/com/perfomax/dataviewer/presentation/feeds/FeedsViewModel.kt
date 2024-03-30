@@ -232,7 +232,6 @@ class FeedsViewModel @Inject constructor(
                        "feedUpdateTime:$feedUpdateTime;" +
                        "feedLoadTime:$feedLoadTime"
 
-//            val newProjectName = _uiState.value.projectName
             val feedNameValid = feedName.isNotEmpty()
             val feedNameValid2 = feedName.contains("|")
             val feedNameValid3 = _uiState.value.feedsList.find { it.feedName == feedName }
@@ -244,6 +243,7 @@ class FeedsViewModel @Inject constructor(
                 onClearUiFieldsState()
                 closeDialogSelectedFeedElement()
                 loadFeedsList()
+                onSwitchToFeedsList()
             } else if(feedNameValid2) {
                 _uiState.update { state ->
                     FeedsContract.State.notCorrect()
@@ -281,7 +281,6 @@ class FeedsViewModel @Inject constructor(
             }
 
         }
-        onSwitchToFeedsList()
     }
 
 }
