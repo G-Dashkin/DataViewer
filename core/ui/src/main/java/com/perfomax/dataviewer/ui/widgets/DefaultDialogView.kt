@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
@@ -48,21 +49,6 @@ fun DefaultDialogView(
                         modifier = Modifier.padding(10.dp),
                         fontSize = 20.sp
                     )
-//                    if (addFieldValue) {
-//                        TextField(
-//                            modifier = Modifier.padding(8.dp),
-//                            value = textValue,
-//                            onValueChange = onFieldChange,
-//                            label = {
-//                                if (hasError) {
-//                                    Text(
-//                                        color = Color.Red,
-//                                        text = errorMessage
-//                                    )
-//                                }
-//                            }
-//                        )
-//                    }
                     Row {
 
                         OutlinedButton(
@@ -78,7 +64,10 @@ fun DefaultDialogView(
                                 bottom = 10.dp,
                             ),
                             onClick = onCancel
-                        ) { Text(text = "Отменить") }
+                        ) { Text(
+                                text = "Отменить",
+                                style = MaterialTheme.typography.titleMedium
+                            )}
 
                         if (!onlyCancel){
                             Button(
@@ -94,7 +83,11 @@ fun DefaultDialogView(
                                     bottom = 10.dp,
                                 ),
                                 onClick = onConfirm,
-                            ) { Text(text = "Подтвердить") }
+                            ) { Text(
+                                text = "Подтвердить",
+                                color = MaterialTheme.colorScheme.onSecondary,
+                                style = MaterialTheme.typography.titleMedium
+                            ) }
                         }
                     }
                 }

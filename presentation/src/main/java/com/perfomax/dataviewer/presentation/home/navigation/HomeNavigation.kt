@@ -20,7 +20,19 @@ fun NavGraphBuilder.navigateToHome(){
         HomeScreen (
             uiState = homeUiState,
             updateFeedsList = { homeViewModel.intent(HomeContract.Event.UpdateFeedsListEvent) },
-            onUpdateFeedsClick = { homeViewModel.intent(HomeContract.Event.CountFeedElementEvent) }
+            onUpdateFeedsClick = { homeViewModel.intent(HomeContract.Event.CountFeedElementEvent) },
+            onClickFeedElement = { clickedFeed ->
+                homeViewModel.intent(HomeContract.Event.ClickFeedNameEvent(clickedFeed))
+            },
+            onFindFeedElement = { findingFeedElementName ->
+                homeViewModel.intent(HomeContract.Event.ClickFindFeedElement(findingFeedElementName))
+            },
+            onFindSelectedElement = { homeViewModel.intent(HomeContract.Event.FindSelectedElementEvent) },
+            onClickUpdateFeed = { homeViewModel.intent(HomeContract.Event.ClickUpdateFeedEvent) },
+            onChangeFeed = { changingFeed ->
+                homeViewModel.intent(HomeContract.Event.ChangeFeedEvent(changingFeed))
+            },
+            onCloseDialogClick = { homeViewModel.intent(HomeContract.Event.CloseDialogClickEvent) }
         )
     }
 }

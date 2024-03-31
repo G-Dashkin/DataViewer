@@ -21,10 +21,16 @@ interface FeedsContract:
         val selectedFeedElementError: Boolean,
         val selectedFeedElementErrorMessage: String,
 
+        val isSelectingFeedDateElement: Boolean,
+        val feedDateElement: String,
+
         val removedFeed: String,
+
+        val isCountingFeedElements: Boolean,
 
         val openDialogSelectedFeedElement: Boolean,
         val openDialogFeedUrlErrorElement: Boolean,
+        val openDialogChangeFeed: Boolean,
 
         val isFeedsList: Boolean,
         val openDialogRemoveFeed: Boolean
@@ -42,11 +48,15 @@ interface FeedsContract:
                 selectedFeedElement = EMPTY,
                 selectedFeedElementError = false,
                 selectedFeedElementErrorMessage = EMPTY,
+                isSelectingFeedDateElement = false,
+                feedDateElement = EMPTY,
                 removedFeed = EMPTY,
+                isCountingFeedElements = false,
                 openDialogSelectedFeedElement = false,
                 isFeedsList = true,
                 openDialogRemoveFeed = false,
-                openDialogFeedUrlErrorElement = false
+                openDialogFeedUrlErrorElement = false,
+                openDialogChangeFeed = false
             )
             fun notCorrect(): State = State(
                 feedUrl = EMPTY,
@@ -59,11 +69,15 @@ interface FeedsContract:
                 selectedFeedElement = EMPTY,
                 selectedFeedElementError = false,
                 selectedFeedElementErrorMessage = EMPTY,
+                isSelectingFeedDateElement = false,
+                feedDateElement = EMPTY,
                 removedFeed = EMPTY,
+                isCountingFeedElements = false,
                 openDialogSelectedFeedElement = false,
                 isFeedsList = true,
                 openDialogRemoveFeed = false,
-                openDialogFeedUrlErrorElement = false
+                openDialogFeedUrlErrorElement = false,
+                openDialogChangeFeed = false
             )
         }
     }
@@ -72,6 +86,7 @@ interface FeedsContract:
         data object AddFeedClickEvent: Event
         data class FeedUrlChangeEvent(val text: String): Event
         data class SelectFeedElementEvent(val selectedFeedElement: String): Event
+        data class SelectFeedDateElementEvent(val selectedFeedDataElement: String): Event
         data class SelectRemovedFeedEvent(val removedFeed: String): Event
         data object RemoveFeedClickEvent : Event
         data class FeedNameEvent(val feedName: String): Event
@@ -82,7 +97,9 @@ interface FeedsContract:
         data object UpdateProjectEvent : Event
         data object SwitchScreenToFeedsListEvent : Event
         data object CloseDialogFeedUrlErrorEvent : Event
-
+        data object SelectDateElementInFeedEvent : Event
+        data class OpenChangeFeedDialogEvent(val feedName: String): Event
+        data object CloseDialogChangeFeedEvent : Event
     }
 
     sealed interface Effect {

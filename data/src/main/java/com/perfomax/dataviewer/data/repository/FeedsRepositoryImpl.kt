@@ -4,7 +4,6 @@ import android.util.Log
 import com.perfomax.dataviewer.data.mappers.toDomainFeed
 import com.perfomax.dataviewer.data.network.api.FeedApi
 import com.perfomax.dataviewer.data.storage.api.FeedsStorage
-import com.perfomax.dataviewer.data.storage.api.ProjectsStorage
 import com.perfomax.dataviewer.domain.models.Feed
 import com.perfomax.dataviewer.domain.repository.FeedsRepository
 import com.perfomax.dataviewer.domain.utils.parsToString
@@ -24,17 +23,16 @@ class FeedsRepositoryImpl @Inject constructor(
     }
 
     override suspend fun countFeedElements(feedList: List<Feed>) = withContext(dispatcher) {
-
         val updatedFeedList = mutableListOf<Feed>()
         feedList.forEach { feed ->
-            feedApi.countFeedElements(feedElement = feed.feedElement, feedUrl =  feed.feedUrl)
+            val updatedFeedData = feedApi.updateFeedElements(feed)
             val updatedFeed = feed.copy(
                 projectName = feed.projectName,
                 feedName = feed.feedName,
                 feedElement = feed.feedElement,
-                feedElementCount = feedApi.countFeedElements(feedElement = feed.feedElement, feedUrl =  feed.feedUrl),
+                feedElementCount = updatedFeedData.feedElementCount,
                 feedUrl = feed.feedUrl,
-                feedUpdateTime = feed.feedUpdateTime,
+                feedUpdateTime = updatedFeedData.feedUpdateTime,
                 feedLoadTime = feed.feedLoadTime
             )
             updatedFeedList.add(updatedFeed)

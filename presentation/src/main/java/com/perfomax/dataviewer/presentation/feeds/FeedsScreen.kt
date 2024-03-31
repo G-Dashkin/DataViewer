@@ -1,10 +1,8 @@
 package com.perfomax.dataviewer.presentation.feeds
 
-import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -41,8 +39,10 @@ import com.perfomax.dataviewer.ui.theme.shape8
 import com.perfomax.dataviewer.ui.theme.zeroVal
 import com.perfomax.dataviewer.ui.widgets.DefaultDialogView
 import com.perfomax.dataviewer.ui.widgets.FeedItem
-import com.perfomax.dataviewer.ui.widgets.FeedsDialogView
+import com.perfomax.dataviewer.ui.widgets.AddFeedDialogView
+import com.perfomax.dataviewer.ui.widgets.ChangeFeedDialogView
 import com.perfomax.dataviewer.ui.widgets.FeedsScreenFormTextField
+import com.perfomax.dataviewer.ui.widgets.HomeScreenFeedDialogView
 import com.perfomax.dataviewer.ui.widgets.LoadingIndicator
 import com.perfomax.ui.R
 
@@ -52,16 +52,26 @@ fun FeedsScreen(
     onFeedUrlFieldChange: (String) -> Unit,
     onAddFeedClick: () -> Unit,
     onOpenDialogSelectedFeedElementClick: () -> Unit,
+
+    onOpenChangeFeedDialog: (String) -> Unit,
+    onCloseDialogChangeFeed: () -> Unit,
+
     onCloseDialogSelectedFeedElement: () -> Unit,
     onFeedNameFieldChange: (String) -> Unit,
+
     onSelectFeedElement: (String) -> Unit,
+    onSelectFeedDateElement: (String) -> Unit,
+
     onSelectRemovedFeedNameClick:(String) -> Unit,
     onCloseDialogRemoveFeedClick:() -> Unit,
     onRemoveFeedClick:() -> Unit,
     onAddNewFeed:() -> Unit,
     updateProject:() -> Unit,
     onSwitchToFeedsListClick:() -> Unit,
-    onCloseDialogFeedUrlError:() -> Unit
+    onCloseDialogFeedUrlError:() -> Unit,
+
+
+    selectDateElement: () -> Unit = {  }
 ) {
 
     updateProject.invoke()
@@ -100,13 +110,14 @@ fun FeedsScreen(
                     .fillMaxWidth()
                     .height(height50)
                     .defaultMinSize(minHeight = height50),
+                    enabled = !uiState.isCountingFeedElements,
                     shape = RoundedCornerShape(shape8),
                     contentPadding = PaddingValues(zeroVal),
                     onClick = onAddFeedClick
                 ) {
                     Text(text = stringResource(id = R.string.load),
-                        color = MaterialTheme.colorScheme.onSecondary,
-                        style = MaterialTheme.typography.titleMedium)
+                         color = MaterialTheme.colorScheme.onSecondary,
+                         style = MaterialTheme.typography.titleMedium)
                 }
             } else {
                 Button(modifier = Modifier
@@ -124,6 +135,20 @@ fun FeedsScreen(
             }
         }
         Spacer(modifier = Modifier.height(5.dp))
+
+
+        if (uiState.isCountingFeedElements) {
+            Column(
+                modifier = Modifier.fillMaxSize(),
+                verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                LoadingIndicator()
+                Text(text = "Подсчет элементов в фиде")
+            }
+        }
+
+
         Column(modifier = Modifier.fillMaxSize()) {
             if (uiState.isFeedsList){
                 LazyColumn(modifier = Modifier.fillMaxSize()) {
@@ -132,25 +157,30 @@ fun FeedsScreen(
                             feedName = element.feedName,
                             onRemoveBottom = true,
                             onRemove = onSelectRemovedFeedNameClick,
+                            onOpenChangeFeedDialog = onOpenChangeFeedDialog
                         )
                     }
                 }
             } else {
                 if (uiState.loadedFeed.isEmpty()) {
-                    Box(
+                    Column(
                         modifier = Modifier.fillMaxSize(),
-                        contentAlignment = Alignment.Center
+                        verticalArrangement = Arrangement.Center,
+                        horizontalAlignment = Alignment.CenterHorizontally
                     ) {
                         LoadingIndicator()
+                        Text(text = "Загрузка фида")
                     }
                 }
+
                 LazyColumn(modifier = Modifier.fillMaxSize()) {
                     items(uiState.loadedFeed) { element ->
                         Text(
                             modifier = Modifier
                                 .background(Color.Gray)
                                 .clickable {
-                                    onSelectFeedElement.invoke(element)
+                                    if (uiState.isSelectingFeedDateElement) onSelectFeedDateElement.invoke(element)
+                                    else onSelectFeedElement.invoke(element)
                                     onOpenDialogSelectedFeedElementClick.invoke()
                                 },
                             text = element,
@@ -163,15 +193,18 @@ fun FeedsScreen(
         }
     }
 
-    FeedsDialogView(
+    AddFeedDialogView(
         title = stringResource(id = R.string.adding_feed),
         feedNameValue = uiState.feedName,
         onFeedNameFieldChangeValue = onFeedNameFieldChange,
         feedElementNameValue = uiState.selectedFeedElement,
         onFeedElementFieldChangeValue = onSelectFeedElement,
-        hasDateElement = true,
         dateElement = "<yml_catalog date=\"2024-03-21 20:52\">",
         useDateElement = {},
+
+        selectDateElement = selectDateElement,
+        selectedFeedDateElement = uiState.feedDateElement,
+
         openDialog = uiState.openDialogSelectedFeedElement,
         onCancel = onCloseDialogSelectedFeedElement,
         onConfirm = onAddNewFeed,
@@ -181,6 +214,12 @@ fun FeedsScreen(
 
         hasUrlFeedError = uiState.selectedFeedElementError,
         errorUrlFeedMessage = uiState.selectedFeedElementErrorMessage,
+    )
+
+    ChangeFeedDialogView(
+        title = uiState.feedName,
+        openDialog = uiState.openDialogChangeFeed,
+        onClose = onCloseDialogChangeFeed
     )
 
     DefaultDialogView(

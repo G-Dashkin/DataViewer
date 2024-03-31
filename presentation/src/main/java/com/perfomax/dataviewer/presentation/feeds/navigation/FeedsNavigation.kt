@@ -25,12 +25,11 @@ fun NavGraphBuilder.navigateToFeeds(){
             onSelectFeedElement = { feedElement ->
                 feedsViewModel.intent(FeedsContract.Event.SelectFeedElementEvent(feedElement))
             },
-            onOpenDialogSelectedFeedElementClick = {
-                feedsViewModel.intent(FeedsContract.Event.OpenDialogSelectedFeedElementEvent)
+            onSelectFeedDateElement = { feedDateElement ->
+                feedsViewModel.intent(FeedsContract.Event.SelectFeedDateElementEvent(feedDateElement))
             },
-            onCloseDialogSelectedFeedElement = {
-                feedsViewModel.intent(FeedsContract.Event.CloseDialogSelectedFeedElementEvent)
-            },
+            onOpenDialogSelectedFeedElementClick = { feedsViewModel.intent(FeedsContract.Event.OpenDialogSelectedFeedElementEvent) },
+            onCloseDialogSelectedFeedElement = { feedsViewModel.intent(FeedsContract.Event.CloseDialogSelectedFeedElementEvent) },
             onFeedNameFieldChange = { feedName ->
                 feedsViewModel.intent(FeedsContract.Event.FeedNameEvent(feedName))
             },
@@ -38,21 +37,16 @@ fun NavGraphBuilder.navigateToFeeds(){
             onSelectRemovedFeedNameClick = { removedFeedName ->
                 feedsViewModel.intent(FeedsContract.Event.SelectRemovedFeedEvent(removedFeedName))
             },
-            onCloseDialogRemoveFeedClick = {
-                feedsViewModel.intent(FeedsContract.Event.CloseDialogRemoveEvent)
+            onCloseDialogRemoveFeedClick = { feedsViewModel.intent(FeedsContract.Event.CloseDialogRemoveEvent) },
+            onRemoveFeedClick = { feedsViewModel.intent(FeedsContract.Event.RemoveFeedClickEvent) },
+            updateProject = { feedsViewModel.intent(FeedsContract.Event.UpdateProjectEvent) },
+            onSwitchToFeedsListClick = { feedsViewModel.intent(FeedsContract.Event.SwitchScreenToFeedsListEvent) },
+            onCloseDialogFeedUrlError = { feedsViewModel.intent(FeedsContract.Event.CloseDialogFeedUrlErrorEvent) },
+            selectDateElement = { feedsViewModel.intent(FeedsContract.Event.SelectDateElementInFeedEvent) },
+            onOpenChangeFeedDialog = { feedName ->
+                feedsViewModel.intent(FeedsContract.Event.OpenChangeFeedDialogEvent(feedName))
             },
-            onRemoveFeedClick = {
-                feedsViewModel.intent(FeedsContract.Event.RemoveFeedClickEvent)
-            },
-            updateProject = {
-                feedsViewModel.intent(FeedsContract.Event.UpdateProjectEvent)
-            },
-            onSwitchToFeedsListClick = {
-                feedsViewModel.intent(FeedsContract.Event.SwitchScreenToFeedsListEvent)
-            },
-            onCloseDialogFeedUrlError = {
-                feedsViewModel.intent(FeedsContract.Event.CloseDialogFeedUrlErrorEvent)
-            }
+            onCloseDialogChangeFeed = { feedsViewModel.intent(FeedsContract.Event.CloseDialogChangeFeedEvent) }
         )
     }
 }

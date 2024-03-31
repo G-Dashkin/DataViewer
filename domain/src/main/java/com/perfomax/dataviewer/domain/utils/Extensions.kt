@@ -48,6 +48,12 @@ fun String.getFeedName(): String {
     return this.split("feedName:")[1].split(";")[0]
 }
 
+//
+
+fun String.getFeedElementValue(): String {
+    return if (this.isNotEmpty()) this.split(":\"")[1].split("\"")[0] else ""
+}
+
 fun String.getFeedElement(): String {
     return this.split("feedElement:")[1].split(";")[0]
 }
