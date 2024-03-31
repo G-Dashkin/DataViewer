@@ -40,7 +40,9 @@ class FeedsViewModel @Inject constructor(
     init {
         _uiState.update { currentState->
             currentState.copy(
+//                feedUrl = "https://citilink.ru"
                 feedUrl = "https://feeds-mic.s1.citilink.ru/yandex_offer/spb_cl.xml"
+//                feedUrl = "https://feeds-mic.s1.citilink.ru/yandex_offer/spb_cl.xml"
 //                feedUrl = "https://api2.kiparo.com/static/it_news.xml"
             )
         }
@@ -258,7 +260,11 @@ class FeedsViewModel @Inject constructor(
                        "feedLoadTime:$feedLoadTime"
 
             val feedNameValid = feedName.isNotEmpty()
-            val feedNameValid2 = feedName.contains("|")
+            val feedNameValid2 = feedName.any {
+                it.toString().contains("|") ||
+                        it.toString().contains(";") ||
+                        it.toString().contains(",")
+            }
             val feedNameValid3 = _uiState.value.feedsList.find { it.feedName == feedName }
 
             val feedElementValid = feedElement.isNotEmpty()
@@ -281,8 +287,12 @@ class FeedsViewModel @Inject constructor(
                 _uiState.update { state ->
                     FeedsContract.State.notCorrect()
                     state.copy(
-                        feedNameError = feedName.contains("|"),
-                        feedNameErrorMessage = "Название фида не должно содержать знаков | "
+                        feedNameError = feedName.any {
+                            it.toString().contains("|") ||
+                                    it.toString().contains(";") ||
+                                    it.toString().contains(",")
+                        },
+                        feedNameErrorMessage = "Название фида не должно содержать знаков | ; ,"
                     )
                 }
 

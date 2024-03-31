@@ -66,7 +66,11 @@ class ProjectsViewModel @Inject constructor(
     private fun onCreateNewProject() {
         val newProjectName = _uiState.value.projectName
         val newProjectNameValid = newProjectName.isNotEmpty()
-        val newProjectNameValid2 = newProjectName.contains("|")
+        val newProjectNameValid2 = newProjectName.any {
+            it.toString().contains("|") ||
+            it.toString().contains(";") ||
+            it.toString().contains(",")
+        }
         val newProjectNameValid3 = _uiState.value.projectsList.contains(newProjectName)
 
         if (newProjectNameValid && !newProjectNameValid2 && !newProjectNameValid3) {
@@ -82,8 +86,12 @@ class ProjectsViewModel @Inject constructor(
             _uiState.update { state ->
                 ProjectsContract.State.notCreate()
                 state.copy(
-                    projectNameError = newProjectName.contains("|"),
-                    errorMessage = "Поле проект не должно содержать знаков | "
+                    projectNameError = newProjectName.any {
+                        it.toString().contains("|") ||
+                        it.toString().contains(";") ||
+                        it.toString().contains(",")
+                  },
+                    errorMessage = "Поле проект не должно содержать знаков | ; ,"
 
                 )
             }

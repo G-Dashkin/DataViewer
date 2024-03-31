@@ -8,8 +8,17 @@ import java.net.URL
 
 class FeedApiImpl: FeedApi {
     override fun getData(feedUrl: String): List<String> {
+        Log.d("MyLog", "--------------------------1")
         val url = URL(feedUrl)
+        Log.d("MyLog", "--------------------------2")
         val connection = url.openConnection() as HttpURLConnection
+        Log.d("MyLog", "--------------------------3")
+        try {
+            Log.d("MyLog", connection.responseCode.toString())
+        } catch (e:Exception){
+            Log.d("MyLog", "catch: $e")
+        }
+        Log.d("MyLog", "--------------------------4")
         val processedFeed = connection.inputStream.bufferedReader().use { it.readText() }
         val arrayFeed = Parser.parsingToList(processedFeed)
         return arrayFeed
