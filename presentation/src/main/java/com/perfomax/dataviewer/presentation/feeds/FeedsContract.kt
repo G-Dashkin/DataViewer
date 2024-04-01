@@ -10,6 +10,7 @@ interface FeedsContract:
     data class State(
         val feedUrl: String,
         val feedUrlError: Boolean,
+        val feedUrlErrorMessage: String,
         val loadedFeed: List<String>,
         val feedsList: List<Feed>,
 
@@ -40,6 +41,7 @@ interface FeedsContract:
             fun initial(): State = State(
                 feedUrl = EMPTY,
                 feedUrlError = false,
+                feedUrlErrorMessage = EMPTY,
                 loadedFeed = emptyList(),
                 feedsList = emptyList(),
                 feedName = EMPTY,
@@ -61,6 +63,7 @@ interface FeedsContract:
             fun notCorrect(): State = State(
                 feedUrl = EMPTY,
                 feedUrlError = false,
+                feedUrlErrorMessage = EMPTY,
                 loadedFeed = emptyList(),
                 feedsList = emptyList(),
                 feedName = EMPTY,

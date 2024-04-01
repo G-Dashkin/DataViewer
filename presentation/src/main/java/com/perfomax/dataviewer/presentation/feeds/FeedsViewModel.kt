@@ -41,6 +41,7 @@ class FeedsViewModel @Inject constructor(
         _uiState.update { currentState->
             currentState.copy(
 //                feedUrl = "https://citilink.ru"
+//                feedUrl = "citilink.в"
                 feedUrl = "https://feeds-mic.s1.citilink.ru/yandex_offer/spb_cl.xml"
 //                feedUrl = "https://feeds-mic.s1.citilink.ru/yandex_offer/spb_cl.xml"
 //                feedUrl = "https://api2.kiparo.com/static/it_news.xml"
@@ -108,15 +109,41 @@ class FeedsViewModel @Inject constructor(
 
     private fun onAddFeedClick() {
         viewModelScope.launch {
+
             val feedUrl = _uiState.value.feedUrl
             onSwitchToFeedElements()
             val allFeedsByProjectsBy = getAllFeedsUseCase.execute(getSelectedProjectUseCase.execute())
-
             if(allFeedsByProjectsBy.find { it.feedUrl == feedUrl } == null ){
-                _uiState.update { currentState ->
-                    currentState.copy(
-                        loadedFeed = loadFeedUseCase.execute(feedUrl)
-                    )
+
+                val loadedFeed = loadFeedUseCase.execute(feedUrl)
+
+                if(loadedFeed.any{ it.contains("errorURl") }) {
+                    _uiState.update { currentState ->
+                        currentState.copy(
+                            feedUrlError = true,
+                            feedUrlErrorMessage = "Введен некорректный URl"
+                        )
+                    }
+                } else if(
+                    loadedFeed.any{ it.contains("<head>") } ||
+                    loadedFeed.any{ it.contains("<body>") }
+                ) {
+                    _uiState.update { currentState ->
+                        currentState.copy(
+                            feedUrlError = true,
+                            feedUrlErrorMessage = "По ссылке обнаружены HTML элементы. Возможно по ссылке не фид сайт, а сайт."
+                            )
+                        }
+                    _uiState.update { currentState ->
+                        currentState.copy(
+                            loadedFeed = loadedFeed
+                        )
+                    } } else {
+                        _uiState.update { currentState ->
+                            currentState.copy(
+                                loadedFeed = loadedFeed
+                        )
+                    }
                 }
             } else {
                 _uiState.update { currentState ->
@@ -328,8 +355,6 @@ class FeedsViewModel @Inject constructor(
 
 
     private fun openDialogChangeFeed(feedName: String) {
-        Log.d("MyLog", "Открытие диалога")
-        Log.d("MyLog", "Имя фида на изменение:$feedName")
         _uiState.update { currentState ->
             currentState.copy(
                 feedName = feedName,

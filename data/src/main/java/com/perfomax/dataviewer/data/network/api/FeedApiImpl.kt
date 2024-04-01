@@ -8,19 +8,35 @@ import java.net.URL
 
 class FeedApiImpl: FeedApi {
     override fun getData(feedUrl: String): List<String> {
-        Log.d("MyLog", "--------------------------1")
-        val url = URL(feedUrl)
-        Log.d("MyLog", "--------------------------2")
-        val connection = url.openConnection() as HttpURLConnection
-        Log.d("MyLog", "--------------------------3")
+        var urlResponse = ""
+        var responseCode = ""
+        val arrayFeed = mutableListOf<String>()
+
         try {
-            Log.d("MyLog", connection.responseCode.toString())
+            urlResponse += URL(feedUrl).toString()
         } catch (e:Exception){
-            Log.d("MyLog", "catch: $e")
+            urlResponse += e
         }
-        Log.d("MyLog", "--------------------------4")
-        val processedFeed = connection.inputStream.bufferedReader().use { it.readText() }
-        val arrayFeed = Parser.parsingToList(processedFeed)
+
+        if (!urlResponse.contains("no protocol:")) {
+            val url = URL(feedUrl)
+            val connection = url.openConnection() as HttpURLConnection
+
+            try {
+                responseCode += connection.responseCode.toString()
+            } catch (e:Exception){
+                responseCode += e
+            }
+
+            if (!responseCode.contains("Unable to resolve host")) {
+                val processedFeed = connection.inputStream.bufferedReader().use { it.readText() }
+                arrayFeed.addAll(Parser.parsingToList(processedFeed))
+            } else {
+                arrayFeed.add("errorURl")
+            }
+        } else {
+            arrayFeed.add("errorURl")
+        }
         return arrayFeed
     }
 

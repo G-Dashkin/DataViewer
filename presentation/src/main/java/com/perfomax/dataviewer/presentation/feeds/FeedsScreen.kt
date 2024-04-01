@@ -1,8 +1,11 @@
 package com.perfomax.dataviewer.presentation.feeds
 
+import android.util.Log
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -162,7 +165,7 @@ fun FeedsScreen(
                     }
                 }
             } else {
-                if (uiState.loadedFeed.isEmpty()) {
+                if (uiState.loadedFeed.isEmpty() && !uiState.feedUrlError) {
                     Column(
                         modifier = Modifier.fillMaxSize(),
                         verticalArrangement = Arrangement.Center,
@@ -173,13 +176,27 @@ fun FeedsScreen(
                     }
                 }
 
+                if(uiState.feedUrlError) {
+                    Box(modifier = Modifier.fillMaxWidth()
+                                           .border(1.dp, Color.Gray)
+                                           .padding(10.dp)
+                        ) {
+                        Text(text = uiState.feedUrlErrorMessage,
+                            color = Color.Red,
+                            style = MaterialTheme.typography.titleMedium)
+                    }
+                    Spacer(modifier = Modifier.height(5.dp))
+                }
+
                 LazyColumn(modifier = Modifier.fillMaxSize()) {
                     items(uiState.loadedFeed) { element ->
                         Text(
                             modifier = Modifier
                                 .background(Color.Gray)
                                 .clickable {
-                                    if (uiState.isSelectingFeedDateElement) onSelectFeedDateElement.invoke(element)
+                                    if (uiState.isSelectingFeedDateElement) onSelectFeedDateElement.invoke(
+                                        element
+                                    )
                                     else onSelectFeedElement.invoke(element)
                                     onOpenDialogSelectedFeedElementClick.invoke()
                                 },
