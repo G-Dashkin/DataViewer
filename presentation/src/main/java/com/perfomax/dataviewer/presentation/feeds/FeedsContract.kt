@@ -87,7 +87,7 @@ interface FeedsContract:
 
     sealed interface Event {
         data object AddFeedClickEvent: Event
-        data class FeedUrlChangeEvent(val text: String): Event
+        data class FeedUrlChangeEvent(val feedUrl: String): Event
         data class SelectFeedElementEvent(val selectedFeedElement: String): Event
         data class SelectFeedDateElementEvent(val selectedFeedDataElement: String): Event
         data class SelectRemovedFeedEvent(val removedFeed: String): Event

@@ -2,6 +2,7 @@ package com.perfomax.dataviewer.ui.widgets
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
@@ -28,13 +29,13 @@ fun FeedsScreenFormTextField(
         value = text,
         onValueChange = onChange,
 //        textStyle  =
-//        label = {
-//            Text(modifier = Modifier,
-//                fontSize = 12.sp,
-//                text = labelText,
-//                style = MaterialTheme.typography.labelMedium,
-//                color = MaterialTheme.colorScheme.onSurface)
-//        },
+        label = {
+            Text(modifier = Modifier,
+                fontSize = 12.sp,
+                text = labelText,
+                style = MaterialTheme.typography.labelMedium,
+                color = MaterialTheme.colorScheme.onSurface)
+        },
         textStyle = MaterialTheme.typography.labelMedium
             .merge(
                 fontSize = 16.sp,

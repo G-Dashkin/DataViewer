@@ -14,12 +14,15 @@
     <string name="delete_project">Удалить проект </string>
     <string name="feed_update">Обновить фиды</string>
     <string name="load_new_feed">Загрузить новый фид</string>
+    <string name="load_scanning_feed">Ссылка на фид</string>
+    <string name="search">Искать</string>
     <string name="load">Загрузить</string>
     <string name="cancel">Отменить</string>
     <string name="adding_feed">Добвление фида</string>
     <string name="delete_feed">Удалить фид</string>
     <string name="project">Проект: </string>
     <string name="feed_url">Feed Url</string>
+    <string name="feed_searching">Поиск в фиде</string>
 
     <string name="started_screen">Started Screen</string>
     <string name="settings_screen">Settings Screen</string>

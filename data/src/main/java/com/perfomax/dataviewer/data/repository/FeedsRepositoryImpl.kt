@@ -56,7 +56,8 @@ class FeedsRepositoryImpl @Inject constructor(
         return feedList
     }
 
-    override suspend fun selectFeedElement(feedElement: String) {
-
+    override suspend fun searchFeedElement(searchingElement: String): List<String> = withContext(dispatcher) {
+//        feedApi.getData(feedUrl)
+        listOf("d","d")
     }
 }

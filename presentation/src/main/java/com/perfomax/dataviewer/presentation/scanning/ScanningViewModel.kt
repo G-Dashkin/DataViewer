@@ -1,14 +1,19 @@
 package com.perfomax.dataviewer.presentation.scanning
 
 import androidx.lifecycle.ViewModel
-import com.perfomax.dataviewer.presentation.projects.ProjectsContract
+import androidx.lifecycle.viewModelScope
+import com.perfomax.dataviewer.domain.usecases.feeds.LoadFeedUseCase
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class ScanningViewModel(
-
+@HiltViewModel
+class ScanningViewModel @Inject constructor(
+    private val loadFeedUseCase: LoadFeedUseCase
 ): ViewModel(), ScanningContract {
 
     private val _uiState = MutableStateFlow(ScanningContract.State.initial())
@@ -17,13 +22,66 @@ class ScanningViewModel(
     private val _effect = MutableStateFlow<ScanningContract.Effect?>(null)
     override val effect: StateFlow<ScanningContract.Effect?> = _effect.asStateFlow()
 
+    init {
+        _uiState.update { currentState->
+            currentState.copy(
+//                feedUrl = "https://citilink.ru"
+//                feedUrl = "citilink.в"
+                feedUrl = "https://feeds-mic.s1.citilink.ru/yandex_offer/spb_cl.xml"
+//                feedUrl = "https://feeds-mic.s1.citilink.ru/yandex_offer/spb_cl.xml"
+//                feedUrl = "https://api2.kiparo.com/static/it_news.xml"
+            )
+        }
+    }
+
     override fun intent(event: ScanningContract.Event) {
         when(event) {
-            ScanningContract.Event.SomeEvent -> { }
+            is ScanningContract.Event.FeedUrlChangeEvent -> { onFeedUrlChangeEvent(event.feedUrl) }
+            is ScanningContract.Event.SearchFeedElementChangeEvent -> { onSearchFeedValueChangeEvent(event.feedSearchElement) }
+            ScanningContract.Event.ScanningFeedClickEvent -> onScanFeed()
+            ScanningContract.Event.SearchFeedElementClickEvent -> {}
         }
     }
 
     override fun consume() {
         _effect.update { null }
     }
+
+    private fun onClearUiFieldsState(){
+        _uiState.update { currentState ->
+            currentState.copy(
+                feedUrl = ""
+            )
+        }
+    }
+
+    private fun onFeedUrlChangeEvent(feedUrl: String) {
+        _uiState.update { currentState ->
+            currentState.copy(
+                feedUrl = feedUrl,
+                feedUrlError = feedUrl.isNotBlank()
+            )
+        }
+    }
+
+    private fun onSearchFeedValueChangeEvent(feedSearchValue: String) {
+        _uiState.update { currentState ->
+            currentState.copy(
+                feedSearchValue = feedSearchValue,
+                feedSearchValueError = feedSearchValue.isNotBlank()
+            )
+        }
+    }
+
+    private fun onScanFeed() {
+        viewModelScope.launch {
+            _uiState.update {  currentState ->
+                currentState.copy(
+                    isFeedScanningResponse = true,
+                    loadedFeed = loadFeedUseCase.execute(feedUrl = _uiState.value.feedUrl)
+                )
+            }
+        }
+    }
+
 }

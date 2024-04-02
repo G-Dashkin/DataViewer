@@ -41,7 +41,6 @@ fun DataViewerNavBar(
                 .windowInsetsPadding(windowInsets)
                 .height(height100)
                 .selectableGroup(),
-            horizontalArrangement = Arrangement.spacedBy(space8),
             content = content
         )
     }

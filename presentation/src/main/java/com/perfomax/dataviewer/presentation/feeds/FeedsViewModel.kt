@@ -1,6 +1,5 @@
 package com.perfomax.dataviewer.presentation.feeds
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.perfomax.dataviewer.domain.usecases.feeds.CountFeedElementsUseCase
@@ -51,7 +50,7 @@ class FeedsViewModel @Inject constructor(
 
     override fun intent(event: FeedsContract.Event) {
         when(event) {
-            is FeedsContract.Event.FeedUrlChangeEvent -> onFeedUrlChangeEvent(event.text)
+            is FeedsContract.Event.FeedUrlChangeEvent -> onFeedUrlChangeEvent(event.feedUrl)
             is FeedsContract.Event.SelectFeedElementEvent -> onSelectFeedElement(event.selectedFeedElement)
             is FeedsContract.Event.FeedNameEvent -> onFeedName(event.feedName)
             is FeedsContract.Event.SelectRemovedFeedEvent -> onSelectRemovedFeed(event.removedFeed)

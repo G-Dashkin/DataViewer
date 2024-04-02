@@ -1,5 +1,6 @@
 package com.perfomax.dataviewer.presentation.menu.menu_bottom
 
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.material3.Badge
 import androidx.compose.material3.BadgedBox
@@ -14,6 +15,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.perfomax.ui.R
 
 @Composable
@@ -32,7 +35,7 @@ fun RowScope.DataViewerIconTab(
 
     NavigationBarItem(
         modifier = modifier,
-        label = { Text(text = stringResource(id = iconTitle)) },
+        label = { Text(text = stringResource(id = iconTitle), fontSize = 13.sp) },
         icon = {
             DefaultBadgedBox(
                 count = (iconBadgeCounter ?: stringResource(id = R.string.empty)).toString(),

@@ -7,7 +7,9 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import com.perfomax.dataviewer.navigation.NavigationDestination
 import com.perfomax.dataviewer.navigation.TopLevelDestination
+import com.perfomax.dataviewer.presentation.feeds.FeedsContract
 import com.perfomax.dataviewer.presentation.projects.ProjectsViewModel
+import com.perfomax.dataviewer.presentation.scanning.ScanningContract
 import com.perfomax.dataviewer.presentation.scanning.ScanningScreen
 import com.perfomax.dataviewer.presentation.scanning.ScanningViewModel
 import com.perfomax.ui.R
@@ -16,7 +18,16 @@ fun NavGraphBuilder.navigateToScanning(){
     composable(route = ScanningDestination.route) {
         val scanningViewModel = hiltViewModel<ScanningViewModel>()
         val scanningUiState by scanningViewModel.uiState.collectAsStateWithLifecycle()
-        ScanningScreen()
+        ScanningScreen(
+            uiState = scanningUiState,
+            onFeedUrlFieldChange = { feedUrl ->
+                scanningViewModel.intent(ScanningContract.Event.FeedUrlChangeEvent(feedUrl))
+            },
+            onSearchFeedElementFieldChange = { feedValue ->
+
+            },
+            onScanFeedClick = {scanningViewModel.intent(ScanningContract.Event.ScanningFeedClickEvent) }
+        )
     }
 }
 
