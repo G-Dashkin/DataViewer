@@ -54,6 +54,39 @@ fun String.getFeedElementValue(): String {
     return if (this.isNotEmpty()) this.split(":\"")[1].split("\"")[0] else ""
 }
 
+fun List<String>.toShortList(): List<String> {
+
+    val feedElements = ArrayList<String>()
+
+    this.forEach { addedElement ->
+        if (checkSameElement(feedElements, addedElement) && feedElements.size < 500) {
+            feedElements.add(addedElement)
+        } else {
+            feedElements.set(feedElements.size-1, feedElements.last().replace(">...", ""))
+            feedElements.set(feedElements.size-1, feedElements.last().split(" ")[0]+">" + "...")
+        }
+    }
+    return feedElements
+}
+
+private fun checkSameElement(arrayFeed: ArrayList<String>, addedElement: String): Boolean {
+    var newNewArray = ArrayList<String>()
+    val newAddedElement = addedElement.split(" ")[0]
+
+    if (arrayFeed.size >= 11) {
+        newNewArray = arrayFeed.slice(arrayFeed.size - 11..arrayFeed.size - 1) as ArrayList
+        newNewArray.add(newAddedElement)
+        newNewArray.replaceAll {
+            it.split(" ")[0]
+                .replace("<","")
+                .replace(">"," ")
+                .split(" ")[0]
+        }
+    }
+    return newNewArray.toSet().size != 1
+}
+
+
 fun String.getFeedElement(): String {
     return this.split("feedElement:")[1].split(";")[0]
 }

@@ -43,8 +43,8 @@ interface ScanningContract:
 
     sealed interface Event {
         data class FeedUrlChangeEvent(val feedUrl: String): Event
-        data object ScanningFeedClickEvent: Event
         data class SearchFeedElementChangeEvent(val feedSearchElement: String): Event
+        data object LoadingFeedClickEvent: Event
         data object SearchFeedElementClickEvent: Event
     }
 

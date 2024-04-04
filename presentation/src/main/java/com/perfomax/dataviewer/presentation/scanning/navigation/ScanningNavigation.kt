@@ -23,10 +23,11 @@ fun NavGraphBuilder.navigateToScanning(){
             onFeedUrlFieldChange = { feedUrl ->
                 scanningViewModel.intent(ScanningContract.Event.FeedUrlChangeEvent(feedUrl))
             },
-            onSearchFeedElementFieldChange = { feedValue ->
-
+            onSearchFeedElementFieldChange = { feedSearchedValue ->
+                scanningViewModel.intent(ScanningContract.Event.SearchFeedElementChangeEvent(feedSearchedValue))
             },
-            onScanFeedClick = {scanningViewModel.intent(ScanningContract.Event.ScanningFeedClickEvent) }
+            onLoadFeedClick = { scanningViewModel.intent(ScanningContract.Event.LoadingFeedClickEvent) },
+            onSearchFeedElementClick = { scanningViewModel.intent(ScanningContract.Event.SearchFeedElementClickEvent) }
         )
     }
 }

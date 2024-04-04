@@ -43,7 +43,8 @@ fun ScanningScreen(
     uiState: ScanningContract.State,
     onFeedUrlFieldChange: (String) -> Unit,
     onSearchFeedElementFieldChange: (String) -> Unit,
-    onScanFeedClick: () -> Unit
+    onLoadFeedClick: () -> Unit,
+    onSearchFeedElementClick: () -> Unit
 ) {
     Column(
         modifier = Modifier
@@ -77,7 +78,7 @@ fun ScanningScreen(
 //                    enabled = !uiState.isCountingFeedElements,
                     shape = RoundedCornerShape(shape8),
                     contentPadding = PaddingValues(zeroVal),
-                    onClick = onScanFeedClick
+                    onClick = onLoadFeedClick
                 ) {
                     Text(text = stringResource(id = R.string.load),
                         color = MaterialTheme.colorScheme.onSecondary,
@@ -113,7 +114,7 @@ fun ScanningScreen(
 //                    enabled = !uiState.isCountingFeedElements,
                     shape = RoundedCornerShape(shape8),
                     contentPadding = PaddingValues(zeroVal),
-                    onClick = onScanFeedClick
+                    onClick = onSearchFeedElementClick
                 ) {
                     Text(
                         text = stringResource(id = R.string.search),

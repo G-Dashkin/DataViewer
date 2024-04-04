@@ -3,6 +3,7 @@ package com.perfomax.dataviewer.presentation.scanning
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.perfomax.dataviewer.domain.usecases.feeds.LoadFeedUseCase
+import com.perfomax.dataviewer.domain.usecases.feeds.SearchFeedElementUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -13,7 +14,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ScanningViewModel @Inject constructor(
-    private val loadFeedUseCase: LoadFeedUseCase
+    private val loadFeedUseCase: LoadFeedUseCase,
+    private val searchFeedElementUseCase: SearchFeedElementUseCase
 ): ViewModel(), ScanningContract {
 
     private val _uiState = MutableStateFlow(ScanningContract.State.initial())
@@ -38,8 +40,8 @@ class ScanningViewModel @Inject constructor(
         when(event) {
             is ScanningContract.Event.FeedUrlChangeEvent -> { onFeedUrlChangeEvent(event.feedUrl) }
             is ScanningContract.Event.SearchFeedElementChangeEvent -> { onSearchFeedValueChangeEvent(event.feedSearchElement) }
-            ScanningContract.Event.ScanningFeedClickEvent -> onScanFeed()
-            ScanningContract.Event.SearchFeedElementClickEvent -> {}
+            ScanningContract.Event.LoadingFeedClickEvent -> onLoadFeed()
+            ScanningContract.Event.SearchFeedElementClickEvent -> onSearchFeedValueEvent()
         }
     }
 
@@ -64,7 +66,19 @@ class ScanningViewModel @Inject constructor(
         }
     }
 
+    private fun onLoadFeed() {
+        viewModelScope.launch {
+            _uiState.update {  currentState ->
+                currentState.copy(
+                    isFeedScanningResponse = true,
+                    loadedFeed = loadFeedUseCase.execute(feedUrl = _uiState.value.feedUrl)
+                )
+            }
+        }
+    }
+
     private fun onSearchFeedValueChangeEvent(feedSearchValue: String) {
+
         _uiState.update { currentState ->
             currentState.copy(
                 feedSearchValue = feedSearchValue,
@@ -73,14 +87,9 @@ class ScanningViewModel @Inject constructor(
         }
     }
 
-    private fun onScanFeed() {
+    private fun onSearchFeedValueEvent() {
         viewModelScope.launch {
-            _uiState.update {  currentState ->
-                currentState.copy(
-                    isFeedScanningResponse = true,
-                    loadedFeed = loadFeedUseCase.execute(feedUrl = _uiState.value.feedUrl)
-                )
-            }
+            searchFeedElementUseCase.execute(searchedFeedElement = _uiState.value.feedSearchValue)
         }
     }
 

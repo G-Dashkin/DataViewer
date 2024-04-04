@@ -1,5 +1,7 @@
 package com.perfomax.dataviewer.data.network.api
 
+import android.util.Log
+
 class Parser {
 
     companion object {
@@ -17,37 +19,15 @@ class Parser {
                 else if (varTag.last().toString() == ">") varTag = varTag.replace(">", "")
 
                 if (feedElements.isEmpty()) {
-                    feedElements.add("<$varTag>") // Заполняем массив элементов фида строками/тэгами
+                    feedElements.add("<$varTag>")
                 } else {
                     oldElement = feedElements.last().split(" ")[0].replace("<","")
                     newElement = varTag.replace("/","")
-
-                    if (oldElement == newElement) {
-                        if (feedElements.size < 500) feedElements.set(feedElements.size-1, feedElements.last() + "<$varTag>")
-                    } else {
-                        if(checkSameElement(feedElements, varTag) && feedElements.size < 500) {
-                            feedElements.add("<$varTag>")
-                        } else {
-                            feedElements.set(feedElements.size-1, feedElements.last().replace(">...", ""))
-                            feedElements.set(feedElements.size-1, feedElements.last().split(" ")[0]+">" + "...")
-                        }
-                    }
+                    if (oldElement == newElement) feedElements.set(feedElements.size-1, feedElements.last() + "<$varTag>")
+                    feedElements.add("<$varTag>")
                 }
             }
             return feedElements
-        }
-
-        fun checkSameElement(arrayFeed: ArrayList<String>, addedElement: String): Boolean {
-
-            var newNewArray = ArrayList<String>()
-            val newAddedElement = addedElement.split(" ")[0]
-
-            if (arrayFeed.size >= 9) {
-                newNewArray = arrayFeed.slice(arrayFeed.size - 9..arrayFeed.size - 1) as ArrayList
-                newNewArray.add(newAddedElement)
-                newNewArray.replaceAll { it.split(" ")[0].replace("<","").replace(">"," ").split(" ")[0] }
-            }
-            return newNewArray.toSet().size != 1
         }
 
     }

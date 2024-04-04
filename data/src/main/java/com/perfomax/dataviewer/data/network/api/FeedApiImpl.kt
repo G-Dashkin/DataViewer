@@ -1,16 +1,17 @@
 package com.perfomax.dataviewer.data.network.api
 
-import android.util.Log
 import com.perfomax.dataviewer.domain.models.Feed
+import com.perfomax.dataviewer.domain.utils.toShortList
 import java.net.HttpURLConnection
 import java.net.URL
 
 
 class FeedApiImpl: FeedApi {
-    override fun getData(feedUrl: String): List<String> {
+    override fun getData(feedUrl: String): String {
         var urlResponse = ""
         var responseCode = ""
-        val arrayFeed = mutableListOf<String>()
+//        val arrayFeed = mutableListOf<String>()
+        var arrayFeed = ""
 
         try {
             urlResponse += URL(feedUrl).toString()
@@ -30,15 +31,20 @@ class FeedApiImpl: FeedApi {
 
             if (!responseCode.contains("Unable to resolve host")) {
                 val processedFeed = connection.inputStream.bufferedReader().use { it.readText() }
-                arrayFeed.addAll(Parser.parsingToList(processedFeed))
+//                arrayFeed.addAll(Parser.parsingToList(processedFeed))
+                arrayFeed += processedFeed
             } else {
-                arrayFeed.add("errorURl")
+//                arrayFeed.add("errorURl")
+                arrayFeed += "errorURl"
             }
         } else {
-            arrayFeed.add("errorURl")
+//            arrayFeed.add("errorURl")
+            arrayFeed += "errorURl"
         }
         return arrayFeed
     }
+
+
 
     override fun updateFeedElements(
         feed: Feed
@@ -58,7 +64,7 @@ class FeedApiImpl: FeedApi {
 
         var feedUpdateDate = ""
         if (feed.feedUpdateTime.isNotEmpty()) {
-            val arrayFeed = Parser.parsingToList(processedFeed)
+            val arrayFeed = Parser.parsingToList(processedFeed).toShortList()
             feedUpdateDate+= arrayFeed.find {
                 it.contains(feed.feedUpdateTime.split(":\"")[0])
             }

@@ -100,8 +100,8 @@ class HomeViewModel @Inject constructor(
     }
 
     private fun onFindFeedElement() {
-        Log.d("MyLog", "Выбранный фид для поиска: ${_uiState.value.selectedFeedName}")
-        Log.d("MyLog", "Элемент поиска в фиде: ${_uiState.value.findFeedElement}")
+//        Log.d("MyLog", "Выбранный фид для поиска: ${_uiState.value.selectedFeedName}")
+//        Log.d("MyLog", "Элемент поиска в фиде: ${_uiState.value.findFeedElement}")
     }
 
     private fun onUpdateSelectedFeed() {
