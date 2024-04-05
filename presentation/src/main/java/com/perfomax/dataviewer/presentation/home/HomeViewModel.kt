@@ -27,16 +27,16 @@ class HomeViewModel @Inject constructor(
     private val _effect = MutableStateFlow<HomeContract.Effect?>(null)
     override val effect: StateFlow<HomeContract.Effect?> = _effect.asStateFlow()
 
-
     override fun intent(event: HomeContract.Event) {
         when(event) {
             is HomeContract.Event.ClickFeedNameEvent -> openDialogHomeScreenFeed(event.feedName)
             is HomeContract.Event.ClickFindFeedElement -> onFindFeedElementChange(event.findFeedElement)
-            is HomeContract.Event.ChangeFeedEvent -> {}
+
+            is HomeContract.Event.ChangeFeedEvent -> {  }
+            HomeContract.Event.FindFeedElementsEvent -> {  }
+
             HomeContract.Event.CountFeedElementEvent -> countFeedElements()
             HomeContract.Event.UpdateFeedsListEvent -> loadFeedsList()
-            HomeContract.Event.FindSelectedElementEvent -> onFindFeedElement()
-
             HomeContract.Event.ClickUpdateFeedEvent -> onUpdateSelectedFeed()
             HomeContract.Event.CloseDialogClickEvent -> closeDialogHomeScreenFeed()
         }
@@ -66,11 +66,16 @@ class HomeViewModel @Inject constructor(
     }
 
     private fun openDialogHomeScreenFeed(feedName: String) {
-        _uiState.update { currentState ->
-            currentState.copy(
-                openDialogHomeScreenFeed = true,
-                selectedFeedName = feedName
-            )
+        viewModelScope.launch {
+            val allFeeds = getAllFeedsUseCase.execute(getSelectedProjectUseCase.execute())
+            val selectedFeedUrl = allFeeds.find { feed -> feed.feedName == feedName }?.feedUrl
+            _uiState.update { currentState ->
+                currentState.copy(
+                    openDialogHomeScreenFeed = true,
+                    selectedFeedName = feedName,
+                    selectedFeedUrl = selectedFeedUrl?:""
+                )
+            }
         }
     }
 
@@ -98,19 +103,22 @@ class HomeViewModel @Inject constructor(
             )
         }
     }
-
-    private fun onFindFeedElement() {
-//        Log.d("MyLog", "Выбранный фид для поиска: ${_uiState.value.selectedFeedName}")
-//        Log.d("MyLog", "Элемент поиска в фиде: ${_uiState.value.findFeedElement}")
-    }
-
     private fun onUpdateSelectedFeed() {
-        Log.d("MyLog", "Обновление выбранного фида")
+        viewModelScope.launch {
+            val allFeeds = getAllFeedsUseCase.execute(getSelectedProjectUseCase.execute())
+            val selectedFeed = allFeeds.find { feed -> feed.feedName == uiState.value.selectedFeedName }
+            closeDialogHomeScreenFeed()
+            _uiState.update { currentState -> currentState.copy(isUpdatingFeedList = true) }
+            countFeedElementsUseCase.execute(listOf(selectedFeed!!))
+            _uiState.update { currentState -> currentState.copy(isUpdatingFeedList = false) }
+            loadFeedsList()
+        }
+
+
         _uiState.update { currentState ->
             currentState.copy(
             )
         }
     }
-
 
 }

@@ -20,7 +20,7 @@ fun NavHostController.navigateToMenu() {
     navigate(MenuDestination.route)
 }
 
-private object MenuDestination: NavigationDestination {
+object MenuDestination: NavigationDestination {
     override val route = "menu"
 }
 
@@ -51,9 +51,7 @@ private fun NavGraphBuilder.menuInner(
             uiState = menuUiState,
             topLevelDestinations = topLevelDestinations,
             onLogout = onLogout,
-            updateMainProject = {
-                menuViewModel.intent(MenuContract.Event.UpdateProjectEventTest)
-            }
+            updateMainProject = { menuViewModel.intent(MenuContract.Event.UpdateProjectEvent) }
         )
     }
 }

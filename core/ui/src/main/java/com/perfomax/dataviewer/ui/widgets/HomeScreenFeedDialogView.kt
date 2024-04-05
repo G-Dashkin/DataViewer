@@ -26,11 +26,12 @@ import com.perfomax.dataviewer.ui.theme.padding10
 
 @Composable
 fun HomeScreenFeedDialogView(
-    title: String = "",
+    feedTitle: String = "",
+    feedUrl: String = "",
     openDialog: Boolean,
     feedFindElementValue: String = "",
     onFeedFindElementChangeValue: (String) -> Unit,
-    onFindSelectedElement: () -> Unit,
+    onFindElementsInFeed: (String) -> Unit,
     onUpdateFeed:() -> Unit,
     onClose:() -> Unit
 ) {
@@ -45,35 +46,23 @@ fun HomeScreenFeedDialogView(
                     Modifier.background(Color.White)
                 ) {
                     Text(
-                        text = "Фид: $title",
+                        text = "Фид: $feedTitle",
                         modifier = Modifier.padding(padding10),
                         fontSize = 20.sp
                     )
                     Row {
-                        TextField(
-                            modifier = Modifier
-                                .padding(start = padding10, end = padding10)
-                                .width(200.dp),
-                            value = feedFindElementValue,
-                            onValueChange = onFeedFindElementChangeValue,
-                            label = {
-                                Text(
-                                    color = Color.Red,
-                                    text = "Элемент поиска в фиде"
-                                )
-                            }
-                        )
                         Button(
-                            modifier = Modifier.padding(end = padding10).height(60.dp),
+                            modifier = Modifier.padding(10.dp).fillMaxWidth(),
                             shape = RoundedCornerShape(10.dp),
                             contentPadding = PaddingValues(padding10),
-                            onClick = onFindSelectedElement,
+                            onClick = {onFindElementsInFeed.invoke(feedUrl)},
                         ) { Text(
-                            text = "Найти",
+                            text = "Поиск элементов в фиде",
                             color = MaterialTheme.colorScheme.onSecondary,
                             style = MaterialTheme.typography.titleMedium
                         ) }
                     }
+
                     Row {
                         Button(
                             modifier = Modifier.padding(10.dp).fillMaxWidth(0.4f),

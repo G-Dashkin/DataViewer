@@ -1,7 +1,9 @@
 package com.perfomax.dataviewer.presentation.scanning
 
 
+import android.util.Log
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -16,11 +18,16 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.key
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -37,6 +44,8 @@ import com.perfomax.dataviewer.ui.theme.zeroVal
 import com.perfomax.dataviewer.ui.widgets.FeedItem
 import com.perfomax.dataviewer.ui.widgets.FeedsScreenFormTextField
 import com.perfomax.ui.R
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 @Composable
 fun ScanningScreen(
@@ -46,6 +55,7 @@ fun ScanningScreen(
     onLoadFeedClick: () -> Unit,
     onSearchFeedElementClick: () -> Unit
 ) {
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -72,9 +82,9 @@ fun ScanningScreen(
             )
             Spacer(modifier = Modifier.width(width = 5.dp))
             Button(modifier = Modifier
-                    .fillMaxWidth()
-                    .height(70.dp)
-                    .defaultMinSize(minHeight = height50),
+                .fillMaxWidth()
+                .height(70.dp)
+                .defaultMinSize(minHeight = height50),
 //                    enabled = !uiState.isCountingFeedElements,
                     shape = RoundedCornerShape(shape8),
                     contentPadding = PaddingValues(zeroVal),
@@ -123,13 +133,16 @@ fun ScanningScreen(
                     )
                 }
             }
-            LazyColumn(modifier = Modifier.fillMaxSize()) {
-                items(uiState.loadedFeed) { element ->
-                    Text(
-                        modifier = Modifier.background(Color.Gray),
-                        text = element,
-                        color = Color.White
-                    )
+
+            LazyColumn(
+                state = uiState.listState,
+                modifier = Modifier
+                    .fillMaxSize()
+                    .border(1.dp, Color.Gray)) {
+                itemsIndexed(items = uiState.loadedFeed) { index, element ->
+                    if (element.contains(uiState.feedSearchValue) && uiState.feedSearchValue.isNotEmpty()) {
+                        Text(modifier = Modifier.background(Color.Gray), text = element, color = Color.White)
+                    } else { Text(text = element, color = Color.Black) }
                     Spacer(modifier = Modifier.height(height2))
                 }
             }

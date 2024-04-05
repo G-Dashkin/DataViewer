@@ -19,7 +19,7 @@ import com.perfomax.dataviewer.presentation.home.navigation.navigateToHome
 import com.perfomax.dataviewer.presentation.menu.menu_bottom.DataViewerBottomBar
 import com.perfomax.dataviewer.presentation.menu.menu_top.DataViewerTopMenu
 import com.perfomax.dataviewer.presentation.projects.navigation.navigateToProjects
-import com.perfomax.dataviewer.presentation.scanning.navigation.navigateToScanning
+import com.perfomax.dataviewer.presentation.scanning.navigation.scanning
 import com.perfomax.dataviewer.presentation.settings.navigation.navigateToSettings
 import com.perfomax.dataviewer.ui.theme.DataViewerTheme
 
@@ -62,7 +62,7 @@ fun MenuScreen(
                 startDestination = HomeDestination.route
             ) {
                 navigateToHome()
-                navigateToScanning()
+                scanning()
                 navigateToSettings()
                 navigateToProjects(onUpdateTitle = updateMainProject)
                 navigateToFeeds()

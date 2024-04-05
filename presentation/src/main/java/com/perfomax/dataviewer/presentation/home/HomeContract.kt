@@ -11,6 +11,7 @@ interface HomeContract:
         val feedsList: List<Feed>,
         val isUpdatingFeedList: Boolean,
         val selectedFeedName: String,
+        val selectedFeedUrl: String,
         val findFeedElement: String,
         val openDialogHomeScreenFeed: Boolean
     ) {
@@ -19,6 +20,7 @@ interface HomeContract:
                 feedsList = emptyList(),
                 isUpdatingFeedList = false,
                 selectedFeedName = EMPTY,
+                selectedFeedUrl = EMPTY,
                 findFeedElement = EMPTY,
                 openDialogHomeScreenFeed = false
 
@@ -27,6 +29,7 @@ interface HomeContract:
                 feedsList = emptyList(),
                 isUpdatingFeedList = false,
                 selectedFeedName = EMPTY,
+                selectedFeedUrl = EMPTY,
                 findFeedElement = EMPTY,
                 openDialogHomeScreenFeed = false
             )
@@ -39,7 +42,7 @@ interface HomeContract:
         data class ClickFeedNameEvent(val feedName: String): Event
         data class ClickFindFeedElement(val findFeedElement: String): Event
         data class ChangeFeedEvent(val feedName: String): Event
-        data object FindSelectedElementEvent: Event
+        data object FindFeedElementsEvent : Event
         data object ClickUpdateFeedEvent: Event
         data object CloseDialogClickEvent: Event
     }

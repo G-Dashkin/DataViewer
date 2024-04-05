@@ -29,8 +29,7 @@ class MenuViewModel @Inject constructor(
 
     override fun intent(event: MenuContract.Event) {
         when(event){
-//            is MenuContract.Event.UpdateProjectEvent -> updateProjectName(event.updatedProjectName)
-            MenuContract.Event.UpdateProjectEventTest -> updateProject()
+            MenuContract.Event.UpdateProjectEvent -> updateProject()
         }
     }
 
@@ -40,7 +39,6 @@ class MenuViewModel @Inject constructor(
 
     private fun updateProject() {
         viewModelScope.launch {
-//            while (_uiState.value.selectedProject == getSelectedProjectUseCase.execute()) {
             delay(100)
             getSelectedProject()
         }

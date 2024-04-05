@@ -1,5 +1,7 @@
 package com.perfomax.dataviewer.presentation.scanning
 
+import android.util.Log
+import androidx.compose.foundation.lazy.LazyListState
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.perfomax.dataviewer.domain.usecases.feeds.LoadFeedUseCase
@@ -29,7 +31,7 @@ class ScanningViewModel @Inject constructor(
             currentState.copy(
 //                feedUrl = "https://citilink.ru"
 //                feedUrl = "citilink.в"
-                feedUrl = "https://feeds-mic.s1.citilink.ru/yandex_offer/spb_cl.xml"
+                feedUrl = "https://feeds-mic.s1.citilink.ru/yandex_offer/msk_cl.xml"
 //                feedUrl = "https://feeds-mic.s1.citilink.ru/yandex_offer/spb_cl.xml"
 //                feedUrl = "https://api2.kiparo.com/static/it_news.xml"
             )
@@ -78,7 +80,6 @@ class ScanningViewModel @Inject constructor(
     }
 
     private fun onSearchFeedValueChangeEvent(feedSearchValue: String) {
-
         _uiState.update { currentState ->
             currentState.copy(
                 feedSearchValue = feedSearchValue,
@@ -89,7 +90,14 @@ class ScanningViewModel @Inject constructor(
 
     private fun onSearchFeedValueEvent() {
         viewModelScope.launch {
-            searchFeedElementUseCase.execute(searchedFeedElement = _uiState.value.feedSearchValue)
+            val loadedFeed = searchFeedElementUseCase.execute(searchedFeedElement = _uiState.value.feedSearchValue)
+            val feedSearchValueIndex = loadedFeed.indexOf(loadedFeed.find { it.contains(_uiState.value.feedSearchValue) })
+            _uiState.update { currentState ->
+                currentState.copy(
+                    loadedFeed = loadedFeed,
+                    listState = LazyListState(feedSearchValueIndex)
+                )
+            }
         }
     }
 

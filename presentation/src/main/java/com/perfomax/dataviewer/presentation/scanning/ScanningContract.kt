@@ -1,5 +1,6 @@
 package com.perfomax.dataviewer.presentation.scanning
 
+import androidx.compose.foundation.lazy.LazyListState
 import com.perfomax.dataviewer.domain.EMPTY
 import com.perfomax.dataviewer.ui.base.UnidirectionalViewModel
 
@@ -17,7 +18,9 @@ interface ScanningContract:
 
         val feedSearchValue: String,
         val feedSearchValueError: Boolean,
-        val isFeedScanningResponse: Boolean
+        val isFeedScanningResponse: Boolean,
+
+        val listState: LazyListState
     ) {
         companion object {
             fun initial(): State = State(
@@ -27,7 +30,8 @@ interface ScanningContract:
                 loadedFeed = emptyList(),
                 feedSearchValue = EMPTY,
                 feedSearchValueError = false,
-                isFeedScanningResponse = false
+                isFeedScanningResponse = false,
+                listState = LazyListState()
             )
             fun notCreate(): State = State(
                 feedUrl = EMPTY,
@@ -36,7 +40,8 @@ interface ScanningContract:
                 loadedFeed = emptyList(),
                 feedSearchValue = EMPTY,
                 feedSearchValueError = false,
-                isFeedScanningResponse = false
+                isFeedScanningResponse = false,
+                listState = LazyListState()
             )
         }
     }

@@ -27,6 +27,7 @@ class FeedsRepositoryImpl @Inject constructor(
     private var searchedElement = ""
     private var searchedElementCounter = 0
     private val searchedElementsList: ArrayList<String> = ArrayList()
+    private val searchedList: ArrayList<String> = ArrayList()
 
     override suspend fun loadFeed(feedUrl: String): List<String> = withContext(dispatcher) {
         val stringFeed = feedApi.getData(feedUrl)
@@ -79,22 +80,24 @@ class FeedsRepositoryImpl @Inject constructor(
         }
 
         val searchedElementIndex = feedList.indexOf(searchedElementsList[searchedElementCounter])
-
-
         if (feedList.size < 500) {
-            feedList.subList(0, feedList.size).forEach { Log.d("MyLog", it) }
+            searchedList.clear()
+            searchedList.addAll(feedList.subList(0, feedList.size))
         } else if (searchedElementIndex < 250) {
-            feedList.subList(0, searchedElementIndex + 250).forEach { Log.d("MyLog", it) }
+            searchedList.clear()
+            searchedList.addAll(feedList.subList(0, searchedElementIndex + 250))
         } else if (feedList.size - searchedElementIndex < 250) {
-            feedList.subList(searchedElementIndex - 250, feedList.size).forEach { Log.d("MyLog", it) }
+            searchedList.clear()
+            searchedList.addAll(feedList.subList(searchedElementIndex - 250, feedList.size))
         } else {
-            feedList.subList(searchedElementIndex - 250, searchedElementIndex + 250).forEach { Log.d("MyLog", it) }
+            searchedList.clear()
+            searchedList.addAll(feedList.subList(searchedElementIndex - 250, searchedElementIndex + 250))
         }
 
         if (searchedElementCounter < searchedElementsList.size-1) {
             searchedElementCounter = searchedElementCounter.inc()
         } else { searchedElementCounter = 0 }
 
-        listOf()
+        searchedList
     }
 }

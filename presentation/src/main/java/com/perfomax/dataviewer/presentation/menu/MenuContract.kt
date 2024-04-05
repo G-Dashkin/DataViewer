@@ -20,8 +20,7 @@ interface MenuContract:
     }
 
     sealed interface Event {
-//        data class UpdateProjectEvent(val updatedProjectName: String) : Event
-        data object UpdateProjectEventTest : Event
+        data object UpdateProjectEvent : Event
 
     }
 

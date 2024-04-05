@@ -41,7 +41,7 @@ class FeedsViewModel @Inject constructor(
             currentState.copy(
 //                feedUrl = "https://citilink.ru"
 //                feedUrl = "citilink.в"
-                feedUrl = "https://feeds-mic.s1.citilink.ru/yandex_offer/spb_cl.xml"
+                feedUrl = "https://feeds-mic.s1.citilink.ru/yandex_offer/kzn_cl.xml"
 //                feedUrl = "https://feeds-mic.s1.citilink.ru/yandex_offer/spb_cl.xml"
 //                feedUrl = "https://api2.kiparo.com/static/it_news.xml"
             )

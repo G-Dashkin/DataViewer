@@ -42,7 +42,7 @@ fun HomeScreen(
     onClickFeedElement:(String) -> Unit,
     onChangeFeed:(String) -> Unit,
     onFindFeedElement:(String) -> Unit,
-    onFindSelectedElement:() -> Unit,
+    onFindSelectedElement:(String) -> Unit,
     onClickUpdateFeed:() -> Unit,
     onCloseDialogClick:() -> Unit,
 ) {
@@ -93,10 +93,11 @@ fun HomeScreen(
         }
 
         HomeScreenFeedDialogView(
-            title = uiState.selectedFeedName,
+            feedTitle = uiState.selectedFeedName,
+            feedUrl = uiState.selectedFeedUrl,
             feedFindElementValue = uiState.findFeedElement,
             onFeedFindElementChangeValue = onFindFeedElement,
-            onFindSelectedElement = onFindSelectedElement,
+            onFindElementsInFeed = onFindSelectedElement,
             openDialog = uiState.openDialogHomeScreenFeed,
             onUpdateFeed = onClickUpdateFeed,
             onClose = onCloseDialogClick
