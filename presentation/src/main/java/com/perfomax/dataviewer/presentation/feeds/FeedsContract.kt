@@ -18,6 +18,27 @@ interface FeedsContract:
         val feedNameError: Boolean,
         val feedNameErrorMessage: String,
 
+
+
+
+
+
+        val feedUpdateSelectName: String,
+        val feedUpdateName: String,
+        val feedUpdateUrl: String,
+        val feedUpdateMainElement: String,
+
+
+
+
+
+
+
+
+
+
+        val feedElement: String,
+
         val selectedFeedElement: String,
         val selectedFeedElementError: Boolean,
         val selectedFeedElementErrorMessage: String,
@@ -47,10 +68,17 @@ interface FeedsContract:
                 feedName = EMPTY,
                 feedNameError = false,
                 feedNameErrorMessage = EMPTY,
+                feedElement = EMPTY,
                 selectedFeedElement = EMPTY,
                 selectedFeedElementError = false,
                 selectedFeedElementErrorMessage = EMPTY,
                 isSelectingFeedDateElement = false,
+
+                feedUpdateSelectName = EMPTY,
+                feedUpdateName = EMPTY,
+                feedUpdateUrl = EMPTY,
+                feedUpdateMainElement = EMPTY,
+
                 feedDateElement = EMPTY,
                 removedFeed = EMPTY,
                 isCountingFeedElements = false,
@@ -69,10 +97,17 @@ interface FeedsContract:
                 feedName = EMPTY,
                 feedNameError = false,
                 feedNameErrorMessage = EMPTY,
+                feedElement = EMPTY,
                 selectedFeedElement = EMPTY,
                 selectedFeedElementError = false,
                 selectedFeedElementErrorMessage = EMPTY,
                 isSelectingFeedDateElement = false,
+
+                feedUpdateSelectName = EMPTY,
+                feedUpdateName = EMPTY,
+                feedUpdateUrl = EMPTY,
+                feedUpdateMainElement = EMPTY,
+
                 feedDateElement = EMPTY,
                 removedFeed = EMPTY,
                 isCountingFeedElements = false,
@@ -103,6 +138,11 @@ interface FeedsContract:
         data object SelectDateElementInFeedEvent : Event
         data class OpenChangeFeedDialogEvent(val feedName: String): Event
         data object CloseDialogChangeFeedEvent : Event
+        data object SaveFeedChangesEvent : Event
+
+        data class FeedTitleUpdateChangeEvent(val feedTitle: String): Event
+        data class FeedCountElementUpdateChangeEvent(val feedCountElement: String): Event
+        data class FeedUrlUpdateChangeEvent(val feedUrl: String): Event
     }
 
     sealed interface Effect {

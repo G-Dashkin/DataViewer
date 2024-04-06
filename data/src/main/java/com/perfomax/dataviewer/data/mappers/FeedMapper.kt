@@ -4,6 +4,7 @@ import com.perfomax.dataviewer.domain.models.Feed
 
 internal fun String.toDomainFeed(): Feed {
     return Feed(
+        feedId = this.split("feedId:")[1].split(";")[0],
         projectName = this.split("projectName:")[1].split(";")[0],
         feedName = this.split("feedName:")[1].split(";")[0],
         feedElement = this.split("feedElement:")[1].split(";")[0],

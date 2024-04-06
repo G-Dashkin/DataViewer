@@ -1,5 +1,6 @@
 package com.perfomax.dataviewer.presentation.feeds
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.perfomax.dataviewer.domain.usecases.feeds.CountFeedElementsUseCase
@@ -7,7 +8,9 @@ import com.perfomax.dataviewer.domain.usecases.feeds.GetAllFeedsUseCase
 import com.perfomax.dataviewer.domain.usecases.feeds.LoadFeedUseCase
 import com.perfomax.dataviewer.domain.usecases.feeds.RemoveFeedUseCase
 import com.perfomax.dataviewer.domain.usecases.feeds.SaveFeedUseCase
+import com.perfomax.dataviewer.domain.usecases.feeds.UpdateFeedUseCase
 import com.perfomax.dataviewer.domain.usecases.projects.GetSelectedProjectUseCase
+import com.perfomax.dataviewer.domain.utils.getLastId
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -27,7 +30,8 @@ class FeedsViewModel @Inject constructor(
     private val getAllFeedsUseCase: GetAllFeedsUseCase,
     private val loadFeedUseCase: LoadFeedUseCase,
     private val removeFeedUseCase: RemoveFeedUseCase,
-    private val countFeedElementsUseCase: CountFeedElementsUseCase
+    private val countFeedElementsUseCase: CountFeedElementsUseCase,
+    private val feedUpdateFeedUseCase: UpdateFeedUseCase
 ): ViewModel(), FeedsContract {
 
     private val _uiState = MutableStateFlow(FeedsContract.State.initial())
@@ -46,6 +50,9 @@ class FeedsViewModel @Inject constructor(
 //                feedUrl = "https://api2.kiparo.com/static/it_news.xml"
             )
         }
+//        viewModelScope.launch {
+//            Log.d("MyLog", getAllFeedsUseCase.execute(getSelectedProjectUseCase.execute()).toString())
+//        }
     }
 
     override fun intent(event: FeedsContract.Event) {
@@ -55,11 +62,13 @@ class FeedsViewModel @Inject constructor(
             is FeedsContract.Event.FeedNameEvent -> onFeedName(event.feedName)
             is FeedsContract.Event.SelectRemovedFeedEvent -> onSelectRemovedFeed(event.removedFeed)
             is FeedsContract.Event.SelectFeedDateElementEvent -> onSelectFeedDateElement(event.selectedFeedDataElement)
-
             is FeedsContract.Event.OpenChangeFeedDialogEvent -> openDialogChangeFeed(event.feedName)
 
-            FeedsContract.Event.CloseDialogChangeFeedEvent -> closeDialogChangeFeed()
+            is FeedsContract.Event.FeedTitleUpdateChangeEvent -> onFeedTitleChangeEvent(event.feedTitle)
+            is FeedsContract.Event.FeedCountElementUpdateChangeEvent -> onFeedMainCountElementChangeEvent(event.feedCountElement)
+            is FeedsContract.Event.FeedUrlUpdateChangeEvent -> onFeedUrlUpdateChangeEvent(event.feedUrl)
 
+            FeedsContract.Event.CloseDialogChangeFeedEvent -> closeDialogChangeFeed()
             FeedsContract.Event.AddFeedClickEvent -> onAddFeedClick()
             FeedsContract.Event.OpenDialogSelectedFeedElementEvent -> openDialogSelectedFeedElement()
             FeedsContract.Event.CloseDialogSelectedFeedElementEvent -> closeDialogSelectedFeedElement()
@@ -70,6 +79,7 @@ class FeedsViewModel @Inject constructor(
             FeedsContract.Event.SwitchScreenToFeedsListEvent -> onSwitchToFeedsList()
             FeedsContract.Event.CloseDialogFeedUrlErrorEvent -> closeDialogFeedUrlError()
             FeedsContract.Event.SelectDateElementInFeedEvent -> onSelectDateElementInFeed()
+            FeedsContract.Event.SaveFeedChangesEvent -> onSaveFeedChanges()
 
         }
     }
@@ -183,7 +193,8 @@ class FeedsViewModel @Inject constructor(
     private fun onSelectFeedElement(selectedElement: String) {
         _uiState.update { currentState ->
             currentState.copy(
-                selectedFeedElement = selectedElement
+                selectedFeedElement = selectedElement,
+
             )
         }
     }
@@ -265,6 +276,7 @@ class FeedsViewModel @Inject constructor(
 
     private fun onAddNewFeed() {
         viewModelScope.launch {
+            Log.d("MyLog", "onAddNewFeed()")
             val project = getSelectedProjectUseCase.execute()
             val feedName = _uiState.value.feedName.trim()
             val feedElement = _uiState.value.selectedFeedElement
@@ -277,14 +289,15 @@ class FeedsViewModel @Inject constructor(
             val date = LocalDateTime.ofInstant(instant, ZoneId.systemDefault())
             val feedLoadTime = formatter.format(date)
 
-            val feed = "projectName:$project;" +
+            val feed = "feedId:${ getAllFeedsUseCase.execute(project).getLastId() };" +
+                       "projectName:$project;" +
                        "feedName:$feedName;" +
                        "feedElement:$feedElement;" +
                        "feedElementCount:$feedElementCount;" +
                        "feedUrl:$feedUrl;" +
                        "feedUpdateTime:$feedUpdateTime;" +
                        "feedLoadTime:$feedLoadTime"
-
+            Log.d("MyLog", feed)
             val feedNameValid = feedName.isNotEmpty()
             val feedNameValid2 = feedName.any {
                 it.toString().contains("|") ||
@@ -352,13 +365,22 @@ class FeedsViewModel @Inject constructor(
         }
     }
 
-
+    //----------------------------------------------------------------------------------------------
+    //----------------------------------------------------------------------------------------------
+    //----------------------------------------------------------------------------------------------
     private fun openDialogChangeFeed(feedName: String) {
-        _uiState.update { currentState ->
-            currentState.copy(
-                feedName = feedName,
-                openDialogChangeFeed = true
-            )
+        Log.d("MyLog", "openDialogChangeFeed():$feedName")
+        viewModelScope.launch {
+            val selectedFeed = _uiState.value.feedsList.find { it.feedName == feedName }
+            _uiState.update { currentState ->
+                currentState.copy(
+                    feedUpdateSelectName = feedName,
+                    feedUpdateName = selectedFeed!!.feedName,
+                    feedUpdateUrl = selectedFeed.feedUrl,
+                    feedUpdateMainElement = selectedFeed.feedElement,
+                    openDialogChangeFeed = true
+                )
+            }
         }
     }
 
@@ -368,6 +390,35 @@ class FeedsViewModel @Inject constructor(
                 openDialogChangeFeed = false
             )
         }
+    }
+
+    private fun onSaveFeedChanges() {
+        viewModelScope.launch {
+            val projectName = getSelectedProjectUseCase.execute()
+            val feedList = getAllFeedsUseCase.execute(projectName)
+            val selectedFeed = feedList.find { it.feedName == _uiState.value.feedUpdateSelectName }
+            val feed = "feedId:${selectedFeed?.feedId};" +
+                       "projectName:$projectName;" +
+                       "feedName:${_uiState.value.feedUpdateName};" +
+                       "feedElement:${_uiState.value.feedUpdateMainElement};" +
+                       "feedElementCount:${selectedFeed?.feedElementCount};" +
+                       "feedUrl:${_uiState.value.feedUpdateUrl};" +
+                       "feedUpdateTime:${selectedFeed?.feedUpdateTime};" +
+                       "feedLoadTime:${selectedFeed?.feedLoadTime}"
+            feedUpdateFeedUseCase.execute(feed)
+            loadFeedsList()
+        }
+        closeDialogChangeFeed()
+    }
+
+    private fun onFeedTitleChangeEvent(feedName: String) {
+        _uiState.update { currentState -> currentState.copy(feedUpdateName = feedName) }
+    }
+    private fun onFeedMainCountElementChangeEvent(feedMainCountElement: String) {
+        _uiState.update { currentState -> currentState.copy(feedUpdateMainElement = feedMainCountElement) }
+    }
+    private fun onFeedUrlUpdateChangeEvent(feedUrl: String) {
+        _uiState.update { currentState -> currentState.copy(feedUpdateUrl = feedUrl) }
     }
 
 }

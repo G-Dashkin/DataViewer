@@ -26,9 +26,15 @@ import com.perfomax.dataviewer.ui.theme.padding10
 
 @Composable
 fun ChangeFeedDialogView(
-    title: String = "",
     openDialog: Boolean,
-    onClose:() -> Unit
+    feedTitle: String,
+    feedUrl: String,
+    feedCountElement: String,
+    onFeedTitleFieldChangeValue:(String) -> Unit,
+    onFeedUrlFieldChangeValue:(String) -> Unit,
+    onFeedCountElementFieldChangeValue:(String) -> Unit,
+    onClose:() -> Unit,
+    onSave:() -> Unit
 ) {
     if (openDialog) {
         Dialog(onDismissRequest = {}) {
@@ -40,19 +46,49 @@ fun ChangeFeedDialogView(
                 Column(
                     Modifier.background(Color.White)
                 ) {
-                    Text(
-                        text = "Фид: $title",
-                        modifier = Modifier.padding(padding10),
-                        fontSize = 20.sp
+                    TextField(
+                        modifier = Modifier.padding(10.dp),
+                        value = feedUrl,
+                        onValueChange = onFeedUrlFieldChangeValue,
+                        label = { Text(text = "URL фида") }
                     )
+
+                    TextField(
+                        modifier = Modifier.padding(10.dp),
+                        value = feedTitle,
+                        onValueChange = onFeedTitleFieldChangeValue,
+                        label = { Text(text = "Название фида") }
+                    )
+
+                    TextField(
+                        modifier = Modifier.padding(10.dp),
+                        value = feedCountElement,
+                        onValueChange = onFeedCountElementFieldChangeValue,
+                        label = { Text(text = "Основаной элемент фида") }
+                    )
+
                     Row {
                         Button(
-                            modifier = Modifier.padding(10.dp).fillMaxWidth(0.4f),
+                            modifier = Modifier
+                                .padding(10.dp)
+                                .fillMaxWidth(0.4f),
                             shape = RoundedCornerShape(10.dp),
                             contentPadding = PaddingValues(padding10,),
                             onClick = onClose,
                         ) { Text(
                             text = "Закрыть",
+                            color = MaterialTheme.colorScheme.onSecondary,
+                            style = MaterialTheme.typography.titleMedium
+                        ) }
+                        Button(
+                            modifier = Modifier
+                                .padding(10.dp)
+                                .fillMaxWidth(),
+                            shape = RoundedCornerShape(10.dp),
+                            contentPadding = PaddingValues(padding10,),
+                            onClick = onSave,
+                        ) { Text(
+                            text = "Сохранить",
                             color = MaterialTheme.colorScheme.onSecondary,
                             style = MaterialTheme.typography.titleMedium
                         ) }

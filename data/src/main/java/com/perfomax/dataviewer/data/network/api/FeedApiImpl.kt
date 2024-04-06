@@ -71,6 +71,7 @@ class FeedApiImpl: FeedApi {
         }
 
         return Feed(
+            feedId = "",
             projectName = "",
             feedName = "",
             feedElement = "",

@@ -59,6 +59,10 @@ fun FeedsScreen(
     onOpenChangeFeedDialog: (String) -> Unit,
     onCloseDialogChangeFeed: () -> Unit,
 
+    onFeedTitleFieldChangeValue: (String) -> Unit,
+    onFeedUrlFieldChangeValue: (String) -> Unit,
+    onFeedCountElementFieldChangeValue: (String) -> Unit,
+
     onCloseDialogSelectedFeedElement: () -> Unit,
     onFeedNameFieldChange: (String) -> Unit,
 
@@ -74,7 +78,9 @@ fun FeedsScreen(
     onCloseDialogFeedUrlError:() -> Unit,
 
 
-    selectDateElement: () -> Unit = {  }
+    selectDateElement: () -> Unit = {  },
+
+    onSaveChanges:() -> Unit
 ) {
 
     updateProject.invoke()
@@ -194,9 +200,7 @@ fun FeedsScreen(
                             modifier = Modifier
                                 .background(Color.Gray)
                                 .clickable {
-                                    if (uiState.isSelectingFeedDateElement) onSelectFeedDateElement.invoke(
-                                        element
-                                    )
+                                    if (uiState.isSelectingFeedDateElement) onSelectFeedDateElement.invoke(element)
                                     else onSelectFeedElement.invoke(element)
                                     onOpenDialogSelectedFeedElementClick.invoke()
                                 },
@@ -234,9 +238,15 @@ fun FeedsScreen(
     )
 
     ChangeFeedDialogView(
-        title = uiState.feedName,
         openDialog = uiState.openDialogChangeFeed,
-        onClose = onCloseDialogChangeFeed
+        feedTitle = uiState.feedUpdateName,
+        feedUrl = uiState.feedUpdateUrl,
+        feedCountElement = uiState.feedUpdateMainElement,
+        onFeedTitleFieldChangeValue = onFeedTitleFieldChangeValue,
+        onFeedUrlFieldChangeValue = onFeedUrlFieldChangeValue,
+        onFeedCountElementFieldChangeValue = onFeedCountElementFieldChangeValue,
+        onClose = onCloseDialogChangeFeed,
+        onSave = onSaveChanges
     )
 
     DefaultDialogView(

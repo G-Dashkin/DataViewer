@@ -20,8 +20,8 @@ fun MutableList<Feed>.parsToString(): String {
                .replace(oldValue = ")", newValue = "")
 }
 
-fun String.addElement(newProject: String): String {
-    return if(this.isEmpty()) "$this$newProject" else "$this|$newProject"
+fun String.addElement(newElement: String): String {
+    return if(this.isEmpty()) "$this$newElement" else "$this|$newElement"
 }
 
 fun String.removeProject(removedProject: String): String {
@@ -37,7 +37,7 @@ fun String.removeFeed(feedName: String): String {
 fun String.updateFeed(feed: String): String {
     var newFeed = ""
     this.split("|").forEach {
-        newFeed += if(it.getFeedName() == feed.getFeedName()) "$feed|"
+        newFeed += if(it.getFeedId() == feed.getFeedId()) "$feed|"
                    else "$it|"
     }
     return newFeed.dropLast(1)
@@ -48,6 +48,9 @@ fun String.getFeedName(): String {
     return this.split("feedName:")[1].split(";")[0]
 }
 
+fun String.getFeedId(): String {
+    return this.split("feedId:")[1].split(";")[0]
+}
 //
 
 fun String.getFeedElementValue(): String {
@@ -86,6 +89,11 @@ private fun checkSameElement(arrayFeed: ArrayList<String>, addedElement: String)
     return newNewArray.toSet().size != 1
 }
 
+fun List<Feed>.getLastId(): String {
+    val listOfIdElements = ArrayList<Int>()
+    this.forEach { listOfIdElements.add(it.feedId.toInt()) }
+    return if (listOfIdElements.isEmpty()) "1" else listOfIdElements.max().inc().toString()
+}
 
 fun String.getFeedElement(): String {
     return this.split("feedElement:")[1].split(";")[0]

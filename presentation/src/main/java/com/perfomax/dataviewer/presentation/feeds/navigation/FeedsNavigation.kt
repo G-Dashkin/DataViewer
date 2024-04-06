@@ -46,7 +46,19 @@ fun NavGraphBuilder.navigateToFeeds(){
             onOpenChangeFeedDialog = { feedName ->
                 feedsViewModel.intent(FeedsContract.Event.OpenChangeFeedDialogEvent(feedName))
             },
-            onCloseDialogChangeFeed = { feedsViewModel.intent(FeedsContract.Event.CloseDialogChangeFeedEvent) }
+            onCloseDialogChangeFeed = { feedsViewModel.intent(FeedsContract.Event.CloseDialogChangeFeedEvent) },
+            onSaveChanges = { feedsViewModel.intent(FeedsContract.Event.SaveFeedChangesEvent) },
+
+            onFeedTitleFieldChangeValue = { feedTitle ->
+                feedsViewModel.intent(FeedsContract.Event.FeedTitleUpdateChangeEvent(feedTitle))
+            },
+            onFeedCountElementFieldChangeValue = { feedCountElement ->
+                feedsViewModel.intent(FeedsContract.Event.FeedCountElementUpdateChangeEvent(feedCountElement))
+            },
+            onFeedUrlFieldChangeValue = { feedUrl ->
+                feedsViewModel.intent(FeedsContract.Event.FeedUrlUpdateChangeEvent(feedUrl))
+            }
+
         )
     }
 }

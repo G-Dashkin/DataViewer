@@ -9,4 +9,5 @@ interface FeedsRepository {
     suspend fun remove(feedName: String)
     suspend fun getAllFeedsByProject(project: String): List<Feed>
     suspend fun searchFeedElement(searchedFeedElement: String): List<String>
+    suspend fun updateFeedElement(updatedFeed: String)
 }
