@@ -4,7 +4,9 @@ import android.content.Context
 import com.perfomax.dataviewer.data.datastore.api.FeedsDataStore
 import com.perfomax.dataviewer.data.datastore.memory.ProjectsDataStoreImpl
 import com.perfomax.dataviewer.data.datastore.api.ProjectsDataStore
+import com.perfomax.dataviewer.data.datastore.api.SettingsDataStore
 import com.perfomax.dataviewer.data.datastore.memory.FeedsDataStoreImpl
+import com.perfomax.dataviewer.data.datastore.memory.SettingsDataStoreImpl
 import com.perfomax.dataviewer.data.storage.api.FeedsStorage
 import com.perfomax.dataviewer.data.storage.memory.FeedsStorageImpl
 import dagger.Module
@@ -28,4 +30,10 @@ object DataStoreModule {
     fun provideFeedsDatastore(
         @ApplicationContext context: Context
     ): FeedsDataStore = FeedsDataStoreImpl(context)
+
+    @Singleton
+    @Provides
+    fun provideSettingsDatastore(
+        @ApplicationContext context: Context
+    ): SettingsDataStore = SettingsDataStoreImpl(context)
 }

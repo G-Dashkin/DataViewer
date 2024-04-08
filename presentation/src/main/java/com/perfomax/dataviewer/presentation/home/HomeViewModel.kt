@@ -103,6 +103,7 @@ class HomeViewModel @Inject constructor(
             )
         }
     }
+
     private fun onUpdateSelectedFeed() {
         viewModelScope.launch {
             val allFeeds = getAllFeedsUseCase.execute(getSelectedProjectUseCase.execute())
@@ -112,12 +113,6 @@ class HomeViewModel @Inject constructor(
             countFeedElementsUseCase.execute(listOf(selectedFeed!!))
             _uiState.update { currentState -> currentState.copy(isUpdatingFeedList = false) }
             loadFeedsList()
-        }
-
-
-        _uiState.update { currentState ->
-            currentState.copy(
-            )
         }
     }
 

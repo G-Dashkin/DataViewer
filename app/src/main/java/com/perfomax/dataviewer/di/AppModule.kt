@@ -4,10 +4,13 @@ import com.perfomax.dataviewer.data.network.api.FeedApi
 import com.perfomax.dataviewer.data.network.api.FeedApiImpl
 import com.perfomax.dataviewer.data.repository.FeedsRepositoryImpl
 import com.perfomax.dataviewer.data.repository.ProjectsRepositoryImpl
+import com.perfomax.dataviewer.data.repository.SettingsRepositoryImpl
 import com.perfomax.dataviewer.data.storage.api.FeedsStorage
 import com.perfomax.dataviewer.data.storage.api.ProjectsStorage
+import com.perfomax.dataviewer.data.storage.api.SettingsStorage
 import com.perfomax.dataviewer.domain.repository.FeedsRepository
 import com.perfomax.dataviewer.domain.repository.ProjectsRepository
+import com.perfomax.dataviewer.domain.repository.SettingsRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -43,4 +46,10 @@ object AppModule {
         dispatcher: CoroutineDispatcher = Dispatchers.IO,
         feedsStorage: FeedsStorage
     ): FeedsRepository = FeedsRepositoryImpl(feedApi, dispatcher, feedsStorage)
+
+    @Singleton
+    @Provides
+    fun provideSettingsRepository(
+        settingsStorage: SettingsStorage
+    ): SettingsRepository = SettingsRepositoryImpl(settingsStorage)
 }
