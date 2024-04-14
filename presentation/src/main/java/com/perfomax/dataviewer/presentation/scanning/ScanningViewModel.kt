@@ -6,6 +6,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.perfomax.dataviewer.domain.usecases.feeds.LoadFeedUseCase
 import com.perfomax.dataviewer.domain.usecases.feeds.SearchFeedElementUseCase
+import dagger.assisted.Assisted
+import dagger.assisted.AssistedFactory
+import dagger.assisted.AssistedInject
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -14,8 +17,9 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-@HiltViewModel
-class ScanningViewModel @Inject constructor(
+@HiltViewModel(assistedFactory = ScanningViewModel.ScanningViewModelFactory::class)
+class ScanningViewModel @AssistedInject constructor(
+    @Assisted val feedUrl: String,
     private val loadFeedUseCase: LoadFeedUseCase,
     private val searchFeedElementUseCase: SearchFeedElementUseCase
 ): ViewModel(), ScanningContract {
@@ -28,13 +32,7 @@ class ScanningViewModel @Inject constructor(
 
     init {
         _uiState.update { currentState->
-            currentState.copy(
-//                feedUrl = "https://citilink.ru"
-//                feedUrl = "citilink.в"
-                feedUrl = "https://feeds-mic.s1.citilink.ru/yandex_offer/msk_cl.xml"
-//                feedUrl = "https://feeds-mic.s1.citilink.ru/yandex_offer/spb_cl.xml"
-//                feedUrl = "https://api2.kiparo.com/static/it_news.xml"
-            )
+            currentState.copy(feedUrl = feedUrl)
         }
     }
 
@@ -99,6 +97,11 @@ class ScanningViewModel @Inject constructor(
                 )
             }
         }
+    }
+
+    @AssistedFactory
+    interface ScanningViewModelFactory {
+        fun create(feedUrl: String): ScanningViewModel
     }
 
 }

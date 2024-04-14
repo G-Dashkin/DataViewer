@@ -19,6 +19,7 @@ import com.perfomax.dataviewer.presentation.home.navigation.navigateToHome
 import com.perfomax.dataviewer.presentation.menu.menu_bottom.DataViewerBottomBar
 import com.perfomax.dataviewer.presentation.menu.menu_top.DataViewerTopMenu
 import com.perfomax.dataviewer.presentation.projects.navigation.navigateToProjects
+import com.perfomax.dataviewer.presentation.scanning.navigation.navigateToScanning
 import com.perfomax.dataviewer.presentation.scanning.navigation.scanning
 import com.perfomax.dataviewer.presentation.settings.navigation.navigateToSettings
 import com.perfomax.dataviewer.ui.theme.DataViewerTheme
@@ -28,11 +29,14 @@ fun MenuScreen(
     uiState: MenuContract.State,
     topLevelDestinations: List<TopLevelDestination>,
     onLogout: () -> Unit,
-    updateMainProject: () -> Unit
+    updateMainProject: () -> Unit,
+    onScanning: (String) -> Unit
 ) {
 
     val navController: NavHostController = rememberNavController()
+    // подписываемся на текущий экран
     val navBackStackEntry by navController.currentBackStackEntryAsState()
+    // получаем стрингу текущего роута
     val currentRoute = navBackStackEntry?.destination?.route
 
     Scaffold(
@@ -40,7 +44,9 @@ fun MenuScreen(
             DataViewerTopMenu(
                 titleTomMenu = uiState.selectedProject,
                 destinations = topLevelDestinations,
+                // Управляет переходами при кликах по кнопкам
                 onNavigateToTopLevel = { route ->
+                    // Переходами управляется navController
                     navController.navigateSingleTopTo(route)
                 },
                 updateMainProject = updateMainProject
@@ -61,7 +67,11 @@ fun MenuScreen(
                 navController = navController,
                 startDestination = HomeDestination.route
             ) {
-                navigateToHome()
+                navigateToHome(
+                    onNavigateToScan = { feed ->
+                        navController.navigateToScanning(feed)
+                    }
+                )
                 scanning()
                 navigateToSettings()
                 navigateToProjects(onUpdateTitle = updateMainProject)

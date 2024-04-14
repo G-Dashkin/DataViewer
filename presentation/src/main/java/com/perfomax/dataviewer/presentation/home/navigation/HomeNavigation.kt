@@ -19,7 +19,9 @@ import com.perfomax.dataviewer.presentation.scanning.navigation.scanning
 import com.perfomax.dataviewer.ui.base.useEffects
 import com.perfomax.ui.R
 
-fun NavGraphBuilder.navigateToHome(){
+fun NavGraphBuilder.navigateToHome(
+    onNavigateToScan: (String) -> Unit
+){
 
     composable(route = HomeDestination.route) {
         val homeViewModel = hiltViewModel<HomeViewModel>()
@@ -36,7 +38,7 @@ fun NavGraphBuilder.navigateToHome(){
                 homeViewModel.intent(HomeContract.Event.ClickFindFeedElement(findingFeedElementName))
             },
             onFindSelectedElement = { onFeedSelected ->
-                Log.d("MyLog", "FeedUrl: $onFeedSelected")
+                onNavigateToScan.invoke(onFeedSelected)
             },
             onClickUpdateFeed = { homeViewModel.intent(HomeContract.Event.ClickUpdateFeedEvent) },
             onChangeFeed = { changingFeed ->

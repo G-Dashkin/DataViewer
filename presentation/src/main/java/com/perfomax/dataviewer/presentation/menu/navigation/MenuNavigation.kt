@@ -12,6 +12,7 @@ import com.perfomax.dataviewer.navigation.TopLevelDestination
 import com.perfomax.dataviewer.presentation.menu.MenuContract
 import com.perfomax.dataviewer.presentation.menu.MenuScreen
 import com.perfomax.dataviewer.presentation.menu.MenuViewModel
+import com.perfomax.dataviewer.presentation.scanning.navigation.scanning
 
 const val MENU_GRAPH = "menu_graph"
 
@@ -27,7 +28,8 @@ object MenuDestination: NavigationDestination {
 fun NavGraphBuilder.menu(
     topLevelDestinations: List<TopLevelDestination>,
     onLogout: () -> Unit,
-    onNavigateUp: () -> Unit
+    onNavigateUp: () -> Unit,
+    onNavigateToScanning: (String) -> Unit
 ) {
     navigation(
         startDestination = MenuDestination.route,
@@ -35,14 +37,16 @@ fun NavGraphBuilder.menu(
     ) {
         menuInner(
             topLevelDestinations = topLevelDestinations,
-            onLogout = onLogout
+            onLogout = onLogout,
+            onScanning = onNavigateToScanning
         )
     }
 }
 
 private fun NavGraphBuilder.menuInner(
     onLogout: () -> Unit,
-    topLevelDestinations: List<TopLevelDestination>
+    topLevelDestinations: List<TopLevelDestination>,
+    onScanning: (String) -> Unit
 ) {
     composable(MenuDestination.route) {
         val menuViewModel = hiltViewModel<MenuViewModel>()
@@ -51,7 +55,8 @@ private fun NavGraphBuilder.menuInner(
             uiState = menuUiState,
             topLevelDestinations = topLevelDestinations,
             onLogout = onLogout,
-            updateMainProject = { menuViewModel.intent(MenuContract.Event.UpdateProjectEvent) }
+            updateMainProject = { menuViewModel.intent(MenuContract.Event.UpdateProjectEvent) },
+            onScanning = onScanning
         )
     }
 }
