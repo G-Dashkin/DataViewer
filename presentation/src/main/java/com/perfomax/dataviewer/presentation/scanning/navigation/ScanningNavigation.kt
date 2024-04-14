@@ -29,7 +29,7 @@ fun NavGraphBuilder.scanning(){
         route = ScanningDestination.routeWithArgs,
         arguments = ScanningDestination.arguments
     ){navStackEntry ->
-        val gottenFeedUrl = navStackEntry.arguments?.getString(ScanningDestination.itemIdArg)?.replace("|","/")
+        val gottenFeedUrl = navStackEntry.arguments?.getString(ScanningDestination.itemIdArg)?.replace("|","/")?.trim()
 
         val scanningViewModel = hiltViewModel<ScanningViewModel, ScanningViewModel.ScanningViewModelFactory> { factory ->
                 factory.create(feedUrl = gottenFeedUrl?:"")

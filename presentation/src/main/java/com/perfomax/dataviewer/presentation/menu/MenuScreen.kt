@@ -1,5 +1,6 @@
 package com.perfomax.dataviewer.presentation.menu
 
+import android.util.Log
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
@@ -57,7 +58,8 @@ fun MenuScreen(
                 currentDestination = currentRoute,
                 destinations = topLevelDestinations,
                 onNavigateToTopLevel = { route ->
-                    navController.navigateSingleTopTo(route)
+                    if (route == "scanning/{feed_url}") navController.navigateToScanning(" ")
+                    else navController.navigateSingleTopTo(route)
                 }
             )
         }
