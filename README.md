@@ -1,5 +1,10 @@
 # DataViewer
 
-description 
-description 2
-description 2
+-Jetpack Compose
+-MVI
+-Clean Architecture
+-Hilt
+-Jetpack Navigation
+-SharedPreferences
+-Flow?/LiveData?
+
