@@ -91,6 +91,7 @@ dependencies {
     implementation(libs.hilt.android)
     kapt(libs.hilt.compiler)
     implementation(libs.hilt.navigation.compose)
+    implementation("androidx.hilt:hilt-work:1.0.0")
 
     // datastore
     implementation(libs.datastore.preferences)

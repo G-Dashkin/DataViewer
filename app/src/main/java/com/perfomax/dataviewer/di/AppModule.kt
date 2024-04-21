@@ -15,6 +15,7 @@ import com.perfomax.dataviewer.domain.repository.FeedsRepository
 import com.perfomax.dataviewer.domain.repository.ProjectsRepository
 import com.perfomax.dataviewer.domain.repository.SettingsRepository
 import com.perfomax.dataviewer.receivers.AlarmSchedulerImpl
+import com.perfomax.dataviewer.workers.FeedUpdateWorker
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

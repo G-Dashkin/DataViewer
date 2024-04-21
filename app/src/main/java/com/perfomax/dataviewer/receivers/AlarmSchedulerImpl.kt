@@ -19,8 +19,7 @@ class AlarmSchedulerImpl(private val context: Context): AlarmScheduler {
     }
 
     private val  alarmIntent: PendingIntent
-        // в интенте мы указываем наш ресивер - Example5UpdateReceiver в который мы будем отправлять
-        // уведомление
+
         get() = Intent(context, FeedUpdateScheduleReceiver::class.java).let { intent ->
             var pendingIntent: PendingIntent? = null
             pendingIntent = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
@@ -42,8 +41,6 @@ class AlarmSchedulerImpl(private val context: Context): AlarmScheduler {
         }
     override fun schedulerFeedUpdate(intervalTime: Long) {
         val scheduleTimer = System.currentTimeMillis() + intervalTime
-        Log.d("MyLog", "||||||||||||||||||||||||||||||")
-//        alarmManager.cancel(alarmIntent)
         alarmManager.set(
             AlarmManager.RTC_WAKEUP,
             scheduleTimer,
@@ -52,7 +49,6 @@ class AlarmSchedulerImpl(private val context: Context): AlarmScheduler {
     }
 
     fun cancelFeedUpdate() {
-        // отмена в зависимости от версии
         if (Build.VERSION.SDK_INT >= 34) {
             alarmManager.cancelAll()
         } else {

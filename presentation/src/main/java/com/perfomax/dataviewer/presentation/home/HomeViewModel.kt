@@ -25,9 +25,11 @@ import javax.inject.Inject
 
 private const val RECEIVER_FEED_ACTION = "com.perfomax.dataviewer.RECEIVER_FEED_ACTION"
 private const val RECEIVER_FEED_EXTRAS = "receiver_feed_extras"
+private const val RECEIVER_FEED_TIME_EXTRAS = "receiver_feed_time_extras"
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
+    @ApplicationContext private val context: Context,
     private val getAllFeedsUseCase: GetAllFeedsUseCase,
     private val getSelectedProjectUseCase: GetSelectedProjectUseCase,
     private val countFeedElementsUseCase: CountFeedElementsUseCase,
@@ -36,8 +38,6 @@ class HomeViewModel @Inject constructor(
 
     private val getUpdateIntoBackgroundUseCase: GetUpdateIntoBackgroundUseCase,
     private val getUpdatePeriodUseCase: GetUpdatePeriodUseCase,
-
-    @ApplicationContext private val context: Context,
 ): ViewModel(), HomeContract {
 
 
@@ -73,20 +73,22 @@ class HomeViewModel @Inject constructor(
             val intent = Intent()
             intent.action = RECEIVER_FEED_ACTION
             intent.putExtra(RECEIVER_FEED_EXTRAS, getUpdateIntoBackgroundUseCase.execute())
+            intent.putExtra(RECEIVER_FEED_TIME_EXTRAS, getUpdatePeriodUseCase.execute())
             intent.setPackage(context.packageName)
             context.sendBroadcast(intent)
         }
     }
 
-    override fun consume() {
-        _effect.update { null }
-    }
+
 
     private fun setSchedule() {
         viewModelScope.launch {
-//            val updateTime = getUpdatePeriodUseCase.execute()
-            setScheduleUseCase.execute(5000L)
+            setScheduleUseCase.execute(getUpdatePeriodUseCase.execute().toLong())
         }
+    }
+
+    override fun consume() {
+        _effect.update { null }
     }
 
     private fun loadFeedsList() {
