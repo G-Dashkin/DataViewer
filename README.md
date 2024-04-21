@@ -1,10 +1,10 @@
 # DataViewer
-
--Jetpack Compose
--MVI
--Clean Architecture
--Hilt
--Jetpack Navigation
--SharedPreferences
--Flow?/LiveData?
+# Tech-stack
+Jetpack Compose
+MVI
+Clean Architecture
+Hilt
+Jetpack Navigation
+SharedPreferences
+Flow?/LiveData?
 
