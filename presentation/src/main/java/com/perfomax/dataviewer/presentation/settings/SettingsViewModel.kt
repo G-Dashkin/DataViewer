@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.perfomax.dataviewer.domain.usecases.feeds.CountFeedElementsUseCase
 import com.perfomax.dataviewer.domain.usecases.feeds.GetAllFeedsUseCase
 import com.perfomax.dataviewer.domain.usecases.projects.GetSelectedProjectUseCase
+import com.perfomax.dataviewer.domain.usecases.scheduler.SetScheduleUseCase
 import com.perfomax.dataviewer.domain.usecases.settings.GetNotificationUseCase
 import com.perfomax.dataviewer.domain.usecases.settings.GetPercentForAlertUseCase
 import com.perfomax.dataviewer.domain.usecases.settings.GetUpdateIntoBackgroundUseCase
@@ -48,6 +49,7 @@ class SettingsViewModel @Inject constructor(
 
     init {
         getSettings()
+//        setService()
     }
 
     override fun intent(event: SettingsContract.Event) {
@@ -152,5 +154,14 @@ class SettingsViewModel @Inject constructor(
             }
         }
     }
+
+
+
+//    private fun setService() {
+//        viewModelScope.launch {
+////            val updateTime = getUpdatePeriodUseCase.execute()
+//            setScheduleUseCase.execute(5000L)
+//        }
+//    }
 
 }

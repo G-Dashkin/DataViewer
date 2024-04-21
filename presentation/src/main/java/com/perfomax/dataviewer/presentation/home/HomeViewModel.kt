@@ -1,12 +1,20 @@
 package com.perfomax.dataviewer.presentation.home
 
+import android.app.Application
+import android.content.Context
+import android.content.Intent
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.perfomax.dataviewer.domain.usecases.feeds.CountFeedElementsUseCase
 import com.perfomax.dataviewer.domain.usecases.feeds.GetAllFeedsUseCase
 import com.perfomax.dataviewer.domain.usecases.projects.GetSelectedProjectUseCase
+import com.perfomax.dataviewer.domain.usecases.scheduler.SetScheduleUseCase
+import com.perfomax.dataviewer.domain.usecases.settings.GetUpdateIntoBackgroundUseCase
+import com.perfomax.dataviewer.domain.usecases.settings.GetUpdatePeriodUseCase
+import dagger.hilt.android.internal.Contexts.getApplication
 import dagger.hilt.android.lifecycle.HiltViewModel
+import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -14,12 +22,24 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+
+private const val RECEIVER_FEED_ACTION = "com.perfomax.dataviewer.RECEIVER_FEED_ACTION"
+private const val RECEIVER_FEED_EXTRAS = "receiver_feed_extras"
+
 @HiltViewModel
 class HomeViewModel @Inject constructor(
     private val getAllFeedsUseCase: GetAllFeedsUseCase,
     private val getSelectedProjectUseCase: GetSelectedProjectUseCase,
-    private val countFeedElementsUseCase: CountFeedElementsUseCase
+    private val countFeedElementsUseCase: CountFeedElementsUseCase,
+
+    private val setScheduleUseCase: SetScheduleUseCase,
+
+    private val getUpdateIntoBackgroundUseCase: GetUpdateIntoBackgroundUseCase,
+    private val getUpdatePeriodUseCase: GetUpdatePeriodUseCase,
+
+    @ApplicationContext private val context: Context,
 ): ViewModel(), HomeContract {
+
 
     private val _uiState = MutableStateFlow(HomeContract.State.initial())
     override val uiState: StateFlow<HomeContract.State> = _uiState.asStateFlow()
@@ -37,13 +57,36 @@ class HomeViewModel @Inject constructor(
 
             HomeContract.Event.CountFeedElementEvent -> countFeedElements()
             HomeContract.Event.UpdateFeedsListEvent -> loadFeedsList()
+            HomeContract.Event.UpdateBackgroundEvent -> testBackgroundUpdate()
             HomeContract.Event.ClickUpdateFeedEvent -> onUpdateSelectedFeed()
             HomeContract.Event.CloseDialogClickEvent -> closeDialogHomeScreenFeed()
         }
     }
 
+    init {
+        testBackgroundUpdate()
+        setSchedule()
+    }
+
+    private fun testBackgroundUpdate() {
+        viewModelScope.launch {
+            val intent = Intent()
+            intent.action = RECEIVER_FEED_ACTION
+            intent.putExtra(RECEIVER_FEED_EXTRAS, getUpdateIntoBackgroundUseCase.execute())
+            intent.setPackage(context.packageName)
+            context.sendBroadcast(intent)
+        }
+    }
+
     override fun consume() {
         _effect.update { null }
+    }
+
+    private fun setSchedule() {
+        viewModelScope.launch {
+//            val updateTime = getUpdatePeriodUseCase.execute()
+            setScheduleUseCase.execute(5000L)
+        }
     }
 
     private fun loadFeedsList() {

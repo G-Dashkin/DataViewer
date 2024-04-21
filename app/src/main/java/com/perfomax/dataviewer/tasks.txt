@@ -7,6 +7,15 @@
 
 (3 Неделя  15 - 21)
 1)Сделать обновление фидов в фоне
+
+что есть:
+app - workers - FeedUpdateWorker
+app - receivers - FeedActionReceiver
+app - receivers - FeedUpdateScheduleReceiver
+
+domain - repository - AlarmScheduler -> schedulerJokeUpdate()
+domain - usecases - scheduler -> GetScheduleOptionsUseCase()
+
 ----------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------

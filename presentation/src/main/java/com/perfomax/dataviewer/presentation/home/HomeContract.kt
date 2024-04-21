@@ -38,6 +38,7 @@ interface HomeContract:
 
     sealed interface Event {
         data object UpdateFeedsListEvent: Event
+        data object UpdateBackgroundEvent: Event
         data object CountFeedElementEvent: Event
         data class ClickFeedNameEvent(val feedName: String): Event
         data class ClickFindFeedElement(val findFeedElement: String): Event

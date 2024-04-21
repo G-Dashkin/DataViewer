@@ -37,6 +37,7 @@ import com.perfomax.ui.R
 fun HomeScreen(
     uiState: HomeContract.State,
     updateFeedsList:() -> Unit,
+    updateBackgroundUpdate:() -> Unit,
     onUpdateFeedsClick:() -> Unit,
 
     onClickFeedElement:(String) -> Unit,
@@ -48,6 +49,7 @@ fun HomeScreen(
 ) {
 
     updateFeedsList.invoke()
+    updateBackgroundUpdate.invoke()
 
     Column(
         modifier = Modifier

@@ -30,6 +30,7 @@ fun NavGraphBuilder.navigateToHome(
         HomeScreen (
             uiState = homeUiState,
             updateFeedsList = { homeViewModel.intent(HomeContract.Event.UpdateFeedsListEvent) },
+            updateBackgroundUpdate = { homeViewModel.intent(HomeContract.Event.UpdateBackgroundEvent)},
             onUpdateFeedsClick = { homeViewModel.intent(HomeContract.Event.CountFeedElementEvent) },
             onClickFeedElement = { clickedFeed ->
                 homeViewModel.intent(HomeContract.Event.ClickFeedNameEvent(clickedFeed))
