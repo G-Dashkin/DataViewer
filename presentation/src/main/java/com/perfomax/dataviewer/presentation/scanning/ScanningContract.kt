@@ -15,6 +15,7 @@ interface ScanningContract:
         val feedUrlErrorMessage: String,
 
         val loadedFeed: List<String>,
+        val isScanningFeed: Boolean,
 
         val feedSearchValue: String,
         val feedSearchValueError: Boolean,
@@ -28,6 +29,7 @@ interface ScanningContract:
                 feedUrlError = false,
                 feedUrlErrorMessage = EMPTY,
                 loadedFeed = emptyList(),
+                isScanningFeed = false,
                 feedSearchValue = EMPTY,
                 feedSearchValueError = false,
                 isFeedScanningResponse = false,
@@ -38,6 +40,7 @@ interface ScanningContract:
                 feedUrlError = false,
                 feedUrlErrorMessage = EMPTY,
                 loadedFeed = emptyList(),
+                isScanningFeed = false,
                 feedSearchValue = EMPTY,
                 feedSearchValueError = false,
                 isFeedScanningResponse = false,

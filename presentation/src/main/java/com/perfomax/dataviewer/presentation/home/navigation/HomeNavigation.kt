@@ -27,7 +27,7 @@ fun NavGraphBuilder.navigateToHome(
         val homeViewModel = hiltViewModel<HomeViewModel>()
         val homeUiState by homeViewModel.uiState.collectAsStateWithLifecycle()
 
-        HomeScreen (
+        HomeScreen(
             uiState = homeUiState,
             updateFeedsList = { homeViewModel.intent(HomeContract.Event.UpdateFeedsListEvent) },
             updateBackgroundUpdate = { homeViewModel.intent(HomeContract.Event.UpdateBackgroundEvent)},
@@ -35,16 +35,10 @@ fun NavGraphBuilder.navigateToHome(
             onClickFeedElement = { clickedFeed ->
                 homeViewModel.intent(HomeContract.Event.ClickFeedNameEvent(clickedFeed))
             },
-            onFindFeedElement = { findingFeedElementName ->
-                homeViewModel.intent(HomeContract.Event.ClickFindFeedElement(findingFeedElementName))
-            },
             onFindSelectedElement = { onFeedSelected ->
                 onNavigateToScan.invoke(onFeedSelected)
             },
             onClickUpdateFeed = { homeViewModel.intent(HomeContract.Event.ClickUpdateFeedEvent) },
-            onChangeFeed = { changingFeed ->
-                homeViewModel.intent(HomeContract.Event.ChangeFeedEvent(changingFeed))
-            },
             onCloseDialogClick = { homeViewModel.intent(HomeContract.Event.CloseDialogClickEvent) }
         )
     }

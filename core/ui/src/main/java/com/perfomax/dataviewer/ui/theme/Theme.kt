@@ -24,7 +24,9 @@ private val darkColorScheme = darkColorScheme(
     onBackground = Black,
     surface = LightGray,
     onSurface = Gray,
-    inversePrimary = Yellow
+    inversePrimary = Yellow,
+
+    onTertiary = AquaBlue
 )
 
 private val lightColorScheme = lightColorScheme(
@@ -36,7 +38,9 @@ private val lightColorScheme = lightColorScheme(
     onBackground = Black,
     surface = LightGray,
     onSurface = Gray,
-    inversePrimary = Yellow
+    inversePrimary = Yellow,
+
+    onTertiary = AquaBlue
 )
 @Composable
 fun DataViewerTheme(

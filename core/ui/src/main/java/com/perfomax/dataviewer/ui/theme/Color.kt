@@ -9,6 +9,8 @@ val Green = Color(0xFF288E05)
 val Lilac = Color(0xFF6936CF)
 val Red = Color(0xFFB3261E)
 
+val AquaBlue = Color(0xBE97ACD6)
+
 val White = Color(0xFFFFFFFF)
 val LightGray = Color(0xFFEDEBF2)
 val Gray = Color(0xFFA09BAC)

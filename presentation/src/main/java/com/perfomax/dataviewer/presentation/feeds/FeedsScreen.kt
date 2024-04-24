@@ -1,6 +1,5 @@
 package com.perfomax.dataviewer.presentation.feeds
 
-import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -41,11 +40,10 @@ import com.perfomax.dataviewer.ui.theme.padding15
 import com.perfomax.dataviewer.ui.theme.shape8
 import com.perfomax.dataviewer.ui.theme.zeroVal
 import com.perfomax.dataviewer.ui.widgets.DefaultDialogView
-import com.perfomax.dataviewer.ui.widgets.FeedItem
+import com.perfomax.dataviewer.ui.widgets.FeedItemSettings
 import com.perfomax.dataviewer.ui.widgets.AddFeedDialogView
 import com.perfomax.dataviewer.ui.widgets.ChangeFeedDialogView
 import com.perfomax.dataviewer.ui.widgets.FeedsScreenFormTextField
-import com.perfomax.dataviewer.ui.widgets.HomeScreenFeedDialogView
 import com.perfomax.dataviewer.ui.widgets.LoadingIndicator
 import com.perfomax.ui.R
 
@@ -162,7 +160,7 @@ fun FeedsScreen(
             if (uiState.isFeedsList){
                 LazyColumn(modifier = Modifier.fillMaxSize()) {
                     items(uiState.feedsList) { element ->
-                        FeedItem(
+                        FeedItemSettings(
                             feedName = element.feedName,
                             onRemoveBottom = true,
                             onRemove = onSelectRemovedFeedNameClick,

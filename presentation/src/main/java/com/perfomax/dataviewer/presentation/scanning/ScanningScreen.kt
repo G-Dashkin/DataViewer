@@ -1,11 +1,10 @@
 package com.perfomax.dataviewer.presentation.scanning
 
 
-import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -15,19 +14,15 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.requiredHeight
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.itemsIndexed
-import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.key
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -41,11 +36,9 @@ import com.perfomax.dataviewer.ui.theme.height50
 import com.perfomax.dataviewer.ui.theme.padding15
 import com.perfomax.dataviewer.ui.theme.shape8
 import com.perfomax.dataviewer.ui.theme.zeroVal
-import com.perfomax.dataviewer.ui.widgets.FeedItem
 import com.perfomax.dataviewer.ui.widgets.FeedsScreenFormTextField
+import com.perfomax.dataviewer.ui.widgets.LoadingIndicator
 import com.perfomax.ui.R
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 
 @Composable
 fun ScanningScreen(
@@ -57,12 +50,11 @@ fun ScanningScreen(
 ) {
 
     Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(padding15),
+        modifier = Modifier.fillMaxSize().padding(start = padding15, end = padding15),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Top
     ) {
+
         Row(
             modifier = Modifier.fillMaxWidth(),
             verticalAlignment = Alignment.Top,
@@ -71,7 +63,6 @@ fun ScanningScreen(
             FeedsScreenFormTextField(
                 modifier = Modifier
                     .fillMaxWidth(fillMaxWidth07)
-                    .height(70.dp)
                     .defaultMinSize(minHeight = height50)
                     .background(color = MaterialTheme.colorScheme.background)
                     .padding(zeroVal),
@@ -81,11 +72,12 @@ fun ScanningScreen(
                 onChange = onFeedUrlFieldChange
             )
             Spacer(modifier = Modifier.width(width = 5.dp))
-            Button(modifier = Modifier
+            Button(
+                modifier = Modifier
                 .fillMaxWidth()
-                .height(70.dp)
-                .defaultMinSize(minHeight = height50),
-//                    enabled = !uiState.isCountingFeedElements,
+                .height(50.dp)
+                .requiredHeight(40.dp),
+                    enabled = !uiState.isScanningFeed,
                     shape = RoundedCornerShape(shape8),
                     contentPadding = PaddingValues(zeroVal),
                     onClick = onLoadFeedClick
@@ -94,10 +86,20 @@ fun ScanningScreen(
                         color = MaterialTheme.colorScheme.onSecondary,
                         style = MaterialTheme.typography.titleMedium)
                 }
+            }
+
+        if (uiState.isScanningFeed) {
+            Column(
+                modifier = Modifier.fillMaxSize(),
+                verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                LoadingIndicator()
+                Text(text = "Сканирование фида")
+            }
         }
 
         if (uiState.isFeedScanningResponse) {
-            Spacer(modifier = Modifier.height(10.dp))
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 verticalAlignment = Alignment.Top,
@@ -120,8 +122,7 @@ fun ScanningScreen(
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(70.dp)
-                        .defaultMinSize(minHeight = height50),
-//                    enabled = !uiState.isCountingFeedElements,
+                        .requiredHeight(40.dp),
                     shape = RoundedCornerShape(shape8),
                     contentPadding = PaddingValues(zeroVal),
                     onClick = onSearchFeedElementClick
@@ -138,7 +139,7 @@ fun ScanningScreen(
                 state = uiState.listState,
                 modifier = Modifier
                     .fillMaxSize()
-                    .border(1.dp, Color.Gray)) {
+                    .border(1.dp, Color.Gray).padding(5.dp)) {
                 itemsIndexed(items = uiState.loadedFeed) { index, element ->
                     if (element.contains(uiState.feedSearchValue) && uiState.feedSearchValue.isNotEmpty()) {
                         Text(modifier = Modifier.background(Color.Gray), text = element, color = Color.White)
@@ -154,6 +155,12 @@ fun ScanningScreen(
 @Composable
 fun ScanningScreenPreview() {
     DataViewerTheme {
-//        ScanningScreen()
+        ScanningScreen(
+            uiState =  ScanningContract.State.initial(),
+            onFeedUrlFieldChange = { },
+            onSearchFeedElementFieldChange = {},
+            onLoadFeedClick = {  },
+            onSearchFeedElementClick = {  }
+        )
     }
 }

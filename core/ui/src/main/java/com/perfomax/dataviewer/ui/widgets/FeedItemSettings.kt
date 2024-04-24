@@ -18,14 +18,15 @@ import androidx.compose.material3.Divider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.perfomax.dataviewer.ui.theme.padding10
-import com.perfomax.dataviewer.ui.theme.padding15
+import com.perfomax.dataviewer.ui.theme.padding5
 
 @Composable
-fun FeedItem(
+fun FeedItemSettings(
     modifier: Modifier = Modifier,
     feedName: String,
     onRemove: (String) -> Unit = {},
@@ -80,17 +81,26 @@ fun FeedItem(
                          style = MaterialTheme.typography.titleMedium) }
             }
         } else {
-            Column(modifier = Modifier
-                .padding(start = padding10, top = padding10, end = padding10)
-                ) {
-                Row(modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceBetween
-                ) {
-                    Text(color = Color.Black, text = feedName)
-                    Text(text = "Количество элементов в фиде: $countElements")
+            Row(modifier = Modifier.fillMaxWidth()
+                .padding(start = padding10, top = padding10, end = padding10),
+                horizontalArrangement = Arrangement.Center
+            ) {
+                Column(modifier = Modifier
+                    .fillMaxWidth(0.5f)
+                    .padding(end = padding5),
+                    horizontalAlignment = Alignment.End) {
+                    Text(text = "Название фида:")
+                    Text(text = "Элементы в фиде:")
+                    Text(text = "Обновление из фида:")
+                    Text(text = "Загрузка фида:")
                 }
-                Text(text = "Дата обновления из фида: $updateTime")
-                Text(text = "Дата загрузки фида: $loadTime")
+                Column(modifier = Modifier.fillMaxWidth(),
+                    verticalArrangement = Arrangement.Center) {
+                    Text(text = feedName)
+                    Text(text = countElements.toString())
+                    Text(text = updateTime)
+                    Text(text = loadTime)
+                }
             }
             }
         }

@@ -68,12 +68,14 @@ class ScanningViewModel @AssistedInject constructor(
 
     private fun onLoadFeed() {
         viewModelScope.launch {
+            _uiState.update { currentState -> currentState.copy(isScanningFeed = true) }
             _uiState.update {  currentState ->
                 currentState.copy(
                     isFeedScanningResponse = true,
                     loadedFeed = loadFeedUseCase.execute(feedUrl = _uiState.value.feedUrl)
                 )
             }
+            _uiState.update { currentState -> currentState.copy(isScanningFeed = false) }
         }
     }
 

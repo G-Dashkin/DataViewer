@@ -26,11 +26,9 @@ import com.perfomax.dataviewer.ui.theme.padding10
 
 @Composable
 fun HomeScreenFeedDialogView(
-    feedTitle: String = "",
-    feedUrl: String = "",
+    feedTitle: String,
+    feedUrl: String,
     openDialog: Boolean,
-    feedFindElementValue: String = "",
-    onFeedFindElementChangeValue: (String) -> Unit,
     onFindElementsInFeed: (String) -> Unit,
     onUpdateFeed:() -> Unit,
     onClose:() -> Unit
@@ -95,23 +93,13 @@ fun HomeScreenFeedDialogView(
 @Composable
 fun HomeScreenFeedDialogViewPreview() {
     DataViewerTheme {
-//        HomeScreenFeedDialogView(
-//            title = "Добвление нововго фида",
-//
-//            feedNameValue = "",
-//            onFeedNameFieldChangeValue = {  },
-//
-//            feedElementNameValue = "",
-//            onFeedElementFieldChangeValue = { },
-//
-//            selectDateElement = {},
-//            selectedFeedDateElement = "",
-//
-//            dateElement = "<yml_catalog date=\"2024-03-21 20:52\">",
-//            useDateElement = {},
-//            openDialog = true,
-//            onCancel = {},
-//            onConfirm = {}
-//        )
+        HomeScreenFeedDialogView(
+            feedTitle = "MyFeed",
+            feedUrl = "www.feed.com",
+            onFindElementsInFeed = {  },
+            openDialog = true,
+            onUpdateFeed = {  },
+            onClose = {  }
+        )
     }
 }
