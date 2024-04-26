@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
@@ -78,7 +79,8 @@ fun ProjectsDialogView(
                                 bottom = 10.dp,
                             ),
                             onClick = onCancel
-                        ) { Text(text = "Отменить") }
+                        ) { Text(text = "Отменить",
+                                 style = MaterialTheme.typography.titleMedium) }
 
                         Button(
                             modifier = Modifier
@@ -97,7 +99,8 @@ fun ProjectsDialogView(
                                 onUpdateProjectClick.invoke()
                             },
 
-                        ) { Text(text = "Подтвердить") }
+                        ) { Text(text = "Подтвердить",
+                                 style = MaterialTheme.typography.titleMedium) }
                     }
                 }
             }

@@ -85,7 +85,7 @@ fun ProjectsScreen(
         )
         DefaultDialogView(
             textValue = uiState.projectName,
-            title = stringResource(id = R.string.name_new_project) + uiState.removedProject,
+            title = stringResource(id = R.string.delete_project) + " ${uiState.removedProject}?",
             openDialog = uiState.openDialogRemoveProject,
             onCancel = onCloseDialogRemoveClick,
             onConfirm = onRemoveProjectClick,

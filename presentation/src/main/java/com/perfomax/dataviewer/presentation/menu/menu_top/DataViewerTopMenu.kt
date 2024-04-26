@@ -41,7 +41,7 @@ fun DataViewerTopMenu(
 
     TopAppBar(
         modifier = Modifier.border(1.dp, Color.Gray),
-        title = { Text(text = stringResource(id = R.string.project ) + titleTomMenu) },
+        title = { Text(text = stringResource(id = R.string.project ) + " $titleTomMenu") },
         actions = {
             IconButton(onClick = { dropDownMenuExpanded = true }) {
                 Icon(imageVector = Icons.Outlined.MoreVert, contentDescription = "Options")
