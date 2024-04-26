@@ -1,5 +1,6 @@
 package com.perfomax.dataviewer.presentation.menu.menu_top
 
+import androidx.compose.foundation.border
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.MoreVert
 import androidx.compose.material3.DropdownMenu
@@ -15,6 +16,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.DpOffset
@@ -38,6 +40,7 @@ fun DataViewerTopMenu(
     var dropDownMenuExpanded by remember { mutableStateOf(false) }
 
     TopAppBar(
+        modifier = Modifier.border(1.dp, Color.Gray),
         title = { Text(text = stringResource(id = R.string.project ) + titleTomMenu) },
         actions = {
             IconButton(onClick = { dropDownMenuExpanded = true }) {
@@ -49,7 +52,7 @@ fun DataViewerTopMenu(
                 offset = DpOffset(x = OFFSET_X.dp, y = OFFSET_Y.dp)
             ) {
                 destinations.filter {
-                    it.route != "scanning"
+                    !it.route.contains("scanning")
                 }.forEachIndexed { index, item ->
                     DropdownMenuItem(
                         text = { Text(text = stringResource(id = item.titleId)) },

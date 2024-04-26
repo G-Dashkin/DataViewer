@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.requiredHeight
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
@@ -48,13 +49,12 @@ fun FeedItemSettings(
         else Modifier.fillMaxWidth()
     ) {
         if (onRemoveBottom){
-            Box(modifier = Modifier
-                .padding(10.dp)
-                .border(1.dp, Color.Gray)
+            Box(
+                modifier = Modifier.padding(start = 5.dp, top = 15.dp)
             ) { Text(color = Color.Black, text = feedName) }
             Row(modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.End) {
-                Button(
+                Button(modifier = Modifier.requiredHeight(40.dp),
                     shape = RoundedCornerShape(10.dp),
                     contentPadding = PaddingValues(
                         start = 10.dp,
@@ -67,7 +67,7 @@ fun FeedItemSettings(
                          color = MaterialTheme.colorScheme.onSecondary,
                          style = MaterialTheme.typography.titleMedium) }
                 Spacer(modifier = Modifier.width(5.dp))
-                Button(
+                Button(modifier = Modifier.requiredHeight(40.dp),
                     shape = RoundedCornerShape(10.dp),
                     contentPadding = PaddingValues(
                         start = 10.dp,
@@ -78,8 +78,10 @@ fun FeedItemSettings(
                     onClick = { onRemove.invoke(feedName) }
                 ) { Text(text = "Удалить",
                          color = MaterialTheme.colorScheme.onSecondary,
-                         style = MaterialTheme.typography.titleMedium) }
+                         style = MaterialTheme.typography.titleMedium
+                ) }
             }
+
         } else {
             Row(modifier = Modifier.fillMaxWidth()
                 .padding(start = padding10, top = padding10, end = padding10),
@@ -104,12 +106,9 @@ fun FeedItemSettings(
             }
             }
         }
-        Divider (
-        modifier = Modifier
-            .height(1.dp)
-            .fillMaxWidth(),
-        color = Color.Black
-    )
+        Spacer(modifier = Modifier.height(5.dp))
+        Divider (modifier = Modifier.height(1.dp).fillMaxWidth(),
+                 color = Color.Black)
 }
 
 

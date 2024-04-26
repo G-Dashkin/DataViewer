@@ -2,8 +2,10 @@ package com.perfomax.dataviewer.presentation.projects
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -15,7 +17,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import com.perfomax.dataviewer.ui.theme.DataViewerTheme
+import com.perfomax.dataviewer.ui.theme.padding10
 import com.perfomax.dataviewer.ui.theme.padding15
 import com.perfomax.dataviewer.ui.theme.shape8
 import com.perfomax.dataviewer.ui.widgets.DefaultDialogView
@@ -50,9 +54,10 @@ fun ProjectsScreen(
             onClick = onOpenDialogCreateClick
         ) {
             Text(text = stringResource(id = R.string.create_new_project),
-            color = MaterialTheme.colorScheme.onSurface,
-            style = MaterialTheme.typography.titleSmall)
+                color = MaterialTheme.colorScheme.onSecondary,
+                style = MaterialTheme.typography.titleLarge)
         }
+        Spacer(modifier = Modifier.height(padding10))
 
         LazyColumn {
             items(uiState.projectsList.size) { projectIndex ->
@@ -63,6 +68,7 @@ fun ProjectsScreen(
                     onRemove = onSelectRemovedProjectNameClick,
                     onUpdateTitleClick = onUpdateProjectClick
                 )
+                Spacer(modifier = Modifier.height(5.dp))
             }
         }
         ProjectsDialogView(

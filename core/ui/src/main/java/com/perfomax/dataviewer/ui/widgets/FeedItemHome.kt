@@ -81,8 +81,7 @@ fun FeedItemHome(
                 platformStyle = PlatformTextStyle(includeFontPadding = false)))
         }
     }
-//    Divider(modifier = Modifier.height(1.dp).fillMaxWidth(), color = Color.Black)
-    Spacer(modifier = Modifier.height(5.dp))
+    Spacer(modifier = Modifier.height(padding10))
 }
 
 

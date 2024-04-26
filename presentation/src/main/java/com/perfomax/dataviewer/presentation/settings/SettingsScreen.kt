@@ -106,14 +106,12 @@ fun SettingsScreen(
         Spacer(modifier = Modifier.heightIn(15.dp))
         Row(horizontalArrangement = Arrangement.Start) {
             ExposedDropdownMenuBox(
-                modifier = Modifier.fillMaxWidth(0.5f),
+                modifier = Modifier.fillMaxWidth(0.51f),
                 expanded = isExpandedUpdateTime,
                 onExpandedChange = { isExpandedUpdateTime = !isExpandedUpdateTime }
             ) {
                 TextField(
-                    modifier = Modifier.menuAnchor()
-//                        .requiredHeight(40.dp)
-                    ,
+                    modifier = Modifier.menuAnchor(),
                     value = selectedUpdateTime,
                     onValueChange = {  },
                     readOnly = true,
@@ -137,7 +135,7 @@ fun SettingsScreen(
             }
             Text(modifier = Modifier
                 .fillMaxWidth()
-                .padding(start = 10.dp),
+                .padding(start = 5.dp),
                 text = "Периодичность \nобновления",
                 color = MaterialTheme.colorScheme.onBackground,
                 style = MaterialTheme.typography.titleLarge)
@@ -147,7 +145,7 @@ fun SettingsScreen(
         Spacer(modifier = Modifier.heightIn(15.dp))
         Row(horizontalArrangement = Arrangement.Start) {
             ExposedDropdownMenuBox(
-                modifier = Modifier.fillMaxWidth(0.5f),
+                modifier = Modifier.fillMaxWidth(0.51f),
                 expanded = isExpandedUpdatePercent,
                 onExpandedChange = { isExpandedUpdatePercent = !isExpandedUpdatePercent }
             ) {
@@ -176,7 +174,7 @@ fun SettingsScreen(
             }
             Text(modifier = Modifier
                 .fillMaxWidth()
-                .padding(start = 10.dp),
+                .padding(start = 5.dp),
                 text = "Процент разнице \nпри обновлении",
                 color = MaterialTheme.colorScheme.onBackground,
                 style = MaterialTheme.typography.titleLarge)

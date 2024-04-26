@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.requiredHeight
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -84,16 +85,14 @@ fun FeedsScreen(
     updateProject.invoke()
 
     Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(padding15),
+        modifier = Modifier.fillMaxSize().padding(start = padding15, end = padding15),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Top
     ) {
         Text(text = stringResource(id = R.string.load_new_feed),
             color = MaterialTheme.colorScheme.primary,
             style = MaterialTheme.typography.headlineLarge)
-        Spacer(modifier = Modifier.height(height15))
+//        Spacer(modifier = Modifier.height(10.dp))
         Row(
             modifier = Modifier.fillMaxWidth(),
             verticalAlignment = Alignment.Top,
@@ -116,7 +115,7 @@ fun FeedsScreen(
                 Button(modifier = Modifier
                     .fillMaxWidth()
                     .height(height50)
-                    .defaultMinSize(minHeight = height50),
+                    .requiredHeight(40.dp),
                     enabled = !uiState.isCountingFeedElements,
                     shape = RoundedCornerShape(shape8),
                     contentPadding = PaddingValues(zeroVal),
@@ -130,7 +129,7 @@ fun FeedsScreen(
                 Button(modifier = Modifier
                     .fillMaxWidth()
                     .height(height50)
-                    .defaultMinSize(minHeight = height50),
+                    .requiredHeight(40.dp),
                     shape = RoundedCornerShape(shape8),
                     contentPadding = PaddingValues(zeroVal),
                     onClick = onSwitchToFeedsListClick
@@ -141,9 +140,7 @@ fun FeedsScreen(
                 }
             }
         }
-        Spacer(modifier = Modifier.height(5.dp))
-
-
+//        Spacer(modifier = Modifier.height(5.dp))
         if (uiState.isCountingFeedElements) {
             Column(
                 modifier = Modifier.fillMaxSize(),
@@ -160,6 +157,7 @@ fun FeedsScreen(
             if (uiState.isFeedsList){
                 LazyColumn(modifier = Modifier.fillMaxSize()) {
                     items(uiState.feedsList) { element ->
+                        Spacer(modifier = Modifier.height(5.dp))
                         FeedItemSettings(
                             feedName = element.feedName,
                             onRemoveBottom = true,

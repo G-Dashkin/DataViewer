@@ -50,7 +50,8 @@ fun ScanningScreen(
 ) {
 
     Column(
-        modifier = Modifier.fillMaxSize().padding(start = padding15, end = padding15),
+        modifier = Modifier.fillMaxSize()
+            .padding(start = padding15, top = padding15, end = padding15),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Top
     ) {

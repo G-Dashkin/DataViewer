@@ -54,7 +54,6 @@ fun NavGraphBuilder.scanning(){
 }
 
 object ScanningDestination : NavigationDestination {
-//    override val route = "scanning"
     override val route = "scanning/{feed_url}"
     const val itemIdArg = "feed_url"
     val routeWithArgs = "$route/{$itemIdArg}"
