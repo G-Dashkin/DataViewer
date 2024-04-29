@@ -1,15 +1,7 @@
 package com.perfomax.dataviewer.data.storage.memory
 
-import android.util.Log
-import com.perfomax.dataviewer.data.datastore.api.FeedsDataStore
 import com.perfomax.dataviewer.data.datastore.api.SettingsDataStore
-import com.perfomax.dataviewer.data.storage.api.FeedsStorage
 import com.perfomax.dataviewer.data.storage.api.SettingsStorage
-import com.perfomax.dataviewer.domain.utils.addElement
-import com.perfomax.dataviewer.domain.utils.parsToList
-import com.perfomax.dataviewer.domain.utils.parsToListByProject
-import com.perfomax.dataviewer.domain.utils.removeFeed
-import com.perfomax.dataviewer.domain.utils.updateFeed
 import javax.inject.Inject
 
 class SettingsStorageImpl @Inject constructor(

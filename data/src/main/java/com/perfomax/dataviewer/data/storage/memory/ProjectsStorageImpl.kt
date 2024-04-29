@@ -1,7 +1,7 @@
 package com.perfomax.dataviewer.data.storage.memory
 
-import com.perfomax.dataviewer.data.storage.api.ProjectsStorage
 import com.perfomax.dataviewer.data.datastore.api.ProjectsDataStore
+import com.perfomax.dataviewer.data.storage.api.ProjectsStorage
 import com.perfomax.dataviewer.domain.utils.addElement
 import com.perfomax.dataviewer.domain.utils.parsToList
 import com.perfomax.dataviewer.domain.utils.removeProject

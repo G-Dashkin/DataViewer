@@ -18,10 +18,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.perfomax.dataviewer.ui.theme.DataViewerTheme
+import com.perfomax.dataviewer.ui.theme.cornerShape8
 import com.perfomax.dataviewer.ui.theme.height5
 import com.perfomax.dataviewer.ui.theme.padding10
 import com.perfomax.dataviewer.ui.theme.padding15
-import com.perfomax.dataviewer.ui.theme.cornerShape8
 import com.perfomax.dataviewer.ui.widgets.DefaultDialogView
 import com.perfomax.dataviewer.ui.widgets.ProjectItem
 import com.perfomax.dataviewer.ui.widgets.ProjectsDialogView

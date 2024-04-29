@@ -1,8 +1,5 @@
 package com.perfomax.dataviewer.data.datastore.api.test
 
-import android.util.Log
-import com.perfomax.dataviewer.data.network.api.Parser
-
 
 fun main() {
 

@@ -6,7 +6,6 @@ import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.os.Build
-import android.util.Log
 import com.perfomax.dataviewer.domain.repository.AlarmScheduler
 
 private const val ALARM_REQUEST_CODE = 1002

@@ -1,9 +1,6 @@
 package com.perfomax.dataviewer.presentation.settings
 
 import com.perfomax.dataviewer.domain.EMPTY
-import com.perfomax.dataviewer.domain.models.Feed
-import com.perfomax.dataviewer.presentation.feeds.FeedsContract
-import com.perfomax.dataviewer.presentation.home.HomeContract
 import com.perfomax.dataviewer.ui.base.UnidirectionalViewModel
 
 interface SettingsContract:

@@ -31,6 +31,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.perfomax.dataviewer.ui.theme.DataViewerTheme
 import com.perfomax.dataviewer.ui.theme.border1
+import com.perfomax.dataviewer.ui.theme.cornerShape8
 import com.perfomax.dataviewer.ui.theme.fillMaxWidth07
 import com.perfomax.dataviewer.ui.theme.height2
 import com.perfomax.dataviewer.ui.theme.height40
@@ -39,13 +40,12 @@ import com.perfomax.dataviewer.ui.theme.height50
 import com.perfomax.dataviewer.ui.theme.padding10
 import com.perfomax.dataviewer.ui.theme.padding15
 import com.perfomax.dataviewer.ui.theme.padding5
-import com.perfomax.dataviewer.ui.theme.cornerShape8
 import com.perfomax.dataviewer.ui.theme.width10
 import com.perfomax.dataviewer.ui.theme.zeroVal
-import com.perfomax.dataviewer.ui.widgets.DefaultDialogView
-import com.perfomax.dataviewer.ui.widgets.FeedItemSettings
 import com.perfomax.dataviewer.ui.widgets.AddFeedDialogView
 import com.perfomax.dataviewer.ui.widgets.ChangeFeedDialogView
+import com.perfomax.dataviewer.ui.widgets.DefaultDialogView
+import com.perfomax.dataviewer.ui.widgets.FeedItemSettings
 import com.perfomax.dataviewer.ui.widgets.FeedsScreenFormTextField
 import com.perfomax.dataviewer.ui.widgets.LoadingIndicator
 import com.perfomax.ui.R

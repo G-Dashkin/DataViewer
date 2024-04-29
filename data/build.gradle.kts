@@ -39,13 +39,8 @@ dependencies {
 
     // datastore
     implementation(libs.datastore.preferences)
-    implementation("com.google.code.gson:gson:2.10.1")
+    implementation(libs.code.gson)
 
-    implementation(libs.core.ktx)
-    implementation(libs.appcompat)
-    implementation(libs.material)
+    // di
     implementation(libs.javax.inject)
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.test.ext.junit)
-    androidTestImplementation(libs.espresso.core)
 }

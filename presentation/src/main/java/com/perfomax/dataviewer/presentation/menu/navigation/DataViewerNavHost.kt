@@ -14,7 +14,6 @@ import com.perfomax.dataviewer.presentation.home.navigation.HomeTopLevelDestinat
 import com.perfomax.dataviewer.presentation.projects.navigation.ProjectsTopLevelDestination
 import com.perfomax.dataviewer.presentation.scanning.navigation.ScanningTopLevelDestination
 import com.perfomax.dataviewer.presentation.scanning.navigation.navigateToScanning
-import com.perfomax.dataviewer.presentation.scanning.navigation.scanning
 import com.perfomax.dataviewer.presentation.settings.navigation.SettingsTopLevelDestination
 import com.perfomax.dataviewer.presentation.start.navigation.StartDestination
 import com.perfomax.dataviewer.presentation.start.navigation.start

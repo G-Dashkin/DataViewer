@@ -1,6 +1,5 @@
 package com.perfomax.dataviewer.presentation.scanning.navigation
 
-import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -8,7 +7,6 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.composable
-import androidx.navigation.compose.navigation
 import androidx.navigation.navArgument
 import com.perfomax.dataviewer.navigation.NavigationDestination
 import com.perfomax.dataviewer.navigation.TopLevelDestination
@@ -16,7 +14,6 @@ import com.perfomax.dataviewer.presentation.scanning.ScanningContract
 import com.perfomax.dataviewer.presentation.scanning.ScanningScreen
 import com.perfomax.dataviewer.presentation.scanning.ScanningViewModel
 import com.perfomax.ui.R
-
 
 
 fun NavHostController.navigateToScanning(feedUrl: String) {

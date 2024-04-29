@@ -10,7 +10,5 @@ java {
 }
 
 dependencies {
-
     implementation(libs.javax.inject)
-
 }

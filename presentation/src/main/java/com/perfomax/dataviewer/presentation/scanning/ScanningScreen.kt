@@ -29,6 +29,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.perfomax.dataviewer.ui.theme.DataViewerTheme
+import com.perfomax.dataviewer.ui.theme.cornerShape8
 import com.perfomax.dataviewer.ui.theme.fillMaxWidth07
 import com.perfomax.dataviewer.ui.theme.height2
 import com.perfomax.dataviewer.ui.theme.height40
@@ -36,7 +37,6 @@ import com.perfomax.dataviewer.ui.theme.height50
 import com.perfomax.dataviewer.ui.theme.height70
 import com.perfomax.dataviewer.ui.theme.padding15
 import com.perfomax.dataviewer.ui.theme.padding5
-import com.perfomax.dataviewer.ui.theme.cornerShape8
 import com.perfomax.dataviewer.ui.theme.width5
 import com.perfomax.dataviewer.ui.theme.zeroVal
 import com.perfomax.dataviewer.ui.widgets.FeedsScreenFormTextField

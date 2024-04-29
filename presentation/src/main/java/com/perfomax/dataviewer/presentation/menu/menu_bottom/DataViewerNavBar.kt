@@ -1,6 +1,5 @@
 package com.perfomax.dataviewer.presentation.menu.menu_bottom
 
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.WindowInsets
@@ -18,7 +17,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import com.perfomax.dataviewer.ui.theme.DataViewerTheme
 import com.perfomax.dataviewer.ui.theme.height100
-import com.perfomax.dataviewer.ui.theme.space8
 
 @Composable
 fun DataViewerNavBar(

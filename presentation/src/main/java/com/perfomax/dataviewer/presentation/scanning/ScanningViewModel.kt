@@ -1,10 +1,8 @@
 package com.perfomax.dataviewer.presentation.scanning
 
-import android.util.Log
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.perfomax.dataviewer.domain.EMPTY
 import com.perfomax.dataviewer.domain.usecases.feeds.LoadFeedUseCase
 import com.perfomax.dataviewer.domain.usecases.feeds.SearchFeedElementUseCase
 import dagger.assisted.Assisted
@@ -16,7 +14,6 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 @HiltViewModel(assistedFactory = ScanningViewModel.ScanningViewModelFactory::class)
 class ScanningViewModel @AssistedInject constructor(

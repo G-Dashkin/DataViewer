@@ -1,9 +1,7 @@
 package com.perfomax.dataviewer.presentation.home
 
-import android.app.Application
 import android.content.Context
 import android.content.Intent
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.perfomax.dataviewer.domain.EMPTY
@@ -13,7 +11,6 @@ import com.perfomax.dataviewer.domain.usecases.projects.GetSelectedProjectUseCas
 import com.perfomax.dataviewer.domain.usecases.scheduler.SetScheduleUseCase
 import com.perfomax.dataviewer.domain.usecases.settings.GetUpdateIntoBackgroundUseCase
 import com.perfomax.dataviewer.domain.usecases.settings.GetUpdatePeriodUseCase
-import dagger.hilt.android.internal.Contexts.getApplication
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.MutableStateFlow

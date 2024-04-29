@@ -1,22 +1,15 @@
 package com.perfomax.dataviewer.presentation.home.navigation
 
-import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
-import androidx.navigation.navigation
 import com.perfomax.dataviewer.navigation.NavigationDestination
 import com.perfomax.dataviewer.navigation.TopLevelDestination
-import com.perfomax.dataviewer.navigation.navigateSingleTopTo
-import com.perfomax.dataviewer.presentation.feeds.navigation.navigateToFeeds
 import com.perfomax.dataviewer.presentation.home.HomeContract
 import com.perfomax.dataviewer.presentation.home.HomeScreen
 import com.perfomax.dataviewer.presentation.home.HomeViewModel
-import com.perfomax.dataviewer.presentation.projects.navigation.navigateToProjects
-import com.perfomax.dataviewer.presentation.scanning.navigation.scanning
-import com.perfomax.dataviewer.ui.base.useEffects
 import com.perfomax.ui.R
 
 fun NavGraphBuilder.navigateToHome(

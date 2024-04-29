@@ -12,7 +12,6 @@ import com.perfomax.dataviewer.navigation.TopLevelDestination
 import com.perfomax.dataviewer.presentation.menu.MenuContract
 import com.perfomax.dataviewer.presentation.menu.MenuScreen
 import com.perfomax.dataviewer.presentation.menu.MenuViewModel
-import com.perfomax.dataviewer.presentation.scanning.navigation.scanning
 
 const val MENU_GRAPH = "menu_graph"
 

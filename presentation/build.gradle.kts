@@ -47,40 +47,15 @@ dependencies {
     implementation(project(":core:ui"))
     implementation(project(":core:navigation"))
 
-    implementation(libs.core.ktx)
-    implementation(libs.appcompat)
-    implementation(libs.material)
-
     // ui compose
-    implementation(libs.activity.compose)
-    implementation(platform(libs.compose.bom))
-    implementation(libs.ui)
-    implementation(libs.ui.graphics)
-    implementation(libs.ui.tooling.preview)
     implementation(libs.material3)
     implementation(libs.compose.viewmodel)
     implementation(libs.lifecycle.runtime.compose)
-    implementation(libs.navigation)
-    implementation(libs.androidx.navigation.runtime.ktx)
-    androidTestImplementation(platform(libs.compose.bom))
-    androidTestImplementation(libs.ui.test.junit4)
     debugImplementation(libs.ui.tooling)
-    debugImplementation(libs.ui.test.manifest)
-    implementation(libs.kotlinx.collections.immutable)
-    implementation(libs.kotlinx.coroutines.android)
-    implementation(libs.lifecycle.viewmodel.ktx)
     implementation(libs.coil.compose)
 
     // hilt
     implementation(libs.hilt.android)
     kapt(libs.hilt.compiler)
     implementation(libs.hilt.navigation.compose)
-
-    // datastore
-    implementation(libs.datastore.preferences)
-    implementation("com.google.code.gson:gson:2.10.1")
-
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.test.ext.junit)
-    androidTestImplementation(libs.espresso.core)
 }

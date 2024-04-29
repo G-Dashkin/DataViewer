@@ -1,7 +1,5 @@
 package com.perfomax.dataviewer.data.storage.api
 
-import com.perfomax.dataviewer.domain.models.Feed
-
 interface SettingsStorage {
     suspend fun setNotification(setValue: String)
     suspend fun setPercentForAlert(percent: String)
