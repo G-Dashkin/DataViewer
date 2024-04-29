@@ -7,6 +7,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.perfomax.dataviewer.navigation.TopLevelDestination
+import com.perfomax.dataviewer.ui.theme.border1
 
 @Composable
 fun DataViewerBottomBar(
@@ -16,7 +17,7 @@ fun DataViewerBottomBar(
     onNavigateToTopLevel: (topRoute: String) -> Unit
 ) {
     DataViewerNavBar(
-        modifier = Modifier.border(1.dp, Color.Gray),
+        modifier = Modifier.border(border1, Color.Gray),
         containerColor = MaterialTheme.colorScheme.onPrimary) {
         destinations.filter {
             it.route != "feeds" &&

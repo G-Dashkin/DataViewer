@@ -17,12 +17,16 @@ import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import com.perfomax.dataviewer.ui.theme.DataViewerTheme
+import com.perfomax.dataviewer.ui.theme.cornerShape10
+import com.perfomax.dataviewer.ui.theme.fillMaxWidth04
 import com.perfomax.dataviewer.ui.theme.padding10
+import com.perfomax.ui.R
 
 @Composable
 fun HomeScreenFeedDialogView(
@@ -35,50 +39,49 @@ fun HomeScreenFeedDialogView(
 ) {
     if (openDialog) {
         Dialog(onDismissRequest = {}) {
-
             Card(
-                shape = RoundedCornerShape(10.dp),
-                modifier = Modifier.padding(10.dp)
+                shape = RoundedCornerShape(cornerShape10),
+                modifier = Modifier.padding(padding10)
             ) {
                 Column(
                     Modifier.background(Color.White)
                 ) {
-                    Text(
-                        text = "Фид: $feedTitle",
-                        modifier = Modifier.padding(padding10),
-                        fontSize = 20.sp
-                    )
+                    Text(text = "${stringResource(id = R.string.feed)} $feedTitle",
+                         modifier = Modifier.padding(padding10),
+                         fontSize = 20.sp)
                     Row {
                         Button(
-                            modifier = Modifier.padding(10.dp).fillMaxWidth(),
-                            shape = RoundedCornerShape(10.dp),
+                            modifier = Modifier.fillMaxWidth()
+                                               .padding(padding10),
+                            shape = RoundedCornerShape(cornerShape10),
                             contentPadding = PaddingValues(padding10),
                             onClick = {onFindElementsInFeed.invoke(feedUrl)},
-                        ) { Text(
-                            text = "Поиск элементов в фиде",
-                            color = MaterialTheme.colorScheme.onSecondary,
-                            style = MaterialTheme.typography.titleMedium
-                        ) }
+                        ) {
+                            Text(text = stringResource(id = R.string.feed_search_element),
+                                 color = MaterialTheme.colorScheme.onSecondary,
+                                 style = MaterialTheme.typography.titleMedium)
+                        }
                     }
-
                     Row {
                         Button(
-                            modifier = Modifier.padding(10.dp).fillMaxWidth(0.4f),
-                            shape = RoundedCornerShape(10.dp),
-                            contentPadding = PaddingValues(padding10,),
-                            onClick = onClose,
+                            modifier = Modifier.fillMaxWidth(fillMaxWidth04)
+                                               .padding(padding10),
+                            shape = RoundedCornerShape(cornerShape10),
+                            contentPadding = PaddingValues(padding10),
+                            onClick = onClose
                         ) { Text(
-                            text = "Закрыть",
+                            text = stringResource(id = R.string.close),
                             color = MaterialTheme.colorScheme.onSecondary,
                             style = MaterialTheme.typography.titleMedium
                         ) }
                         Button(
-                            modifier = Modifier.padding(10.dp).fillMaxWidth(),
-                            shape = RoundedCornerShape(10.dp),
-                            contentPadding = PaddingValues(padding10,),
+                            modifier = Modifier.fillMaxWidth()
+                                               .padding(padding10),
+                            shape = RoundedCornerShape(cornerShape10),
+                            contentPadding = PaddingValues(padding10),
                             onClick = onUpdateFeed,
                         ) { Text(
-                            text = "Обновить фид",
+                            text = stringResource(id = R.string.feed_update),
                             color = MaterialTheme.colorScheme.onSecondary,
                             style = MaterialTheme.typography.titleMedium
                         ) }

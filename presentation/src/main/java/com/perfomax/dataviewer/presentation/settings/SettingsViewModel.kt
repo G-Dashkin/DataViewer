@@ -155,13 +155,4 @@ class SettingsViewModel @Inject constructor(
         }
     }
 
-
-
-//    private fun setService() {
-//        viewModelScope.launch {
-////            val updateTime = getUpdatePeriodUseCase.execute()
-//            setScheduleUseCase.execute(5000L)
-//        }
-//    }
-
 }

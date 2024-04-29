@@ -21,7 +21,7 @@ val Typography = Typography(
     ),
     titleSmall = TextStyle(
         fontFamily = poppinsFontFamily,
-        fontSize = 17.sp,
+        fontSize = 18.sp,
         fontWeight = FontWeight.W600
     ),
     labelLarge = TextStyle(

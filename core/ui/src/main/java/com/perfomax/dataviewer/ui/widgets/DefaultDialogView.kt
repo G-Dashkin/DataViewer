@@ -16,9 +16,13 @@ import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
+import com.perfomax.dataviewer.ui.theme.cornerShape10
+import com.perfomax.dataviewer.ui.theme.padding10
+import com.perfomax.ui.R
 
 @Composable
 fun DefaultDialogView(
@@ -37,54 +41,42 @@ fun DefaultDialogView(
             onDismissRequest = {}
         ) {
             Card(
-                shape = RoundedCornerShape(10.dp),
-                modifier = Modifier.padding(10.dp)
+                shape = RoundedCornerShape(cornerShape10),
+                modifier = Modifier.padding(padding10)
             ) {
                 Column(
                     Modifier.background(Color.White)
                 ) {
-
                     Text(
                         text = title,
-                        modifier = Modifier.padding(10.dp),
-                        fontSize = 20.sp
+                        modifier = Modifier.padding(padding10),
+                        style = MaterialTheme.typography.titleSmall
                     )
                     Row {
-
                         OutlinedButton(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(10.dp)
-                                .weight(1F),
-                            shape = RoundedCornerShape(10.dp),
-                            contentPadding = PaddingValues(
-                                start = 10.dp,
-                                top = 10.dp,
-                                end = 10.dp,
-                                bottom = 10.dp,
-                            ),
+                            modifier = Modifier.fillMaxWidth()
+                                               .padding(padding10)
+                                               .weight(1F),
+                            shape = RoundedCornerShape(cornerShape10),
+                            contentPadding = PaddingValues(padding10),
                             onClick = onCancel
-                        ) { Text(
-                                text = "Отменить",
+                        ) {
+                            Text(
+                                text = stringResource(id = R.string.cancel),
                                 style = MaterialTheme.typography.titleMedium
-                            )}
+                            )
+                        }
 
                         if (!onlyCancel){
                             Button(
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .padding(10.dp)
-                                    .weight(1F),
-                                shape = RoundedCornerShape(10.dp),
-                                contentPadding = PaddingValues(
-                                    start = 10.dp,
-                                    top = 10.dp,
-                                    end = 10.dp,
-                                    bottom = 10.dp,
-                                ),
+                                modifier = Modifier.fillMaxWidth()
+                                                   .padding(padding10)
+                                                   .weight(1F),
+                                shape = RoundedCornerShape(cornerShape10),
+                                contentPadding = PaddingValues(padding10),
                                 onClick = onConfirm,
                             ) { Text(
-                                text = "Подтвердить",
+                                text = stringResource(id = R.string.confirm),
                                 color = MaterialTheme.colorScheme.onSecondary,
                                 style = MaterialTheme.typography.titleMedium
                             ) }

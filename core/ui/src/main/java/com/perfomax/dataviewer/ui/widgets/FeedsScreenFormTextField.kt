@@ -32,6 +32,13 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.perfomax.ui.R
 import com.perfomax.dataviewer.ui.theme.DataViewerTheme
+import com.perfomax.dataviewer.ui.theme.border1
+import com.perfomax.dataviewer.ui.theme.cornerShape10
+import com.perfomax.dataviewer.ui.theme.cornerShape22
+import com.perfomax.dataviewer.ui.theme.height25
+import com.perfomax.dataviewer.ui.theme.height40
+import com.perfomax.dataviewer.ui.theme.padding5
+import com.perfomax.dataviewer.ui.theme.weight1
 
 @Composable
 fun FeedsScreenFormTextField(
@@ -41,12 +48,10 @@ fun FeedsScreenFormTextField(
     isError: Boolean,
     onChange: (value: String) -> Unit
 ) {
-    BasicTextField(
-        modifier = modifier
-            .background(
-            color = Color.Gray,
-            shape = RoundedCornerShape(22.dp))
-            .requiredHeight(40.dp),
+    BasicTextField(modifier = modifier.background(
+                   color = Color.Gray,
+                   shape = RoundedCornerShape(cornerShape22))
+                   .requiredHeight(height40),
         value = text,
         onValueChange = onChange,
         singleLine = true,
@@ -59,21 +64,20 @@ fun FeedsScreenFormTextField(
             Row(modifier = modifier
                 .background(
                 color = Color.LightGray,
-                shape = RoundedCornerShape(10.dp))
-                .border(1.dp, color = Color.Gray, shape = RoundedCornerShape(10.dp)),
+                shape = RoundedCornerShape(cornerShape10))
+                .border(border1, color = Color.Gray, shape = RoundedCornerShape(cornerShape10)),
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                Box(Modifier.weight(1f)
-                    .padding(start = 5.dp)
-                    .height(25.dp)
+                Box(Modifier.weight(weight1)
+                    .padding(start = padding5)
+                    .height(height25)
                 ) {
                     if (text.isEmpty()) {
                         Text(text = labelText,
                             style = LocalTextStyle.current.copy(
-                            color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.8f)
+                            color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.8f))
                         )
-                    )
-                }
+                    }
                     innerTextField()
                 }
             }

@@ -16,20 +16,16 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.perfomax.dataviewer.domain.utils.getFeedElementValue
 import com.perfomax.dataviewer.ui.theme.DataViewerTheme
 import com.perfomax.dataviewer.ui.theme.height50
 import com.perfomax.dataviewer.ui.theme.padding10
 import com.perfomax.dataviewer.ui.theme.padding15
-import com.perfomax.dataviewer.ui.theme.shape8
+import com.perfomax.dataviewer.ui.theme.cornerShape8
 import com.perfomax.dataviewer.ui.theme.zeroVal
 import com.perfomax.dataviewer.ui.widgets.FeedItemHome
 import com.perfomax.dataviewer.ui.widgets.HomeScreenFeedDialogView
@@ -52,17 +48,15 @@ fun HomeScreen(
     updateBackgroundUpdate.invoke()
 
     Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(padding15),
+        modifier = Modifier.fillMaxSize()
+                           .padding(padding15),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Button(modifier = Modifier
-            .fillMaxWidth()
-            .height(height50)
-            .defaultMinSize(minHeight = height50),
+        Button(modifier = Modifier.fillMaxWidth()
+                                  .height(height50)
+                                  .defaultMinSize(minHeight = height50),
             enabled = !uiState.isUpdatingFeedList,
-            shape = RoundedCornerShape(shape8),
+            shape = RoundedCornerShape(cornerShape8),
             contentPadding = PaddingValues(zeroVal),
             onClick = onUpdateFeedsClick
         ) {
@@ -105,14 +99,15 @@ fun HomeScreen(
 @Composable
 fun HomeScreenPreview() {
     DataViewerTheme {
-        val homeViewModel: HomeViewModel = viewModel()
-        val homeUiState by homeViewModel.uiState.collectAsStateWithLifecycle()
-        val homeEffects by homeViewModel.effect.collectAsStateWithLifecycle()
-//        HomeScreen (
-//            uiState = homeUiState,
-//            updateFeedsList = {},
-//            onUpdateFeedsClick = {},
-//            onClickFeedElement = {}
-//        )
+        HomeScreen (
+            uiState = HomeContract.State.initial(),
+            updateFeedsList = {},
+            onUpdateFeedsClick = {},
+            onClickFeedElement = {},
+            onFindSelectedElement = {},
+            onClickUpdateFeed = { },
+            onCloseDialogClick= { },
+            updateBackgroundUpdate = {}
+        )
     }
 }

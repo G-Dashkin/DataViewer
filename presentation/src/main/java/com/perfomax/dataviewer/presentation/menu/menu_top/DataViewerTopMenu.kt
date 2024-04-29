@@ -22,6 +22,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.DpOffset
 import androidx.compose.ui.unit.dp
 import com.perfomax.dataviewer.navigation.TopLevelDestination
+import com.perfomax.dataviewer.ui.theme.border1
 import com.perfomax.ui.R
 
 private const val OFFSET_X = 50
@@ -40,7 +41,7 @@ fun DataViewerTopMenu(
     var dropDownMenuExpanded by remember { mutableStateOf(false) }
 
     TopAppBar(
-        modifier = Modifier.border(1.dp, Color.Gray),
+        modifier = Modifier.border(border1, Color.Gray),
         title = { Text(text = stringResource(id = R.string.project ) + " $titleTomMenu") },
         actions = {
             IconButton(onClick = { dropDownMenuExpanded = true }) {

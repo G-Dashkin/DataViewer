@@ -35,9 +35,7 @@ fun MenuScreen(
 ) {
 
     val navController: NavHostController = rememberNavController()
-    // подписываемся на текущий экран
     val navBackStackEntry by navController.currentBackStackEntryAsState()
-    // получаем стрингу текущего роута
     val currentRoute = navBackStackEntry?.destination?.route
 
     Scaffold(
@@ -45,9 +43,7 @@ fun MenuScreen(
             DataViewerTopMenu(
                 titleTomMenu = uiState.selectedProject,
                 destinations = topLevelDestinations,
-                // Управляет переходами при кликах по кнопкам
                 onNavigateToTopLevel = { route ->
-                    // Переходами управляется navController
                     navController.navigateSingleTopTo(route)
                 },
                 updateMainProject = updateMainProject

@@ -17,6 +17,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.perfomax.dataviewer.domain.EMPTY
 import com.perfomax.ui.R
 
 @Composable
@@ -35,7 +36,9 @@ fun RowScope.DataViewerIconTab(
 
     NavigationBarItem(
         modifier = modifier,
-        label = { Text(text = stringResource(id = iconTitle), fontSize = 13.sp) },
+        label = {
+            Text(text = stringResource(id = iconTitle), fontSize = 13.sp)
+        },
         icon = {
             DefaultBadgedBox(
                 count = (iconBadgeCounter ?: stringResource(id = R.string.empty)).toString(),
@@ -69,7 +72,7 @@ fun DefaultBadgedBox(
                 containerColor = MaterialTheme.colorScheme.primary,
                 contentColor = MaterialTheme.colorScheme.background
             ) {
-                Text(count?: stringResource(id = R.string.empty))
+                Text(count?: EMPTY)
             }
         }) {
             Icon(painter = painterResource(id = itemIconId), contentDescription = stringResource(itemTitleId))

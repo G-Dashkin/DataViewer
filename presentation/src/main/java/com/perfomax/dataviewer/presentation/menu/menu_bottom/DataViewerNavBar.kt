@@ -36,11 +36,10 @@ fun DataViewerNavBar(
         modifier = modifier
     ) {
         Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .windowInsetsPadding(windowInsets)
-                .height(height100)
-                .selectableGroup(),
+            modifier = Modifier.fillMaxWidth()
+                               .windowInsetsPadding(windowInsets)
+                               .height(height100)
+                               .selectableGroup(),
             content = content
         )
     }

@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.perfomax.dataviewer.domain.EMPTY
 import com.perfomax.dataviewer.domain.usecases.feeds.LoadFeedUseCase
 import com.perfomax.dataviewer.domain.usecases.feeds.SearchFeedElementUseCase
 import dagger.assisted.Assisted
@@ -47,14 +48,6 @@ class ScanningViewModel @AssistedInject constructor(
 
     override fun consume() {
         _effect.update { null }
-    }
-
-    private fun onClearUiFieldsState(){
-        _uiState.update { currentState ->
-            currentState.copy(
-                feedUrl = ""
-            )
-        }
     }
 
     private fun onFeedUrlChangeEvent(feedUrl: String) {

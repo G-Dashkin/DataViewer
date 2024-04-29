@@ -1,8 +1,10 @@
 package com.perfomax.dataviewer.presentation.feeds
 
+import android.app.Application
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.perfomax.dataviewer.domain.EMPTY
 import com.perfomax.dataviewer.domain.usecases.feeds.CountFeedElementsUseCase
 import com.perfomax.dataviewer.domain.usecases.feeds.GetAllFeedsUseCase
 import com.perfomax.dataviewer.domain.usecases.feeds.LoadFeedUseCase
@@ -11,6 +13,7 @@ import com.perfomax.dataviewer.domain.usecases.feeds.SaveFeedUseCase
 import com.perfomax.dataviewer.domain.usecases.feeds.UpdateFeedUseCase
 import com.perfomax.dataviewer.domain.usecases.projects.GetSelectedProjectUseCase
 import com.perfomax.dataviewer.domain.utils.getLastId
+import com.perfomax.ui.R
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -25,6 +28,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class FeedsViewModel @Inject constructor(
+    private val context: Application,
     private val getSelectedProjectUseCase: GetSelectedProjectUseCase,
     private val saveFeedUseCase: SaveFeedUseCase,
     private val getAllFeedsUseCase: GetAllFeedsUseCase,
@@ -45,7 +49,7 @@ class FeedsViewModel @Inject constructor(
             currentState.copy(
 //                feedUrl = "https://citilink.ru"
 //                feedUrl = "citilink.в"
-                feedUrl = "https://feeds-mic.s1.citilink.ru/yandex_offer/ufa_cl.xml"
+//                feedUrl = "https://feeds-mic.s1.citilink.ru/yandex_offer/ufa_cl.xml"
 //                feedUrl = "https://feeds-mic.s1.citilink.ru/yandex_offer/spb_cl.xml"
 //                feedUrl = "https://api2.kiparo.com/static/it_news.xml"
             )
@@ -91,8 +95,8 @@ class FeedsViewModel @Inject constructor(
     private fun onClearUiFieldsState(){
         _uiState.update { currentState ->
             currentState.copy(
-                feedName = "",
-                selectedFeedElement = ""
+                feedName = EMPTY,
+                selectedFeedElement = EMPTY
             )
         }
     }
@@ -130,7 +134,7 @@ class FeedsViewModel @Inject constructor(
                     _uiState.update { currentState ->
                         currentState.copy(
                             feedUrlError = true,
-                            feedUrlErrorMessage = "Введен некорректный URl"
+                            feedUrlErrorMessage = context.applicationContext.getString(R.string.url_error)
                         )
                     }
                 } else if(
@@ -140,7 +144,7 @@ class FeedsViewModel @Inject constructor(
                     _uiState.update { currentState ->
                         currentState.copy(
                             feedUrlError = true,
-                            feedUrlErrorMessage = "По ссылке обнаружены HTML элементы. Возможно по ссылке не фид сайт, а сайт."
+                            feedUrlErrorMessage = context.applicationContext.getString(R.string.url_is_html_not_feed)
                             )
                         }
                     _uiState.update { currentState ->
@@ -276,7 +280,6 @@ class FeedsViewModel @Inject constructor(
 
     private fun onAddNewFeed() {
         viewModelScope.launch {
-            Log.d("MyLog", "onAddNewFeed()")
             val project = getSelectedProjectUseCase.execute()
             val feedName = _uiState.value.feedName.trim()
             val feedElement = _uiState.value.selectedFeedElement
@@ -331,7 +334,7 @@ class FeedsViewModel @Inject constructor(
                                     it.toString().contains(";") ||
                                     it.toString().contains(",")
                         },
-                        feedNameErrorMessage = "Название фида не должно содержать знаков | ; ,"
+                        feedNameErrorMessage = context.applicationContext.getString(R.string.feed_name_error)
                     )
                 }
 
@@ -340,7 +343,7 @@ class FeedsViewModel @Inject constructor(
                     FeedsContract.State.notCorrect()
                     state.copy(
                         feedNameError = true,
-                        feedNameErrorMessage = "Фид с таким названием уже загружен в этом проекте"
+                        feedNameErrorMessage = context.applicationContext.getString(R.string.feed_already_created)
                     )
                 }
             } else if (!feedElementValid) {
@@ -348,7 +351,7 @@ class FeedsViewModel @Inject constructor(
                     FeedsContract.State.notCorrect()
                     state.copy(
                         selectedFeedElementError = true,
-                        selectedFeedElementErrorMessage = "Поле не должно быть пустым"
+                        selectedFeedElementErrorMessage = context.applicationContext.getString(R.string.empty_field)
                     )
                 }
             } else {
@@ -356,20 +359,14 @@ class FeedsViewModel @Inject constructor(
                     FeedsContract.State.notCorrect()
                     state.copy(
                         feedNameError = feedName.isEmpty(),
-                        feedNameErrorMessage = "Поле не должно быть пустым"
+                        feedNameErrorMessage = context.applicationContext.getString(R.string.empty_field)
                     )
                 }
-
             }
-
         }
     }
 
-    //----------------------------------------------------------------------------------------------
-    //----------------------------------------------------------------------------------------------
-    //----------------------------------------------------------------------------------------------
     private fun openDialogChangeFeed(feedName: String) {
-        Log.d("MyLog", "openDialogChangeFeed():$feedName")
         viewModelScope.launch {
             val selectedFeed = _uiState.value.feedsList.find { it.feedName == feedName }
             _uiState.update { currentState ->

@@ -6,6 +6,7 @@ import android.content.Intent
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.perfomax.dataviewer.domain.EMPTY
 import com.perfomax.dataviewer.domain.usecases.feeds.CountFeedElementsUseCase
 import com.perfomax.dataviewer.domain.usecases.feeds.GetAllFeedsUseCase
 import com.perfomax.dataviewer.domain.usecases.projects.GetSelectedProjectUseCase
@@ -118,7 +119,7 @@ class HomeViewModel @Inject constructor(
                 currentState.copy(
                     openDialogHomeScreenFeed = true,
                     selectedFeedName = feedName,
-                    selectedFeedUrl = selectedFeedUrl?:""
+                    selectedFeedUrl = selectedFeedUrl?: EMPTY
                 )
             }
         }
@@ -136,7 +137,7 @@ class HomeViewModel @Inject constructor(
     private fun onClearFindFeedElementState(){
         _uiState.update { currentState ->
             currentState.copy(
-                findFeedElement = ""
+                findFeedElement = EMPTY
             )
         }
     }

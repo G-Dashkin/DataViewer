@@ -15,57 +15,51 @@ import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import com.perfomax.dataviewer.ui.theme.DataViewerTheme
+import com.perfomax.dataviewer.ui.theme.cornerShape10
+import com.perfomax.dataviewer.ui.theme.padding10
+import com.perfomax.ui.R
 
 @Composable
 fun AddFeedDialogView(
     title: String = "",
-
     feedNameValue: String = "",
     onFeedNameFieldChangeValue:(String) -> Unit,
-
     feedElementNameValue: String = "",
     onFeedElementFieldChangeValue:(String) -> Unit,
-
     dateElement: String = "",
     useDateElement:(Boolean) -> Unit,
-
     selectDateElement: () -> Unit,
     selectedFeedDateElement: String,
-
     openDialog: Boolean,
     onCancel:() -> Unit,
     onConfirm:() -> Unit,
-
-
     hasFeedNameError: Boolean = false,
     errorFeedNameMessage: String = "",
-
     hasUrlFeedError: Boolean = false,
     errorUrlFeedMessage: String = ""
 ) {
     if (openDialog){
         Dialog(onDismissRequest = {}) {
             Card(
-                shape = RoundedCornerShape(10.dp),
-                modifier = Modifier.padding(10.dp)
+                shape = RoundedCornerShape(cornerShape10),
+                modifier = Modifier.padding(padding10)
             ) {
                 Column(
                     Modifier.background(Color.White)
                 ) {
-
                     Text(
                         text = title,
-                        modifier = Modifier.padding(10.dp),
+                        modifier = Modifier.padding(padding10),
                         fontSize = 20.sp
                     )
-                    //----------------------------------------
                     TextField(
-                        modifier = Modifier.padding(10.dp),
+                        modifier = Modifier.padding(padding10),
                         value = feedNameValue,
                         onValueChange = onFeedNameFieldChangeValue,
                         label = {
@@ -77,14 +71,13 @@ fun AddFeedDialogView(
                             } else {
                                 Text(
                                     color = Color.Black,
-                                    text = "Название фида"
+                                    text = stringResource(id = R.string.feed_name)
                                 )
                             }
                         }
                     )
-                    //----------------------------------------
                     TextField(
-                        modifier = Modifier.padding(10.dp),
+                        modifier = Modifier.padding(padding10),
                         value = feedElementNameValue,
                         onValueChange = onFeedElementFieldChangeValue,
                         label = {
@@ -96,36 +89,30 @@ fun AddFeedDialogView(
                             } else {
                                 Text(
                                     color = Color.Black,
-                                    text = "Выбранный элемент (без угловых скобок <>)"
+                                    text = stringResource(id = R.string.feed_element)
                                 )
                             }
 
                         }
                     )
-
                     if (selectedFeedDateElement.isEmpty()) {
-                        Text(modifier = Modifier.padding(10.dp),
-                            text = "Определить элемент даты и времени обновления в фиде",
+                        Text(modifier = Modifier.padding(padding10),
+                            text = stringResource(id = R.string.element_date_and_time),
                             style = MaterialTheme.typography.titleMedium)
                         Button(
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .padding(10.dp),
-                            shape = RoundedCornerShape(10.dp),
-                            contentPadding = PaddingValues(
-                                start = 10.dp,
-                                top = 10.dp,
-                                end = 10.dp,
-                                bottom = 10.dp,
-                            ),
+                                .padding(padding10),
+                            shape = RoundedCornerShape(cornerShape10),
+                            contentPadding = PaddingValues(padding10),
                             onClick = selectDateElement
                             ,
-                        ) { Text(text = "Определить элемент",
+                        ) { Text(text = stringResource(id = R.string.define_element),
                             color = MaterialTheme.colorScheme.onSecondary,
                             style = MaterialTheme.typography.titleMedium) }
                     } else {
-                        Text(modifier = Modifier.padding(10.dp),
-                            text = "Время обновления из фида: ${
+                        Text(modifier = Modifier.padding(padding10),
+                            text = stringResource(id = R.string.define_element) + " ${
                                 selectedFeedDateElement.split("=\"")[1].split("\"")[0]
                             }",
                             style = MaterialTheme.typography.titleMedium)
@@ -135,18 +122,13 @@ fun AddFeedDialogView(
                         Button(
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .padding(10.dp)
+                                .padding(padding10)
                                 .weight(1F),
-                            shape = RoundedCornerShape(10.dp),
-                            contentPadding = PaddingValues(
-                                start = 10.dp,
-                                top = 10.dp,
-                                end = 10.dp,
-                                bottom = 10.dp,
-                            ),
+                            shape = RoundedCornerShape(cornerShape10),
+                            contentPadding = PaddingValues(padding10),
                             onClick = onCancel
                         ) { Text(
-                            text = "Отменить",
+                            text = stringResource(id = R.string.cancel),
                             color = MaterialTheme.colorScheme.onSecondary,
                             style = MaterialTheme.typography.titleMedium
                         ) }
@@ -154,18 +136,13 @@ fun AddFeedDialogView(
                         Button(
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .padding(10.dp)
+                                .padding(padding10)
                                 .weight(1F),
-                            shape = RoundedCornerShape(10.dp),
-                            contentPadding = PaddingValues(
-                                start = 10.dp,
-                                top = 10.dp,
-                                end = 10.dp,
-                                bottom = 10.dp,
-                            ),
+                            shape = RoundedCornerShape(cornerShape10),
+                            contentPadding = PaddingValues(padding10),
                             onClick = onConfirm,
                         ) { Text(
-                            text = "Подтвердить",
+                            text = stringResource(id = R.string.confirm),
                             color = MaterialTheme.colorScheme.onSecondary,
                             style = MaterialTheme.typography.titleMedium
                         ) }
@@ -182,16 +159,12 @@ fun AddFeedDialogViewPreview() {
     DataViewerTheme {
         AddFeedDialogView(
             title = "Добвление нововго фида",
-
             feedNameValue = "",
             onFeedNameFieldChangeValue = {  },
-
             feedElementNameValue = "",
             onFeedElementFieldChangeValue = { },
-
             selectDateElement = {},
             selectedFeedDateElement = "",
-
             dateElement = "<yml_catalog date=\"2024-03-21 20:52\">",
             useDateElement = {},
             openDialog = true,

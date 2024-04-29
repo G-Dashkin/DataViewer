@@ -16,9 +16,15 @@ import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
+import com.perfomax.dataviewer.ui.theme.cornerShape10
+import com.perfomax.dataviewer.ui.theme.padding10
+import com.perfomax.dataviewer.ui.theme.padding7
+import com.perfomax.dataviewer.ui.theme.weight1
+import com.perfomax.ui.R
 
 @Composable
 fun ProjectsDialogView(
@@ -38,69 +44,58 @@ fun ProjectsDialogView(
             onDismissRequest = {}
         ) {
             Card(
-                shape = RoundedCornerShape(10.dp),
-                modifier = Modifier.padding(10.dp)
+                shape = RoundedCornerShape(cornerShape10),
+                modifier = Modifier.padding(padding10)
             ) {
                 Column(
                     Modifier.background(Color.White)
                 ) {
-
                     Text(
                         text = title,
-                        modifier = Modifier.padding(10.dp),
+                        modifier = Modifier.padding(padding10),
                         fontSize = 20.sp
                     )
                     if (addFieldValue) {
                         TextField(
-                            modifier = Modifier.padding(8.dp),
+                            modifier = Modifier.padding(padding7),
                             value = textValue,
                             onValueChange = onFieldChange,
                             label = {
                                 if (hasError) {
                                     Text(
                                         color = Color.Red,
-                                        text = errorMessage
-                                    )
+                                        text = errorMessage)
                                 }
                             }
                         )
                     }
                     Row {
                         OutlinedButton(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(10.dp)
-                                .weight(1F),
-                            shape = RoundedCornerShape(10.dp),
-                            contentPadding = PaddingValues(
-                                start = 10.dp,
-                                top = 10.dp,
-                                end = 10.dp,
-                                bottom = 10.dp,
-                            ),
+                            modifier = Modifier.fillMaxWidth()
+                                               .padding(padding10)
+                                               .weight(weight1),
+                            shape = RoundedCornerShape(cornerShape10),
+                            contentPadding = PaddingValues(padding10),
                             onClick = onCancel
-                        ) { Text(text = "Отменить",
-                                 style = MaterialTheme.typography.titleMedium) }
-
+                        ) {
+                            Text(text = stringResource(id = R.string.cancel),
+                                 style = MaterialTheme.typography.titleMedium)
+                        }
                         Button(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(10.dp)
-                                .weight(1F),
-                            shape = RoundedCornerShape(10.dp),
-                            contentPadding = PaddingValues(
-                                start = 10.dp,
-                                top = 10.dp,
-                                end = 10.dp,
-                                bottom = 10.dp,
-                            ),
+                            modifier = Modifier.fillMaxWidth()
+                                               .padding(padding10)
+                                               .weight(weight1),
+                            shape = RoundedCornerShape(cornerShape10),
+                            contentPadding = PaddingValues(padding10),
                             onClick = {
                                 onConfirm.invoke()
                                 onUpdateProjectClick.invoke()
                             },
 
-                        ) { Text(text = "Подтвердить",
-                                 style = MaterialTheme.typography.titleMedium) }
+                        ) {
+                            Text(text = stringResource(id = R.string.confirm),
+                                 style = MaterialTheme.typography.titleMedium)
+                        }
                     }
                 }
             }

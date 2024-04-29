@@ -1,12 +1,15 @@
 package com.perfomax.dataviewer.presentation.projects
 
+import android.app.Application
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.perfomax.dataviewer.domain.EMPTY
 import com.perfomax.dataviewer.domain.usecases.projects.CreateNewProjectUseCase
 import com.perfomax.dataviewer.domain.usecases.projects.GetAllProjectsUseCase
 import com.perfomax.dataviewer.domain.usecases.projects.GetSelectedProjectUseCase
 import com.perfomax.dataviewer.domain.usecases.projects.RemoveProjectUseCase
 import com.perfomax.dataviewer.domain.usecases.projects.SelectProjectUseCase
+import com.perfomax.ui.R
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -17,6 +20,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ProjectsViewModel @Inject constructor(
+    private val context: Application,
     private val createNewProjectUseCase: CreateNewProjectUseCase,
     private val getAllProjectsUseCase: GetAllProjectsUseCase,
     private val removeProjectUseCase: RemoveProjectUseCase,
@@ -62,7 +66,6 @@ class ProjectsViewModel @Inject constructor(
             )
         }
     }
-
     private fun onCreateNewProject() {
         val newProjectName = _uiState.value.projectName
         val newProjectNameValid = newProjectName.isNotEmpty()
@@ -91,8 +94,7 @@ class ProjectsViewModel @Inject constructor(
                         it.toString().contains(";") ||
                         it.toString().contains(",")
                   },
-                    errorMessage = "Поле проект не должно содержать знаков | ; ,"
-
+                    errorMessage = context.applicationContext.getString(R.string.project_error)
                 )
             }
         } else if(newProjectNameValid3) {
@@ -100,7 +102,7 @@ class ProjectsViewModel @Inject constructor(
                 ProjectsContract.State.notCreate()
                 state.copy(
                     projectNameError = _uiState.value.projectsList.contains(newProjectName),
-                    errorMessage = "Прокт с названием $newProjectName уже создан"
+                    errorMessage = context.applicationContext.getString(R.string.project_already_created)
                 )
             }
         } else {
@@ -108,7 +110,7 @@ class ProjectsViewModel @Inject constructor(
                 ProjectsContract.State.notCreate()
                 state.copy(
                     projectNameError = newProjectName.isEmpty(),
-                    errorMessage = "Поле проект не должно быть пустым"
+                    errorMessage = context.applicationContext.getString(R.string.project_field_empty)
                 )
             }
         }
@@ -117,8 +119,8 @@ class ProjectsViewModel @Inject constructor(
     private fun onClearUiFieldsState(){
         _uiState.update { currentState ->
             currentState.copy(
-                projectName = "",
-                errorMessage = ""
+                projectName = EMPTY,
+                errorMessage = EMPTY
             )
         }
     }

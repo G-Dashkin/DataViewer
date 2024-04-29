@@ -4,7 +4,6 @@ package com.perfomax.dataviewer.presentation.scanning
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -32,9 +31,13 @@ import androidx.compose.ui.unit.dp
 import com.perfomax.dataviewer.ui.theme.DataViewerTheme
 import com.perfomax.dataviewer.ui.theme.fillMaxWidth07
 import com.perfomax.dataviewer.ui.theme.height2
+import com.perfomax.dataviewer.ui.theme.height40
 import com.perfomax.dataviewer.ui.theme.height50
+import com.perfomax.dataviewer.ui.theme.height70
 import com.perfomax.dataviewer.ui.theme.padding15
-import com.perfomax.dataviewer.ui.theme.shape8
+import com.perfomax.dataviewer.ui.theme.padding5
+import com.perfomax.dataviewer.ui.theme.cornerShape8
+import com.perfomax.dataviewer.ui.theme.width5
 import com.perfomax.dataviewer.ui.theme.zeroVal
 import com.perfomax.dataviewer.ui.widgets.FeedsScreenFormTextField
 import com.perfomax.dataviewer.ui.widgets.LoadingIndicator
@@ -48,10 +51,9 @@ fun ScanningScreen(
     onLoadFeedClick: () -> Unit,
     onSearchFeedElementClick: () -> Unit
 ) {
-
     Column(
         modifier = Modifier.fillMaxSize()
-            .padding(start = padding15, top = padding15, end = padding15),
+                           .padding(start = padding15, top = padding15, end = padding15),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Top
     ) {
@@ -62,24 +64,22 @@ fun ScanningScreen(
             horizontalArrangement = Arrangement.Start
         ) {
             FeedsScreenFormTextField(
-                modifier = Modifier
-                    .fillMaxWidth(fillMaxWidth07)
-                    .defaultMinSize(minHeight = height50)
-                    .background(color = MaterialTheme.colorScheme.background)
-                    .padding(zeroVal),
+                modifier = Modifier.fillMaxWidth(fillMaxWidth07)
+                                   .defaultMinSize(minHeight = height50)
+                                   .background(color = MaterialTheme.colorScheme.background)
+                                   .padding(zeroVal),
                 text = uiState.feedUrl,
                 labelText = stringResource(id = R.string.feed_url),
                 isError = false,
                 onChange = onFeedUrlFieldChange
             )
-            Spacer(modifier = Modifier.width(width = 5.dp))
+            Spacer(modifier = Modifier.width(width = width5))
             Button(
-                modifier = Modifier
-                .fillMaxWidth()
-                .height(50.dp)
-                .requiredHeight(40.dp),
+                modifier = Modifier.fillMaxWidth()
+                                   .height(height50)
+                                   .requiredHeight(height40),
                     enabled = !uiState.isScanningFeed,
-                    shape = RoundedCornerShape(shape8),
+                    shape = RoundedCornerShape(cornerShape8),
                     contentPadding = PaddingValues(zeroVal),
                     onClick = onLoadFeedClick
                 ) {
@@ -96,7 +96,7 @@ fun ScanningScreen(
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 LoadingIndicator()
-                Text(text = "Сканирование фида")
+                Text(text = stringResource(id = R.string.scanning))
             }
         }
 
@@ -107,24 +107,22 @@ fun ScanningScreen(
                 horizontalArrangement = Arrangement.Start
             ) {
                 FeedsScreenFormTextField(
-                    modifier = Modifier
-                        .fillMaxWidth(fillMaxWidth07)
-                        .height(70.dp)
-                        .defaultMinSize(minHeight = height50)
-                        .background(color = MaterialTheme.colorScheme.background)
-                        .padding(zeroVal),
+                    modifier = Modifier.fillMaxWidth(fillMaxWidth07)
+                                       .height(height70)
+                                       .defaultMinSize(minHeight = height50)
+                                       .background(color = MaterialTheme.colorScheme.background)
+                                       .padding(zeroVal),
                     text = uiState.feedSearchValue,
                     labelText = stringResource(id = R.string.feed_searching),
                     isError = false,
                     onChange = onSearchFeedElementFieldChange
                 )
-                Spacer(modifier = Modifier.width(width = 5.dp))
+                Spacer(modifier = Modifier.width(width = width5))
                 Button(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(70.dp)
-                        .requiredHeight(40.dp),
-                    shape = RoundedCornerShape(shape8),
+                    modifier = Modifier.fillMaxWidth()
+                                       .height(height70)
+                                       .requiredHeight(height40),
+                    shape = RoundedCornerShape(cornerShape8),
                     contentPadding = PaddingValues(zeroVal),
                     onClick = onSearchFeedElementClick
                 ) {
@@ -135,12 +133,12 @@ fun ScanningScreen(
                     )
                 }
             }
-
             LazyColumn(
                 state = uiState.listState,
-                modifier = Modifier
-                    .fillMaxSize()
-                    .border(1.dp, Color.Gray).padding(5.dp)) {
+                modifier = Modifier.fillMaxSize()
+                                   .border(1.dp, Color.Gray)
+                                   .padding(padding5)
+            ) {
                 itemsIndexed(items = uiState.loadedFeed) { index, element ->
                     if (element.contains(uiState.feedSearchValue) && uiState.feedSearchValue.isNotEmpty()) {
                         Text(modifier = Modifier.background(Color.Gray), text = element, color = Color.White)

@@ -24,8 +24,12 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.perfomax.ui.R
 import com.perfomax.dataviewer.ui.theme.DataViewerTheme
+import com.perfomax.dataviewer.ui.theme.cornerShape26
+import com.perfomax.dataviewer.ui.theme.cornerShape8
+import com.perfomax.dataviewer.ui.theme.height60
+import com.perfomax.dataviewer.ui.theme.size24
+import com.perfomax.dataviewer.ui.theme.width300
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun DefaultFormTextField(
     modifier: Modifier = Modifier,
@@ -36,25 +40,27 @@ fun DefaultFormTextField(
     onChange: (value: String) -> Unit
 ) {
     TextField(
-        modifier = Modifier
-//            .fillMaxWidth()
-            .width(300.dp)
-            .clip(shape = RoundedCornerShape(24.dp))
-            .background(color = MaterialTheme.colorScheme.background)
-            .height(60.dp),
+        modifier = Modifier.width(width300)
+                           .height(height60)
+                           .clip(shape = RoundedCornerShape(cornerShape26))
+                           .background(color = MaterialTheme.colorScheme.background),
         value = text,
         leadingIcon = {
-            Image(modifier = Modifier.size(24.dp), painter = icon, contentDescription = text)
+            Image(modifier = Modifier.size(size24),
+                  painter = icon,
+                  contentDescription = text
+            )
         },
         onValueChange = onChange,
-        shape = RoundedCornerShape(8.dp),
+        shape = RoundedCornerShape(cornerShape8),
         label = {
             Text(modifier = Modifier,
                 text = labelText, style = MaterialTheme.typography.labelMedium,
                 color = MaterialTheme.colorScheme.onSurface)
         },
         textStyle = MaterialTheme.typography.labelMedium
-            .merge(color = MaterialTheme.colorScheme.onBackground, textDecoration = TextDecoration.None),
+                    .merge(color = MaterialTheme.colorScheme.onBackground,
+                           textDecoration = TextDecoration.None),
         isError = isError
     )
 }

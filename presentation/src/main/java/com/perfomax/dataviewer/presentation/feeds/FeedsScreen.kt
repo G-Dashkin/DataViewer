@@ -23,22 +23,24 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.perfomax.dataviewer.ui.theme.DataViewerTheme
+import com.perfomax.dataviewer.ui.theme.border1
 import com.perfomax.dataviewer.ui.theme.fillMaxWidth07
-import com.perfomax.dataviewer.ui.theme.height15
 import com.perfomax.dataviewer.ui.theme.height2
+import com.perfomax.dataviewer.ui.theme.height40
+import com.perfomax.dataviewer.ui.theme.height5
 import com.perfomax.dataviewer.ui.theme.height50
+import com.perfomax.dataviewer.ui.theme.padding10
 import com.perfomax.dataviewer.ui.theme.padding15
-import com.perfomax.dataviewer.ui.theme.shape8
+import com.perfomax.dataviewer.ui.theme.padding5
+import com.perfomax.dataviewer.ui.theme.cornerShape8
+import com.perfomax.dataviewer.ui.theme.width10
 import com.perfomax.dataviewer.ui.theme.zeroVal
 import com.perfomax.dataviewer.ui.widgets.DefaultDialogView
 import com.perfomax.dataviewer.ui.widgets.FeedItemSettings
@@ -54,20 +56,15 @@ fun FeedsScreen(
     onFeedUrlFieldChange: (String) -> Unit,
     onAddFeedClick: () -> Unit,
     onOpenDialogSelectedFeedElementClick: () -> Unit,
-
     onOpenChangeFeedDialog: (String) -> Unit,
     onCloseDialogChangeFeed: () -> Unit,
-
     onFeedTitleFieldChangeValue: (String) -> Unit,
     onFeedUrlFieldChangeValue: (String) -> Unit,
     onFeedCountElementFieldChangeValue: (String) -> Unit,
-
     onCloseDialogSelectedFeedElement: () -> Unit,
     onFeedNameFieldChange: (String) -> Unit,
-
     onSelectFeedElement: (String) -> Unit,
     onSelectFeedDateElement: (String) -> Unit,
-
     onSelectRemovedFeedNameClick:(String) -> Unit,
     onCloseDialogRemoveFeedClick:() -> Unit,
     onRemoveFeedClick:() -> Unit,
@@ -75,49 +72,44 @@ fun FeedsScreen(
     updateProject:() -> Unit,
     onSwitchToFeedsListClick:() -> Unit,
     onCloseDialogFeedUrlError:() -> Unit,
-
-
     selectDateElement: () -> Unit = {  },
-
     onSaveChanges:() -> Unit
 ) {
 
     updateProject.invoke()
 
     Column(
-        modifier = Modifier.fillMaxSize().padding(start = padding15, end = padding15),
+        modifier = Modifier.fillMaxSize()
+                           .padding(start = padding15, end = padding15),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Top
     ) {
         Text(text = stringResource(id = R.string.load_new_feed),
             color = MaterialTheme.colorScheme.primary,
             style = MaterialTheme.typography.headlineLarge)
-//        Spacer(modifier = Modifier.height(10.dp))
         Row(
             modifier = Modifier.fillMaxWidth(),
             verticalAlignment = Alignment.Top,
             horizontalArrangement = Arrangement.Start
         ) {
             FeedsScreenFormTextField(
-                modifier = Modifier
-                    .fillMaxWidth(fillMaxWidth07)
-                    .height(height50)
-                    .defaultMinSize(minHeight = height50)
-                    .background(color = MaterialTheme.colorScheme.background)
-                    .padding(zeroVal),
+                modifier = Modifier.fillMaxWidth(fillMaxWidth07)
+                                   .height(height50)
+                                   .defaultMinSize(minHeight = height50)
+                                   .background(color = MaterialTheme.colorScheme.background)
+                                   .padding(zeroVal),
                 text = uiState.feedUrl,
                 labelText = stringResource(id = R.string.feed_url),
                 isError = uiState.feedUrlError,
                 onChange = onFeedUrlFieldChange
             )
-            Spacer(modifier = Modifier.width(10.dp))
+            Spacer(modifier = Modifier.width(width10))
             if (uiState.isFeedsList){
-                Button(modifier = Modifier
-                    .fillMaxWidth()
-                    .height(height50)
-                    .requiredHeight(40.dp),
+                Button(modifier = Modifier.fillMaxWidth()
+                                          .height(height50)
+                                          .requiredHeight(height40),
                     enabled = !uiState.isCountingFeedElements,
-                    shape = RoundedCornerShape(shape8),
+                    shape = RoundedCornerShape(cornerShape8),
                     contentPadding = PaddingValues(zeroVal),
                     onClick = onAddFeedClick
                 ) {
@@ -126,21 +118,19 @@ fun FeedsScreen(
                          style = MaterialTheme.typography.titleMedium)
                 }
             } else {
-                Button(modifier = Modifier
-                    .fillMaxWidth()
-                    .height(height50)
-                    .requiredHeight(40.dp),
-                    shape = RoundedCornerShape(shape8),
+                Button(modifier = Modifier.fillMaxWidth()
+                                          .height(height50)
+                                          .requiredHeight(height40),
+                    shape = RoundedCornerShape(cornerShape8),
                     contentPadding = PaddingValues(zeroVal),
                     onClick = onSwitchToFeedsListClick
                 ) {
                     Text(text = stringResource(id = R.string.cancel),
-                        color = MaterialTheme.colorScheme.onSecondary,
-                        style = MaterialTheme.typography.titleMedium)
+                         color = MaterialTheme.colorScheme.onSecondary,
+                         style = MaterialTheme.typography.titleMedium)
                 }
             }
         }
-//        Spacer(modifier = Modifier.height(5.dp))
         if (uiState.isCountingFeedElements) {
             Column(
                 modifier = Modifier.fillMaxSize(),
@@ -148,16 +138,14 @@ fun FeedsScreen(
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 LoadingIndicator()
-                Text(text = "Подсчет элементов в фиде")
+                Text(text = stringResource(id = R.string.count_feed_elements))
             }
         }
-
-
         Column(modifier = Modifier.fillMaxSize()) {
             if (uiState.isFeedsList){
                 LazyColumn(modifier = Modifier.fillMaxSize()) {
                     items(uiState.feedsList) { element ->
-                        Spacer(modifier = Modifier.height(5.dp))
+                        Spacer(modifier = Modifier.height(height5))
                         FeedItemSettings(
                             feedName = element.feedName,
                             onRemoveBottom = true,
@@ -174,34 +162,35 @@ fun FeedsScreen(
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
                         LoadingIndicator()
-                        Text(text = "Загрузка фида")
+                        Text(text = stringResource(id = R.string.loading_feed))
                     }
                 }
-
                 if(uiState.feedUrlError) {
                     Box(modifier = Modifier.fillMaxWidth()
-                                           .border(1.dp, Color.Gray)
-                                           .padding(10.dp)
+                                           .border(border1, Color.Gray)
+                                           .padding(padding10)
                         ) {
                         Text(text = uiState.feedUrlErrorMessage,
-                            color = Color.Red,
-                            style = MaterialTheme.typography.titleMedium)
+                             color = Color.Red,
+                             style = MaterialTheme.typography.titleMedium)
                     }
-                    Spacer(modifier = Modifier.height(5.dp))
+                    Spacer(modifier = Modifier.height(height5))
                 }
-
-                LazyColumn(modifier = Modifier.fillMaxSize()) {
+                Text(text = stringResource(id = R.string.pick_element),
+                     color = MaterialTheme.colorScheme.primary,
+                     style = MaterialTheme.typography.titleSmall)
+                LazyColumn(modifier = Modifier.fillMaxSize()
+                                              .border(border1, Color.Gray)
+                                              .padding(padding5)
+                    ) {
                     items(uiState.loadedFeed) { element ->
-                        Text(
-                            modifier = Modifier
-                                .background(Color.Gray)
-                                .clickable {
-                                    if (uiState.isSelectingFeedDateElement) onSelectFeedDateElement.invoke(element)
-                                    else onSelectFeedElement.invoke(element)
-                                    onOpenDialogSelectedFeedElementClick.invoke()
-                                },
+                        Text(modifier = Modifier.clickable {
+                            if (uiState.isSelectingFeedDateElement) onSelectFeedDateElement.invoke(element)
+                            else onSelectFeedElement.invoke(element)
+                            onOpenDialogSelectedFeedElementClick.invoke()
+                        },
                             text = element,
-                            color = Color.White
+                            color = Color.Black
                         )
                         Spacer(modifier = Modifier.height(height2))
                     }
@@ -218,17 +207,13 @@ fun FeedsScreen(
         onFeedElementFieldChangeValue = onSelectFeedElement,
         dateElement = "<yml_catalog date=\"2024-03-21 20:52\">",
         useDateElement = {},
-
         selectDateElement = selectDateElement,
         selectedFeedDateElement = uiState.feedDateElement,
-
         openDialog = uiState.openDialogSelectedFeedElement,
         onCancel = onCloseDialogSelectedFeedElement,
         onConfirm = onAddNewFeed,
-
         hasFeedNameError = uiState.feedNameError,
         errorFeedNameMessage = uiState.feedNameErrorMessage,
-
         hasUrlFeedError = uiState.selectedFeedElementError,
         errorUrlFeedMessage = uiState.selectedFeedElementErrorMessage,
     )
@@ -247,14 +232,14 @@ fun FeedsScreen(
 
     DefaultDialogView(
         textValue = uiState.feedName,
-        title = stringResource(id = R.string.delete_feed) + uiState.removedFeed,
+        title = stringResource(id = R.string.delete_feed) + " ${uiState.removedFeed}",
         openDialog = uiState.openDialogRemoveFeed,
         onCancel = onCloseDialogRemoveFeedClick,
         onConfirm = onRemoveFeedClick
     )
 
     DefaultDialogView(
-        title = "Фид с указанным URL уже присутствуем в данннм проекте",
+        title = stringResource(id = R.string.feed_url_error),
         openDialog = uiState.openDialogFeedUrlErrorElement,
         onlyCancel = true,
         onCancel = onCloseDialogFeedUrlError
@@ -266,21 +251,30 @@ fun FeedsScreen(
 @Composable
 fun FeedsScreenPreview() {
     val feedsViewModel: FeedsViewModel = viewModel()
-    val feedsUiState by feedsViewModel.uiState.collectAsStateWithLifecycle()
-    val feedsEffects by feedsViewModel.effect.collectAsStateWithLifecycle()
     DataViewerTheme {
-//        FeedsScreen(
-//            uiState = feedsUiState,
-//            onFeedFieldChange = { text ->
-//                feedsViewModel.intent(
-//                    FeedsContract.Event.FeedUrlChangeEvent(
-//                        text
-//                    )
-//                )
-//            },
-//            onAddFeedClick = { feedsViewModel.intent(FeedsContract.Event.AddFeedClickEvent) },
-//            onSelectFeedElement = { }
-//
-//        )
+        FeedsScreen(
+            uiState = FeedsContract.State.initial(),
+            onAddFeedClick = { feedsViewModel.intent(FeedsContract.Event.AddFeedClickEvent) },
+            onSelectFeedElement = {  },
+            onFeedUrlFieldChangeValue = {  },
+            onSaveChanges = {  },
+            onOpenChangeFeedDialog = {  },
+            onFeedCountElementFieldChangeValue = {  },
+            onSelectFeedDateElement = {  },
+            onCloseDialogFeedUrlError = {  },
+            onSwitchToFeedsListClick = {  },
+            onRemoveFeedClick = {  },
+            onAddNewFeed = {  },
+            onSelectRemovedFeedNameClick = {  },
+            onOpenDialogSelectedFeedElementClick = {  },
+            onCloseDialogSelectedFeedElement = {  },
+            onCloseDialogChangeFeed = {  },
+            onCloseDialogRemoveFeedClick = {  },
+            onFeedNameFieldChange = {  },
+            onFeedTitleFieldChangeValue = {  },
+            onFeedUrlFieldChange = {  },
+            updateProject = {  }
+
+        )
     }
 }
