@@ -19,7 +19,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
@@ -35,7 +34,7 @@ import com.perfomax.dataviewer.ui.theme.weight1
 import com.perfomax.ui.R
 
 @Composable
-fun FeedsScreenFormTextField(
+fun FormTextFieldDefault(
     modifier: Modifier = Modifier,
     text: String,
     labelText: String,
@@ -43,9 +42,9 @@ fun FeedsScreenFormTextField(
     onChange: (value: String) -> Unit
 ) {
     BasicTextField(modifier = modifier.background(
-                   color = Color.Gray,
-                   shape = RoundedCornerShape(cornerShape22))
-                   .requiredHeight(height40),
+        color = Color.Gray,
+        shape = RoundedCornerShape(cornerShape22))
+        .requiredHeight(height40),
         value = text,
         onValueChange = onChange,
         singleLine = true,
@@ -57,8 +56,8 @@ fun FeedsScreenFormTextField(
         decorationBox = { innerTextField ->
             Row(modifier = modifier
                 .background(
-                color = Color.LightGray,
-                shape = RoundedCornerShape(cornerShape10))
+                    color = Color.LightGray,
+                    shape = RoundedCornerShape(cornerShape10))
                 .border(border1, color = Color.Gray, shape = RoundedCornerShape(cornerShape10)),
                 verticalAlignment = Alignment.CenterVertically
             ) {
@@ -69,7 +68,7 @@ fun FeedsScreenFormTextField(
                     if (text.isEmpty()) {
                         Text(text = labelText,
                             style = LocalTextStyle.current.copy(
-                            color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.8f))
+                                color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.8f))
                         )
                     }
                     innerTextField()
@@ -78,22 +77,21 @@ fun FeedsScreenFormTextField(
 
         }
     )
-
 }
+
 
 @Preview(showBackground = true)
 @Composable
-fun FeedsScreenFormTextFieldPreview() {
+fun DefaultFormTextFieldPreview() {
     val textState = remember { mutableStateOf("") }
     val onTextChange = { text : String -> textState.value = text }
     DataViewerTheme {
-        DefaultFormTextField(
+        FormTextFieldDefault(
             modifier = Modifier.fillMaxWidth(),
             text = textState.value,
             onChange = onTextChange,
             labelText = stringResource(id = R.string.email),
-            isError = false,
-            icon = painterResource(id = R.drawable.ic_bottom_menu_search),
+            isError = false
         )
     }
 }

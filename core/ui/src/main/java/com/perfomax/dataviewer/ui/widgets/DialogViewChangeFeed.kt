@@ -25,7 +25,7 @@ import com.perfomax.dataviewer.ui.theme.padding10
 import com.perfomax.ui.R
 
 @Composable
-fun ChangeFeedDialogView(
+fun DialogViewChangeFeed(
     openDialog: Boolean,
     feedTitle: String,
     feedUrl: String,
@@ -105,7 +105,7 @@ fun ChangeFeedDialogView(
 @Composable
 fun ChangeFeedDialogViewPreview() {
     DataViewerTheme {
-        ChangeFeedDialogView(
+        DialogViewChangeFeed(
             openDialog = true,
             feedTitle = "feedName",
             feedUrl = "www.feedUrl.com/feed",

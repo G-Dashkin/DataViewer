@@ -21,7 +21,7 @@ import com.perfomax.dataviewer.ui.theme.borderRadius16
 import com.perfomax.dataviewer.ui.theme.height40
 
 @Composable
-fun DefaultButton(
+fun ButtonDefault(
     modifier: Modifier = Modifier,
     height: Dp = height40,
     title: String,
@@ -57,7 +57,7 @@ fun DefaultButton(
 @Composable
 fun DefaultButtonPreview() {
     DataViewerTheme {
-        DefaultButton(
+        ButtonDefault(
             modifier = Modifier.fillMaxWidth(),
             title = "",
             onClick = {},

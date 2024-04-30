@@ -22,7 +22,7 @@ import com.perfomax.dataviewer.ui.theme.padding10
 import com.perfomax.ui.R
 
 @Composable
-fun DefaultDialogView(
+fun DialogViewDefault(
     textValue: String = "",
     title: String = "",
     addFieldValue: Boolean = false,

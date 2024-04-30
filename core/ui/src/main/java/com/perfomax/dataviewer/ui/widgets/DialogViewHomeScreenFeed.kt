@@ -25,7 +25,7 @@ import com.perfomax.dataviewer.ui.theme.padding10
 import com.perfomax.ui.R
 
 @Composable
-fun HomeScreenFeedDialogView(
+fun DialogViewHomeScreenFeed(
     feedTitle: String,
     feedUrl: String,
     openDialog: Boolean,
@@ -92,7 +92,7 @@ fun HomeScreenFeedDialogView(
 @Composable
 fun HomeScreenFeedDialogViewPreview() {
     DataViewerTheme {
-        HomeScreenFeedDialogView(
+        DialogViewHomeScreenFeed(
             feedTitle = "MyFeed",
             feedUrl = "www.feed.com",
             onFindElementsInFeed = {  },

@@ -22,9 +22,9 @@ import com.perfomax.dataviewer.ui.theme.cornerShape8
 import com.perfomax.dataviewer.ui.theme.height5
 import com.perfomax.dataviewer.ui.theme.padding10
 import com.perfomax.dataviewer.ui.theme.padding15
-import com.perfomax.dataviewer.ui.widgets.DefaultDialogView
-import com.perfomax.dataviewer.ui.widgets.ProjectItem
-import com.perfomax.dataviewer.ui.widgets.ProjectsDialogView
+import com.perfomax.dataviewer.ui.widgets.DialogViewDefault
+import com.perfomax.dataviewer.ui.widgets.ItemProject
+import com.perfomax.dataviewer.ui.widgets.DialogViewCreateNewProject
 import com.perfomax.ui.R
 
 @Composable
@@ -59,7 +59,7 @@ fun ProjectsScreen(
         Spacer(modifier = Modifier.height(padding10))
         LazyColumn {
             items(uiState.projectsList.size) { projectIndex ->
-                ProjectItem(
+                ItemProject(
                     projectName = uiState.projectsList[projectIndex],
                     isChanged = uiState.selectedProject == uiState.projectsList[projectIndex],
                     onSelect = onSelectProjectClick,
@@ -69,7 +69,9 @@ fun ProjectsScreen(
                 Spacer(modifier = Modifier.height(height5))
             }
         }
-        ProjectsDialogView(
+
+        // DialogView for create new project
+        DialogViewCreateNewProject(
             textValue = uiState.projectName,
             title = stringResource(id = R.string.name_new_project),
             addFieldValue = true,
@@ -81,7 +83,9 @@ fun ProjectsScreen(
             errorMessage = uiState.errorMessage,
             onUpdateProjectClick = onUpdateProjectClick
         )
-        DefaultDialogView(
+
+        // DialogView for delete project
+        DialogViewDefault(
             textValue = uiState.projectName,
             title = stringResource(id = R.string.delete_project) + " ${uiState.removedProject}?",
             openDialog = uiState.openDialogRemoveProject,

@@ -26,7 +26,7 @@ import com.perfomax.dataviewer.ui.theme.weight1
 import com.perfomax.ui.R
 
 @Composable
-fun ProjectsDialogView(
+fun DialogViewCreateNewProject(
     textValue: String,
     title: String = "",
     addFieldValue: Boolean = false,

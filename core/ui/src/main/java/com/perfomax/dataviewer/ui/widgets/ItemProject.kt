@@ -29,8 +29,7 @@ import com.perfomax.dataviewer.ui.theme.zeroVal
 import com.perfomax.ui.R
 
 @Composable
-fun ProjectItem(
-    modifier: Modifier = Modifier,
+fun ItemProject(
     projectName: String,
     isChanged: Boolean,
     onSelect: (String) -> Unit,

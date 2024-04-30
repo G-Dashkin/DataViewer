@@ -35,8 +35,7 @@ import com.perfomax.dataviewer.ui.theme.zeroVal
 import com.perfomax.ui.R
 
 @Composable
-fun FeedItemSettings(
-    modifier: Modifier = Modifier,
+fun ItemFeedSettings(
     feedName: String,
     onRemove: (String) -> Unit = {},
     onRemoveBottom: Boolean = false,
@@ -91,14 +90,12 @@ fun FeedItemSettings(
             }
 
         } else {
-            Row(modifier = Modifier
-                .fillMaxWidth()
-                .padding(start = padding10, top = padding10, end = padding10),
+            Row(modifier = Modifier.fillMaxWidth()
+                                   .padding(start = padding10, top = padding10, end = padding10),
                 horizontalArrangement = Arrangement.Center
             ) {
-                Column(modifier = Modifier
-                    .fillMaxWidth(fillMaxWidth05)
-                    .padding(end = padding5),
+                Column(modifier = Modifier.fillMaxWidth(fillMaxWidth05)
+                                          .padding(end = padding5),
                     horizontalAlignment = Alignment.End) {
                     Text(text = stringResource(id = R.string.feed_name_two))
                     Text(text = stringResource(id = R.string.elements_into_feed))

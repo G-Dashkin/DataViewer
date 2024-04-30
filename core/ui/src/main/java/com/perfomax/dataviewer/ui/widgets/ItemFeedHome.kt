@@ -31,7 +31,7 @@ import com.perfomax.dataviewer.ui.theme.space0
 import com.perfomax.ui.R
 
 @Composable
-fun FeedItemHome(
+fun ItemFeedHome(
     feedName: String,
     onClickFeedElement: (String) -> Unit,
     countElements: Int,
@@ -100,7 +100,7 @@ fun FeedItemHome(
 @Composable
 fun FeedItemHomePreview() {
     DataViewerTheme {
-        FeedItemHome(
+        ItemFeedHome(
             feedName = "myFeed",
             countElements = 99999,
             updateTime = "2024-04-14 24:05",

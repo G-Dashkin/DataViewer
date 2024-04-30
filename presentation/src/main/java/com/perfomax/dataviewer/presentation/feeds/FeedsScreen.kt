@@ -42,11 +42,11 @@ import com.perfomax.dataviewer.ui.theme.padding15
 import com.perfomax.dataviewer.ui.theme.padding5
 import com.perfomax.dataviewer.ui.theme.width10
 import com.perfomax.dataviewer.ui.theme.zeroVal
-import com.perfomax.dataviewer.ui.widgets.AddFeedDialogView
-import com.perfomax.dataviewer.ui.widgets.ChangeFeedDialogView
-import com.perfomax.dataviewer.ui.widgets.DefaultDialogView
-import com.perfomax.dataviewer.ui.widgets.FeedItemSettings
-import com.perfomax.dataviewer.ui.widgets.FeedsScreenFormTextField
+import com.perfomax.dataviewer.ui.widgets.DialogViewAddFeed
+import com.perfomax.dataviewer.ui.widgets.DialogViewChangeFeed
+import com.perfomax.dataviewer.ui.widgets.DialogViewDefault
+import com.perfomax.dataviewer.ui.widgets.FormTextFieldDefault
+import com.perfomax.dataviewer.ui.widgets.ItemFeedSettings
 import com.perfomax.dataviewer.ui.widgets.LoadingIndicator
 import com.perfomax.ui.R
 
@@ -92,7 +92,7 @@ fun FeedsScreen(
             verticalAlignment = Alignment.Top,
             horizontalArrangement = Arrangement.Start
         ) {
-            FeedsScreenFormTextField(
+            FormTextFieldDefault(
                 modifier = Modifier.fillMaxWidth(fillMaxWidth07)
                                    .height(height50)
                                    .defaultMinSize(minHeight = height50)
@@ -146,7 +146,7 @@ fun FeedsScreen(
                 LazyColumn(modifier = Modifier.fillMaxSize()) {
                     items(uiState.feedsList) { element ->
                         Spacer(modifier = Modifier.height(height5))
-                        FeedItemSettings(
+                        ItemFeedSettings(
                             feedName = element.feedName,
                             onRemoveBottom = true,
                             onRemove = onSelectRemovedFeedNameClick,
@@ -199,7 +199,8 @@ fun FeedsScreen(
         }
     }
 
-    AddFeedDialogView(
+    // DialogView for add feed
+    DialogViewAddFeed(
         title = stringResource(id = R.string.adding_feed),
         feedNameValue = uiState.feedName,
         onFeedNameFieldChangeValue = onFeedNameFieldChange,
@@ -218,7 +219,8 @@ fun FeedsScreen(
         errorUrlFeedMessage = uiState.selectedFeedElementErrorMessage,
     )
 
-    ChangeFeedDialogView(
+    // DialogView for change feed
+    DialogViewChangeFeed(
         openDialog = uiState.openDialogChangeFeed,
         feedTitle = uiState.feedUpdateName,
         feedUrl = uiState.feedUpdateUrl,
@@ -230,7 +232,8 @@ fun FeedsScreen(
         onSave = onSaveChanges
     )
 
-    DefaultDialogView(
+    // DialogView for delete feed
+    DialogViewDefault(
         textValue = uiState.feedName,
         title = stringResource(id = R.string.delete_feed) + " ${uiState.removedFeed}",
         openDialog = uiState.openDialogRemoveFeed,
@@ -238,7 +241,8 @@ fun FeedsScreen(
         onConfirm = onRemoveFeedClick
     )
 
-    DefaultDialogView(
+    // DialogView for error alert
+    DialogViewDefault(
         title = stringResource(id = R.string.feed_url_error),
         openDialog = uiState.openDialogFeedUrlErrorElement,
         onlyCancel = true,

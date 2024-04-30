@@ -39,7 +39,7 @@ import com.perfomax.dataviewer.ui.theme.padding15
 import com.perfomax.dataviewer.ui.theme.padding5
 import com.perfomax.dataviewer.ui.theme.width5
 import com.perfomax.dataviewer.ui.theme.zeroVal
-import com.perfomax.dataviewer.ui.widgets.FeedsScreenFormTextField
+import com.perfomax.dataviewer.ui.widgets.FormTextFieldDefault
 import com.perfomax.dataviewer.ui.widgets.LoadingIndicator
 import com.perfomax.ui.R
 
@@ -63,7 +63,7 @@ fun ScanningScreen(
             verticalAlignment = Alignment.Top,
             horizontalArrangement = Arrangement.Start
         ) {
-            FeedsScreenFormTextField(
+            FormTextFieldDefault(
                 modifier = Modifier.fillMaxWidth(fillMaxWidth07)
                                    .defaultMinSize(minHeight = height50)
                                    .background(color = MaterialTheme.colorScheme.background)
@@ -106,7 +106,7 @@ fun ScanningScreen(
                 verticalAlignment = Alignment.Top,
                 horizontalArrangement = Arrangement.Start
             ) {
-                FeedsScreenFormTextField(
+                FormTextFieldDefault(
                     modifier = Modifier.fillMaxWidth(fillMaxWidth07)
                                        .height(height70)
                                        .defaultMinSize(minHeight = height50)

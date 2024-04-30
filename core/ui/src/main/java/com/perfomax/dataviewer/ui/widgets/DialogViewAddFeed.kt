@@ -25,7 +25,7 @@ import com.perfomax.dataviewer.ui.theme.padding10
 import com.perfomax.ui.R
 
 @Composable
-fun AddFeedDialogView(
+fun DialogViewAddFeed(
     title: String = "",
     feedNameValue: String = "",
     onFeedNameFieldChangeValue:(String) -> Unit,
@@ -156,7 +156,7 @@ fun AddFeedDialogView(
 @Composable
 fun AddFeedDialogViewPreview() {
     DataViewerTheme {
-        AddFeedDialogView(
+        DialogViewAddFeed(
             title = "Добвление нововго фида",
             feedNameValue = "",
             onFeedNameFieldChangeValue = {  },

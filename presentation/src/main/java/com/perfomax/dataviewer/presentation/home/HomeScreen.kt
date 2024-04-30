@@ -27,8 +27,8 @@ import com.perfomax.dataviewer.ui.theme.height50
 import com.perfomax.dataviewer.ui.theme.padding10
 import com.perfomax.dataviewer.ui.theme.padding15
 import com.perfomax.dataviewer.ui.theme.zeroVal
-import com.perfomax.dataviewer.ui.widgets.FeedItemHome
-import com.perfomax.dataviewer.ui.widgets.HomeScreenFeedDialogView
+import com.perfomax.dataviewer.ui.widgets.ItemFeedHome
+import com.perfomax.dataviewer.ui.widgets.DialogViewHomeScreenFeed
 import com.perfomax.dataviewer.ui.widgets.LoadingIndicator
 import com.perfomax.ui.R
 
@@ -75,7 +75,7 @@ fun HomeScreen(
         }
         LazyColumn(modifier = Modifier.fillMaxSize()) {
             items(uiState.feedsList) { element ->
-                FeedItemHome(
+                ItemFeedHome(
                     feedName = element.feedName,
                     countElements = element.feedElementCount,
                     updateTime = element.feedUpdateTime.getFeedElementValue(),
@@ -84,7 +84,7 @@ fun HomeScreen(
                 )
             }
         }
-        HomeScreenFeedDialogView(
+        DialogViewHomeScreenFeed(
             feedTitle = uiState.selectedFeedName,
             feedUrl = uiState.selectedFeedUrl,
             onFindElementsInFeed = onFindSelectedElement,
