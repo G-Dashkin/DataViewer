@@ -8,11 +8,12 @@ Jetpack Navigation
 SharedPreferences
 Flow?/LiveData?
 
-![screen_1](https://github.com/G-Dashkin/DataViewer/assets/76224564/9b7f2ddd-8d41-4e01-9fb7-71b5dd2bdee8)
-![screen_2](https://github.com/G-Dashkin/DataViewer/assets/76224564/4e033e72-7ecd-4ff9-a5da-8d10b3f78331)
-![screen_2_1](https://github.com/G-Dashkin/DataViewer/assets/76224564/3203da5a-ca28-48ee-8cd6-e0c01029bfd4)
-![screen_3](https://github.com/G-Dashkin/DataViewer/assets/76224564/e5b42a7f-6018-4747-9d38-923554f06789)
-![screen_4](https://github.com/G-Dashkin/DataViewer/assets/76224564/a1bd41d1-be53-4e85-b262-cc15d0e72404)
-![screen_5](https://github.com/G-Dashkin/DataViewer/assets/76224564/61d8b666-4293-495a-ab26-f042c488aeec)
-![screen_6](https://github.com/G-Dashkin/DataViewer/assets/76224564/8d9d947b-cf57-40fa-8889-dd0976fc1596)
-![screen_8](https://github.com/G-Dashkin/DataViewer/assets/76224564/1d892153-5b8a-4ffb-be9d-b3313d163e6c)
+![1](https://github.com/G-Dashkin/DataViewer/assets/76224564/f1ffc26f-a2b2-4704-b995-26e81c97aef1)
+![2](https://github.com/G-Dashkin/DataViewer/assets/76224564/1300945f-11b6-4c7d-b34c-e8b67b8272fa)
+![3](https://github.com/G-Dashkin/DataViewer/assets/76224564/ae6aeb22-7f92-4221-8025-6152e9fc1a5a)
+![4](https://github.com/G-Dashkin/DataViewer/assets/76224564/e91d90f9-0b9c-415e-8e5d-bddfa12c2335)
+![5](https://github.com/G-Dashkin/DataViewer/assets/76224564/8eab2d8f-de08-4d81-8c35-15fcd8e2f73f)
+![6](https://github.com/G-Dashkin/DataViewer/assets/76224564/de2322ac-2a64-4849-a7b8-6a14bbfb0b10)
+![6](https://github.com/G-Dashkin/DataViewer/assets/76224564/97398c01-fd69-48ef-837b-0b79b38b15d9)
+![8](https://github.com/G-Dashkin/DataViewer/assets/76224564/ec0cf2e7-f15f-4134-b172-496776cf3c4b)
+![9](https://github.com/G-Dashkin/DataViewer/assets/76224564/370c8783-32b1-42f6-973e-a5ec09c31c43)
