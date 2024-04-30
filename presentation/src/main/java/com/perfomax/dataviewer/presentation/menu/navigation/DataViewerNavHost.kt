@@ -4,6 +4,8 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
+import com.perfomax.dataviewer.navigation.NavigationDestination
+import com.perfomax.dataviewer.presentation.auth.navigation.AuthenticationTopLevelDestination
 import com.perfomax.dataviewer.presentation.auth.navigation.authentication
 import com.perfomax.dataviewer.presentation.auth.navigation.logout
 import com.perfomax.dataviewer.presentation.auth.navigation.navigateToLogin
@@ -45,10 +47,12 @@ fun DataViewerNavHost() {
                 ScanningTopLevelDestination,
                 ProjectsTopLevelDestination,
                 FeedsTopLevelDestination,
+                AuthenticationTopLevelDestination,
                 SettingsTopLevelDestination
             ),
             onNavigateUp = navController::popBackStack,
             onLogout = navController::logout,
+            onAuthentication = navController::navigateToLogin,
             onNavigateToScanning = navController::navigateToScanning
         )
     }

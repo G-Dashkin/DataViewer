@@ -1,5 +1,6 @@
 package com.perfomax.dataviewer.presentation.menu
 
+import android.util.Log
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
@@ -13,6 +14,8 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.perfomax.dataviewer.navigation.TopLevelDestination
 import com.perfomax.dataviewer.navigation.navigateSingleTopTo
+import com.perfomax.dataviewer.presentation.auth.navigation.authentication
+import com.perfomax.dataviewer.presentation.auth.navigation.navigateToLogin
 import com.perfomax.dataviewer.presentation.feeds.navigation.navigateToFeeds
 import com.perfomax.dataviewer.presentation.home.navigation.HomeDestination
 import com.perfomax.dataviewer.presentation.home.navigation.navigateToHome
@@ -29,6 +32,7 @@ fun MenuScreen(
     uiState: MenuContract.State,
     topLevelDestinations: List<TopLevelDestination>,
     onLogout: () -> Unit,
+    onAuthentication: () -> Unit,
     updateMainProject: () -> Unit,
     onScanning: (String) -> Unit
 ) {
@@ -45,6 +49,7 @@ fun MenuScreen(
                 onNavigateToTopLevel = { route ->
                     navController.navigateSingleTopTo(route)
                 },
+                onAuthentication = onAuthentication,
                 updateMainProject = updateMainProject
             )
         },

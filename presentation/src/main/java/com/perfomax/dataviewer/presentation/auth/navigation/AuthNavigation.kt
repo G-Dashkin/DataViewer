@@ -8,12 +8,14 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
 import com.perfomax.dataviewer.navigation.NavigationDestination
+import com.perfomax.dataviewer.navigation.TopLevelDestination
 import com.perfomax.dataviewer.presentation.auth.login.LoginScreen
 import com.perfomax.dataviewer.presentation.auth.login.LoginViewModel
 import com.perfomax.dataviewer.presentation.auth.registration.RegisterScreen
 import com.perfomax.dataviewer.presentation.auth.registration.RegisterViewModel
 import com.perfomax.dataviewer.presentation.auth.reset.ResetScreen
 import com.perfomax.dataviewer.presentation.auth.reset.ResetViewModel
+import com.perfomax.ui.R
 
 const val AUTH_GRAPH = "authentication"
 
@@ -27,6 +29,12 @@ private object RegisterDestination: NavigationDestination {
 
 private object ResetDestination: NavigationDestination {
     override val route = "reset"
+}
+
+object AuthenticationTopLevelDestination: TopLevelDestination {
+    override val route = LoginDestination.route
+    override val iconId = R.drawable.ic_account
+    override val titleId = R.string.account
 }
 
 fun NavHostController.navigateToLogin() {

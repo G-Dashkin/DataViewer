@@ -20,7 +20,8 @@ fun DataViewerBottomBar(
         containerColor = MaterialTheme.colorScheme.onPrimary) {
         destinations.filter {
             it.route != "feeds" &&
-            it.route != "projects"
+            it.route != "projects" &&
+            it.route != "login"
         }.forEachIndexed { index, item ->
             DataViewerIconTab(
                 modifier = modifier,

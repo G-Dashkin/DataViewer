@@ -27,6 +27,7 @@ object MenuDestination: NavigationDestination {
 fun NavGraphBuilder.menu(
     topLevelDestinations: List<TopLevelDestination>,
     onLogout: () -> Unit,
+    onAuthentication: () -> Unit,
     onNavigateUp: () -> Unit,
     onNavigateToScanning: (String) -> Unit
 ) {
@@ -37,6 +38,7 @@ fun NavGraphBuilder.menu(
         menuInner(
             topLevelDestinations = topLevelDestinations,
             onLogout = onLogout,
+            onAuthentication = onAuthentication,
             onScanning = onNavigateToScanning
         )
     }
@@ -44,6 +46,7 @@ fun NavGraphBuilder.menu(
 
 private fun NavGraphBuilder.menuInner(
     onLogout: () -> Unit,
+    onAuthentication: () -> Unit,
     topLevelDestinations: List<TopLevelDestination>,
     onScanning: (String) -> Unit
 ) {
@@ -54,6 +57,7 @@ private fun NavGraphBuilder.menuInner(
             uiState = menuUiState,
             topLevelDestinations = topLevelDestinations,
             onLogout = onLogout,
+            onAuthentication = onAuthentication,
             updateMainProject = { menuViewModel.intent(MenuContract.Event.UpdateProjectEvent) },
             onScanning = onScanning
         )

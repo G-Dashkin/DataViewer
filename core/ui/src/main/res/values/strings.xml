@@ -7,6 +7,7 @@
     <string name="projects">Проекты</string>
     <string name="scanning">Сканирование фида</string>
     <string name="settings">Настройки</string>
+    <string name="account">Аккаунт</string>
     <string name="empty">""</string>
     <string name="create_new_project">Создать новый проект</string>
     <string name="name_new_project">Название нового проекта</string>

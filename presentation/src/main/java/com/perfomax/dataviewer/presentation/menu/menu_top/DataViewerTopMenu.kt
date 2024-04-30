@@ -35,6 +35,7 @@ fun DataViewerTopMenu(
     titleTomMenu: String,
     destinations: List<TopLevelDestination>,
     onNavigateToTopLevel: (topRoute: String) -> Unit,
+    onAuthentication: () -> Unit,
     updateMainProject:() -> Unit
 ) {
 
@@ -55,12 +56,18 @@ fun DataViewerTopMenu(
                 destinations.filter {
                     !it.route.contains("scanning")
                 }.forEachIndexed { index, item ->
+
                     DropdownMenuItem(
                         text = { Text(text = stringResource(id = item.titleId)) },
                         onClick = {
+//                            Log.d("MyLog", item.route)
                             dropDownMenuExpanded = false
-                            onNavigateToTopLevel(item.route)
-                            updateMainProject.invoke()
+                            if (item.route != "login") {
+                                onNavigateToTopLevel(item.route)
+                                updateMainProject.invoke()
+                            } else {
+                                onAuthentication.invoke()
+                            }
                         }
                     )
                 }
@@ -76,6 +83,7 @@ private fun Preview() {
         destinations = listOf(),
         titleTomMenu = "",
         onNavigateToTopLevel = {},
+        onAuthentication =  {},
         updateMainProject = { }
     )
 }
