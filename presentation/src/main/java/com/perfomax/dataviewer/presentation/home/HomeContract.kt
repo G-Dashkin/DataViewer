@@ -2,6 +2,7 @@ package com.perfomax.dataviewer.presentation.home
 
 import com.perfomax.dataviewer.domain.EMPTY
 import com.perfomax.dataviewer.domain.models.Feed
+import com.perfomax.dataviewer.presentation.scanning.ScanningContract
 import com.perfomax.dataviewer.ui.base.UnidirectionalViewModel
 
 interface HomeContract:
@@ -10,6 +11,7 @@ interface HomeContract:
     data class State(
         val feedsList: List<Feed>,
         val isUpdatingFeedList: Boolean,
+        val openDialogIsConnected: Boolean,
         val selectedFeedName: String,
         val selectedFeedUrl: String,
         val findFeedElement: String,
@@ -19,6 +21,7 @@ interface HomeContract:
             fun initial(): State = State(
                 feedsList = emptyList(),
                 isUpdatingFeedList = false,
+                openDialogIsConnected = false,
                 selectedFeedName = EMPTY,
                 selectedFeedUrl = EMPTY,
                 findFeedElement = EMPTY,
@@ -28,6 +31,7 @@ interface HomeContract:
             fun notCorrect(): State = State(
                 feedsList = emptyList(),
                 isUpdatingFeedList = false,
+                openDialogIsConnected = false,
                 selectedFeedName = EMPTY,
                 selectedFeedUrl = EMPTY,
                 findFeedElement = EMPTY,
@@ -46,6 +50,7 @@ interface HomeContract:
         data object FindFeedElementsEvent : Event
         data object UpdateFeedEvent: Event
         data object CloseDialogClickEvent: Event
+        data object CloseDialogIsConnectedEvent : Event
     }
 
     sealed interface Effect {

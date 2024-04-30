@@ -27,6 +27,7 @@ import com.perfomax.dataviewer.ui.theme.height50
 import com.perfomax.dataviewer.ui.theme.padding10
 import com.perfomax.dataviewer.ui.theme.padding15
 import com.perfomax.dataviewer.ui.theme.zeroVal
+import com.perfomax.dataviewer.ui.widgets.DialogViewDefault
 import com.perfomax.dataviewer.ui.widgets.ItemFeedHome
 import com.perfomax.dataviewer.ui.widgets.DialogViewHomeScreenFeed
 import com.perfomax.dataviewer.ui.widgets.LoadingIndicator
@@ -42,6 +43,7 @@ fun HomeScreen(
     onClickUpdateFeedsList:() -> Unit,
     onClickUpdateFeed:() -> Unit,
     onCloseDialogClick:() -> Unit,
+    onCloseDialogIsConnected: () -> Unit
 ) {
 
     updateFeedsList.invoke()
@@ -94,6 +96,15 @@ fun HomeScreen(
             onUpdateFeed = onClickUpdateFeed,
             onClose = onCloseDialogClick
         )
+
+        // DialogView for connection error alert
+        DialogViewDefault(
+            title = stringResource(id = R.string.internet_error),
+            openDialog = uiState.openDialogIsConnected,
+            onlyCancel = true,
+            onCancel = onCloseDialogIsConnected
+        )
+
     }
 }
 
@@ -109,7 +120,8 @@ fun HomeScreenPreview() {
             onFindSelectedElement = {},
             onClickUpdateFeed = { },
             onCloseDialogClick= { },
-            updateBackgroundUpdate = {}
+            updateBackgroundUpdate = {},
+            onCloseDialogIsConnected = {}
         )
     }
 }

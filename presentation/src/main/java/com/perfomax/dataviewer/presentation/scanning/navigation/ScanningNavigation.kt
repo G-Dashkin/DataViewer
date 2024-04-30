@@ -45,7 +45,8 @@ fun NavGraphBuilder.scanning(){
                 )
             },
             onLoadFeedClick = { scanningViewModel.intent(ScanningContract.Event.LoadingFeedClickEvent) },
-            onSearchFeedElementClick = { scanningViewModel.intent(ScanningContract.Event.SearchFeedElementClickEvent) }
+            onSearchFeedElementClick = { scanningViewModel.intent(ScanningContract.Event.SearchFeedElementClickEvent) },
+            onCloseDialogIsConnected = { scanningViewModel.intent(ScanningContract.Event.CloseDialogIsConnectedEvent) }
         )
         }
 }

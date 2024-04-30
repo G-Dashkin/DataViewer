@@ -2,6 +2,7 @@ package com.perfomax.dataviewer.presentation.scanning
 
 import androidx.compose.foundation.lazy.LazyListState
 import com.perfomax.dataviewer.domain.EMPTY
+import com.perfomax.dataviewer.presentation.feeds.FeedsContract
 import com.perfomax.dataviewer.ui.base.UnidirectionalViewModel
 
 
@@ -13,10 +14,9 @@ interface ScanningContract:
         val feedUrl: String,
         val feedUrlError: Boolean,
         val feedUrlErrorMessage: String,
-
         val loadedFeed: List<String>,
         val isScanningFeed: Boolean,
-
+        val openDialogIsConnected: Boolean,
         val feedSearchValue: String,
         val feedSearchValueError: Boolean,
         val isFeedScanningResponse: Boolean,
@@ -30,6 +30,7 @@ interface ScanningContract:
                 feedUrlErrorMessage = EMPTY,
                 loadedFeed = emptyList(),
                 isScanningFeed = false,
+                openDialogIsConnected = false,
                 feedSearchValue = EMPTY,
                 feedSearchValueError = false,
                 isFeedScanningResponse = false,
@@ -41,6 +42,7 @@ interface ScanningContract:
                 feedUrlErrorMessage = EMPTY,
                 loadedFeed = emptyList(),
                 isScanningFeed = false,
+                openDialogIsConnected = false,
                 feedSearchValue = EMPTY,
                 feedSearchValueError = false,
                 isFeedScanningResponse = false,
@@ -54,6 +56,7 @@ interface ScanningContract:
         data class SearchFeedElementChangeEvent(val feedSearchElement: String): Event
         data object LoadingFeedClickEvent: Event
         data object SearchFeedElementClickEvent: Event
+        data object CloseDialogIsConnectedEvent : Event
     }
 
     sealed interface Effect {

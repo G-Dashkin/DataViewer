@@ -32,7 +32,8 @@ fun NavGraphBuilder.navigateToHome(
                 onNavigateToScan.invoke(onFeedSelected)
             },
             onClickUpdateFeed = { homeViewModel.intent(HomeContract.Event.UpdateFeedEvent) },
-            onCloseDialogClick = { homeViewModel.intent(HomeContract.Event.CloseDialogClickEvent) }
+            onCloseDialogClick = { homeViewModel.intent(HomeContract.Event.CloseDialogClickEvent) },
+            onCloseDialogIsConnected = { homeViewModel.intent(HomeContract.Event.CloseDialogIsConnectedEvent) }
         )
     }
 }

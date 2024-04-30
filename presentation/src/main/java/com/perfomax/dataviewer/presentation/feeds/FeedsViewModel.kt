@@ -13,6 +13,8 @@ import com.perfomax.dataviewer.domain.usecases.feeds.SaveFeedUseCase
 import com.perfomax.dataviewer.domain.usecases.feeds.UpdateFeedUseCase
 import com.perfomax.dataviewer.domain.usecases.projects.GetSelectedProjectUseCase
 import com.perfomax.dataviewer.domain.utils.getLastId
+import com.perfomax.dataviewer.presentation.scanning.ScanningContract
+import com.perfomax.dataviewer.ui.utils.isConnected
 import com.perfomax.ui.R
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -84,6 +86,7 @@ class FeedsViewModel @Inject constructor(
             FeedsContract.Event.CloseDialogFeedUrlErrorEvent -> closeDialogFeedUrlError()
             FeedsContract.Event.SelectDateElementInFeedEvent -> onSelectDateElementInFeed()
             FeedsContract.Event.SaveFeedChangesEvent -> onSaveFeedChanges()
+            FeedsContract.Event.CloseDialogIsConnectedEvent -> closeDialogIsConnected()
 
         }
     }
@@ -121,52 +124,59 @@ class FeedsViewModel @Inject constructor(
     }
 
     private fun onAddFeedClick() {
-        viewModelScope.launch {
+        if (context.isConnected()) {
+            viewModelScope.launch {
 
-            val feedUrl = _uiState.value.feedUrl
-            onSwitchToFeedElements()
-            val allFeedsByProjectsBy = getAllFeedsUseCase.execute(getSelectedProjectUseCase.execute())
-            if(allFeedsByProjectsBy.find { it.feedUrl == feedUrl } == null ){
+                val feedUrl = _uiState.value.feedUrl
+                onSwitchToFeedElements()
+                val allFeedsByProjectsBy = getAllFeedsUseCase.execute(getSelectedProjectUseCase.execute())
+                if(allFeedsByProjectsBy.find { it.feedUrl == feedUrl } == null ){
 
-                val loadedFeed = loadFeedUseCase.execute(feedUrl)
+                    val loadedFeed = loadFeedUseCase.execute(feedUrl)
 
-                if(loadedFeed.any{ it.contains("errorURl") }) {
-                    _uiState.update { currentState ->
-                        currentState.copy(
-                            feedUrlError = true,
-                            feedUrlErrorMessage = context.applicationContext.getString(R.string.url_error)
-                        )
-                    }
-                } else if(
-                    loadedFeed.any{ it.contains("<head>") } ||
-                    loadedFeed.any{ it.contains("<body>") }
-                ) {
-                    _uiState.update { currentState ->
-                        currentState.copy(
-                            feedUrlError = true,
-                            feedUrlErrorMessage = context.applicationContext.getString(R.string.url_is_html_not_feed)
+                    if(loadedFeed.any{ it.contains("errorURl") }) {
+                        _uiState.update { currentState ->
+                            currentState.copy(
+                                feedUrlError = true,
+                                feedUrlErrorMessage = context.applicationContext.getString(R.string.url_error)
                             )
                         }
-                    _uiState.update { currentState ->
-                        currentState.copy(
-                            loadedFeed = loadedFeed
-                        )
-                    } } else {
+                    } else if(
+                        loadedFeed.any{ it.contains("<head>") } ||
+                        loadedFeed.any{ it.contains("<body>") }
+                    ) {
+                        _uiState.update { currentState ->
+                            currentState.copy(
+                                feedUrlError = true,
+                                feedUrlErrorMessage = context.applicationContext.getString(R.string.url_is_html_not_feed)
+                                )
+                            }
                         _uiState.update { currentState ->
                             currentState.copy(
                                 loadedFeed = loadedFeed
+                            )
+                        } } else {
+                            _uiState.update { currentState ->
+                                currentState.copy(
+                                    loadedFeed = loadedFeed
+                            )
+                        }
+                    }
+                } else {
+                    _uiState.update { currentState ->
+                        currentState.copy(
+                            openDialogFeedUrlErrorElement = true
                         )
                     }
                 }
-            } else {
-                _uiState.update { currentState ->
-                    currentState.copy(
-                        openDialogFeedUrlErrorElement = true
-                    )
-                }
+            }
+        } else {
+            _uiState.update { currentState ->
+                currentState.copy(
+                    openDialogIsConnected = true
+                )
             }
         }
-
     }
 
     private fun openDialogSelectedFeedElement() {
@@ -406,6 +416,14 @@ class FeedsViewModel @Inject constructor(
             loadFeedsList()
         }
         closeDialogChangeFeed()
+    }
+
+    private fun closeDialogIsConnected() {
+        _uiState.update { currentState ->
+            currentState.copy(
+                openDialogIsConnected = false
+            )
+        }
     }
 
     private fun onFeedTitleChangeEvent(feedName: String) {

@@ -1,6 +1,7 @@
 package com.perfomax.dataviewer.presentation.scanning
 
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -29,6 +30,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.perfomax.dataviewer.ui.theme.DataViewerTheme
+import com.perfomax.dataviewer.ui.theme.border1
 import com.perfomax.dataviewer.ui.theme.cornerShape8
 import com.perfomax.dataviewer.ui.theme.fillMaxWidth07
 import com.perfomax.dataviewer.ui.theme.height2
@@ -39,6 +41,7 @@ import com.perfomax.dataviewer.ui.theme.padding15
 import com.perfomax.dataviewer.ui.theme.padding5
 import com.perfomax.dataviewer.ui.theme.width5
 import com.perfomax.dataviewer.ui.theme.zeroVal
+import com.perfomax.dataviewer.ui.widgets.DialogViewDefault
 import com.perfomax.dataviewer.ui.widgets.FormTextFieldDefault
 import com.perfomax.dataviewer.ui.widgets.LoadingIndicator
 import com.perfomax.ui.R
@@ -49,7 +52,8 @@ fun ScanningScreen(
     onFeedUrlFieldChange: (String) -> Unit,
     onSearchFeedElementFieldChange: (String) -> Unit,
     onLoadFeedClick: () -> Unit,
-    onSearchFeedElementClick: () -> Unit
+    onSearchFeedElementClick: () -> Unit,
+    onCloseDialogIsConnected: () -> Unit
 ) {
     Column(
         modifier = Modifier.fillMaxSize()
@@ -136,7 +140,7 @@ fun ScanningScreen(
             LazyColumn(
                 state = uiState.listState,
                 modifier = Modifier.fillMaxSize()
-                                   .border(1.dp, Color.Gray)
+                                   .border(border1, Color.Gray)
                                    .padding(padding5)
             ) {
                 itemsIndexed(items = uiState.loadedFeed) { index, element ->
@@ -147,6 +151,15 @@ fun ScanningScreen(
                 }
             }
         }
+
+        // DialogView for connection error alert
+        DialogViewDefault(
+            title = stringResource(id = R.string.internet_error),
+            openDialog = uiState.openDialogIsConnected,
+            onlyCancel = true,
+            onCancel = onCloseDialogIsConnected
+        )
+
     }
 }
 
@@ -159,7 +172,8 @@ fun ScanningScreenPreview() {
             onFeedUrlFieldChange = { },
             onSearchFeedElementFieldChange = {},
             onLoadFeedClick = {  },
-            onSearchFeedElementClick = {  }
+            onSearchFeedElementClick = {  },
+            onCloseDialogIsConnected = {  }
         )
     }
 }

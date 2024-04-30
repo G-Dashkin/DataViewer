@@ -2,6 +2,7 @@ package com.perfomax.dataviewer.presentation.feeds
 
 import com.perfomax.dataviewer.domain.EMPTY
 import com.perfomax.dataviewer.domain.models.Feed
+import com.perfomax.dataviewer.presentation.scanning.ScanningContract
 import com.perfomax.dataviewer.ui.base.UnidirectionalViewModel
 
 interface FeedsContract:
@@ -25,6 +26,7 @@ interface FeedsContract:
         val selectedFeedElementError: Boolean,
         val selectedFeedElementErrorMessage: String,
         val isSelectingFeedDateElement: Boolean,
+        val openDialogIsConnected: Boolean,
         val feedDateElement: String,
         val removedFeed: String,
         val isCountingFeedElements: Boolean,
@@ -50,6 +52,7 @@ interface FeedsContract:
                 selectedFeedElementError = false,
                 selectedFeedElementErrorMessage = EMPTY,
                 isSelectingFeedDateElement = false,
+                openDialogIsConnected = false,
                 feedUpdateSelectName = EMPTY,
                 feedUpdateName = EMPTY,
                 feedUpdateUrl = EMPTY,
@@ -77,6 +80,7 @@ interface FeedsContract:
                 selectedFeedElementError = false,
                 selectedFeedElementErrorMessage = EMPTY,
                 isSelectingFeedDateElement = false,
+                openDialogIsConnected = false,
                 feedUpdateSelectName = EMPTY,
                 feedUpdateName = EMPTY,
                 feedUpdateUrl = EMPTY,
@@ -112,10 +116,10 @@ interface FeedsContract:
         data class OpenChangeFeedDialogEvent(val feedName: String): Event
         data object CloseDialogChangeFeedEvent : Event
         data object SaveFeedChangesEvent : Event
-
         data class FeedTitleUpdateChangeEvent(val feedTitle: String): Event
         data class FeedCountElementUpdateChangeEvent(val feedCountElement: String): Event
         data class FeedUrlUpdateChangeEvent(val feedUrl: String): Event
+        data object CloseDialogIsConnectedEvent : Event
     }
 
     sealed interface Effect {

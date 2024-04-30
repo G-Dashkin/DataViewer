@@ -28,7 +28,6 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object AppModule {
 
-
     @Provides
     fun providesIODispatcher(): CoroutineDispatcher = Dispatchers.IO
 

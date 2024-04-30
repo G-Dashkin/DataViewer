@@ -27,6 +27,7 @@
     <string name="count_feed_elements">Подсчет элементов в фиде</string>
     <string name="loading_feed">Загрузка фида</string>
     <string name="feed_url_error">Фид с указанным URL уже присутствуем в данннм проекте</string>
+    <string name="internet_error">Нет подключения к интернету</string>
     <string name="empty_field">Поле не должно быть пустым</string>
     <string name="project_error">Поле проект не должно содержать знаков | ; ,</string>
     <string name="feed_name_error">Название фида не должно содержать знаков | ; ,</string>

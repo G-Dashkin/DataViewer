@@ -72,6 +72,7 @@ fun FeedsScreen(
     updateProject:() -> Unit,
     onSwitchToFeedsListClick:() -> Unit,
     onCloseDialogFeedUrlError:() -> Unit,
+    onCloseDialogIsConnected: () -> Unit,
     selectDateElement: () -> Unit,
     onSaveChanges:() -> Unit
 ) {
@@ -254,6 +255,14 @@ fun FeedsScreen(
         onCancel = onCloseDialogFeedUrlError
     )
 
+    // DialogView for connection error alert
+    DialogViewDefault(
+        title = stringResource(id = R.string.internet_error),
+        openDialog = uiState.openDialogIsConnected,
+        onlyCancel = true,
+        onCancel = onCloseDialogIsConnected
+    )
+
 }
 
 @Preview(showBackground = true)
@@ -282,6 +291,7 @@ fun FeedsScreenPreview() {
             onFeedNameFieldChange = {  },
             onFeedTitleFieldChangeValue = {  },
             onFeedUrlFieldChange = {  },
+            onCloseDialogIsConnected = {  },
             updateProject = {  },
             selectDateElement = {  }
         )

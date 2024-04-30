@@ -11,6 +11,7 @@ import com.perfomax.dataviewer.domain.usecases.projects.GetSelectedProjectUseCas
 import com.perfomax.dataviewer.domain.usecases.scheduler.SetScheduleUseCase
 import com.perfomax.dataviewer.domain.usecases.settings.GetUpdateIntoBackgroundUseCase
 import com.perfomax.dataviewer.domain.usecases.settings.GetUpdatePeriodUseCase
+import com.perfomax.dataviewer.ui.utils.isConnected
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -50,13 +51,13 @@ class HomeViewModel @Inject constructor(
             is HomeContract.Event.ClickFeedNameEvent -> openDialogHomeScreenFeed(event.feedName)
             is HomeContract.Event.ClickFindFeedElement -> onFindFeedElementChange(event.findFeedElement)
             is HomeContract.Event.ChangeFeedEvent -> {  }
-
             HomeContract.Event.FindFeedElementsEvent -> {  }
             HomeContract.Event.CountFeedElementEvent -> countFeedElements()
             HomeContract.Event.UpdateFeedsListEvent -> updateFeedsList()
             HomeContract.Event.UpdateFeedEvent -> updateSelectedFeed()
             HomeContract.Event.UpdateBackgroundEvent -> testBackgroundUpdate()
             HomeContract.Event.CloseDialogClickEvent -> closeDialogHomeScreenFeed()
+            HomeContract.Event.CloseDialogIsConnectedEvent -> closeDialogIsConnected()
         }
     }
 
@@ -97,24 +98,39 @@ class HomeViewModel @Inject constructor(
     }
 
     private fun updateSelectedFeed() {
-        viewModelScope.launch {
-            val allFeeds = getAllFeedsUseCase.execute(getSelectedProjectUseCase.execute())
-            val selectedFeed = allFeeds.find { feed -> feed.feedName == uiState.value.selectedFeedName }
-            closeDialogHomeScreenFeed()
-            _uiState.update { currentState -> currentState.copy(isUpdatingFeedList = true) }
-            countFeedElementsUseCase.execute(listOf(selectedFeed!!))
-//            if ()
-            _uiState.update { currentState -> currentState.copy(isUpdatingFeedList = false) }
-            updateFeedsList()
+        if (context.isConnected()) {
+            viewModelScope.launch {
+                val allFeeds = getAllFeedsUseCase.execute(getSelectedProjectUseCase.execute())
+                val selectedFeed = allFeeds.find { feed -> feed.feedName == uiState.value.selectedFeedName }
+                closeDialogHomeScreenFeed()
+                _uiState.update { currentState -> currentState.copy(isUpdatingFeedList = true) }
+                countFeedElementsUseCase.execute(listOf(selectedFeed!!))
+                _uiState.update { currentState -> currentState.copy(isUpdatingFeedList = false) }
+                updateFeedsList()
+            }
+        } else {
+            _uiState.update { currentState ->
+                currentState.copy(
+                    openDialogIsConnected = true
+                )
+            }
         }
     }
 
     private fun countFeedElements() {
-        viewModelScope.launch {
-            _uiState.update { currentState -> currentState.copy(isUpdatingFeedList = true) }
-            countFeedElementsUseCase.execute(_uiState.value.feedsList)
-            _uiState.update { currentState -> currentState.copy(isUpdatingFeedList = false) }
-            updateFeedsList()
+        if (context.isConnected()) {
+            viewModelScope.launch {
+                _uiState.update { currentState -> currentState.copy(isUpdatingFeedList = true) }
+                countFeedElementsUseCase.execute(_uiState.value.feedsList)
+                _uiState.update { currentState -> currentState.copy(isUpdatingFeedList = false) }
+                updateFeedsList()
+            }
+        } else {
+            _uiState.update { currentState ->
+                currentState.copy(
+                    openDialogIsConnected = true
+                )
+            }
         }
     }
 
@@ -153,6 +169,14 @@ class HomeViewModel @Inject constructor(
         _uiState.update { currentState ->
             currentState.copy(
                 findFeedElement = text
+            )
+        }
+    }
+
+    private fun closeDialogIsConnected() {
+        _uiState.update { currentState ->
+            currentState.copy(
+                openDialogIsConnected = false
             )
         }
     }

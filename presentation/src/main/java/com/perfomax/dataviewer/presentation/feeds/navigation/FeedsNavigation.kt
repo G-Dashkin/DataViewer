@@ -10,6 +10,7 @@ import com.perfomax.dataviewer.navigation.TopLevelDestination
 import com.perfomax.dataviewer.presentation.feeds.FeedsContract
 import com.perfomax.dataviewer.presentation.feeds.FeedsScreen
 import com.perfomax.dataviewer.presentation.feeds.FeedsViewModel
+import com.perfomax.dataviewer.presentation.scanning.ScanningContract
 import com.perfomax.ui.R
 
 fun NavGraphBuilder.navigateToFeeds(){
@@ -57,7 +58,8 @@ fun NavGraphBuilder.navigateToFeeds(){
             },
             onFeedUrlFieldChangeValue = { feedUrl ->
                 feedsViewModel.intent(FeedsContract.Event.FeedUrlUpdateChangeEvent(feedUrl))
-            }
+            },
+            onCloseDialogIsConnected = { feedsViewModel.intent(FeedsContract.Event.CloseDialogIsConnectedEvent) }
 
         )
     }

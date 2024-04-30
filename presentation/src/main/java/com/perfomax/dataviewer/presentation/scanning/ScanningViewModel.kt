@@ -1,10 +1,13 @@
 package com.perfomax.dataviewer.presentation.scanning
 
+import android.app.Application
+import android.util.Log
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.perfomax.dataviewer.domain.usecases.feeds.LoadFeedUseCase
 import com.perfomax.dataviewer.domain.usecases.feeds.SearchFeedElementUseCase
+import com.perfomax.dataviewer.ui.utils.isConnected
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
@@ -18,6 +21,7 @@ import kotlinx.coroutines.launch
 @HiltViewModel(assistedFactory = ScanningViewModel.ScanningViewModelFactory::class)
 class ScanningViewModel @AssistedInject constructor(
     @Assisted val feedUrl: String,
+    private val context: Application,
     private val loadFeedUseCase: LoadFeedUseCase,
     private val searchFeedElementUseCase: SearchFeedElementUseCase
 ): ViewModel(), ScanningContract {
@@ -40,6 +44,7 @@ class ScanningViewModel @AssistedInject constructor(
             is ScanningContract.Event.SearchFeedElementChangeEvent -> { onSearchFeedValueChangeEvent(event.feedSearchElement) }
             ScanningContract.Event.LoadingFeedClickEvent -> onLoadFeed()
             ScanningContract.Event.SearchFeedElementClickEvent -> onSearchFeedValueEvent()
+            ScanningContract.Event.CloseDialogIsConnectedEvent -> closeDialogIsConnected()
         }
     }
 
@@ -57,16 +62,25 @@ class ScanningViewModel @AssistedInject constructor(
     }
 
     private fun onLoadFeed() {
-        viewModelScope.launch {
-            _uiState.update { currentState -> currentState.copy(isScanningFeed = true) }
-            _uiState.update {  currentState ->
+        if (context.isConnected()) {
+            viewModelScope.launch {
+                _uiState.update { currentState -> currentState.copy(isScanningFeed = true) }
+                _uiState.update {  currentState ->
+                    currentState.copy(
+                        isFeedScanningResponse = true,
+                        loadedFeed = loadFeedUseCase.execute(feedUrl = _uiState.value.feedUrl)
+                    )
+                }
+                _uiState.update { currentState -> currentState.copy(isScanningFeed = false) }
+            }
+        } else {
+            _uiState.update { currentState ->
                 currentState.copy(
-                    isFeedScanningResponse = true,
-                    loadedFeed = loadFeedUseCase.execute(feedUrl = _uiState.value.feedUrl)
+                    openDialogIsConnected = true
                 )
             }
-            _uiState.update { currentState -> currentState.copy(isScanningFeed = false) }
         }
+
     }
 
     private fun onSearchFeedValueChangeEvent(feedSearchValue: String) {
@@ -88,6 +102,14 @@ class ScanningViewModel @AssistedInject constructor(
                     listState = LazyListState(feedSearchValueIndex)
                 )
             }
+        }
+    }
+
+    private fun closeDialogIsConnected() {
+        _uiState.update { currentState ->
+            currentState.copy(
+                openDialogIsConnected = false
+            )
         }
     }
 
