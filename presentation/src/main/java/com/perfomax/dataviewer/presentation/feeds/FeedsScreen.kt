@@ -72,7 +72,7 @@ fun FeedsScreen(
     updateProject:() -> Unit,
     onSwitchToFeedsListClick:() -> Unit,
     onCloseDialogFeedUrlError:() -> Unit,
-    selectDateElement: () -> Unit = {  },
+    selectDateElement: () -> Unit,
     onSaveChanges:() -> Unit
 ) {
 
@@ -176,9 +176,16 @@ fun FeedsScreen(
                     }
                     Spacer(modifier = Modifier.height(height5))
                 }
-                Text(text = stringResource(id = R.string.pick_element),
-                     color = MaterialTheme.colorScheme.primary,
-                     style = MaterialTheme.typography.titleSmall)
+                if (!uiState.isSelectingFeedDateElement) {
+                    Text(text = stringResource(id = R.string.pick_count_element),
+                         color = MaterialTheme.colorScheme.primary,
+                         style = MaterialTheme.typography.titleSmall)
+                } else {
+                    Text(text = stringResource(id = R.string.pick_date_element),
+                         color = MaterialTheme.colorScheme.primary,
+                         style = MaterialTheme.typography.titleSmall)
+                }
+
                 LazyColumn(modifier = Modifier.fillMaxSize()
                                               .border(border1, Color.Gray)
                                               .padding(padding5)
@@ -206,8 +213,6 @@ fun FeedsScreen(
         onFeedNameFieldChangeValue = onFeedNameFieldChange,
         feedElementNameValue = uiState.selectedFeedElement,
         onFeedElementFieldChangeValue = onSelectFeedElement,
-        dateElement = "<yml_catalog date=\"2024-03-21 20:52\">",
-        useDateElement = {},
         selectDateElement = selectDateElement,
         selectedFeedDateElement = uiState.feedDateElement,
         openDialog = uiState.openDialogSelectedFeedElement,
@@ -277,8 +282,8 @@ fun FeedsScreenPreview() {
             onFeedNameFieldChange = {  },
             onFeedTitleFieldChangeValue = {  },
             onFeedUrlFieldChange = {  },
-            updateProject = {  }
-
+            updateProject = {  },
+            selectDateElement = {  }
         )
     }
 }

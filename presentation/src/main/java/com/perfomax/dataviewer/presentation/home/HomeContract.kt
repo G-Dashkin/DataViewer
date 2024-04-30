@@ -44,7 +44,7 @@ interface HomeContract:
         data class ClickFindFeedElement(val findFeedElement: String): Event
         data class ChangeFeedEvent(val feedName: String): Event
         data object FindFeedElementsEvent : Event
-        data object ClickUpdateFeedEvent: Event
+        data object UpdateFeedEvent: Event
         data object CloseDialogClickEvent: Event
     }
 

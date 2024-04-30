@@ -60,11 +60,11 @@ fun ItemFeedHome(
                 style = MaterialTheme.typography.bodyLarge.copy(
                 platformStyle = PlatformTextStyle(includeFontPadding = false))
             )
+            if (updateTime.isNotEmpty()){
             Text(text = stringResource(id = R.string.update_feed),
                  style = MaterialTheme.typography.bodyLarge.copy(
-                 platformStyle = PlatformTextStyle(includeFontPadding = false))
-            )
-            Text(text = stringResource(id = R.string.update_feed),
+                 platformStyle = PlatformTextStyle(includeFontPadding = false))) }
+            Text(text = stringResource(id = R.string.loaded_feed),
                 style = MaterialTheme.typography.bodyLarge.copy(
                 platformStyle = PlatformTextStyle(includeFontPadding = false))
             )
@@ -81,10 +81,10 @@ fun ItemFeedHome(
                  style = MaterialTheme.typography.bodyLarge.copy(
                  platformStyle = PlatformTextStyle(includeFontPadding = false))
             )
+            if (updateTime.isNotEmpty()){
             Text(text = updateTime,
                  style = MaterialTheme.typography.bodyLarge.copy(
-                 platformStyle = PlatformTextStyle(includeFontPadding = false))
-            )
+                 platformStyle = PlatformTextStyle(includeFontPadding = false))) }
             Text(text = loadTime,
                  style = MaterialTheme.typography.bodyLarge.copy(
                  platformStyle = PlatformTextStyle(includeFontPadding = false))

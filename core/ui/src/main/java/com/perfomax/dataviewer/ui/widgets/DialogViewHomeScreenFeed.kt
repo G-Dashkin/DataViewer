@@ -65,22 +65,21 @@ fun DialogViewHomeScreenFeed(
                             shape = RoundedCornerShape(cornerShape10),
                             contentPadding = PaddingValues(padding10),
                             onClick = onClose
-                        ) { Text(
-                            text = stringResource(id = R.string.close),
-                            color = MaterialTheme.colorScheme.onSecondary,
-                            style = MaterialTheme.typography.titleMedium
-                        ) }
+                        ) { Text(text = stringResource(id = R.string.close),
+                                 color = MaterialTheme.colorScheme.onSecondary,
+                                 style = MaterialTheme.typography.titleMedium)
+                        }
                         Button(
                             modifier = Modifier.fillMaxWidth()
                                                .padding(padding10),
                             shape = RoundedCornerShape(cornerShape10),
                             contentPadding = PaddingValues(padding10),
                             onClick = onUpdateFeed,
-                        ) { Text(
-                            text = stringResource(id = R.string.feed_update),
-                            color = MaterialTheme.colorScheme.onSecondary,
-                            style = MaterialTheme.typography.titleMedium
-                        ) }
+                        ) {
+                            Text(text = stringResource(id = R.string.feed_update),
+                                 color = MaterialTheme.colorScheme.onSecondary,
+                                 style = MaterialTheme.typography.titleMedium)
+                        }
                     }
                 }
             }

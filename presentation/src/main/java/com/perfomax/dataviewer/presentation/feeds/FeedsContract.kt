@@ -13,47 +13,24 @@ interface FeedsContract:
         val feedUrlErrorMessage: String,
         val loadedFeed: List<String>,
         val feedsList: List<Feed>,
-
         val feedName: String,
         val feedNameError: Boolean,
         val feedNameErrorMessage: String,
-
-
-
-
-
-
         val feedUpdateSelectName: String,
         val feedUpdateName: String,
         val feedUpdateUrl: String,
         val feedUpdateMainElement: String,
-
-
-
-
-
-
-
-
-
-
         val feedElement: String,
-
         val selectedFeedElement: String,
         val selectedFeedElementError: Boolean,
         val selectedFeedElementErrorMessage: String,
-
         val isSelectingFeedDateElement: Boolean,
         val feedDateElement: String,
-
         val removedFeed: String,
-
         val isCountingFeedElements: Boolean,
-
         val openDialogSelectedFeedElement: Boolean,
         val openDialogFeedUrlErrorElement: Boolean,
         val openDialogChangeFeed: Boolean,
-
         val isFeedsList: Boolean,
         val openDialogRemoveFeed: Boolean
 
@@ -73,12 +50,10 @@ interface FeedsContract:
                 selectedFeedElementError = false,
                 selectedFeedElementErrorMessage = EMPTY,
                 isSelectingFeedDateElement = false,
-
                 feedUpdateSelectName = EMPTY,
                 feedUpdateName = EMPTY,
                 feedUpdateUrl = EMPTY,
                 feedUpdateMainElement = EMPTY,
-
                 feedDateElement = EMPTY,
                 removedFeed = EMPTY,
                 isCountingFeedElements = false,
@@ -102,12 +77,10 @@ interface FeedsContract:
                 selectedFeedElementError = false,
                 selectedFeedElementErrorMessage = EMPTY,
                 isSelectingFeedDateElement = false,
-
                 feedUpdateSelectName = EMPTY,
                 feedUpdateName = EMPTY,
                 feedUpdateUrl = EMPTY,
                 feedUpdateMainElement = EMPTY,
-
                 feedDateElement = EMPTY,
                 removedFeed = EMPTY,
                 isCountingFeedElements = false,

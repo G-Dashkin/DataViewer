@@ -24,14 +24,14 @@ fun NavGraphBuilder.navigateToHome(
             uiState = homeUiState,
             updateFeedsList = { homeViewModel.intent(HomeContract.Event.UpdateFeedsListEvent) },
             updateBackgroundUpdate = { homeViewModel.intent(HomeContract.Event.UpdateBackgroundEvent)},
-            onUpdateFeedsClick = { homeViewModel.intent(HomeContract.Event.CountFeedElementEvent) },
+            onClickUpdateFeedsList = { homeViewModel.intent(HomeContract.Event.CountFeedElementEvent) },
             onClickFeedElement = { clickedFeed ->
                 homeViewModel.intent(HomeContract.Event.ClickFeedNameEvent(clickedFeed))
             },
             onFindSelectedElement = { onFeedSelected ->
                 onNavigateToScan.invoke(onFeedSelected)
             },
-            onClickUpdateFeed = { homeViewModel.intent(HomeContract.Event.ClickUpdateFeedEvent) },
+            onClickUpdateFeed = { homeViewModel.intent(HomeContract.Event.UpdateFeedEvent) },
             onCloseDialogClick = { homeViewModel.intent(HomeContract.Event.CloseDialogClickEvent) }
         )
     }

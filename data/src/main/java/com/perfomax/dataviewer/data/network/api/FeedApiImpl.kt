@@ -1,9 +1,14 @@
 package com.perfomax.dataviewer.data.network.api
 
+import android.util.Log
 import com.perfomax.dataviewer.domain.models.Feed
 import com.perfomax.dataviewer.domain.utils.toShortList
 import java.net.HttpURLConnection
 import java.net.URL
+import java.time.Instant
+import java.time.LocalDateTime
+import java.time.ZoneId
+import java.time.format.DateTimeFormatter
 
 
 class FeedApiImpl: FeedApi {
@@ -31,14 +36,11 @@ class FeedApiImpl: FeedApi {
 
             if (!responseCode.contains("Unable to resolve host")) {
                 val processedFeed = connection.inputStream.bufferedReader().use { it.readText() }
-//                arrayFeed.addAll(Parser.parsingToList(processedFeed))
                 arrayFeed += processedFeed
             } else {
-//                arrayFeed.add("errorURl")
                 arrayFeed += "errorURl"
             }
         } else {
-//            arrayFeed.add("errorURl")
             arrayFeed += "errorURl"
         }
         return arrayFeed
@@ -46,29 +48,33 @@ class FeedApiImpl: FeedApi {
 
 
 
-    override fun updateFeedElements(
-        feed: Feed
-    ): Feed {
+    override fun updateFeedElements(feed: Feed): Feed {
 
         val url = URL(feed.feedUrl)
         val connection = url.openConnection() as HttpURLConnection
         val feedString = connection.inputStream.bufferedReader().use { it.readText() }
         val processedFeed = feedString.replace("\\s+".toRegex(), " ").replace("> <", "><")
+
         var elementCounter = 0
+        var feedUpdateDate = ""
+        var feedLoadTime = ""
 
         processedFeed.split("><").forEach {
             if (it.contains(feed.feedElement)){
                 elementCounter = elementCounter.inc()
             }
         }
-
-        var feedUpdateDate = ""
         if (feed.feedUpdateTime.isNotEmpty()) {
             val arrayFeed = Parser.parsingToList(processedFeed).toShortList()
             feedUpdateDate+= arrayFeed.find {
                 it.contains(feed.feedUpdateTime.split(":\"")[0])
             }
         }
+
+        val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")
+        val instant = Instant.ofEpochMilli(System.currentTimeMillis())
+        val date = LocalDateTime.ofInstant(instant, ZoneId.systemDefault())
+        feedLoadTime = formatter.format(date)
 
         return Feed(
             feedId = "",
@@ -78,7 +84,7 @@ class FeedApiImpl: FeedApi {
             feedElementCount = elementCounter,
             feedUrl = "",
             feedUpdateTime = feedUpdateDate,
-            feedLoadTime = ""
+            feedLoadTime = feedLoadTime
         )
     }
 }

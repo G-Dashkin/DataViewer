@@ -12,9 +12,11 @@
     <string name="create_new_project">Создать новый проект</string>
     <string name="name_new_project">Название нового проекта</string>
     <string name="delete_project">Удалить проект </string>
-    <string name="feed_update">Обновить фиды</string>
+    <string name="feeds_update">Обновить фиды</string>
+    <string name="feed_update">Обновить фид</string>
     <string name="load_new_feed">Загрузить новый фид</string>
-    <string name="pick_element">Выберите элемент для подсчета в фиде</string>
+    <string name="pick_count_element">Выберите элемент для подсчета в фиде</string>
+    <string name="pick_date_element">Выберите элемент даты и времени в фиде</string>
     <string name="load_scanning_feed">Ссылка на фид</string>
     <string name="wi_fi_update">Обновление только при wi-fi</string>
     <string name="update_into_background">Обновление фидов в фоне</string>

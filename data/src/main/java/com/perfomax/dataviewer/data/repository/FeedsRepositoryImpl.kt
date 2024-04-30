@@ -45,7 +45,7 @@ class FeedsRepositoryImpl @Inject constructor(
                 feedElementCount = updatedFeedData.feedElementCount,
                 feedUrl = feed.feedUrl,
                 feedUpdateTime = updatedFeedData.feedUpdateTime,
-                feedLoadTime = feed.feedLoadTime
+                feedLoadTime = updatedFeedData.feedLoadTime
             )
             updatedFeedList.add(updatedFeed)
         }

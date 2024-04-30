@@ -49,14 +49,13 @@ class HomeViewModel @Inject constructor(
         when(event) {
             is HomeContract.Event.ClickFeedNameEvent -> openDialogHomeScreenFeed(event.feedName)
             is HomeContract.Event.ClickFindFeedElement -> onFindFeedElementChange(event.findFeedElement)
-
             is HomeContract.Event.ChangeFeedEvent -> {  }
-            HomeContract.Event.FindFeedElementsEvent -> {  }
 
+            HomeContract.Event.FindFeedElementsEvent -> {  }
             HomeContract.Event.CountFeedElementEvent -> countFeedElements()
-            HomeContract.Event.UpdateFeedsListEvent -> loadFeedsList()
+            HomeContract.Event.UpdateFeedsListEvent -> updateFeedsList()
+            HomeContract.Event.UpdateFeedEvent -> updateSelectedFeed()
             HomeContract.Event.UpdateBackgroundEvent -> testBackgroundUpdate()
-            HomeContract.Event.ClickUpdateFeedEvent -> onUpdateSelectedFeed()
             HomeContract.Event.CloseDialogClickEvent -> closeDialogHomeScreenFeed()
         }
     }
@@ -77,8 +76,6 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-
-
     private fun setSchedule() {
         viewModelScope.launch {
             setScheduleUseCase.execute(getUpdatePeriodUseCase.execute().toLong())
@@ -89,7 +86,7 @@ class HomeViewModel @Inject constructor(
         _effect.update { null }
     }
 
-    private fun loadFeedsList() {
+    private fun updateFeedsList() {
         viewModelScope.launch {
             _uiState.update { currentState ->
                 currentState.copy(
@@ -99,12 +96,25 @@ class HomeViewModel @Inject constructor(
         }
     }
 
+    private fun updateSelectedFeed() {
+        viewModelScope.launch {
+            val allFeeds = getAllFeedsUseCase.execute(getSelectedProjectUseCase.execute())
+            val selectedFeed = allFeeds.find { feed -> feed.feedName == uiState.value.selectedFeedName }
+            closeDialogHomeScreenFeed()
+            _uiState.update { currentState -> currentState.copy(isUpdatingFeedList = true) }
+            countFeedElementsUseCase.execute(listOf(selectedFeed!!))
+//            if ()
+            _uiState.update { currentState -> currentState.copy(isUpdatingFeedList = false) }
+            updateFeedsList()
+        }
+    }
+
     private fun countFeedElements() {
         viewModelScope.launch {
             _uiState.update { currentState -> currentState.copy(isUpdatingFeedList = true) }
             countFeedElementsUseCase.execute(_uiState.value.feedsList)
             _uiState.update { currentState -> currentState.copy(isUpdatingFeedList = false) }
-            loadFeedsList()
+            updateFeedsList()
         }
     }
 
@@ -147,16 +157,6 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-    private fun onUpdateSelectedFeed() {
-        viewModelScope.launch {
-            val allFeeds = getAllFeedsUseCase.execute(getSelectedProjectUseCase.execute())
-            val selectedFeed = allFeeds.find { feed -> feed.feedName == uiState.value.selectedFeedName }
-            closeDialogHomeScreenFeed()
-            _uiState.update { currentState -> currentState.copy(isUpdatingFeedList = true) }
-            countFeedElementsUseCase.execute(listOf(selectedFeed!!))
-            _uiState.update { currentState -> currentState.copy(isUpdatingFeedList = false) }
-            loadFeedsList()
-        }
-    }
+
 
 }

@@ -37,9 +37,9 @@ fun HomeScreen(
     uiState: HomeContract.State,
     updateFeedsList:() -> Unit,
     updateBackgroundUpdate:() -> Unit,
-    onUpdateFeedsClick:() -> Unit,
     onClickFeedElement:(String) -> Unit,
     onFindSelectedElement:(String) -> Unit,
+    onClickUpdateFeedsList:() -> Unit,
     onClickUpdateFeed:() -> Unit,
     onCloseDialogClick:() -> Unit,
 ) {
@@ -58,9 +58,9 @@ fun HomeScreen(
             enabled = !uiState.isUpdatingFeedList,
             shape = RoundedCornerShape(cornerShape8),
             contentPadding = PaddingValues(zeroVal),
-            onClick = onUpdateFeedsClick
+            onClick = onClickUpdateFeedsList
         ) {
-            Text(text = stringResource(id = R.string.feed_update),
+            Text(text = stringResource(id = R.string.feeds_update),
                 color = MaterialTheme.colorScheme.onSecondary,
                 style = MaterialTheme.typography.titleLarge)
             }
@@ -84,6 +84,8 @@ fun HomeScreen(
                 )
             }
         }
+
+        // DialogView for feeds list
         DialogViewHomeScreenFeed(
             feedTitle = uiState.selectedFeedName,
             feedUrl = uiState.selectedFeedUrl,
@@ -102,7 +104,7 @@ fun HomeScreenPreview() {
         HomeScreen (
             uiState = HomeContract.State.initial(),
             updateFeedsList = {},
-            onUpdateFeedsClick = {},
+            onClickUpdateFeedsList = {},
             onClickFeedElement = {},
             onFindSelectedElement = {},
             onClickUpdateFeed = { },

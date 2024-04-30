@@ -31,8 +31,6 @@ fun DialogViewAddFeed(
     onFeedNameFieldChangeValue:(String) -> Unit,
     feedElementNameValue: String = "",
     onFeedElementFieldChangeValue:(String) -> Unit,
-    dateElement: String = "",
-    useDateElement:(Boolean) -> Unit,
     selectDateElement: () -> Unit,
     selectedFeedDateElement: String,
     openDialog: Boolean,
@@ -105,13 +103,14 @@ fun DialogViewAddFeed(
                             shape = RoundedCornerShape(cornerShape10),
                             contentPadding = PaddingValues(padding10),
                             onClick = selectDateElement
-                            ,
-                        ) { Text(text = stringResource(id = R.string.define_element),
-                            color = MaterialTheme.colorScheme.onSecondary,
-                            style = MaterialTheme.typography.titleMedium) }
+                        ) {
+                            Text(text = stringResource(id = R.string.define_element),
+                                 color = MaterialTheme.colorScheme.onSecondary,
+                                 style = MaterialTheme.typography.titleMedium)
+                        }
                     } else {
                         Text(modifier = Modifier.padding(padding10),
-                            text = stringResource(id = R.string.define_element) + " ${
+                            text = stringResource(id = R.string.feed_update_time) + "\n${
                                 selectedFeedDateElement.split("=\"")[1].split("\"")[0]
                             }",
                             style = MaterialTheme.typography.titleMedium)
@@ -164,8 +163,6 @@ fun AddFeedDialogViewPreview() {
             onFeedElementFieldChangeValue = { },
             selectDateElement = {},
             selectedFeedDateElement = "",
-            dateElement = "<yml_catalog date=\"2024-03-21 20:52\">",
-            useDateElement = {},
             openDialog = true,
             onCancel = {},
             onConfirm = {}
