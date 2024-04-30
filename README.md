@@ -14,5 +14,5 @@ Flow?/LiveData?
 ![4](https://github.com/G-Dashkin/DataViewer/assets/76224564/e91d90f9-0b9c-415e-8e5d-bddfa12c2335)
 ![5](https://github.com/G-Dashkin/DataViewer/assets/76224564/8eab2d8f-de08-4d81-8c35-15fcd8e2f73f)
 ![6](https://github.com/G-Dashkin/DataViewer/assets/76224564/de2322ac-2a64-4849-a7b8-6a14bbfb0b10)
-![8](https://github.com/G-Dashkin/DataViewer/assets/76224564/ec0cf2e7-f15f-4134-b172-496776cf3c4b)
+![7](https://github.com/G-Dashkin/DataViewer/assets/76224564/0c299f92-9ef4-4c8a-b441-5b7578a54a9b)
 ![9](https://github.com/G-Dashkin/DataViewer/assets/76224564/370c8783-32b1-42f6-973e-a5ec09c31c43)
