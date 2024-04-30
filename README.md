@@ -1,13 +1,19 @@
 # DataViewer
 Application for analyzing feeds and control the number of elements (main offers).
+
 # Tech-stack
 Jetpack Compose
+
 MVI
+
 Clean Architecture
+
 Hilt
+
 Jetpack Navigation
+
 SharedPreferences
-Flow?/LiveData?
+
 
 ![1](https://github.com/G-Dashkin/DataViewer/assets/76224564/f1ffc26f-a2b2-4704-b995-26e81c97aef1)
 ![2](https://github.com/G-Dashkin/DataViewer/assets/76224564/1300945f-11b6-4c7d-b34c-e8b67b8272fa)
