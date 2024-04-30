@@ -3,15 +3,10 @@ Application for analyzing feeds and control the number of elements (main offers)
 
 # Tech-stack
 Jetpack Compose
-
 MVI
-
 Clean Architecture
-
 Hilt
-
 Jetpack Navigation
-
 SharedPreferences
 
 
