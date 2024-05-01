@@ -11,7 +11,7 @@ interface SettingsContract:
         val updatePeriod: String,
         val isUpdateFeedsWithWIFI: Boolean,
         val comparisonAlertPercent: String,
-        val comparisonAlertPercentIndex: Int,
+        val comparisonAlertPercentName: String,
         val isNotificationWork: Boolean,
         val listOfAlertPercent: Map<Float, String>,
         val listOfUpdateTime: List<String>,
@@ -23,7 +23,7 @@ interface SettingsContract:
                 updatePeriod = EMPTY,
                 isUpdateFeedsWithWIFI = false,
                 comparisonAlertPercent = EMPTY,
-                comparisonAlertPercentIndex = 0,
+                comparisonAlertPercentName = EMPTY,
                 isNotificationWork = false,
                 listOfAlertPercent = mapOf(),
                 listOfUpdateTime = listOf()
@@ -33,7 +33,7 @@ interface SettingsContract:
                 updatePeriod = EMPTY,
                 isUpdateFeedsWithWIFI = false,
                 comparisonAlertPercent = EMPTY,
-                comparisonAlertPercentIndex = 0,
+                comparisonAlertPercentName = EMPTY,
                 isNotificationWork = false,
                 listOfAlertPercent = mapOf(),
                 listOfUpdateTime = listOf()

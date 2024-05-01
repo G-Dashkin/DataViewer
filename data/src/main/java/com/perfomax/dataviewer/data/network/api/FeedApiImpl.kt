@@ -1,10 +1,7 @@
 package com.perfomax.dataviewer.data.network.api
 
-import android.os.Build
-import android.util.Log
-import androidx.annotation.RequiresApi
 import com.perfomax.dataviewer.domain.models.Feed
-import com.perfomax.dataviewer.domain.utils.toShortList
+import com.perfomax.dataviewer.domain.utils.parsToShortList
 import java.net.HttpURLConnection
 import java.net.URL
 import java.time.Instant
@@ -66,7 +63,7 @@ class FeedApiImpl: FeedApi {
             }
         }
         if (feed.feedUpdateTime.isNotEmpty()) {
-            val arrayFeed = Parser.parsingToList(processedFeed).toShortList()
+            val arrayFeed = Parser.parsingToList(processedFeed).parsToShortList()
             feedUpdateDate+= arrayFeed.find {
                 it.contains(feed.feedUpdateTime.split(":\"")[0])
             }

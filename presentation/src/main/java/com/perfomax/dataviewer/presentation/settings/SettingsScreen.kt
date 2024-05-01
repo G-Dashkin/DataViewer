@@ -1,5 +1,6 @@
 package com.perfomax.dataviewer.presentation.settings
 
+import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -27,6 +28,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import com.perfomax.dataviewer.domain.EMPTY
 import com.perfomax.dataviewer.ui.theme.DataViewerTheme
 import com.perfomax.dataviewer.ui.theme.height15
 import com.perfomax.dataviewer.ui.theme.height60
@@ -48,15 +50,10 @@ fun SettingsScreen(
     onSwitchNotification:(Boolean) -> Unit
 ) {
 
-    var selectedUpdateTime by remember { mutableStateOf(uiState.listOfUpdateTime[0]) }
-
-    var selectedPercentOfAlert by remember {
-        mutableStateOf(uiState.listOfAlertPercent.getValue(uiState.comparisonAlertPercent.toFloat()))
-    }
-
     var isExpandedUpdateTime by remember { mutableStateOf(false) }
     var isExpandedUpdatePercent by remember { mutableStateOf(false) }
 
+    var selectedUpdateTime by remember { mutableStateOf(uiState.listOfUpdateTime[0]) }
 
     Column(modifier = Modifier.fillMaxSize()
                               .padding(padding15),
@@ -141,7 +138,7 @@ fun SettingsScreen(
             ) {
                 TextField(
                     modifier = Modifier.menuAnchor(),
-                    value = selectedPercentOfAlert,
+                    value = uiState.comparisonAlertPercentName,
                     onValueChange = {  },
                     readOnly = true,
                     trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = isExpandedUpdatePercent) }
@@ -149,13 +146,15 @@ fun SettingsScreen(
                 ExposedDropdownMenu(
                     expanded = isExpandedUpdatePercent,
                     onDismissRequest = { isExpandedUpdatePercent = false }) {
-                    uiState.listOfAlertPercent.values.forEachIndexed { index, text ->
+                    uiState.listOfAlertPercent.keys.forEachIndexed { index, text ->
                         DropdownMenuItem(
-                            text = { Text(text = text, style = MaterialTheme.typography.labelMedium) },
+                            text = {
+                                Text(text = uiState.listOfAlertPercent.getOrDefault(text, EMPTY),
+                                     style = MaterialTheme.typography.labelMedium)
+                            },
                             onClick = {
-                                selectedPercentOfAlert = uiState.listOfAlertPercent.getOrDefault("0.${index+1}".toFloat(), "")
                                 isExpandedUpdatePercent = false
-                                onSetPercentForAlert.invoke(selectedPercentOfAlert)
+                                onSetPercentForAlert.invoke(uiState.listOfAlertPercent.getOrDefault(text, EMPTY))
                             },
                             contentPadding = ExposedDropdownMenuDefaults.ItemContentPadding
                         )

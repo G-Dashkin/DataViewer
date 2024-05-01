@@ -1,6 +1,8 @@
 package com.perfomax.dataviewer.presentation.settings
 
-import android.util.Log
+import android.app.Application
+import android.content.Context
+import com.perfomax.ui.R
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.perfomax.dataviewer.domain.usecases.projects.GetSelectedProjectUseCase
@@ -16,6 +18,7 @@ import com.perfomax.dataviewer.domain.usecases.settings.SetUpdatePeriodUseCase
 import com.perfomax.dataviewer.domain.usecases.settings.SetUpdateWithWIFIUseCase
 import com.perfomax.dataviewer.domain.utils.parsAlertPercent
 import dagger.hilt.android.lifecycle.HiltViewModel
+import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -25,6 +28,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class SettingsViewModel @Inject constructor(
+    private val context: Application,
     private val getNotificationUseCase: GetNotificationUseCase,
     private val getPercentForAlertUseCase: GetPercentForAlertUseCase,
     private val getUpdateIntoBackgroundUseCase: GetUpdateIntoBackgroundUseCase,
@@ -120,11 +124,9 @@ class SettingsViewModel @Inject constructor(
             setPercentForAlertUseCase.execute(comparisonPercentValue)
             _uiState.update { currentState ->
                 currentState.copy(
-                    comparisonAlertPercent = comparisonPercent
+                    comparisonAlertPercentName = comparisonPercent
                 )
             }
-            Log.d("MyLog", "comparisonPercentValue: $comparisonPercentValue")
-            Log.d("MyLog", "comparisonPercent: ${_uiState.value.comparisonAlertPercent}")
         }
     }
 
@@ -157,27 +159,47 @@ class SettingsViewModel @Inject constructor(
 
     private fun setSettings() {
         viewModelScope.launch {
+
+            val mapOfAlertPercent = mapOf(Pair(0.1f, context.getString(R.string.different_10)),
+                                          Pair(0.2f, context.getString(R.string.different_20)),
+                                          Pair(0.3f, context.getString(R.string.different_30)),
+                                          Pair(0.4f, context.getString(R.string.different_40)),
+                                          Pair(0.5f, context.getString(R.string.different_50)),
+                                          Pair(0.6f, context.getString(R.string.different_60)),
+                                          Pair(0.7f, context.getString(R.string.different_70)),
+                                          Pair(0.8f, context.getString(R.string.different_80)),
+                                          Pair(0.9f, context.getString(R.string.different_90)))
+
             _uiState.update { currentState ->
                 currentState.copy(
-                    listOfAlertPercent = mapOf(Pair(0.1f,"Разница 10%"),
-                                               Pair(0.2f,"Разница 20%"),
-                                               Pair(0.3f,"Разница 30%"),
-                                               Pair(0.4f,"Разница 40%"),
-                                               Pair(0.5f,"Разница 50%"),
-                                               Pair(0.6f,"Разница 60%"),
-                                               Pair(0.7f,"Разница 70%"),
-                                               Pair(0.8f,"Разница 80%"),
-                                               Pair(0.9f,"Разница 90%")),
+                    listOfAlertPercent = mapOfAlertPercent,
 
-                    listOfUpdateTime = listOf("Каждый час", "Каждые 2 часа", "Каждые 3 часа",
-                                              "Каждые 4 часа", "Каждые 5 часов", "Каждые 6 часов",
-                                              "Каждые 7 часов", "Каждые 8 часов","Каждые 9 часов",
-                                              "Каждые 10 часов", "Каждые 11 часов", "Каждые 12 часов",
-                                              "Каждые 13 часов", "Каждые 14 часов", "Каждые 15 часов",
-                                              "Каждые 16 часов", "Каждые 17 часов", "Каждые 18 часов",
-                                              "Каждые 19 часов", "Каждые 20 часов", "Каждый 21 час",
-                                              "Каждые 22 часа", "Каждые 23 часа", "Каждые 24 часа"),
-                    comparisonAlertPercent = getPercentForAlertUseCase.execute()
+                    listOfUpdateTime = listOf(context.getString(R.string.update_time_1),
+                                              context.getString(R.string.update_time_2),
+                                              context.getString(R.string.update_time_3),
+                                              context.getString(R.string.update_time_4),
+                                              context.getString(R.string.update_time_5),
+                                              context.getString(R.string.update_time_6),
+                                              context.getString(R.string.update_time_7),
+                                              context.getString(R.string.update_time_8),
+                                              context.getString(R.string.update_time_9),
+                                              context.getString(R.string.update_time_10),
+                                              context.getString(R.string.update_time_11),
+                                              context.getString(R.string.update_time_12),
+                                              context.getString(R.string.update_time_13),
+                                              context.getString(R.string.update_time_14),
+                                              context.getString(R.string.update_time_15),
+                                              context.getString(R.string.update_time_16),
+                                              context.getString(R.string.update_time_17),
+                                              context.getString(R.string.update_time_18),
+                                              context.getString(R.string.update_time_19),
+                                              context.getString(R.string.update_time_20),
+                                              context.getString(R.string.update_time_21),
+                                              context.getString(R.string.update_time_22),
+                                              context.getString(R.string.update_time_23),
+                                              context.getString(R.string.update_time_24)),
+                    comparisonAlertPercent = getPercentForAlertUseCase.execute(),
+                    comparisonAlertPercentName = mapOfAlertPercent.getOrDefault(getPercentForAlertUseCase.execute().toFloat(),"")
                 )
 
             }

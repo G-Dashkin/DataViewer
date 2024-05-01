@@ -22,7 +22,7 @@
     <string name="update_into_background">Обновление фидов в фоне</string>
     <string name="alert_on">Включение уведомления при большой разнице в сравнении</string>
     <string name="update_periodic">Периодичность \nобновления</string>
-    <string name="different_percent">Процент разнице n\при обновлении</string>
+    <string name="different_percent">Процент разницы\nпри обновлении</string>
     <string name="different_percent_desc">*уведомление при разнице элементов в фиде</string>
     <string name="count_feed_elements">Подсчет элементов в фиде</string>
     <string name="loading_feed">Загрузка фида</string>
@@ -64,4 +64,40 @@
     <string name="settings_screen">Settings Screen</string>
     <string name="scanning_screen">Scanning Screen</string>
     <string name="details_screen">Details Screen</string>
+
+    <string name="different_10">Разница 10%</string>
+    <string name="different_20">Разница 20%</string>
+    <string name="different_30">Разница 30%</string>
+    <string name="different_40">Разница 40%</string>
+    <string name="different_50">Разница 50%</string>
+    <string name="different_60">Разница 60%</string>
+    <string name="different_70">Разница 70%</string>
+    <string name="different_80">Разница 80%</string>
+    <string name="different_90">Разница 90%</string>
+
+    <string name="update_time_1">Каждый час</string>
+    <string name="update_time_2">Каждые 2 часа</string>
+    <string name="update_time_3">Каждые 3 часа</string>
+    <string name="update_time_4">Каждые 4 часа</string>
+    <string name="update_time_5">Каждые 5 часов</string>
+    <string name="update_time_6">Каждые 6 часов</string>
+    <string name="update_time_7">Каждые 7 часов</string>
+    <string name="update_time_8">Каждые 8 часов</string>
+    <string name="update_time_9">Каждые 9 часов</string>
+    <string name="update_time_10">Каждые 10 часов</string>
+    <string name="update_time_11">Каждые 11 часов</string>
+    <string name="update_time_12">Каждые 12 часов</string>
+    <string name="update_time_13">Каждые 13 часов</string>
+    <string name="update_time_14">Каждые 14 часов</string>
+    <string name="update_time_15">Каждые 15 часов</string>
+    <string name="update_time_16">Каждые 16 часов</string>
+    <string name="update_time_17">Каждые 17 часов</string>
+    <string name="update_time_18">Каждые 18 часов</string>
+    <string name="update_time_19">Каждые 19 часов</string>
+    <string name="update_time_20">Каждые 20 часов</string>
+    <string name="update_time_21">Каждый 21 час</string>
+    <string name="update_time_22">Каждые 22 часа</string>
+    <string name="update_time_23">Каждые 23 часа</string>
+    <string name="update_time_24">Каждые 24 часа</string>
+
 </resources>
