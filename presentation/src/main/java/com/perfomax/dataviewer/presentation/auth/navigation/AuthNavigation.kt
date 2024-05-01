@@ -19,7 +19,7 @@ import com.perfomax.ui.R
 
 const val AUTH_GRAPH = "authentication"
 
-private object LoginDestination: NavigationDestination {
+object LoginDestination: NavigationDestination {
     override val route = "login"
 }
 

@@ -6,6 +6,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import com.perfomax.dataviewer.navigation.TopLevelDestination
+import com.perfomax.dataviewer.presentation.auth.navigation.LoginDestination
+import com.perfomax.dataviewer.presentation.feeds.navigation.FeedsDestination
+import com.perfomax.dataviewer.presentation.projects.navigation.ProjectsDestination
 import com.perfomax.dataviewer.ui.theme.border1
 
 @Composable
@@ -19,9 +22,9 @@ fun DataViewerBottomBar(
         modifier = Modifier.border(border1, Color.Gray),
         containerColor = MaterialTheme.colorScheme.onPrimary) {
         destinations.filter {
-            it.route != "feeds" &&
-            it.route != "projects" &&
-            it.route != "login"
+            it.route != FeedsDestination.route &&
+            it.route != ProjectsDestination.route &&
+            it.route != LoginDestination.route
         }.forEachIndexed { index, item ->
             DataViewerIconTab(
                 modifier = modifier,

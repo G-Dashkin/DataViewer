@@ -22,6 +22,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.DpOffset
 import androidx.compose.ui.unit.dp
 import com.perfomax.dataviewer.navigation.TopLevelDestination
+import com.perfomax.dataviewer.presentation.scanning.navigation.ScanningDestination
 import com.perfomax.dataviewer.ui.theme.border1
 import com.perfomax.ui.R
 
@@ -54,13 +55,12 @@ fun DataViewerTopMenu(
                 offset = DpOffset(x = OFFSET_X.dp, y = OFFSET_Y.dp)
             ) {
                 destinations.filter {
-                    !it.route.contains("scanning")
+                    !it.route.contains(ScanningDestination.route)
                 }.forEachIndexed { index, item ->
 
                     DropdownMenuItem(
                         text = { Text(text = stringResource(id = item.titleId)) },
                         onClick = {
-//                            Log.d("MyLog", item.route)
                             dropDownMenuExpanded = false
                             if (item.route != "login") {
                                 onNavigateToTopLevel(item.route)
