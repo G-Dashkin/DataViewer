@@ -48,20 +48,15 @@ fun SettingsScreen(
     onSwitchNotification:(Boolean) -> Unit
 ) {
 
-    val listOfUpdateTime = listOf("Каждый час", "Каждые 2 часа", "Каждые 3 часа", "Каждые 4 часа",
-                                  "Каждые 5 часов", "Каждые 6 часов", "Каждые 7 часов", "Каждые 8 часов",
-                                  "Каждые 9 часов", "Каждые 10 часов", "Каждые 11 часов", "Каждые 12 часов",
-                                  "Каждые 13 часов", "Каждые 14 часов", "Каждые 15 часов", "Каждые 16 часов",
-                                  "Каждые 17 часов", "Каждые 18 часов", "Каждые 19 часов", "Каждые 20 часов",
-                                  "Каждый 21 час", "Каждые 22 часа", "Каждые 23 часа", "Каждые 24 часа")
-    var selectedUpdateTime by remember { mutableStateOf(listOfUpdateTime[0]) }
-    var isExpandedUpdateTime by remember { mutableStateOf(false) }
+    var selectedUpdateTime by remember { mutableStateOf(uiState.listOfUpdateTime[0]) }
 
-    val listOfUpdatePercent = listOf("Разница 10%", "Разница  20%", "Разница 30%",
-                                     "Разница 40%", "Разница 50%", "Разница 60%",
-                                     "Разница 70%", "Разница 80%", "Разница 90%")
-    var selectedUpdatePercent by remember { mutableStateOf(listOfUpdatePercent[0]) }
+    var selectedPercentOfAlert by remember {
+        mutableStateOf(uiState.listOfAlertPercent.getValue(uiState.comparisonAlertPercent.toFloat()))
+    }
+
+    var isExpandedUpdateTime by remember { mutableStateOf(false) }
     var isExpandedUpdatePercent by remember { mutableStateOf(false) }
+
 
     Column(modifier = Modifier.fillMaxSize()
                               .padding(padding15),
@@ -119,11 +114,11 @@ fun SettingsScreen(
                 ExposedDropdownMenu(
                     expanded = isExpandedUpdateTime,
                     onDismissRequest = { isExpandedUpdateTime = false }) {
-                    listOfUpdateTime.forEachIndexed { index, text ->
+                    uiState.listOfUpdateTime.forEachIndexed { index, text ->
                         DropdownMenuItem(
                             text = { Text(text = text, style = MaterialTheme.typography.labelMedium) },
                             onClick = {
-                                selectedUpdateTime = listOfUpdateTime[index]
+                                selectedUpdateTime = uiState.listOfUpdateTime[index]
                                 isExpandedUpdateTime = false
                             },
                             contentPadding = ExposedDropdownMenuDefaults.ItemContentPadding
@@ -146,7 +141,7 @@ fun SettingsScreen(
             ) {
                 TextField(
                     modifier = Modifier.menuAnchor(),
-                    value = selectedUpdatePercent,
+                    value = selectedPercentOfAlert,
                     onValueChange = {  },
                     readOnly = true,
                     trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = isExpandedUpdatePercent) }
@@ -154,12 +149,13 @@ fun SettingsScreen(
                 ExposedDropdownMenu(
                     expanded = isExpandedUpdatePercent,
                     onDismissRequest = { isExpandedUpdatePercent = false }) {
-                    listOfUpdatePercent.forEachIndexed { index, text ->
+                    uiState.listOfAlertPercent.values.forEachIndexed { index, text ->
                         DropdownMenuItem(
                             text = { Text(text = text, style = MaterialTheme.typography.labelMedium) },
                             onClick = {
-                                selectedUpdatePercent = listOfUpdatePercent[index]
+                                selectedPercentOfAlert = uiState.listOfAlertPercent.getOrDefault("0.${index+1}".toFloat(), "")
                                 isExpandedUpdatePercent = false
+                                onSetPercentForAlert.invoke(selectedPercentOfAlert)
                             },
                             contentPadding = ExposedDropdownMenuDefaults.ItemContentPadding
                         )

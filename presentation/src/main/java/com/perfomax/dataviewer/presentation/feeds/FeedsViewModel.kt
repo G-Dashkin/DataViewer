@@ -1,7 +1,9 @@
 package com.perfomax.dataviewer.presentation.feeds
 
 import android.app.Application
+import android.os.Build
 import android.util.Log
+import androidx.annotation.RequiresApi
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.perfomax.dataviewer.domain.EMPTY
@@ -307,10 +309,11 @@ class FeedsViewModel @Inject constructor(
                        "feedName:$feedName;" +
                        "feedElement:$feedElement;" +
                        "feedElementCount:$feedElementCount;" +
+                       "oldFeedElementCount:$feedElementCount;" +
+                       "isAlertCountFeedDifference:false;" +
                        "feedUrl:$feedUrl;" +
                        "feedUpdateTime:$feedUpdateTime;" +
                        "feedLoadTime:$feedLoadTime"
-            Log.d("MyLog", feed)
             val feedNameValid = feedName.isNotEmpty()
             val feedNameValid2 = feedName.any {
                 it.toString().contains("|") ||
@@ -409,6 +412,8 @@ class FeedsViewModel @Inject constructor(
                        "feedName:${_uiState.value.feedUpdateName};" +
                        "feedElement:${_uiState.value.feedUpdateMainElement};" +
                        "feedElementCount:${selectedFeed?.feedElementCount};" +
+                       "oldFeedElementCount:${selectedFeed?.oldFeedElementCount};" +
+                       "isAlertCountFeedDifference:${selectedFeed?.isAlertCountFeedDifference};" +
                        "feedUrl:${_uiState.value.feedUpdateUrl};" +
                        "feedUpdateTime:${selectedFeed?.feedUpdateTime};" +
                        "feedLoadTime:${selectedFeed?.feedLoadTime}"

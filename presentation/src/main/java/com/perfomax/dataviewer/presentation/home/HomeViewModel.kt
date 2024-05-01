@@ -79,7 +79,7 @@ class HomeViewModel @Inject constructor(
 
     private fun setSchedule() {
         viewModelScope.launch {
-            setScheduleUseCase.execute(getUpdatePeriodUseCase.execute().toLong())
+//            setScheduleUseCase.execute(getUpdatePeriodUseCase.execute().toLong())
         }
     }
 
@@ -90,8 +90,10 @@ class HomeViewModel @Inject constructor(
     private fun updateFeedsList() {
         viewModelScope.launch {
             _uiState.update { currentState ->
+                val feedsList = getAllFeedsUseCase.execute(getSelectedProjectUseCase.execute())
+
                 currentState.copy(
-                    feedsList = getAllFeedsUseCase.execute(getSelectedProjectUseCase.execute())
+                    feedsList = feedsList
                 )
             }
         }

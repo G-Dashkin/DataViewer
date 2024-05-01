@@ -6,6 +6,8 @@ data class Feed(
     val feedName: String,
     val feedElement: String,
     val feedElementCount: Int,
+    val oldFeedElementCount: Int,
+    val isAlertCountFeedDifference: Boolean,
     val feedUrl: String,
     val feedUpdateTime: String,
     val feedLoadTime: String

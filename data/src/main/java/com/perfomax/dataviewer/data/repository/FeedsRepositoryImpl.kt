@@ -5,8 +5,10 @@ import com.perfomax.dataviewer.data.mappers.toDomainFeed
 import com.perfomax.dataviewer.data.network.api.FeedApi
 import com.perfomax.dataviewer.data.network.api.Parser
 import com.perfomax.dataviewer.data.storage.api.FeedsStorage
+import com.perfomax.dataviewer.data.storage.api.SettingsStorage
 import com.perfomax.dataviewer.domain.models.Feed
 import com.perfomax.dataviewer.domain.repository.FeedsRepository
+import com.perfomax.dataviewer.domain.utils.getAlertPercent
 import com.perfomax.dataviewer.domain.utils.parsToString
 import com.perfomax.dataviewer.domain.utils.toShortList
 import kotlinx.coroutines.CoroutineDispatcher
@@ -17,7 +19,8 @@ import javax.inject.Inject
 class FeedsRepositoryImpl @Inject constructor(
     private val feedApi: FeedApi,
     private val dispatcher: CoroutineDispatcher = Dispatchers.IO,
-    private val feedsStorage: FeedsStorage
+    private val feedsStorage: FeedsStorage,
+    private val settingsStorage: SettingsStorage
 ): FeedsRepository {
 
     private val feedList: ArrayList<String> = ArrayList()
@@ -36,17 +39,39 @@ class FeedsRepositoryImpl @Inject constructor(
 
     override suspend fun countFeedElements(feedList: List<Feed>) = withContext(dispatcher) {
         val updatedFeedList = mutableListOf<Feed>()
+        var countElementsDifferent = 0.0f
+
+        val diffVal = settingsStorage.getPercentForAlert()
+        val selectedAlertPercent = diffVal.getAlertPercent()
+        Log.d("MyLog", "getPercentForAlert(): $selectedAlertPercent")
         feedList.forEach { feed ->
             val updatedFeedData = feedApi.updateFeedElements(feed)
+            Log.d("MyLog", "-------------------------------------------------------------")
+            Log.d("MyLog", "Actual FeedElement: ${feed.feedElementCount}")
+            Log.d("MyLog", "Update feedElement: ${updatedFeedData.feedElementCount-1000}")
+
+            if (feed.oldFeedElementCount != 0 || updatedFeedData.feedElementCount-1000 != feed.feedElementCount){
+                Log.d("MyLog", "Что то делаем")
+                countElementsDifferent = 1-(updatedFeedData.feedElementCount-1000).toFloat()/(feed.feedElementCount).toFloat()
+                Log.d("MyLog", "Разница: $countElementsDifferent")
+
+
+            } else { Log.d("MyLog", "Ничего не делаем") }
+
+            Log.d("MyLog", "Разница больше выбранного процента: ${countElementsDifferent > selectedAlertPercent}")
+
             val updatedFeed = feed.copy(
                 projectName = feed.projectName,
                 feedName = feed.feedName,
                 feedElement = feed.feedElement,
                 feedElementCount = updatedFeedData.feedElementCount,
+                oldFeedElementCount = feed.feedElementCount-1000,
+                isAlertCountFeedDifference = countElementsDifferent > selectedAlertPercent,
                 feedUrl = feed.feedUrl,
                 feedUpdateTime = updatedFeedData.feedUpdateTime,
                 feedLoadTime = updatedFeedData.feedLoadTime
             )
+
             updatedFeedList.add(updatedFeed)
         }
         feedsStorage.update(updatedFeedList.parsToString())

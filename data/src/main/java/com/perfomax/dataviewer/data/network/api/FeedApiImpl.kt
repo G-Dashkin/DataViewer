@@ -1,6 +1,8 @@
 package com.perfomax.dataviewer.data.network.api
 
+import android.os.Build
 import android.util.Log
+import androidx.annotation.RequiresApi
 import com.perfomax.dataviewer.domain.models.Feed
 import com.perfomax.dataviewer.domain.utils.toShortList
 import java.net.HttpURLConnection
@@ -15,7 +17,6 @@ class FeedApiImpl: FeedApi {
     override fun getData(feedUrl: String): String {
         var urlResponse = ""
         var responseCode = ""
-//        val arrayFeed = mutableListOf<String>()
         var arrayFeed = ""
 
         try {
@@ -82,6 +83,8 @@ class FeedApiImpl: FeedApi {
             feedName = "",
             feedElement = "",
             feedElementCount = elementCounter,
+            oldFeedElementCount = 0,
+            isAlertCountFeedDifference = false,
             feedUrl = "",
             feedUpdateTime = feedUpdateDate,
             feedLoadTime = feedLoadTime

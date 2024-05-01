@@ -43,17 +43,19 @@ object AppModule {
 
     @Singleton
     @Provides
-    fun provideFeedsRepository(
-        feedApi: FeedApi,
-        dispatcher: CoroutineDispatcher = Dispatchers.IO,
-        feedsStorage: FeedsStorage
-    ): FeedsRepository = FeedsRepositoryImpl(feedApi, dispatcher, feedsStorage)
-
-    @Singleton
-    @Provides
     fun provideSettingsRepository(
         settingsStorage: SettingsStorage
     ): SettingsRepository = SettingsRepositoryImpl(settingsStorage)
+
+
+    @Singleton
+    @Provides
+    fun provideFeedsRepository(
+        feedApi: FeedApi,
+        dispatcher: CoroutineDispatcher = Dispatchers.IO,
+        feedsStorage: FeedsStorage,
+        settingsStorage: SettingsStorage
+    ): FeedsRepository = FeedsRepositoryImpl(feedApi, dispatcher, feedsStorage, settingsStorage)
 
     @Singleton
     @Provides

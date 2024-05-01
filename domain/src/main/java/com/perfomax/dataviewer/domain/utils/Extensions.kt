@@ -11,6 +11,18 @@ fun String.parsToListByProject(): List<String> {
     return this.split("|")
 }
 
+fun String.parsAlertPercent(): Float {
+    return ("0." + this.split(" ")[1].split("0%")[0]).toFloat()
+}
+
+fun String.getAlertPercent(): Float {
+    return this.split("comparisonPercent:")[1].toFloat()
+}
+
+fun String.isAlertDifferent(): Boolean {
+    return true
+}
+
 fun MutableList<Feed>.parsToString(): String {
     return this.joinToString()
                .replace(oldValue = "Feed(", newValue = "")

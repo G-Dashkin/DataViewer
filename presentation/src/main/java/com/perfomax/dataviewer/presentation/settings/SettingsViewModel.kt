@@ -1,5 +1,6 @@
 package com.perfomax.dataviewer.presentation.settings
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.perfomax.dataviewer.domain.usecases.projects.GetSelectedProjectUseCase
@@ -13,6 +14,7 @@ import com.perfomax.dataviewer.domain.usecases.settings.SetPercentForAlertUseCas
 import com.perfomax.dataviewer.domain.usecases.settings.SetUpdateIntoBackgroundUseCase
 import com.perfomax.dataviewer.domain.usecases.settings.SetUpdatePeriodUseCase
 import com.perfomax.dataviewer.domain.usecases.settings.SetUpdateWithWIFIUseCase
+import com.perfomax.dataviewer.domain.utils.parsAlertPercent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -45,6 +47,7 @@ class SettingsViewModel @Inject constructor(
     init {
         getSettings()
 //        setService()
+        setSettings()
     }
 
     override fun intent(event: SettingsContract.Event) {
@@ -113,13 +116,15 @@ class SettingsViewModel @Inject constructor(
     private fun onComparisonPercentFieldChange(comparisonPercent: String) {
         viewModelScope.launch {
             val selectedProject = getSelectedProjectUseCase.execute()
-            val comparisonPercentValue = "projectName:$selectedProject|comparisonPercent:$comparisonPercent"
+            val comparisonPercentValue = "projectName:$selectedProject|comparisonPercent:${comparisonPercent.parsAlertPercent()}"
             setPercentForAlertUseCase.execute(comparisonPercentValue)
             _uiState.update { currentState ->
                 currentState.copy(
-                    comparisonPercent = comparisonPercent
+                    comparisonAlertPercent = comparisonPercent
                 )
             }
+            Log.d("MyLog", "comparisonPercentValue: $comparisonPercentValue")
+            Log.d("MyLog", "comparisonPercent: ${_uiState.value.comparisonAlertPercent}")
         }
     }
 
@@ -144,8 +149,37 @@ class SettingsViewModel @Inject constructor(
                     isNotificationWork = getNotificationUseCase.execute(),
                     updatePeriod = getUpdatePeriodUseCase.execute(),
                     isUpdateFeedsWithWIFI = getUpdateWithWIFIUseCase.execute(),
-                    comparisonPercent = getPercentForAlertUseCase.execute()
+                    comparisonAlertPercent = getPercentForAlertUseCase.execute()
                 )
+            }
+        }
+    }
+
+    private fun setSettings() {
+        viewModelScope.launch {
+            _uiState.update { currentState ->
+                currentState.copy(
+                    listOfAlertPercent = mapOf(Pair(0.1f,"Разница 10%"),
+                                               Pair(0.2f,"Разница 20%"),
+                                               Pair(0.3f,"Разница 30%"),
+                                               Pair(0.4f,"Разница 40%"),
+                                               Pair(0.5f,"Разница 50%"),
+                                               Pair(0.6f,"Разница 60%"),
+                                               Pair(0.7f,"Разница 70%"),
+                                               Pair(0.8f,"Разница 80%"),
+                                               Pair(0.9f,"Разница 90%")),
+
+                    listOfUpdateTime = listOf("Каждый час", "Каждые 2 часа", "Каждые 3 часа",
+                                              "Каждые 4 часа", "Каждые 5 часов", "Каждые 6 часов",
+                                              "Каждые 7 часов", "Каждые 8 часов","Каждые 9 часов",
+                                              "Каждые 10 часов", "Каждые 11 часов", "Каждые 12 часов",
+                                              "Каждые 13 часов", "Каждые 14 часов", "Каждые 15 часов",
+                                              "Каждые 16 часов", "Каждые 17 часов", "Каждые 18 часов",
+                                              "Каждые 19 часов", "Каждые 20 часов", "Каждый 21 час",
+                                              "Каждые 22 часа", "Каждые 23 часа", "Каждые 24 часа"),
+                    comparisonAlertPercent = getPercentForAlertUseCase.execute()
+                )
+
             }
         }
     }

@@ -10,23 +10,33 @@ interface SettingsContract:
         val isUpdateFeedsIntoBackground: Boolean,
         val updatePeriod: String,
         val isUpdateFeedsWithWIFI: Boolean,
-        val comparisonPercent: String,
-        val isNotificationWork: Boolean
-    ) {
+        val comparisonAlertPercent: String,
+        val comparisonAlertPercentIndex: Int,
+        val isNotificationWork: Boolean,
+        val listOfAlertPercent: Map<Float, String>,
+        val listOfUpdateTime: List<String>,
+
+        ) {
         companion object {
             fun initial(): State = State(
                 isUpdateFeedsIntoBackground = false,
                 updatePeriod = EMPTY,
                 isUpdateFeedsWithWIFI = false,
-                comparisonPercent = EMPTY,
-                isNotificationWork = false
+                comparisonAlertPercent = EMPTY,
+                comparisonAlertPercentIndex = 0,
+                isNotificationWork = false,
+                listOfAlertPercent = mapOf(),
+                listOfUpdateTime = listOf()
             )
             fun notCorrect(): State = State(
                 isUpdateFeedsIntoBackground = false,
                 updatePeriod = EMPTY,
                 isUpdateFeedsWithWIFI = false,
-                comparisonPercent = EMPTY,
-                isNotificationWork = false
+                comparisonAlertPercent = EMPTY,
+                comparisonAlertPercentIndex = 0,
+                isNotificationWork = false,
+                listOfAlertPercent = mapOf(),
+                listOfUpdateTime = listOf()
             )
         }
     }

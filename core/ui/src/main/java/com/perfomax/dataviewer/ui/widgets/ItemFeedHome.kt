@@ -35,12 +35,15 @@ fun ItemFeedHome(
     feedName: String,
     onClickFeedElement: (String) -> Unit,
     countElements: Int,
+    oldCountElements: Int,
+    isAlertCountFeedDifference: Boolean,
     updateTime: String = "",
     loadTime: String,
 ) {
     Row(modifier = Modifier
         .fillMaxWidth()
-        .background(Color(0xBE97ACD6), shape = RoundedCornerShape(cornerShape15))
+        .background(color = if (isAlertCountFeedDifference) Color.Red else Color(0xBE97ACD6),
+                    shape = RoundedCornerShape(cornerShape15))
         .border(border1, color = Color.Gray, shape = RoundedCornerShape(cornerShape15))
         .clip(shape = RoundedCornerShape(cornerShape15))
         .padding(top = padding5, bottom = padding5)
@@ -77,7 +80,7 @@ fun ItemFeedHome(
                  style = MaterialTheme.typography.bodyLarge.copy(
                  platformStyle = PlatformTextStyle(includeFontPadding = false))
             )
-            Text(text = countElements.toString(),
+            Text(text = "New: $countElements | Old: $oldCountElements",
                  style = MaterialTheme.typography.bodyLarge.copy(
                  platformStyle = PlatformTextStyle(includeFontPadding = false))
             )
@@ -103,6 +106,8 @@ fun FeedItemHomePreview() {
         ItemFeedHome(
             feedName = "myFeed",
             countElements = 99999,
+            oldCountElements = 55555,
+            isAlertCountFeedDifference = false,
             updateTime = "2024-04-14 24:05",
             loadTime = "2024-04-06 11:42",
             onClickFeedElement = {  }
