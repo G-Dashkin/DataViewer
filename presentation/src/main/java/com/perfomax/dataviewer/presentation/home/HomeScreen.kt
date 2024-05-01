@@ -80,6 +80,8 @@ fun HomeScreen(
                 ItemFeedHome(
                     feedName = element.feedName,
                     countElements = element.feedElementCount,
+                    oldCountElements = element.oldFeedElementCount,
+                    isAlertCountFeedDifference = element.isAlertCountFeedDifference,
                     updateTime = element.feedUpdateTime.getFeedElementValue(),
                     loadTime = element.feedLoadTime,
                     onClickFeedElement = onClickFeedElement
