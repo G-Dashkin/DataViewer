@@ -65,9 +65,9 @@ fun NavGraphBuilder.authentication(
         composable(route = LoginDestination.route) {
 
             val loginViewModel: LoginViewModel = viewModel()
-            val loginUiState by loginViewModel.loginUiState.collectAsStateWithLifecycle()
+//            val loginUiState by loginViewModel.loginUiState.collectAsStateWithLifecycle()
             LoginScreen(
-                loginUiState = loginUiState,
+//                loginUiState = loginUiState,
                 loginViewModel = loginViewModel,
                 onLoginClicked = onLoginClicked,
                 onNavigateToRegister = onNavigateToRegister,
@@ -77,9 +77,9 @@ fun NavGraphBuilder.authentication(
 
         composable(route = RegisterDestination.route) {
             val registerViewModel: RegisterViewModel = viewModel()
-            val registerUpUiState by registerViewModel.signUpUiState.collectAsStateWithLifecycle()
+//            val registerUpUiState by registerViewModel.signUpUiState.collectAsStateWithLifecycle()
             RegisterScreen(
-                registerUiState = registerUpUiState,
+//                registerUiState = registerUpUiState,
                 registerViewModel = registerViewModel,
                 onNavigateToLogin = onNavigateToLogin,
             )
@@ -87,9 +87,9 @@ fun NavGraphBuilder.authentication(
 
         composable(route = ResetDestination.route) {
             val resetViewModel: ResetViewModel = viewModel()
-            val resetUiState by resetViewModel.resetPasswordUiState.collectAsStateWithLifecycle()
+//            val resetUiState by resetViewModel.resetPasswordUiState.collectAsStateWithLifecycle()
             ResetScreen(
-                resetUiState = resetUiState,
+//                resetUiState = resetUiState,
                 resetViewModel = resetViewModel,
                 onNavigateToLogin = onNavigateToLogin
             )

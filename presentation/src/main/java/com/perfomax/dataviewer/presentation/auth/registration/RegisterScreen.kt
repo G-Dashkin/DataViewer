@@ -50,7 +50,7 @@ import com.perfomax.ui.R
 
 @Composable
 fun RegisterScreen(
-    registerUiState: RegisterUiState,
+//    registerUiState: RegisterUiState,
     registerViewModel: RegisterViewModel,
     onNavigateToLogin: () -> Unit
 ) {
@@ -139,10 +139,10 @@ fun RegisterScreen(
 @Composable
 fun RegisterScreenPreview() {
     val registerViewModel: RegisterViewModel = viewModel()
-    val registerUiState by registerViewModel.signUpUiState.collectAsStateWithLifecycle()
+//    val registerUiState by registerViewModel.signUpUiState.collectAsStateWithLifecycle()
     DataViewerTheme {
         RegisterScreen(
-            registerUiState = registerUiState,
+//            registerUiState = registerUiState,
             registerViewModel = registerViewModel,
             onNavigateToLogin = {}
         )

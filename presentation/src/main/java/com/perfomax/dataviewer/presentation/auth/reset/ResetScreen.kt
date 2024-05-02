@@ -49,7 +49,7 @@ import com.perfomax.ui.R
 
 @Composable
 fun ResetScreen(
-    resetUiState: ResetUiState,
+//    resetUiState: ResetUiState,
     resetViewModel: ResetViewModel,
     onNavigateToLogin: () -> Unit
 ) {
@@ -116,9 +116,9 @@ fun ResetScreen(
 fun ResetScreenPreview() {
     DataViewerTheme {
         val resetViewModel: ResetViewModel = viewModel()
-        val resetUiState by resetViewModel.resetPasswordUiState.collectAsStateWithLifecycle()
+//        val resetUiState by resetViewModel.resetPasswordUiState.collectAsStateWithLifecycle()
         ResetScreen(
-            resetUiState = resetUiState,
+//            resetUiState = resetUiState,
             resetViewModel = resetViewModel,
             onNavigateToLogin = {}
         )
