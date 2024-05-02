@@ -1,5 +1,6 @@
 package com.perfomax.dataviewer.presentation.auth.login
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -23,6 +24,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -33,12 +35,14 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.perfomax.dataviewer.ui.theme.DataViewerTheme
 import com.perfomax.dataviewer.ui.theme.cornerShape8
 import com.perfomax.dataviewer.ui.theme.fillMaxWidth07
+import com.perfomax.dataviewer.ui.theme.height100
 import com.perfomax.dataviewer.ui.theme.height15
 import com.perfomax.dataviewer.ui.theme.height40
 import com.perfomax.dataviewer.ui.theme.height5
 import com.perfomax.dataviewer.ui.theme.height50
 import com.perfomax.dataviewer.ui.theme.padding15
 import com.perfomax.dataviewer.ui.theme.padding30
+import com.perfomax.dataviewer.ui.theme.width100
 import com.perfomax.dataviewer.ui.theme.width5
 import com.perfomax.dataviewer.ui.theme.zeroVal
 import com.perfomax.dataviewer.ui.widgets.FormTextFieldDefault
@@ -57,12 +61,24 @@ fun LoginScreen(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
-        Text(text = "Login", fontSize = 22.sp)
+        Image(
+            modifier = Modifier
+                .width(width100)
+                .height(width100),
+            painter = painterResource(id = R.drawable.logo),
+            contentDescription = stringResource(id = R.string.logo)
+        )
+        Text(text = stringResource(id = R.string.app_name),
+            color = MaterialTheme.colorScheme.primary,
+            style = MaterialTheme.typography.headlineLarge)
+        Spacer(modifier = Modifier.height(height100))
+        Text(text = stringResource(id = R.string.login), fontSize = 22.sp)
         FormTextFieldDefault(
-            modifier = Modifier.fillMaxWidth()
-                               .defaultMinSize(minHeight = height50)
-                               .background(color = MaterialTheme.colorScheme.background)
-                               .padding(start = padding15, end = padding15),
+            modifier = Modifier
+                .fillMaxWidth()
+                .defaultMinSize(minHeight = height50)
+                .background(color = MaterialTheme.colorScheme.background)
+                .padding(start = padding15, end = padding15),
             text = "",
             labelText = stringResource(id = R.string.email),
             isError = false,
@@ -79,7 +95,7 @@ fun LoginScreen(
             isError = false,
             onChange = {}
         )
-        Spacer(modifier = Modifier.height(height5))
+        Spacer(modifier = Modifier.height(height15))
         Button(modifier = Modifier.fillMaxWidth()
                                   .padding(start = padding30, end = padding30)
                                   .height(height50)

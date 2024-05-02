@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">DataViewer</string>
     <string name="email">Email</string>
+    <string name="logo">logo</string>
     <string name="password">Password</string>
     <string name="register">Register</string>
     <string name="send">Send</string>
