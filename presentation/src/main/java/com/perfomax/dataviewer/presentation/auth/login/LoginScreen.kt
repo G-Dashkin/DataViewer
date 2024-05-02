@@ -102,7 +102,7 @@ fun LoginScreen(
                                   .requiredHeight(height40),
             shape = RoundedCornerShape(cornerShape8),
             contentPadding = PaddingValues(zeroVal),
-            onClick = {}
+            onClick = onLoginClicked
         ) {
             Text(text = stringResource(id = R.string.login),
                  color = MaterialTheme.colorScheme.onSecondary,

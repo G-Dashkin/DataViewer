@@ -3,68 +3,32 @@ package com.perfomax.dataviewer.presentation.auth.registration
 import androidx.compose.runtime.Immutable
 import androidx.lifecycle.ViewModel
 import com.perfomax.dataviewer.domain.EMPTY
+import com.perfomax.dataviewer.presentation.auth.login.LoginContract
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 
-@Immutable
-data class RegisterUiState(
-    val name: String,
-    val nameError: Boolean,
-    val email: String,
-    val emailError: Boolean,
-    val password: String,
-    val passwordError: Boolean
-)
+class RegisterViewModel: ViewModel(), RegisterContract {
 
-class RegisterViewModel: ViewModel() {
+    private val _uiState = MutableStateFlow(RegisterContract.State.initial())
+    private val _effect = MutableStateFlow<RegisterContract.Effect?>(null)
 
-    private val _signUpUiState = MutableStateFlow(
-        RegisterUiState(
-            name = EMPTY,
-            nameError = false,
-            email = EMPTY,
-            emailError = false,
-            password = EMPTY,
-            passwordError = false
-        )
-    )
+    override val uiState: StateFlow<RegisterContract.State> = _uiState.asStateFlow()
+    override val effect: StateFlow<RegisterContract.Effect?> = _effect.asStateFlow()
 
-    val signUpUiState: StateFlow<RegisterUiState> = _signUpUiState
-
-    fun onNameChange(value: String) {
-        _signUpUiState.update { currentState ->
-            currentState.copy(
-                name = value,
-                nameError = value.isBlank())
+    override fun intent(event: RegisterContract.Event) {
+        when(event) {
+            is RegisterContract.Event.EmailChangeEvent -> {}
+            is RegisterContract.Event.FirstNameChangeEvent -> {}
+            is RegisterContract.Event.PasswordChangeEvent -> {}
+            RegisterContract.Event.LoginEvent -> {}
+            RegisterContract.Event.RegisterEvent -> {}
+            RegisterContract.Event.ResetEvent -> {}
         }
     }
 
-    fun onEmailChange(email: String) {
-        _signUpUiState.update { currentState ->
-            currentState.copy(
-                email = email,
-                emailError = email.isNotBlank()
-            )
-        }
-    }
-
-    fun onPasswordChange(password: String) {
-        _signUpUiState.update { currentState ->
-            currentState.copy(
-                password = password,
-                passwordError = password.isNotBlank()
-            )
-        }
-    }
-
-    fun onSignUpSubmit() {
-        _signUpUiState.update { currentState ->
-            currentState.copy(
-                nameError = currentState.name.isBlank(),
-                emailError = currentState.email.isBlank(),
-                passwordError = currentState.name.isBlank(),
-            )
-        }
+    override fun consume() {
+        _effect.update { null }
     }
 }

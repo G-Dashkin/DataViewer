@@ -3,41 +3,31 @@ package com.perfomax.dataviewer.presentation.auth.reset
 import androidx.compose.runtime.Immutable
 import androidx.lifecycle.ViewModel
 import com.perfomax.dataviewer.domain.EMPTY
+import com.perfomax.dataviewer.presentation.auth.login.LoginContract
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 
-@Immutable
-data class ResetUiState(
-    val email: String,
-    val emailError: Boolean
-)
+class ResetViewModel: ViewModel(), ResetContract {
 
-class ResetViewModel: ViewModel() {
+    private val _uiState = MutableStateFlow(ResetContract.State.initial())
+    private val _effect = MutableStateFlow<ResetContract.Effect?>(null)
 
-    private val _resetPasswordUiState = MutableStateFlow(
-        ResetUiState(
-            email = EMPTY,
-            emailError = false
-        )
-    )
+    override val uiState: StateFlow<ResetContract.State> = _uiState.asStateFlow()
+    override val effect: StateFlow<ResetContract.Effect?> = _effect.asStateFlow()
 
-    val resetPasswordUiState: StateFlow<ResetUiState> = _resetPasswordUiState
-
-    fun onEmailChange(email: String) {
-        _resetPasswordUiState.update { currentState ->
-            currentState.copy(
-                email = email,
-                emailError = email.isNotBlank()
-            )
+    override fun intent(event: ResetContract.Event) {
+        when(event) {
+            is ResetContract.Event.EmailChangeEvent -> {}
+            ResetContract.Event.LoginEvent -> {}
+            ResetContract.Event.RegisterEvent -> {}
+            ResetContract.Event.ResetEvent -> {}
         }
     }
 
-    fun onResetPasswordSubmit() {
-        _resetPasswordUiState.update { currentState ->
-            currentState.copy(
-                emailError = currentState.email.isBlank()
-            )
-        }
+    override fun consume() {
+        _effect.update { null }
     }
+
 }

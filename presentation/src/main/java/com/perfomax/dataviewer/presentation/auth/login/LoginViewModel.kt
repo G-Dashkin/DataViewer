@@ -1,49 +1,32 @@
 package com.perfomax.dataviewer.presentation.auth.login
 
-import androidx.compose.runtime.Immutable
 import androidx.lifecycle.ViewModel
-import com.perfomax.dataviewer.domain.EMPTY
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 
-@Immutable
-data class LoginUiState(
-    val email: String,
-    val emailError: Boolean,
-    val password: String,
-    val passwordError: Boolean
-)
+class LoginViewModel: ViewModel(), LoginContract {
 
-class LoginViewModel: ViewModel() {
+    private val _uiState = MutableStateFlow(LoginContract.State.initial())
+    private val _effect = MutableStateFlow<LoginContract.Effect?>(null)
 
-    private val _loginUiState = MutableStateFlow(
-        LoginUiState(
-            email = EMPTY,
-            emailError = false,
-            password = EMPTY,
-            passwordError = false
-        )
-    )
+    override val uiState: StateFlow<LoginContract.State> = _uiState.asStateFlow()
+    override val effect: StateFlow<LoginContract.Effect?> = _effect.asStateFlow()
 
-    val loginUiState: StateFlow<LoginUiState> = _loginUiState
 
-    fun onEmailChange(email: String) {
-        _loginUiState.update { currentState ->
-            currentState.copy(
-                email = email,
-                emailError = email.isNotBlank()
-            )
+    override fun intent(event: LoginContract.Event) {
+        when(event) {
+            is LoginContract.Event.EmailChangeEvent -> {}
+            is LoginContract.Event.PasswordChangeEvent -> {}
+            LoginContract.Event.LoginEvent -> {}
+            LoginContract.Event.RegisterEvent -> {}
+            LoginContract.Event.ResetEvent -> {}
         }
     }
 
-    fun onPasswordChange(password: String) {
-        _loginUiState.update { currentState ->
-            currentState.copy(
-                password = password,
-                passwordError = password.isNotBlank()
-            )
-        }
+    override fun consume() {
+        _effect.update { null }
     }
 
 }
