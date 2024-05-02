@@ -59,9 +59,8 @@ fun ResetScreen(
         verticalArrangement = Arrangement.Center
     ) {
         Image(
-            modifier = Modifier
-                .width(width100)
-                .height(width100),
+            modifier = Modifier.width(width100)
+                               .height(width100),
             painter = painterResource(id = R.drawable.logo),
             contentDescription = stringResource(id = R.string.logo)
         )
