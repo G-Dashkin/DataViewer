@@ -22,6 +22,7 @@ val padding5 = 5.dp
 val padding7 = 7.dp
 val padding10 = 10.dp
 val padding15 = 15.dp
+val padding30 = 30.dp
 
 val weight1 = 1f
 

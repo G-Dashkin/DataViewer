@@ -29,7 +29,7 @@ fun StartedScreen(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) { 
-        Text(text = stringResource(id = R.string.started_screen),
+        Text(text = stringResource(id = R.string.app_name),
             color = MaterialTheme.colorScheme.primary,
             style = MaterialTheme.typography.headlineLarge)
 
