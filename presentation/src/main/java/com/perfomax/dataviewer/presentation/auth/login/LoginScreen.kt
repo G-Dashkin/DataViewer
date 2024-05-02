@@ -50,7 +50,6 @@ import com.perfomax.ui.R
 
 @Composable
 fun LoginScreen(
-    loginUiState: LoginUiState,
     loginViewModel: LoginViewModel,
     onLoginClicked: () -> Unit,
     onNavigateToRegister: () -> Unit,
@@ -148,9 +147,8 @@ fun LoginScreen(
 fun LoginScreenPreview() {
     DataViewerTheme {
         val loginViewModel: LoginViewModel = viewModel()
-        val loginUiState by loginViewModel.loginUiState.collectAsStateWithLifecycle()
+//        val loginUiState by loginViewModel.loginUiState.collectAsStateWithLifecycle()
         LoginScreen(
-            loginUiState = loginUiState,
             loginViewModel = loginViewModel,
             onLoginClicked = {},
             onNavigateToRegister = {},
