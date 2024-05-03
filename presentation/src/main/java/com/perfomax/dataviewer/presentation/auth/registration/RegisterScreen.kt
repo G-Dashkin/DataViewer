@@ -32,6 +32,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.perfomax.dataviewer.presentation.auth.reset.ResetContract
 import com.perfomax.dataviewer.ui.theme.DataViewerTheme
 import com.perfomax.dataviewer.ui.theme.cornerShape8
 import com.perfomax.dataviewer.ui.theme.height100
@@ -50,8 +51,10 @@ import com.perfomax.ui.R
 
 @Composable
 fun RegisterScreen(
-//    registerUiState: RegisterUiState,
-    registerViewModel: RegisterViewModel,
+    uiState: RegisterContract.State,
+    onEmailChange: (String) -> Unit,
+    onPasswordChange: (String) -> Unit,
+    onFirstName: (String) -> Unit,
     onNavigateToLogin: () -> Unit
 ) {
     Column(
@@ -77,10 +80,10 @@ fun RegisterScreen(
                 .defaultMinSize(minHeight = height50)
                 .background(color = MaterialTheme.colorScheme.background)
                 .padding(start = padding15, end = padding15),
-            text = "",
+            text = uiState.firstName,
             labelText = stringResource(id = R.string.first_name),
             isError = false,
-            onChange = {}
+            onChange = onFirstName
         )
         Spacer(modifier = Modifier.height(height5))
         FormTextFieldDefault(
@@ -88,10 +91,10 @@ fun RegisterScreen(
                 .defaultMinSize(minHeight = height50)
                 .background(color = MaterialTheme.colorScheme.background)
                 .padding(start = padding15, end = padding15),
-            text = "",
+            text = uiState.email,
             labelText = stringResource(id = R.string.email),
             isError = false,
-            onChange = {}
+            onChange = onEmailChange
         )
         Spacer(modifier = Modifier.height(height5))
         FormTextFieldDefault(
@@ -99,10 +102,10 @@ fun RegisterScreen(
                 .defaultMinSize(minHeight = height50)
                 .background(color = MaterialTheme.colorScheme.background)
                 .padding(start = padding15, end = padding15),
-            text = "",
+            text = uiState.password,
             labelText = stringResource(id = R.string.password),
             isError = false,
-            onChange = {}
+            onChange = onPasswordChange
         )
         Spacer(modifier = Modifier.height(height15))
         Button(modifier = Modifier.fillMaxWidth()
@@ -138,13 +141,13 @@ fun RegisterScreen(
 @Preview(showBackground = true)
 @Composable
 fun RegisterScreenPreview() {
-    val registerViewModel: RegisterViewModel = viewModel()
-//    val registerUiState by registerViewModel.signUpUiState.collectAsStateWithLifecycle()
     DataViewerTheme {
         RegisterScreen(
-//            registerUiState = registerUiState,
-            registerViewModel = registerViewModel,
-            onNavigateToLogin = {}
+            uiState = RegisterContract.State.initial(),
+            onEmailChange = {},
+            onPasswordChange = {},
+            onFirstName = {},
+            onNavigateToLogin ={}
         )
     }
 }

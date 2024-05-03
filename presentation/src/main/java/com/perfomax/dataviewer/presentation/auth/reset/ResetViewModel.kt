@@ -19,7 +19,7 @@ class ResetViewModel: ViewModel(), ResetContract {
 
     override fun intent(event: ResetContract.Event) {
         when(event) {
-            is ResetContract.Event.EmailChangeEvent -> {}
+            is ResetContract.Event.EmailChangeEvent -> onEmailChange(event.email)
             ResetContract.Event.LoginEvent -> {}
             ResetContract.Event.RegisterEvent -> {}
             ResetContract.Event.ResetEvent -> {}
@@ -28,6 +28,15 @@ class ResetViewModel: ViewModel(), ResetContract {
 
     override fun consume() {
         _effect.update { null }
+    }
+
+    private fun onEmailChange(email: String) {
+        _uiState.update {
+            it.copy(
+                email = email,
+                emailError = email.isNotEmpty()
+            )
+        }
     }
 
 }

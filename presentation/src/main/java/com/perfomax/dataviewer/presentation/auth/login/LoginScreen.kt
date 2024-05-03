@@ -50,10 +50,12 @@ import com.perfomax.ui.R
 
 @Composable
 fun LoginScreen(
-    loginViewModel: LoginViewModel,
+    uiState: LoginContract.State,
+    onEmailChange: (String) -> Unit,
+    onPasswordChange: (String) -> Unit,
     onLoginClicked: () -> Unit,
     onNavigateToRegister: () -> Unit,
-    onNavigateToReset: () -> Unit,
+    onNavigateToReset: () -> Unit
 ) {
     Column(
         modifier = Modifier.fillMaxSize(),
@@ -61,9 +63,8 @@ fun LoginScreen(
         verticalArrangement = Arrangement.Center
     ) {
         Image(
-            modifier = Modifier
-                .width(width100)
-                .height(width100),
+            modifier = Modifier.width(width100)
+                               .height(width100),
             painter = painterResource(id = R.drawable.logo),
             contentDescription = stringResource(id = R.string.logo)
         )
@@ -73,26 +74,25 @@ fun LoginScreen(
         Spacer(modifier = Modifier.height(height100))
         Text(text = stringResource(id = R.string.login), fontSize = 22.sp)
         FormTextFieldDefault(
-            modifier = Modifier
-                .fillMaxWidth()
-                .defaultMinSize(minHeight = height50)
-                .background(color = MaterialTheme.colorScheme.background)
-                .padding(start = padding15, end = padding15),
-            text = "",
+            modifier = Modifier.fillMaxWidth()
+                               .defaultMinSize(minHeight = height50)
+                               .background(color = MaterialTheme.colorScheme.background)
+                               .padding(start = padding15, end = padding15),
+            text = uiState.login,
             labelText = stringResource(id = R.string.email),
             isError = false,
-            onChange = {}
+            onChange = onEmailChange
         )
         Spacer(modifier = Modifier.height(height5))
         FormTextFieldDefault(
             modifier = Modifier.fillMaxWidth()
-                .defaultMinSize(minHeight = height50)
-                .background(color = MaterialTheme.colorScheme.background)
-                .padding(start = padding15, end = padding15),
-            text = "",
+                               .defaultMinSize(minHeight = height50)
+                               .background(color = MaterialTheme.colorScheme.background)
+                               .padding(start = padding15, end = padding15),
+            text = uiState.password,
             labelText = stringResource(id = R.string.password),
             isError = false,
-            onChange = {}
+            onChange = onPasswordChange
         )
         Spacer(modifier = Modifier.height(height15))
         Button(modifier = Modifier.fillMaxWidth()
@@ -146,10 +146,10 @@ fun LoginScreen(
 @Composable
 fun LoginScreenPreview() {
     DataViewerTheme {
-        val loginViewModel: LoginViewModel = viewModel()
-//        val loginUiState by loginViewModel.loginUiState.collectAsStateWithLifecycle()
         LoginScreen(
-            loginViewModel = loginViewModel,
+            uiState = LoginContract.State.initial(),
+            onEmailChange = {},
+            onPasswordChange = {},
             onLoginClicked = {},
             onNavigateToRegister = {},
             onNavigateToReset = {}

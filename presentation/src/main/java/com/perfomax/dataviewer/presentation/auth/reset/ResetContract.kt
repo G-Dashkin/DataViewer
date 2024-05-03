@@ -7,17 +7,17 @@ interface ResetContract:
     UnidirectionalViewModel<ResetContract.Event, ResetContract.State, ResetContract.Effect?> {
 
     data class State(
-        val login: String,
-        val loginError: Boolean
+        val email: String,
+        val emailError: Boolean
     ) {
         companion object {
             fun initial(): State = State(
-                login = EMPTY,
-                loginError = false
+                email = EMPTY,
+                emailError = false
             )
             fun notCreate(): State = State(
-                login = EMPTY,
-                loginError = false
+                email = EMPTY,
+                emailError = false
             )
         }
     }

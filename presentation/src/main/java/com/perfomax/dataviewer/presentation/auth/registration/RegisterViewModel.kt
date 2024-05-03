@@ -19,9 +19,9 @@ class RegisterViewModel: ViewModel(), RegisterContract {
 
     override fun intent(event: RegisterContract.Event) {
         when(event) {
-            is RegisterContract.Event.EmailChangeEvent -> {}
-            is RegisterContract.Event.FirstNameChangeEvent -> {}
-            is RegisterContract.Event.PasswordChangeEvent -> {}
+            is RegisterContract.Event.EmailChangeEvent -> onEmailChange(event.email)
+            is RegisterContract.Event.FirstNameChangeEvent -> onFirstNameChange(event.firstName)
+            is RegisterContract.Event.PasswordChangeEvent -> onPasswordChange(event.password)
             RegisterContract.Event.LoginEvent -> {}
             RegisterContract.Event.RegisterEvent -> {}
             RegisterContract.Event.ResetEvent -> {}
@@ -30,5 +30,32 @@ class RegisterViewModel: ViewModel(), RegisterContract {
 
     override fun consume() {
         _effect.update { null }
+    }
+
+    private fun onEmailChange(email: String) {
+        _uiState.update {
+            it.copy(
+                email = email,
+                emailError = email.isNotEmpty()
+            )
+        }
+    }
+
+    private fun onFirstNameChange(name: String) {
+        _uiState.update {
+            it.copy(
+                firstName = name,
+                firstNameError = name.isEmpty()
+            )
+        }
+    }
+
+    private fun onPasswordChange(password: String) {
+        _uiState.update {
+            it.copy(
+                password = password,
+                passwordError = password.isNotEmpty()
+            )
+        }
     }
 }

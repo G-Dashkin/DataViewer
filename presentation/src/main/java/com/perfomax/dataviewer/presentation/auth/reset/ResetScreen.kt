@@ -32,6 +32,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.perfomax.dataviewer.presentation.auth.login.LoginContract
 import com.perfomax.dataviewer.ui.theme.DataViewerTheme
 import com.perfomax.dataviewer.ui.theme.cornerShape8
 import com.perfomax.dataviewer.ui.theme.height100
@@ -49,8 +50,8 @@ import com.perfomax.ui.R
 
 @Composable
 fun ResetScreen(
-//    resetUiState: ResetUiState,
-    resetViewModel: ResetViewModel,
+    uiState: ResetContract.State,
+    onEmailChange: (String) -> Unit,
     onNavigateToLogin: () -> Unit
 ) {
     Column(
@@ -75,10 +76,10 @@ fun ResetScreen(
                 .defaultMinSize(minHeight = height50)
                 .background(color = MaterialTheme.colorScheme.background)
                 .padding(start = padding15, end = padding15),
-            text = "",
+            text = uiState.email,
             labelText = stringResource(id = R.string.email),
             isError = false,
-            onChange = {}
+            onChange = onEmailChange
         )
         Spacer(modifier = Modifier.height(height15))
         Button(modifier = Modifier.fillMaxWidth()
@@ -115,11 +116,9 @@ fun ResetScreen(
 @Composable
 fun ResetScreenPreview() {
     DataViewerTheme {
-        val resetViewModel: ResetViewModel = viewModel()
-//        val resetUiState by resetViewModel.resetPasswordUiState.collectAsStateWithLifecycle()
         ResetScreen(
-//            resetUiState = resetUiState,
-            resetViewModel = resetViewModel,
+            uiState = ResetContract.State.initial(),
+            onEmailChange = {},
             onNavigateToLogin = {}
         )
     }

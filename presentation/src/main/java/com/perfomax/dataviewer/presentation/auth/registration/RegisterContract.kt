@@ -7,25 +7,25 @@ interface RegisterContract:
     UnidirectionalViewModel<RegisterContract.Event, RegisterContract.State, RegisterContract.Effect?> {
 
     data class State(
-        val login: String,
-        val loginError: Boolean,
         val firstName: String,
         val firstNameError: Boolean,
+        val email: String,
+        val emailError: Boolean,
         val password: String,
         val passwordError: Boolean
     ) {
         companion object {
             fun initial(): State = State(
-                login = EMPTY,
-                loginError = false,
+                email = EMPTY,
+                emailError = false,
                 firstName = EMPTY,
                 firstNameError = false,
                 password = EMPTY,
                 passwordError = false
             )
             fun notCreate(): State = State(
-                login = EMPTY,
-                loginError = false,
+                email = EMPTY,
+                emailError = false,
                 firstName = EMPTY,
                 firstNameError = false,
                 password = EMPTY,

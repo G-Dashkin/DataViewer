@@ -1,5 +1,6 @@
 package com.perfomax.dataviewer.presentation.auth.login
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -17,8 +18,8 @@ class LoginViewModel: ViewModel(), LoginContract {
 
     override fun intent(event: LoginContract.Event) {
         when(event) {
-            is LoginContract.Event.EmailChangeEvent -> {}
-            is LoginContract.Event.PasswordChangeEvent -> {}
+            is LoginContract.Event.EmailChangeEvent -> onEmailChange(event.email)
+            is LoginContract.Event.PasswordChangeEvent -> onPasswordChange(event.password)
             LoginContract.Event.LoginEvent -> {}
             LoginContract.Event.RegisterEvent -> {}
             LoginContract.Event.ResetEvent -> {}
@@ -27,6 +28,24 @@ class LoginViewModel: ViewModel(), LoginContract {
 
     override fun consume() {
         _effect.update { null }
+    }
+
+    private fun onEmailChange(email: String) {
+        _uiState.update {
+            it.copy(
+                login = email,
+                loginError = email.isNotEmpty()
+            )
+        }
+    }
+
+    private fun onPasswordChange(password: String) {
+        _uiState.update {
+            it.copy(
+                password = password,
+                passwordError = password.isNotEmpty()
+            )
+        }
     }
 
 }

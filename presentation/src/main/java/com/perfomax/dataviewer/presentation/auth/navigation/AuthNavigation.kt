@@ -1,5 +1,6 @@
 package com.perfomax.dataviewer.presentation.auth.navigation
 
+import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -9,10 +10,13 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navigation
 import com.perfomax.dataviewer.navigation.NavigationDestination
 import com.perfomax.dataviewer.navigation.TopLevelDestination
+import com.perfomax.dataviewer.presentation.auth.login.LoginContract
 import com.perfomax.dataviewer.presentation.auth.login.LoginScreen
 import com.perfomax.dataviewer.presentation.auth.login.LoginViewModel
+import com.perfomax.dataviewer.presentation.auth.registration.RegisterContract
 import com.perfomax.dataviewer.presentation.auth.registration.RegisterScreen
 import com.perfomax.dataviewer.presentation.auth.registration.RegisterViewModel
+import com.perfomax.dataviewer.presentation.auth.reset.ResetContract
 import com.perfomax.dataviewer.presentation.auth.reset.ResetScreen
 import com.perfomax.dataviewer.presentation.auth.reset.ResetViewModel
 import com.perfomax.ui.R
@@ -65,32 +69,49 @@ fun NavGraphBuilder.authentication(
         composable(route = LoginDestination.route) {
 
             val loginViewModel: LoginViewModel = viewModel()
-//            val loginUiState by loginViewModel.loginUiState.collectAsStateWithLifecycle()
+            val loginUiState by loginViewModel.uiState.collectAsStateWithLifecycle()
             LoginScreen(
-//                loginUiState = loginUiState,
-                loginViewModel = loginViewModel,
+                uiState = loginUiState,
+                onEmailChange = { email ->
+                    Log.d("MyLog", email)
+                    loginViewModel.intent(LoginContract.Event.EmailChangeEvent(email))
+                },
+                onPasswordChange = { password ->
+                    loginViewModel.intent(LoginContract.Event.PasswordChangeEvent(password))
+                },
                 onLoginClicked = onLoginClicked,
                 onNavigateToRegister = onNavigateToRegister,
-                onNavigateToReset = onNavigateToReset
+                onNavigateToReset = onNavigateToReset,
             )
         }
 
         composable(route = RegisterDestination.route) {
             val registerViewModel: RegisterViewModel = viewModel()
-//            val registerUpUiState by registerViewModel.signUpUiState.collectAsStateWithLifecycle()
+            val registerUiState by registerViewModel.uiState.collectAsStateWithLifecycle()
             RegisterScreen(
-//                registerUiState = registerUpUiState,
-                registerViewModel = registerViewModel,
-                onNavigateToLogin = onNavigateToLogin,
+                uiState = registerUiState,
+                onFirstName = { first ->
+                    registerViewModel.intent(RegisterContract.Event.FirstNameChangeEvent(first))
+                },
+                onEmailChange = { email ->
+                    registerViewModel.intent(RegisterContract.Event.EmailChangeEvent(email))
+                },
+                onPasswordChange = { password ->
+                    registerViewModel.intent(RegisterContract.Event.PasswordChangeEvent(password))
+                },
+                onNavigateToLogin = onNavigateToLogin
+
             )
         }
 
         composable(route = ResetDestination.route) {
             val resetViewModel: ResetViewModel = viewModel()
-//            val resetUiState by resetViewModel.resetPasswordUiState.collectAsStateWithLifecycle()
+            val resetUiState by resetViewModel.uiState.collectAsStateWithLifecycle()
             ResetScreen(
-//                resetUiState = resetUiState,
-                resetViewModel = resetViewModel,
+                uiState = resetUiState,
+                onEmailChange = { email ->
+                    resetViewModel.intent(ResetContract.Event.EmailChangeEvent(email))
+                },
                 onNavigateToLogin = onNavigateToLogin
             )
         }
