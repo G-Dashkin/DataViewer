@@ -80,7 +80,7 @@ fun LoginScreen(
                                .padding(start = padding15, end = padding15),
             text = uiState.login,
             labelText = stringResource(id = R.string.email),
-            isError = false,
+            isError = uiState.loginError,
             onChange = onEmailChange
         )
         Spacer(modifier = Modifier.height(height5))
@@ -91,7 +91,7 @@ fun LoginScreen(
                                .padding(start = padding15, end = padding15),
             text = uiState.password,
             labelText = stringResource(id = R.string.password),
-            isError = false,
+            isError = uiState.passwordError,
             onChange = onPasswordChange
         )
         Spacer(modifier = Modifier.height(height15))

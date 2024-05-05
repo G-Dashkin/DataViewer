@@ -44,23 +44,33 @@ class LoginViewModel @Inject constructor(
             val allUsers = getUsersUseCase.execute()
             val email = _uiState.value.login
             val password = _uiState.value.password
-            allUsers.forEach { user ->
-                if (user.email != email) {
-                    Log.d("MyLog", "Пользователь не зарегистрирован")
-                } else if ( user.password != password) {
-                    Log.d("MyLog", "Пароль не верный")
-                } else {
-                    Log.d("MyLog", "Выполнение юзкейса Login, сохранение залогиненно пользователя и переход на экран Home")
-                    setAuthUseCase.execute(user.userName)
-                    _effect.update {
-                        LoginContract.Effect.Login
+
+            val emailValid = email.isNotEmpty()
+            val passwordValid = password.isNotEmpty()
+            if (emailValid && passwordValid) {
+                allUsers.forEach { user ->
+                    if (user.email != email) {
+                        Log.d("MyLog", "Пользователь не зарегистрирован")
+                    } else if ( user.password != password) {
+                        Log.d("MyLog", "Пароль не верный")
+                    } else {
+                        Log.d("MyLog", "Выполнение юзкейса Login, сохранение залогиненно пользователя и переход на экран Home")
+                        setAuthUseCase.execute(user.userName)
+                        _effect.update {
+                            LoginContract.Effect.Login
+                        }
                     }
                 }
+            } else {
+                _uiState.update { currentState ->
+                    LoginContract.State.notLogin()
+                    currentState.copy(
+                        loginError = email.isEmpty(),
+                        passwordError = password.isEmpty()
+                    )
+                }
             }
-
         }
-
-
     }
 
     private fun onRegister() {

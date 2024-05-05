@@ -19,7 +19,7 @@ interface LoginContract:
                 password = EMPTY,
                 passwordError = false
             )
-            fun notCreate(): State = State(
+            fun notLogin(): State = State(
                 login = EMPTY,
                 loginError = false,
                 password = EMPTY,
