@@ -30,6 +30,7 @@ val width5 = 5.dp
 val width10 = 10.dp
 val width40 = 40.dp
 val width100 = 100.dp
+val width250 = 250.dp
 val width300 = 300.dp
 val maxWidth051 = 0.51f
 

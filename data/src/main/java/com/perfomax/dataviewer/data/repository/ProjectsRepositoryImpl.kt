@@ -9,7 +9,7 @@ class ProjectsRepositoryImpl @Inject constructor(
     private val projectsStorage: ProjectsStorage
 ): ProjectsRepository {
     override suspend fun create(projectName: String) {
-        return projectsStorage.add(projectName = projectName)
+        projectsStorage.add(projectName = projectName)
     }
 
     override suspend fun getAll(): List<String> {

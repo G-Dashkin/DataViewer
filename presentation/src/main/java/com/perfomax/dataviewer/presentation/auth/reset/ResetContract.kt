@@ -30,8 +30,6 @@ interface ResetContract:
     }
 
     sealed interface Effect {
-        data object Register : Effect
-        data object Reset : Effect
-        data object SingIn : Effect
+        data object Login : Effect
     }
 }

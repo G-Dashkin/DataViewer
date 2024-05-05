@@ -344,8 +344,8 @@ class FeedsViewModel @Inject constructor(
                     state.copy(
                         feedNameError = feedName.any {
                             it.toString().contains("|") ||
-                                    it.toString().contains(";") ||
-                                    it.toString().contains(",")
+                            it.toString().contains(";") ||
+                            it.toString().contains(",")
                         },
                         feedNameErrorMessage = context.applicationContext.getString(R.string.feed_name_error)
                     )

@@ -37,9 +37,8 @@ interface LoginContract:
     }
 
     sealed interface Effect {
+        data object Login : Effect
         data object Register : Effect
         data object Reset : Effect
-        data object SingIn : Effect
-
     }
 }

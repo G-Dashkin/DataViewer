@@ -79,6 +79,18 @@ fun String.updateFeed(feed: String): String {
     }
     return newFeed.dropLast(1)
 }
+fun String.getUserName(): String {
+    return this.split("userName:")[1].split(";")[0]
+}
+
+fun String.email(): String {
+    return this.split("email:")[1].split(";")[0]
+}
+
+fun String.password(): String {
+    return this.split("password:")[1].split(";")[0]
+}
+
 // Other Extensions---------------------------------------------------------------------------------
 private fun checkSameElement(arrayFeed: ArrayList<String>, addedElement: String): Boolean {
 

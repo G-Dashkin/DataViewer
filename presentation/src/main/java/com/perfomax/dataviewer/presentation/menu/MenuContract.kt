@@ -7,14 +7,17 @@ interface MenuContract:
     UnidirectionalViewModel<MenuContract.Event, MenuContract.State, MenuContract.Effect?> {
 
     data class State(
-        val selectedProject: String
+        val selectedProject: String,
+        val authUser: String
     ) {
         companion object {
             fun initial(): State = State(
-                selectedProject = EMPTY
+                selectedProject = EMPTY,
+                authUser = EMPTY
             )
             fun notCreate(): State = State(
-                selectedProject = EMPTY
+                selectedProject = EMPTY,
+                authUser = EMPTY
             )
         }
     }

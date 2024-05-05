@@ -55,6 +55,7 @@ fun RegisterScreen(
     onEmailChange: (String) -> Unit,
     onPasswordChange: (String) -> Unit,
     onFirstName: (String) -> Unit,
+    onRegister: () -> Unit,
     onNavigateToLogin: () -> Unit
 ) {
     Column(
@@ -109,12 +110,12 @@ fun RegisterScreen(
         )
         Spacer(modifier = Modifier.height(height15))
         Button(modifier = Modifier.fillMaxWidth()
-            .padding(start = padding30, end = padding30)
-            .height(height50)
-            .requiredHeight(height40),
-            shape = RoundedCornerShape(cornerShape8),
-            contentPadding = PaddingValues(zeroVal),
-            onClick = {}
+                                  .padding(start = padding30, end = padding30)
+                                  .height(height50)
+                                  .requiredHeight(height40),
+               shape = RoundedCornerShape(cornerShape8),
+               contentPadding = PaddingValues(zeroVal),
+               onClick = onRegister
         ) {
             Text(text = stringResource(id = R.string.register),
                 color = MaterialTheme.colorScheme.onSecondary,
@@ -147,6 +148,7 @@ fun RegisterScreenPreview() {
             onEmailChange = {},
             onPasswordChange = {},
             onFirstName = {},
+            onRegister = {},
             onNavigateToLogin ={}
         )
     }

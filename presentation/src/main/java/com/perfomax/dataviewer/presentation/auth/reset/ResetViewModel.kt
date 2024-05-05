@@ -4,6 +4,7 @@ import androidx.compose.runtime.Immutable
 import androidx.lifecycle.ViewModel
 import com.perfomax.dataviewer.domain.EMPTY
 import com.perfomax.dataviewer.presentation.auth.login.LoginContract
+import com.perfomax.dataviewer.presentation.auth.registration.RegisterContract
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -20,9 +21,15 @@ class ResetViewModel: ViewModel(), ResetContract {
     override fun intent(event: ResetContract.Event) {
         when(event) {
             is ResetContract.Event.EmailChangeEvent -> onEmailChange(event.email)
-            ResetContract.Event.LoginEvent -> {}
+            ResetContract.Event.LoginEvent -> onLogin()
             ResetContract.Event.RegisterEvent -> {}
             ResetContract.Event.ResetEvent -> {}
+        }
+    }
+
+    private fun onLogin() {
+        _effect.update {
+            ResetContract.Effect.Login
         }
     }
 

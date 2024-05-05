@@ -2,6 +2,7 @@ package com.perfomax.dataviewer.presentation.menu
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.perfomax.dataviewer.domain.usecases.auth.GetAuthUseCase
 import com.perfomax.dataviewer.domain.usecases.projects.GetSelectedProjectUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
@@ -14,7 +15,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MenuViewModel @Inject constructor(
-    private val getSelectedProjectUseCase: GetSelectedProjectUseCase
+    private val getSelectedProjectUseCase: GetSelectedProjectUseCase,
+    private val getAuthUseCase: GetAuthUseCase
 ): ViewModel(), MenuContract {
 
     private val _uiState = MutableStateFlow(MenuContract.State.initial())
@@ -25,6 +27,7 @@ class MenuViewModel @Inject constructor(
 
     init {
         getSelectedProject()
+        authUser()
     }
 
     override fun intent(event: MenuContract.Event) {
@@ -50,6 +53,16 @@ class MenuViewModel @Inject constructor(
             _uiState.update { currentState ->
                 currentState.copy(
                     selectedProject = getSelectedProjectUseCase.execute()
+                )
+            }
+        }
+    }
+
+    private fun authUser(){
+        viewModelScope.launch {
+            _uiState.update { currentState ->
+                currentState.copy(
+                    authUser = getAuthUseCase.execute()
                 )
             }
         }

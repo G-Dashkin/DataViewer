@@ -1,9 +1,11 @@
 package com.perfomax.dataviewer.di
 
 import android.content.Context
+import com.perfomax.dataviewer.data.datastore.api.AuthDataStore
 import com.perfomax.dataviewer.data.datastore.api.FeedsDataStore
 import com.perfomax.dataviewer.data.datastore.api.ProjectsDataStore
 import com.perfomax.dataviewer.data.datastore.api.SettingsDataStore
+import com.perfomax.dataviewer.data.datastore.memory.AuthDataStoreImpl
 import com.perfomax.dataviewer.data.datastore.memory.FeedsDataStoreImpl
 import com.perfomax.dataviewer.data.datastore.memory.ProjectsDataStoreImpl
 import com.perfomax.dataviewer.data.datastore.memory.SettingsDataStoreImpl
@@ -34,4 +36,10 @@ object DataStoreModule {
     fun provideSettingsDatastore(
         @ApplicationContext context: Context
     ): SettingsDataStore = SettingsDataStoreImpl(context)
+
+    @Singleton
+    @Provides
+    fun provideAuthDatastore(
+        @ApplicationContext context: Context
+    ): AuthDataStore = AuthDataStoreImpl(context)
 }

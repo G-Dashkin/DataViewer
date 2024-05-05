@@ -114,22 +114,6 @@ class FeedsRepositoryImpl @Inject constructor(
     }
 
     override suspend fun updateFeedElement(updatedFeed: String) {
-//        Log.d("MyLog", updatedFeed)
-
-//        val updatedFeedList = mutableListOf<Feed>()
-//        feedList.forEach { feed ->
-//            val updatedFeedData = feedApi.updateFeedElements(feed)
-//            val updatedFeed = feed.copy(
-//                projectName = feed.projectName,
-//                feedName = feed.feedName,
-//                feedElement = feed.feedElement,
-//                feedElementCount = updatedFeedData.feedElementCount,
-//                feedUrl = feed.feedUrl,
-//                feedUpdateTime = updatedFeedData.feedUpdateTime,
-//                feedLoadTime = feed.feedLoadTime
-//            )
-//            updatedFeedList.add(updatedFeed)
-//        }
         feedsStorage.update(updatedFeed)
     }
 }

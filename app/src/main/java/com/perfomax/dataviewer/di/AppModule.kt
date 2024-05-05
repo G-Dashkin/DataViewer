@@ -3,13 +3,16 @@ package com.perfomax.dataviewer.di
 import android.content.Context
 import com.perfomax.dataviewer.data.network.api.FeedApi
 import com.perfomax.dataviewer.data.network.api.FeedApiImpl
+import com.perfomax.dataviewer.data.repository.AuthRepositoryImpl
 import com.perfomax.dataviewer.data.repository.FeedsRepositoryImpl
 import com.perfomax.dataviewer.data.repository.ProjectsRepositoryImpl
 import com.perfomax.dataviewer.data.repository.SettingsRepositoryImpl
+import com.perfomax.dataviewer.data.storage.api.AuthStorage
 import com.perfomax.dataviewer.data.storage.api.FeedsStorage
 import com.perfomax.dataviewer.data.storage.api.ProjectsStorage
 import com.perfomax.dataviewer.data.storage.api.SettingsStorage
 import com.perfomax.dataviewer.domain.repository.AlarmScheduler
+import com.perfomax.dataviewer.domain.repository.AuthRepository
 import com.perfomax.dataviewer.domain.repository.FeedsRepository
 import com.perfomax.dataviewer.domain.repository.ProjectsRepository
 import com.perfomax.dataviewer.domain.repository.SettingsRepository
@@ -47,6 +50,12 @@ object AppModule {
         settingsStorage: SettingsStorage
     ): SettingsRepository = SettingsRepositoryImpl(settingsStorage)
 
+    @Singleton
+    @Provides
+    fun provideAuthRepository(
+        authStorage: AuthStorage
+    ): AuthRepository = AuthRepositoryImpl(authStorage)
+
 
     @Singleton
     @Provides
@@ -62,5 +71,7 @@ object AppModule {
     fun provideFeedUpdateScheduleReceiver(
         @ApplicationContext context: Context
     ): AlarmScheduler = AlarmSchedulerImpl(context)
+
+
 
 }

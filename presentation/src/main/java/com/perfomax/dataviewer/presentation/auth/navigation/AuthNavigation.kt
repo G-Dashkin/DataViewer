@@ -2,6 +2,7 @@ package com.perfomax.dataviewer.presentation.auth.navigation
 
 import android.util.Log
 import androidx.compose.runtime.getValue
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavGraphBuilder
@@ -19,6 +20,8 @@ import com.perfomax.dataviewer.presentation.auth.registration.RegisterViewModel
 import com.perfomax.dataviewer.presentation.auth.reset.ResetContract
 import com.perfomax.dataviewer.presentation.auth.reset.ResetScreen
 import com.perfomax.dataviewer.presentation.auth.reset.ResetViewModel
+import com.perfomax.dataviewer.presentation.home.HomeViewModel
+import com.perfomax.dataviewer.ui.base.useEffects
 import com.perfomax.ui.R
 
 const val AUTH_GRAPH = "authentication"
@@ -63,31 +66,49 @@ fun NavGraphBuilder.authentication(
     onNavigateToLogin: () -> Unit,
     onNavigateToRegister: () -> Unit,
     onNavigateToReset: () -> Unit
-){
+){0
     navigation(startDestination = LoginDestination.route, route = AUTH_GRAPH){
 
         composable(route = LoginDestination.route) {
-
-            val loginViewModel: LoginViewModel = viewModel()
+            val loginViewModel = hiltViewModel<LoginViewModel>()
             val loginUiState by loginViewModel.uiState.collectAsStateWithLifecycle()
+            val loginEffects by loginViewModel.effect.collectAsStateWithLifecycle()
+
+            loginViewModel.useEffects {
+                when(loginEffects) {
+                    LoginContract.Effect.Login -> onLoginClicked()
+                    LoginContract.Effect.Register -> onNavigateToRegister()
+                    LoginContract.Effect.Reset -> onNavigateToReset()
+                    null -> Unit
+                }
+            }
+
             LoginScreen(
                 uiState = loginUiState,
                 onEmailChange = { email ->
-                    Log.d("MyLog", email)
                     loginViewModel.intent(LoginContract.Event.EmailChangeEvent(email))
                 },
                 onPasswordChange = { password ->
                     loginViewModel.intent(LoginContract.Event.PasswordChangeEvent(password))
                 },
-                onLoginClicked = onLoginClicked,
-                onNavigateToRegister = onNavigateToRegister,
-                onNavigateToReset = onNavigateToReset,
+                onLoginClicked = { loginViewModel.intent(LoginContract.Event.LoginEvent) },
+                onNavigateToRegister = { loginViewModel.intent(LoginContract.Event.RegisterEvent) },
+                onNavigateToReset = { loginViewModel.intent(LoginContract.Event.ResetEvent) },
             )
         }
 
         composable(route = RegisterDestination.route) {
-            val registerViewModel: RegisterViewModel = viewModel()
+            val registerViewModel = hiltViewModel<RegisterViewModel>()
             val registerUiState by registerViewModel.uiState.collectAsStateWithLifecycle()
+            val registerEffects by registerViewModel.effect.collectAsStateWithLifecycle()
+
+            registerViewModel.useEffects {
+                when(registerEffects) {
+                    RegisterContract.Effect.Login -> onNavigateToLogin()
+                    null -> Unit
+                }
+            }
+
             RegisterScreen(
                 uiState = registerUiState,
                 onFirstName = { first ->
@@ -99,20 +120,29 @@ fun NavGraphBuilder.authentication(
                 onPasswordChange = { password ->
                     registerViewModel.intent(RegisterContract.Event.PasswordChangeEvent(password))
                 },
-                onNavigateToLogin = onNavigateToLogin
-
+                onRegister = { registerViewModel.intent(RegisterContract.Event.RegisterEvent) },
+                onNavigateToLogin = { registerViewModel.intent(RegisterContract.Event.LoginEvent) }
             )
         }
 
         composable(route = ResetDestination.route) {
             val resetViewModel: ResetViewModel = viewModel()
             val resetUiState by resetViewModel.uiState.collectAsStateWithLifecycle()
+            val registerEffects by resetViewModel.effect.collectAsStateWithLifecycle()
+
+            resetViewModel.useEffects {
+                when(registerEffects) {
+                    ResetContract.Effect.Login -> onNavigateToLogin()
+                    null -> Unit
+                }
+            }
+
             ResetScreen(
                 uiState = resetUiState,
                 onEmailChange = { email ->
                     resetViewModel.intent(ResetContract.Event.EmailChangeEvent(email))
                 },
-                onNavigateToLogin = onNavigateToLogin
+                onNavigateToLogin = { resetViewModel.intent(ResetContract.Event.LoginEvent) }
             )
         }
 
