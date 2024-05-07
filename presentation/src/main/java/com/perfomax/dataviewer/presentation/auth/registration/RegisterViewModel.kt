@@ -1,17 +1,14 @@
 package com.perfomax.dataviewer.presentation.auth.registration
 
-import android.util.Log
-import androidx.compose.runtime.Immutable
-import androidx.compose.ui.text.toLowerCase
+import android.app.Application
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.perfomax.dataviewer.domain.EMPTY
-import com.perfomax.dataviewer.domain.models.User
 import com.perfomax.dataviewer.domain.usecases.auth.GetUsersUseCase
 import com.perfomax.dataviewer.domain.usecases.auth.RegisterUseCase
-import com.perfomax.dataviewer.domain.usecases.settings.SetUpdatePeriodUseCase
+import com.perfomax.dataviewer.domain.utils.getEmail
 import com.perfomax.dataviewer.domain.utils.getUserName
 import com.perfomax.dataviewer.presentation.auth.login.LoginContract
+import com.perfomax.ui.R
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -23,6 +20,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class RegisterViewModel @Inject constructor(
+    private val context: Application,
     private val registerUseCase: RegisterUseCase,
     private val getUsersUseCase: GetUsersUseCase
 ): ViewModel(), RegisterContract {
@@ -32,12 +30,6 @@ class RegisterViewModel @Inject constructor(
 
     override val uiState: StateFlow<RegisterContract.State> = _uiState.asStateFlow()
     override val effect: StateFlow<RegisterContract.Effect?> = _effect.asStateFlow()
-
-    init {
-        viewModelScope.launch {
-
-        }
-    }
 
     override fun intent(event: RegisterContract.Event) {
         when(event) {
@@ -50,21 +42,20 @@ class RegisterViewModel @Inject constructor(
         }
     }
 
+    override fun consume() {
+        _effect.update { null }
+    }
+
     private fun onLogin() {
         _effect.update {
             RegisterContract.Effect.Login
         }
     }
 
-    override fun consume() {
-        _effect.update { null }
-    }
-
     private fun onEmailChange(email: String) {
         _uiState.update {
             it.copy(
-                email = email,
-                emailError = email.isNotEmpty()
+                email = email
             )
         }
     }
@@ -72,8 +63,7 @@ class RegisterViewModel @Inject constructor(
     private fun onFirstNameChange(name: String) {
         _uiState.update {
             it.copy(
-                firstName = name,
-                firstNameError = name.isEmpty()
+                firstName = name
             )
         }
     }
@@ -81,8 +71,7 @@ class RegisterViewModel @Inject constructor(
     private fun onPasswordChange(password: String) {
         _uiState.update {
             it.copy(
-                password = password,
-                passwordError = password.isNotEmpty()
+                password = password
             )
         }
     }
@@ -92,21 +81,122 @@ class RegisterViewModel @Inject constructor(
                       "email:${_uiState.value.email};" +
                       "password:${_uiState.value.password}"
 
+        val email = _uiState.value.email
+        val firstName = _uiState.value.firstName
+        val password = _uiState.value.password
+
+        val emailValid = email.isNotEmpty()
+        val firstNameValid = firstName.isNotEmpty()
+        val passwordValid = password.isNotEmpty()
+
         viewModelScope.launch {
             val allUsers = getUsersUseCase.execute()
             var newUserNameIsUnique = true
-            if (allUsers.isEmpty()) {
-                registerUseCase.execute(newUser)
-                onLogin()
-            } else {
-                allUsers.forEach {
-                    if (it.userName.lowercase(Locale.ROOT) == newUser.getUserName().lowercase(Locale.ROOT)) {
-                        newUserNameIsUnique = false
-                    }
-                }
-                if (newUserNameIsUnique) {
+
+            if (firstNameValid && emailValid && passwordValid) {
+                if (allUsers.isEmpty()) {
                     registerUseCase.execute(newUser)
                     onLogin()
+                } else {
+                    allUsers.forEach {
+                        if (it.email.lowercase(Locale.ROOT) == newUser.getEmail().lowercase(Locale.ROOT)) {
+                            newUserNameIsUnique = false
+                        }
+                    }
+                    if (newUserNameIsUnique) {
+                        _uiState.update { currentState ->
+                            currentState.copy(
+                                emailError = email.isEmpty(),
+                                firstNameError = firstName.isEmpty(),
+                                passwordError = password.isEmpty()
+                            )
+                        }
+                        registerUseCase.execute(newUser)
+                        onLogin()
+                    } else {
+                        _uiState.update { currentState ->
+                            RegisterContract.State.notRegister()
+                            currentState.copy(
+                                emailError = true,
+                                emailErrorMessage = context.applicationContext.getString(R.string.empty_email_field),
+                            )
+                        }
+                    }
+                }
+            } else if (firstName.isEmpty() && email.isEmpty() && password.isEmpty()) {
+                _uiState.update { currentState ->
+                    RegisterContract.State.notRegister()
+                    currentState.copy(
+                        firstNameError = firstName.isEmpty(),
+                        firstNameErrorMessage = context.applicationContext.getString(R.string.empty_first_name_field),
+                        emailError = email.isEmpty(),
+                        emailErrorMessage = context.applicationContext.getString(R.string.empty_email_field),
+                        passwordError = password.isEmpty(),
+                        passwordErrorMessage = context.applicationContext.getString(R.string.empty_password_field)
+                    )
+                }
+            } else if(email.isEmpty() && password.isEmpty()) {
+                _uiState.update { currentState ->
+                    RegisterContract.State.notRegister()
+                    currentState.copy(
+                        firstNameError = firstName.isEmpty(),
+                        emailError = email.isEmpty(),
+                        emailErrorMessage = context.applicationContext.getString(R.string.empty_email_field),
+                        passwordError = password.isEmpty(),
+                        passwordErrorMessage = context.applicationContext.getString(R.string.empty_password_field)
+                    )
+                }
+            } else if(firstName.isEmpty() && password.isEmpty()) {
+                _uiState.update { currentState ->
+                    RegisterContract.State.notRegister()
+                    currentState.copy(
+                        firstNameError = firstName.isEmpty(),
+                        firstNameErrorMessage = context.applicationContext.getString(R.string.empty_first_name_field),
+                        emailError = email.isEmpty(),
+                        passwordError = password.isEmpty(),
+                        passwordErrorMessage = context.applicationContext.getString(R.string.empty_password_field)
+                    )
+                }
+            } else if(firstName.isEmpty() && email.isEmpty()) {
+                _uiState.update { currentState ->
+                    RegisterContract.State.notRegister()
+                    currentState.copy(
+                        firstNameError = firstName.isEmpty(),
+                        firstNameErrorMessage = context.applicationContext.getString(R.string.empty_first_name_field),
+                        emailError = email.isEmpty(),
+                        emailErrorMessage = context.applicationContext.getString(R.string.empty_email_field),
+                        passwordError = password.isEmpty()
+                    )
+                }
+            } else if(firstName.isEmpty()) {
+                _uiState.update { currentState ->
+                    RegisterContract.State.notRegister()
+                    currentState.copy(
+                        firstNameError = firstName.isEmpty(),
+                        firstNameErrorMessage = context.applicationContext.getString(R.string.empty_first_name_field),
+                        emailError = email.isEmpty(),
+                        passwordError = password.isEmpty()
+                    )
+                }
+            } else if(email.isEmpty()) {
+                _uiState.update { currentState ->
+                    RegisterContract.State.notRegister()
+                    currentState.copy(
+                        firstNameError = firstName.isEmpty(),
+                        emailError = email.isEmpty(),
+                        emailErrorMessage = context.applicationContext.getString(R.string.empty_email_field),
+                        passwordError = password.isEmpty()
+                    )
+                }
+            } else if (password.isEmpty()){
+                _uiState.update { currentState ->
+                    RegisterContract.State.notRegister()
+                    currentState.copy(
+                        firstNameError = firstName.isEmpty(),
+                        emailError = email.isEmpty(),
+                        passwordError = password.isEmpty(),
+                        passwordErrorMessage = context.applicationContext.getString(R.string.empty_password_field)
+                    )
                 }
             }
         }

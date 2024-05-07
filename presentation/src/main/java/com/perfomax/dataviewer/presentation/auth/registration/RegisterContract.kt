@@ -9,27 +9,36 @@ interface RegisterContract:
     data class State(
         val firstName: String,
         val firstNameError: Boolean,
+        val firstNameErrorMessage: String,
         val email: String,
         val emailError: Boolean,
+        val emailErrorMessage: String,
         val password: String,
-        val passwordError: Boolean
+        val passwordError: Boolean,
+        val passwordErrorMessage: String
     ) {
         companion object {
             fun initial(): State = State(
-                email = EMPTY,
-                emailError = false,
                 firstName = EMPTY,
                 firstNameError = false,
+                firstNameErrorMessage = EMPTY,
+                email = EMPTY,
+                emailError = false,
+                emailErrorMessage = EMPTY,
                 password = EMPTY,
-                passwordError = false
+                passwordError = false,
+                passwordErrorMessage = EMPTY
             )
-            fun notCreate(): State = State(
-                email = EMPTY,
-                emailError = false,
+            fun notRegister(): State = State(
                 firstName = EMPTY,
                 firstNameError = false,
+                firstNameErrorMessage = EMPTY,
+                email = EMPTY,
+                emailError = false,
+                emailErrorMessage = EMPTY,
                 password = EMPTY,
-                passwordError = false
+                passwordError = false,
+                passwordErrorMessage = EMPTY
             )
         }
     }

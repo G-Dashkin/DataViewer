@@ -83,11 +83,11 @@ fun String.getUserName(): String {
     return this.split("userName:")[1].split(";")[0]
 }
 
-fun String.email(): String {
+fun String.getEmail(): String {
     return this.split("email:")[1].split(";")[0]
 }
 
-fun String.password(): String {
+fun String.getPassword(): String {
     return this.split("password:")[1].split(";")[0]
 }
 

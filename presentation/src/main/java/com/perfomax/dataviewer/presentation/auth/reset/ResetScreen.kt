@@ -45,6 +45,7 @@ import com.perfomax.dataviewer.ui.theme.padding30
 import com.perfomax.dataviewer.ui.theme.width100
 import com.perfomax.dataviewer.ui.theme.width5
 import com.perfomax.dataviewer.ui.theme.zeroVal
+import com.perfomax.dataviewer.ui.widgets.FormTextFieldAuth
 import com.perfomax.dataviewer.ui.widgets.FormTextFieldDefault
 import com.perfomax.ui.R
 
@@ -52,7 +53,8 @@ import com.perfomax.ui.R
 fun ResetScreen(
     uiState: ResetContract.State,
     onEmailChange: (String) -> Unit,
-    onNavigateToLogin: () -> Unit
+    onNavigateToLogin: () -> Unit,
+    onResetClicked: () -> Unit
 ) {
     Column(
         modifier = Modifier.fillMaxSize(),
@@ -70,15 +72,11 @@ fun ResetScreen(
             style = MaterialTheme.typography.headlineLarge)
         Spacer(modifier = Modifier.height(height100))
         Text(text = stringResource(id = R.string.reset), fontSize = 22.sp)
-
-        FormTextFieldDefault(
-            modifier = Modifier.fillMaxWidth()
-                .defaultMinSize(minHeight = height50)
-                .background(color = MaterialTheme.colorScheme.background)
-                .padding(start = padding15, end = padding15),
+        FormTextFieldAuth(
             text = uiState.email,
             labelText = stringResource(id = R.string.email),
-            isError = false,
+            isError = uiState.emailError,
+            errorMessage = uiState.emailErrorMessage,
             onChange = onEmailChange
         )
         Spacer(modifier = Modifier.height(height15))
@@ -88,7 +86,7 @@ fun ResetScreen(
             .requiredHeight(height40),
             shape = RoundedCornerShape(cornerShape8),
             contentPadding = PaddingValues(zeroVal),
-            onClick = {}
+            onClick = onResetClicked
         ) {
             Text(text = stringResource(id = R.string.send),
                 color = MaterialTheme.colorScheme.onSecondary,
@@ -119,7 +117,8 @@ fun ResetScreenPreview() {
         ResetScreen(
             uiState = ResetContract.State.initial(),
             onEmailChange = {},
-            onNavigateToLogin = {}
+            onNavigateToLogin = {},
+            onResetClicked = {}
         )
     }
 }

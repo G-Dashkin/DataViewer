@@ -41,6 +41,12 @@
     <string name="feed_url_error">Фид с указанным URL уже присутствуем в данннм проекте</string>
     <string name="internet_error">Нет подключения к интернету</string>
     <string name="empty_field">Поле не должно быть пустым</string>
+    <string name="empty_email_field">Поле Email не должно быть пустым</string>
+    <string name="empty_first_name_field">Поле First Name не должно быть пустым</string>
+    <string name="empty_password_field">Поле Password не должно быть пустым</string>
+    <string name="email_error">Email не зарегистрирован</string>
+    <string name="email_exist">Пользователь с таким Email уже зарегистрирован</string>
+    <string name="password_error">Пароль не верный</string>
     <string name="project_error">Поле проект не должно содержать знаков | ; ,</string>
     <string name="feed_name_error">Название фида не должно содержать знаков | ; ,</string>
     <string name="project_field_empty">Поле проект не должно быть пустым</string>

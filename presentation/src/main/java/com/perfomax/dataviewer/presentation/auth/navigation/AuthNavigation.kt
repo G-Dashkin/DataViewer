@@ -126,7 +126,7 @@ fun NavGraphBuilder.authentication(
         }
 
         composable(route = ResetDestination.route) {
-            val resetViewModel: ResetViewModel = viewModel()
+            val resetViewModel = hiltViewModel<ResetViewModel>()
             val resetUiState by resetViewModel.uiState.collectAsStateWithLifecycle()
             val registerEffects by resetViewModel.effect.collectAsStateWithLifecycle()
 
@@ -142,7 +142,8 @@ fun NavGraphBuilder.authentication(
                 onEmailChange = { email ->
                     resetViewModel.intent(ResetContract.Event.EmailChangeEvent(email))
                 },
-                onNavigateToLogin = { resetViewModel.intent(ResetContract.Event.LoginEvent) }
+                onNavigateToLogin = { resetViewModel.intent(ResetContract.Event.LoginEvent) },
+                onResetClicked = { resetViewModel.intent(ResetContract.Event.ResetEvent) }
             )
         }
 

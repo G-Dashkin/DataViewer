@@ -45,6 +45,7 @@ import com.perfomax.dataviewer.ui.theme.padding30
 import com.perfomax.dataviewer.ui.theme.width100
 import com.perfomax.dataviewer.ui.theme.width5
 import com.perfomax.dataviewer.ui.theme.zeroVal
+import com.perfomax.dataviewer.ui.widgets.FormTextFieldAuth
 import com.perfomax.dataviewer.ui.widgets.FormTextFieldDefault
 import com.perfomax.ui.R
 
@@ -63,8 +64,9 @@ fun LoginScreen(
         verticalArrangement = Arrangement.Center
     ) {
         Image(
-            modifier = Modifier.width(width100)
-                               .height(width100),
+            modifier = Modifier
+                .width(width100)
+                .height(width100),
             painter = painterResource(id = R.drawable.logo),
             contentDescription = stringResource(id = R.string.logo)
         )
@@ -73,32 +75,27 @@ fun LoginScreen(
             style = MaterialTheme.typography.headlineLarge)
         Spacer(modifier = Modifier.height(height100))
         Text(text = stringResource(id = R.string.login), fontSize = 22.sp)
-        FormTextFieldDefault(
-            modifier = Modifier.fillMaxWidth()
-                               .defaultMinSize(minHeight = height50)
-                               .background(color = MaterialTheme.colorScheme.background)
-                               .padding(start = padding15, end = padding15),
+        FormTextFieldAuth(
             text = uiState.login,
             labelText = stringResource(id = R.string.email),
             isError = uiState.loginError,
+            errorMessage = uiState.loginErrorMessage,
             onChange = onEmailChange
         )
         Spacer(modifier = Modifier.height(height5))
-        FormTextFieldDefault(
-            modifier = Modifier.fillMaxWidth()
-                               .defaultMinSize(minHeight = height50)
-                               .background(color = MaterialTheme.colorScheme.background)
-                               .padding(start = padding15, end = padding15),
+        FormTextFieldAuth(
             text = uiState.password,
             labelText = stringResource(id = R.string.password),
             isError = uiState.passwordError,
+            errorMessage = uiState.passwordErrorMessage,
             onChange = onPasswordChange
         )
         Spacer(modifier = Modifier.height(height15))
-        Button(modifier = Modifier.fillMaxWidth()
-                                  .padding(start = padding30, end = padding30)
-                                  .height(height50)
-                                  .requiredHeight(height40),
+        Button(modifier = Modifier
+            .fillMaxWidth()
+            .padding(start = padding30, end = padding30)
+            .height(height50)
+            .requiredHeight(height40),
             shape = RoundedCornerShape(cornerShape8),
             contentPadding = PaddingValues(zeroVal),
             onClick = onLoginClicked

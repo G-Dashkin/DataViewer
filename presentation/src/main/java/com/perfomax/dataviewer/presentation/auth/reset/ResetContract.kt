@@ -8,23 +8,25 @@ interface ResetContract:
 
     data class State(
         val email: String,
-        val emailError: Boolean
+        val emailError: Boolean,
+        val emailErrorMessage: String
     ) {
         companion object {
             fun initial(): State = State(
                 email = EMPTY,
-                emailError = false
+                emailError = false,
+                emailErrorMessage = EMPTY
             )
-            fun notCreate(): State = State(
+            fun notRest(): State = State(
                 email = EMPTY,
-                emailError = false
+                emailError = false,
+                emailErrorMessage = EMPTY
             )
         }
     }
 
     sealed interface Event {
         data object LoginEvent: Event
-        data object RegisterEvent: Event
         data object ResetEvent: Event
         data class EmailChangeEvent(val email: String): Event
     }

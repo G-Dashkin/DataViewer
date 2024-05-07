@@ -9,21 +9,27 @@ interface LoginContract:
     data class State(
         val login: String,
         val loginError: Boolean,
+        val loginErrorMessage: String,
         val password: String,
-        val passwordError: Boolean
+        val passwordError: Boolean,
+        val passwordErrorMessage: String
     ) {
         companion object {
             fun initial(): State = State(
                 login = EMPTY,
                 loginError = false,
+                loginErrorMessage = EMPTY,
                 password = EMPTY,
-                passwordError = false
+                passwordError = false,
+                passwordErrorMessage = EMPTY
             )
             fun notLogin(): State = State(
                 login = EMPTY,
                 loginError = false,
+                loginErrorMessage = EMPTY,
                 password = EMPTY,
-                passwordError = false
+                passwordError = false,
+                passwordErrorMessage = EMPTY
             )
         }
     }

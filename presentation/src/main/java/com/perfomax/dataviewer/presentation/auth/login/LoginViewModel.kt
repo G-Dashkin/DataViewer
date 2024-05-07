@@ -1,5 +1,6 @@
 package com.perfomax.dataviewer.presentation.auth.login
 
+import android.app.Application
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -8,6 +9,7 @@ import com.perfomax.dataviewer.domain.usecases.auth.GetUsersUseCase
 import com.perfomax.dataviewer.domain.usecases.auth.RegisterUseCase
 import com.perfomax.dataviewer.domain.usecases.auth.SetAuthUseCase
 import com.perfomax.dataviewer.presentation.auth.registration.RegisterContract
+import com.perfomax.ui.R
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -18,6 +20,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class LoginViewModel @Inject constructor(
+    private val context: Application,
     private val getUsersUseCase: GetUsersUseCase,
     private val setAuthUseCase: SetAuthUseCase
 ): ViewModel(), LoginContract {
@@ -39,38 +42,8 @@ class LoginViewModel @Inject constructor(
         }
     }
 
-    private fun onLogin() {
-        viewModelScope.launch {
-            val allUsers = getUsersUseCase.execute()
-            val email = _uiState.value.login
-            val password = _uiState.value.password
-
-            val emailValid = email.isNotEmpty()
-            val passwordValid = password.isNotEmpty()
-            if (emailValid && passwordValid) {
-                allUsers.forEach { user ->
-                    if (user.email != email) {
-                        Log.d("MyLog", "Пользователь не зарегистрирован")
-                    } else if ( user.password != password) {
-                        Log.d("MyLog", "Пароль не верный")
-                    } else {
-                        Log.d("MyLog", "Выполнение юзкейса Login, сохранение залогиненно пользователя и переход на экран Home")
-                        setAuthUseCase.execute(user.userName)
-                        _effect.update {
-                            LoginContract.Effect.Login
-                        }
-                    }
-                }
-            } else {
-                _uiState.update { currentState ->
-                    LoginContract.State.notLogin()
-                    currentState.copy(
-                        loginError = email.isEmpty(),
-                        passwordError = password.isEmpty()
-                    )
-                }
-            }
-        }
+    override fun consume() {
+        _effect.update { null }
     }
 
     private fun onRegister() {
@@ -85,15 +58,10 @@ class LoginViewModel @Inject constructor(
         }
     }
 
-    override fun consume() {
-        _effect.update { null }
-    }
-
     private fun onEmailChange(email: String) {
         _uiState.update {
             it.copy(
-                login = email,
-                loginError = email.isNotEmpty()
+                login = email
             )
         }
     }
@@ -101,9 +69,80 @@ class LoginViewModel @Inject constructor(
     private fun onPasswordChange(password: String) {
         _uiState.update {
             it.copy(
-                password = password,
-                passwordError = password.isNotEmpty()
+                password = password
             )
+        }
+    }
+
+    private fun onLogin() {
+        viewModelScope.launch {
+            val allUsers = getUsersUseCase.execute()
+            val email = _uiState.value.login
+            val password = _uiState.value.password
+
+            val emailValid = email.isNotEmpty()
+            val passwordValid = password.isNotEmpty()
+
+            if (emailValid && passwordValid) {
+                allUsers.forEach { user ->
+                    if (user.email != email) {
+                        _uiState.update { currentState ->
+                            currentState.copy(
+                                loginErrorMessage = context.applicationContext.getString(R.string.email_error),
+                                loginError = true,
+                                passwordError = false
+                            )
+                        }
+                    } else if ( user.password != password) {
+                        _uiState.update { currentState ->
+                            currentState.copy(
+                                passwordErrorMessage = context.applicationContext.getString(R.string.password_error),
+                                passwordError = true,
+                                loginError = false
+                            )
+                        }
+                    } else {
+                        _uiState.update { currentState ->
+                            currentState.copy(
+                                passwordError = false,
+                                loginError = false
+                            )
+                        }
+                        setAuthUseCase.execute(user.userName)
+                        _effect.update {
+                            LoginContract.Effect.Login
+                        }
+                    }
+                }
+            } else if (email.isEmpty() && password.isEmpty()) {
+                _uiState.update { currentState ->
+                    LoginContract.State.notLogin()
+                    currentState.copy(
+                        loginError = email.isEmpty(),
+                        loginErrorMessage = context.applicationContext.getString(R.string.empty_email_field),
+                        passwordError = password.isEmpty(),
+                        passwordErrorMessage = context.applicationContext.getString(R.string.empty_password_field)
+                    )
+                }
+            } else if(email.isEmpty()) {
+                _uiState.update { currentState ->
+                    LoginContract.State.notLogin()
+                    currentState.copy(
+                        loginError = email.isEmpty(),
+                        passwordError = password.isEmpty(),
+                        loginErrorMessage = context.applicationContext.getString(R.string.empty_email_field)
+                    )
+                }
+            } else if(password.isEmpty()) {
+                _uiState.update { currentState ->
+                    LoginContract.State.notLogin()
+                    currentState.copy(
+                        passwordError = password.isEmpty(),
+                        loginError = email.isEmpty(),
+                        passwordErrorMessage = context.applicationContext.getString(R.string.empty_password_field)
+                    )
+                }
+            }
         }
     }
 
