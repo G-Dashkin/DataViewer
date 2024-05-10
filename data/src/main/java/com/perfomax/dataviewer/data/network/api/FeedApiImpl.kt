@@ -57,11 +57,21 @@ class FeedApiImpl: FeedApi {
         var feedUpdateDate = ""
         var feedLoadTime = ""
 
-        processedFeed.split("><").forEach {
-            if (it.contains(feed.feedElement)){
-                elementCounter = elementCounter.inc()
+        if (processedFeed.contains("><")) {
+            processedFeed.split("><").forEach {
+                if (it.contains(feed.feedElement)){
+                    elementCounter = elementCounter.inc()
+                }
+            }
+        } else {
+            processedFeed.split("}, {").forEach {
+                if (it.contains(feed.feedElement)){
+                    elementCounter = elementCounter.inc()
+                }
             }
         }
+
+
         if (feed.feedUpdateTime.isNotEmpty()) {
             val arrayFeed = Parser.parsingToList(processedFeed).parsToShortList()
             feedUpdateDate+= arrayFeed.find {

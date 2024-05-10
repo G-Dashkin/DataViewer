@@ -60,9 +60,6 @@ class FeedsViewModel @Inject constructor(
 //                feedUrl = "https://api2.kiparo.com/static/it_news.xml"
             )
         }
-//        viewModelScope.launch {
-//            Log.d("MyLog", getAllFeedsUseCase.execute(getSelectedProjectUseCase.execute()).toString())
-//        }
     }
 
     override fun intent(event: FeedsContract.Event) {
@@ -316,6 +313,7 @@ class FeedsViewModel @Inject constructor(
                        "feedUrl:$feedUrl;" +
                        "feedUpdateTime:$feedUpdateTime;" +
                        "feedLoadTime:$feedLoadTime"
+
             val feedNameValid = feedName.isNotEmpty()
             val feedNameValid2 = feedName.any {
                 it.toString().contains("|") ||
@@ -327,6 +325,7 @@ class FeedsViewModel @Inject constructor(
             val feedElementValid = feedElement.isNotEmpty()
 
             if (feedNameValid && !feedNameValid2 && feedNameValid3 == null && feedElementValid) {
+
                 saveFeedUseCase.execute(feed)
                 onClearUiFieldsState()
                 closeDialogSelectedFeedElement()
@@ -419,6 +418,7 @@ class FeedsViewModel @Inject constructor(
                        "feedUrl:${_uiState.value.feedUpdateUrl};" +
                        "feedUpdateTime:${selectedFeed?.feedUpdateTime};" +
                        "feedLoadTime:${selectedFeed?.feedLoadTime}"
+
             feedUpdateFeedUseCase.execute(feed)
             loadFeedsList()
         }
