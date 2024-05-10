@@ -2,6 +2,7 @@ package com.perfomax.dataviewer.presentation.settings
 
 import android.app.Application
 import android.content.Context
+import android.util.Log
 import com.perfomax.ui.R
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -49,9 +50,9 @@ class SettingsViewModel @Inject constructor(
     override val effect: StateFlow<SettingsContract.Effect?> = _effect.asStateFlow()
 
     init {
+        setSettings()
         getSettings()
 //        setService()
-        setSettings()
     }
 
     override fun intent(event: SettingsContract.Event) {
@@ -159,7 +160,6 @@ class SettingsViewModel @Inject constructor(
 
     private fun setSettings() {
         viewModelScope.launch {
-
             val mapOfAlertPercent = mapOf(Pair(0.1f, context.getString(R.string.different_10)),
                                           Pair(0.2f, context.getString(R.string.different_20)),
                                           Pair(0.3f, context.getString(R.string.different_30)),
@@ -173,7 +173,6 @@ class SettingsViewModel @Inject constructor(
             _uiState.update { currentState ->
                 currentState.copy(
                     listOfAlertPercent = mapOfAlertPercent,
-
                     listOfUpdateTime = listOf(context.getString(R.string.update_time_1),
                                               context.getString(R.string.update_time_2),
                                               context.getString(R.string.update_time_3),

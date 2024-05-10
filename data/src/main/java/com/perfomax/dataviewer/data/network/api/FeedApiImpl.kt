@@ -1,5 +1,6 @@
 package com.perfomax.dataviewer.data.network.api
 
+import android.util.Log
 import com.perfomax.dataviewer.domain.models.Feed
 import com.perfomax.dataviewer.domain.utils.parsToShortList
 import java.net.HttpURLConnection
@@ -25,7 +26,6 @@ class FeedApiImpl: FeedApi {
         if (!urlResponse.contains("no protocol:")) {
             val url = URL(feedUrl)
             val connection = url.openConnection() as HttpURLConnection
-
             try {
                 responseCode += connection.responseCode.toString()
             } catch (e:Exception){

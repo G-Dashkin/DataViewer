@@ -41,7 +41,6 @@ import com.perfomax.dataviewer.ui.theme.padding5
 import com.perfomax.dataviewer.ui.theme.weight1
 import com.perfomax.ui.R
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun FormTextFieldDefault(
     modifier: Modifier = Modifier,
@@ -50,9 +49,6 @@ fun FormTextFieldDefault(
     isError: Boolean,
     onChange: (value: String) -> Unit
 ) {
-
-    val interactionSource = remember { MutableInteractionSource() }
-
     BasicTextField(modifier = modifier.background(
         color = Color.Gray,
         shape = RoundedCornerShape(cornerShape22))
@@ -65,30 +61,7 @@ fun FormTextFieldDefault(
                 fontSize = 16.sp,
                 color = MaterialTheme.colorScheme.onBackground,
                 textDecoration = TextDecoration.None),
-//        onTextLayout = {
-//            Text("Поле не зплнено ")
-//        },
         decorationBox = { innerTextField ->
-
-
-            Log.d("MyLog", "click test error: $isError")
-//            OutlinedTextFieldDefaults.DecorationBox(
-//                value = "text",
-//                innerTextField = innerTextField,
-//                enabled = isError,
-//                singleLine = isError,
-//                visualTransformation = VisualTransformation.None,
-//                interactionSource = interactionSource,
-//                placeholder = { Text("Поле не зплнено ") },
-//                colors = OutlinedTextFieldDefaults.colors(),
-//                contentPadding = OutlinedTextFieldDefaults.contentPadding(),
-//                container = {
-//                    Text("Поле не зплнено ")
-//                },
-//            )
-
-
-
             Row(modifier = modifier
                 .background(
                     color = Color.LightGray,
@@ -107,7 +80,6 @@ fun FormTextFieldDefault(
                         )
 
                     }
-//                    if (isError) { Text("Поле не зплнено ") }
                     innerTextField()
                 }
             }

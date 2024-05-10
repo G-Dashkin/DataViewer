@@ -1,5 +1,6 @@
 package com.perfomax.dataviewer.data.storage.memory
 
+import android.util.Log
 import com.perfomax.dataviewer.data.datastore.api.SettingsDataStore
 import com.perfomax.dataviewer.data.storage.api.SettingsStorage
 import javax.inject.Inject

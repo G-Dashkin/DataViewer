@@ -1,5 +1,6 @@
 package com.perfomax.dataviewer.data.repository
 
+import android.util.Log
 import com.perfomax.dataviewer.data.mappers.toDomainFeed
 import com.perfomax.dataviewer.data.network.api.FeedApi
 import com.perfomax.dataviewer.data.network.api.Parser
@@ -30,7 +31,9 @@ class FeedsRepositoryImpl @Inject constructor(
     private val searchedList: ArrayList<String> = ArrayList()
 
     override suspend fun loadFeed(feedUrl: String): List<String> = withContext(dispatcher) {
-        val stringFeed = feedApi.getData(feedUrl)
+        val stringFeed = feedApi.getData(feedUrl).lines()
+                                                 .joinToString("")
+                                                 .replace("\\s+".toRegex(), " ")
         val listFeed = Parser.parsingToList(stringFeed)
         feedList.addAll(listFeed)
         feedList.parsToShortList()
@@ -40,11 +43,14 @@ class FeedsRepositoryImpl @Inject constructor(
         val updatedFeedList = mutableListOf<Feed>()
         var countElementsDifferent = 0.0f
 
+        Log.d("MyLog", "in: $settingsStorage.getPercentForAlert()")
         val differentValue = settingsStorage.getPercentForAlert()
+        Log.d("MyLog", "in: $differentValue")
         val selectedAlertPercent = differentValue.getAlertPercent()
-
+        Log.d("MyLog", "here1")
         feedList.forEach { feed ->
             val updatedFeedData = feedApi.updateFeedElements(feed)
+            Log.d("MyLog", "here3")
             if (feed.oldFeedElementCount != 0 || updatedFeedData.feedElementCount != feed.feedElementCount){
                 countElementsDifferent = 1-(updatedFeedData.feedElementCount).toFloat()/(feed.feedElementCount).toFloat()
             }

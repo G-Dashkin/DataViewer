@@ -1,5 +1,6 @@
 package com.perfomax.dataviewer.data.repository
 
+import android.util.Log
 import com.perfomax.dataviewer.data.storage.api.SettingsStorage
 import com.perfomax.dataviewer.domain.repository.SettingsRepository
 import javax.inject.Inject
@@ -35,7 +36,7 @@ class SettingsRepositoryImpl @Inject constructor(
     }
 
     override suspend fun getPercentForAlert(): String {
-        return if(settingsStorage.getPercentForAlert().isEmpty()) ""
+        return if(settingsStorage.getPercentForAlert().isEmpty()) "0.1"
         else settingsStorage.getPercentForAlert().split("comparisonPercent:")[1]
     }
 
