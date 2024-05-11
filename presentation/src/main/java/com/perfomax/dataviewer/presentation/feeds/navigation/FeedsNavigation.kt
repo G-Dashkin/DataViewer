@@ -59,8 +59,8 @@ fun NavGraphBuilder.navigateToFeeds(){
             onFeedUrlFieldChangeValue = { feedUrl ->
                 feedsViewModel.intent(FeedsContract.Event.FeedUrlUpdateChangeEvent(feedUrl))
             },
-            onCloseDialogIsConnected = { feedsViewModel.intent(FeedsContract.Event.CloseDialogIsConnectedEvent) }
-
+            onCloseDialogIsConnected = { feedsViewModel.intent(FeedsContract.Event.CloseDialogIsConnectedEvent) },
+            onCloseDialogNotProject = { feedsViewModel.intent(FeedsContract.Event.CloseDialogNotProjectEvent) }
         )
     }
 }

@@ -53,9 +53,9 @@ class FeedsViewModel @Inject constructor(
             currentState.copy(
 //                feedUrl = "https://citilink.ru"
 //                feedUrl = "citilink.в"
-//                feedUrl = "https://feeds-mic.s1.citilink.ru/yandex_offer/spb_cl.xml"
+                feedUrl = "https://feeds-mic.s1.citilink.ru/yandex_offer/spb_cl.xml"
 //                feedUrl = "https://api.kiparo.ru/pizza/"
-                feedUrl = "https://api2.kiparo.com/static/it_news.json"
+//                feedUrl = "https://api2.kiparo.com/static/it_news.json"
 //                feedUrl = "https://feeds-mic.s1.citilink.ru/yandex_offer/spb_cl.xml"
 //                feedUrl = "https://api2.kiparo.com/static/it_news.xml"
             )
@@ -88,6 +88,7 @@ class FeedsViewModel @Inject constructor(
             FeedsContract.Event.SelectDateElementInFeedEvent -> onSelectDateElementInFeed()
             FeedsContract.Event.SaveFeedChangesEvent -> onSaveFeedChanges()
             FeedsContract.Event.CloseDialogIsConnectedEvent -> closeDialogIsConnected()
+            FeedsContract.Event.CloseDialogNotProjectEvent -> closeDialogNotProject()
 
         }
     }
@@ -118,8 +119,7 @@ class FeedsViewModel @Inject constructor(
     private fun onFeedUrlChangeEvent(text: String) {
         _uiState.update { currentState ->
             currentState.copy(
-                feedUrl = text,
-                feedUrlError = text.isNotBlank()
+                feedUrl = text
             )
         }
     }
@@ -128,45 +128,55 @@ class FeedsViewModel @Inject constructor(
         if (context.isConnected()) {
             viewModelScope.launch {
 
+                val selectedProject = getSelectedProjectUseCase.execute()
                 val feedUrl = _uiState.value.feedUrl
-                onSwitchToFeedElements()
-                val allFeedsByProjectsBy = getAllFeedsUseCase.execute(getSelectedProjectUseCase.execute())
-                if(allFeedsByProjectsBy.find { it.feedUrl == feedUrl } == null ){
 
-                    val loadedFeed = loadFeedUseCase.execute(feedUrl)
+                if (selectedProject.isNotEmpty()) {
+                    onSwitchToFeedElements()
+                    val allFeedsByProjectsBy = getAllFeedsUseCase.execute(getSelectedProjectUseCase.execute())
+                    if(allFeedsByProjectsBy.find { it.feedUrl == feedUrl } == null ){
 
-                    if(loadedFeed.any{ it.contains("errorURl") }) {
-                        _uiState.update { currentState ->
-                            currentState.copy(
-                                feedUrlError = true,
-                                feedUrlErrorMessage = context.applicationContext.getString(R.string.url_error)
-                            )
-                        }
-                    } else if(
-                        loadedFeed.any{ it.contains("<head>") } ||
-                        loadedFeed.any{ it.contains("<body>") }
-                    ) {
-                        _uiState.update { currentState ->
-                            currentState.copy(
-                                feedUrlError = true,
-                                feedUrlErrorMessage = context.applicationContext.getString(R.string.url_is_html_not_feed)
+                        val loadedFeed = loadFeedUseCase.execute(feedUrl)
+
+                        if(loadedFeed.any{ it.contains("errorURl") }) {
+                            _uiState.update { currentState ->
+                                currentState.copy(
+                                    feedUrlError = true,
+                                    feedUrlErrorMessage = context.applicationContext.getString(R.string.url_error)
                                 )
                             }
-                        _uiState.update { currentState ->
-                            currentState.copy(
-                                loadedFeed = loadedFeed
-                            )
-                        } } else {
+                        } else if(
+                            loadedFeed.any{ it.contains("<head>") } ||
+                            loadedFeed.any{ it.contains("<body>") }
+                        ) {
+                            _uiState.update { currentState ->
+                                currentState.copy(
+                                    feedUrlError = true,
+                                    feedUrlErrorMessage = context.applicationContext.getString(R.string.url_is_html_not_feed)
+                                    )
+                                }
                             _uiState.update { currentState ->
                                 currentState.copy(
                                     loadedFeed = loadedFeed
+                                )
+                            } } else {
+                                _uiState.update { currentState ->
+                                    currentState.copy(
+                                        loadedFeed = loadedFeed
+                                )
+                            }
+                        }
+                    } else {
+                        _uiState.update { currentState ->
+                            currentState.copy(
+                                openDialogFeedUrlErrorElement = true
                             )
                         }
                     }
                 } else {
                     _uiState.update { currentState ->
                         currentState.copy(
-                            openDialogFeedUrlErrorElement = true
+                            openDialogNotProject = true
                         )
                     }
                 }
@@ -429,6 +439,14 @@ class FeedsViewModel @Inject constructor(
         _uiState.update { currentState ->
             currentState.copy(
                 openDialogIsConnected = false
+            )
+        }
+    }
+
+    private fun closeDialogNotProject() {
+        _uiState.update { currentState ->
+            currentState.copy(
+                openDialogNotProject = false
             )
         }
     }

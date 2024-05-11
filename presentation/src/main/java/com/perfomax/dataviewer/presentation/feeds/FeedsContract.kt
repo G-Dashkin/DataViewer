@@ -27,6 +27,7 @@ interface FeedsContract:
         val selectedFeedElementErrorMessage: String,
         val isSelectingFeedDateElement: Boolean,
         val openDialogIsConnected: Boolean,
+        val openDialogNotProject: Boolean,
         val feedDateElement: String,
         val removedFeed: String,
         val isCountingFeedElements: Boolean,
@@ -53,6 +54,7 @@ interface FeedsContract:
                 selectedFeedElementErrorMessage = EMPTY,
                 isSelectingFeedDateElement = false,
                 openDialogIsConnected = false,
+                openDialogNotProject = false,
                 feedUpdateSelectName = EMPTY,
                 feedUpdateName = EMPTY,
                 feedUpdateUrl = EMPTY,
@@ -81,6 +83,7 @@ interface FeedsContract:
                 selectedFeedElementErrorMessage = EMPTY,
                 isSelectingFeedDateElement = false,
                 openDialogIsConnected = false,
+                openDialogNotProject = false,
                 feedUpdateSelectName = EMPTY,
                 feedUpdateName = EMPTY,
                 feedUpdateUrl = EMPTY,
@@ -120,6 +123,7 @@ interface FeedsContract:
         data class FeedCountElementUpdateChangeEvent(val feedCountElement: String): Event
         data class FeedUrlUpdateChangeEvent(val feedUrl: String): Event
         data object CloseDialogIsConnectedEvent : Event
+        data object CloseDialogNotProjectEvent : Event
     }
 
     sealed interface Effect {

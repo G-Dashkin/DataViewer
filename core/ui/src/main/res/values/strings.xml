@@ -40,6 +40,7 @@
     <string name="loading_feed">Загрузка фида</string>
     <string name="feed_url_error">Фид с указанным URL уже присутствуем в данннм проекте</string>
     <string name="internet_error">Нет подключения к интернету</string>
+    <string name="project_empty">Перед загрузкой фида необходимо создать проект</string>
     <string name="empty_field">Поле не должно быть пустым</string>
     <string name="empty_email_field">Поле Email не должно быть пустым</string>
     <string name="empty_first_name_field">Поле First Name не должно быть пустым</string>

@@ -73,6 +73,7 @@ fun FeedsScreen(
     onSwitchToFeedsListClick:() -> Unit,
     onCloseDialogFeedUrlError:() -> Unit,
     onCloseDialogIsConnected: () -> Unit,
+    onCloseDialogNotProject: () -> Unit,
     selectDateElement: () -> Unit,
     onSaveChanges:() -> Unit
 ) {
@@ -263,6 +264,14 @@ fun FeedsScreen(
         onCancel = onCloseDialogIsConnected
     )
 
+    // DialogView for empty project
+    DialogViewDefault(
+        title = stringResource(id = R.string.project_empty),
+        openDialog = uiState.openDialogNotProject,
+        onlyCancel = true,
+        onCancel = onCloseDialogNotProject
+    )
+
 }
 
 @Preview(showBackground = true)
@@ -288,6 +297,7 @@ fun FeedsScreenPreview() {
             onCloseDialogSelectedFeedElement = {  },
             onCloseDialogChangeFeed = {  },
             onCloseDialogRemoveFeedClick = {  },
+            onCloseDialogNotProject = {  },
             onFeedNameFieldChange = {  },
             onFeedTitleFieldChangeValue = {  },
             onFeedUrlFieldChange = {  },

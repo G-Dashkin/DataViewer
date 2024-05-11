@@ -35,7 +35,6 @@ class FeedsRepositoryImpl @Inject constructor(
                                                  .joinToString("")
                                                  .replace("\\s+".toRegex(), " ")
         val listFeed = Parser.parsingToList(stringFeed)
-
         feedList.addAll(listFeed)
         feedList.parsToShortList()
     }
@@ -43,9 +42,11 @@ class FeedsRepositoryImpl @Inject constructor(
     override suspend fun countFeedElements(feedList: List<Feed>) = withContext(dispatcher) {
         val updatedFeedList = mutableListOf<Feed>()
         var countElementsDifferent = 0.0f
+        val differentValue = if(settingsStorage.getPercentForAlert().isEmpty()) {"0.1"}
+                             else { settingsStorage.getPercentForAlert().split("comparisonPercent:")[1] }
 
-        val differentValue = settingsStorage.getPercentForAlert()
-        val selectedAlertPercent = differentValue.getAlertPercent()
+        val selectedAlertPercent = differentValue.toFloat()
+
         feedList.forEach { feed ->
             val updatedFeedData = feedApi.updateFeedElements(feed)
             if (feed.oldFeedElementCount != 0 || updatedFeedData.feedElementCount != feed.feedElementCount){

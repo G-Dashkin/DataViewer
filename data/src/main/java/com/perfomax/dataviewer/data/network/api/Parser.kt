@@ -27,7 +27,7 @@ class Parser {
                         oldElement = feedElements.last().split(" ")[0].replace("<","")
                         newElement = varTag.replace("/","")
                         if (oldElement == newElement) feedElements.set(feedElements.size-1, feedElements.last() + "<$varTag>")
-                        feedElements.add("<$varTag>")
+                        else feedElements.add("<$varTag>")
                     }
                 }
             } else {
