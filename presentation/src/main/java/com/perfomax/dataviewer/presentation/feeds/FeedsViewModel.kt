@@ -1,7 +1,6 @@
 package com.perfomax.dataviewer.presentation.feeds
 
 import android.app.Application
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.perfomax.dataviewer.domain.EMPTY
@@ -159,7 +158,6 @@ class FeedsViewModel @Inject constructor(
                                 )
                             }
                         } else {
-                            // если все нормально то вот это
                             _uiState.update { currentState ->
                                 currentState.copy(
                                     loadedFeed = loadedFeed
@@ -346,9 +344,6 @@ class FeedsViewModel @Inject constructor(
                 val project2 = getSelectedProjectUseCase.execute()
                 val allFeeds = getAllFeedsUseCase.execute(project2)
                 val newFeed = allFeeds.find { it.feedName == feedName && it.projectName == project }
-                Log.d("MyLog", ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> newFeed in onAddNewFeed() [FeedsViewModel]")
-                Log.d("MyLog", newFeed.toString())
-                Log.d("MyLog", "----------------------------------------------------------")
                 countFeedElementsUseCase.execute(listOf(newFeed!!))
                 _uiState.update { currentState -> currentState.copy(isCountingFeedElements = false)}
                 _uiState.update { currentState ->

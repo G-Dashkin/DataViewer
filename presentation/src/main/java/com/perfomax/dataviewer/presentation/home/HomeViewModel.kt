@@ -124,9 +124,6 @@ class HomeViewModel @Inject constructor(
         if (context.isConnected()) {
             viewModelScope.launch {
                 _uiState.update { currentState -> currentState.copy(isUpdatingFeedList = true) }
-                Log.d("MyLog", ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> feedsList in HomeViewModel")
-                Log.d("MyLog", "feedsList:${_uiState.value.feedsList}")
-                Log.d("MyLog", "-----------------------------------------------------------------")
                 countFeedElementsUseCase.execute(_uiState.value.feedsList)
                 _uiState.update { currentState -> currentState.copy(isUpdatingFeedList = false) }
                 updateFeedsList()

@@ -1,11 +1,10 @@
 package com.perfomax.dataviewer.presentation.settings
 
 import android.app.Application
-import android.content.Context
-import android.util.Log
 import com.perfomax.ui.R
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.perfomax.dataviewer.domain.EMPTY
 import com.perfomax.dataviewer.domain.usecases.projects.GetSelectedProjectUseCase
 import com.perfomax.dataviewer.domain.usecases.settings.GetNotificationUseCase
 import com.perfomax.dataviewer.domain.usecases.settings.GetPercentForAlertUseCase
@@ -198,11 +197,9 @@ class SettingsViewModel @Inject constructor(
                                               context.getString(R.string.update_time_23),
                                               context.getString(R.string.update_time_24)),
                     comparisonAlertPercent = getPercentForAlertUseCase.execute(),
-                    comparisonAlertPercentName = mapOfAlertPercent.getOrDefault(getPercentForAlertUseCase.execute().toFloat(),"")
+                    comparisonAlertPercentName = mapOfAlertPercent.getOrDefault(getPercentForAlertUseCase.execute().toFloat(), EMPTY)
                 )
-
             }
         }
     }
-
 }

@@ -6,7 +6,6 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.currentBackStackEntryAsState
@@ -78,23 +77,5 @@ fun MenuScreen(
                 navigateToFeeds()
             }
         }
-    }
-}
-
-
-@Preview(showBackground = true)
-@Composable
-fun BottomMenuScreenScreenPreview() {
-    DataViewerTheme {
-//        BottomMenuScreen(
-//            topLevelDestinations = immutableListOf(
-//                HomeTopLevelDestination,
-//                OfferTopLevelDestination,
-//                CartTopLevelDestination,
-//                ProfileTopLevelDestination),
-//            onItemSelected = {},
-//            onLogout = {},
-//            onOffer = {}
-//        )
     }
 }
