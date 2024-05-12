@@ -17,6 +17,7 @@ interface ScanningContract:
         val loadedFeed: List<String>,
         val isScanningFeed: Boolean,
         val openDialogIsConnected: Boolean,
+        val openDialogIsNotFind: Boolean,
         val feedSearchValue: String,
         val feedSearchValueError: Boolean,
         val isFeedScanningResponse: Boolean,
@@ -31,6 +32,7 @@ interface ScanningContract:
                 loadedFeed = emptyList(),
                 isScanningFeed = false,
                 openDialogIsConnected = false,
+                openDialogIsNotFind = false,
                 feedSearchValue = EMPTY,
                 feedSearchValueError = false,
                 isFeedScanningResponse = false,
@@ -43,6 +45,7 @@ interface ScanningContract:
                 loadedFeed = emptyList(),
                 isScanningFeed = false,
                 openDialogIsConnected = false,
+                openDialogIsNotFind = false,
                 feedSearchValue = EMPTY,
                 feedSearchValueError = false,
                 isFeedScanningResponse = false,
@@ -57,6 +60,7 @@ interface ScanningContract:
         data object LoadingFeedClickEvent: Event
         data object SearchFeedElementClickEvent: Event
         data object CloseDialogIsConnectedEvent : Event
+        data object CloseDialogIsNotFindEvent : Event
     }
 
     sealed interface Effect {

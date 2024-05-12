@@ -53,7 +53,8 @@ fun ScanningScreen(
     onSearchFeedElementFieldChange: (String) -> Unit,
     onLoadFeedClick: () -> Unit,
     onSearchFeedElementClick: () -> Unit,
-    onCloseDialogIsConnected: () -> Unit
+    onCloseDialogIsConnected: () -> Unit,
+    onCloseDialogIsNotFind: () -> Unit
 ) {
     Column(
         modifier = Modifier.fillMaxSize()
@@ -160,6 +161,14 @@ fun ScanningScreen(
             onCancel = onCloseDialogIsConnected
         )
 
+        // DialogView for not Find
+        DialogViewDefault(
+            title = stringResource(id = R.string.not_find),
+            openDialog = uiState.openDialogIsNotFind,
+            onlyCancel = true,
+            onCancel = onCloseDialogIsNotFind
+        )
+
     }
 }
 
@@ -173,7 +182,8 @@ fun ScanningScreenPreview() {
             onSearchFeedElementFieldChange = {},
             onLoadFeedClick = {  },
             onSearchFeedElementClick = {  },
-            onCloseDialogIsConnected = {  }
+            onCloseDialogIsConnected = {  },
+            onCloseDialogIsNotFind = {  }
         )
     }
 }

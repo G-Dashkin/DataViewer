@@ -38,15 +38,12 @@ fun NavGraphBuilder.scanning(){
                 scanningViewModel.intent(ScanningContract.Event.FeedUrlChangeEvent(feedUrl))
             },
             onSearchFeedElementFieldChange = { feedSearchedValue ->
-                scanningViewModel.intent(
-                    ScanningContract.Event.SearchFeedElementChangeEvent(
-                        feedSearchedValue
-                    )
-                )
+                scanningViewModel.intent(ScanningContract.Event.SearchFeedElementChangeEvent(feedSearchedValue))
             },
             onLoadFeedClick = { scanningViewModel.intent(ScanningContract.Event.LoadingFeedClickEvent) },
             onSearchFeedElementClick = { scanningViewModel.intent(ScanningContract.Event.SearchFeedElementClickEvent) },
-            onCloseDialogIsConnected = { scanningViewModel.intent(ScanningContract.Event.CloseDialogIsConnectedEvent) }
+            onCloseDialogIsConnected = { scanningViewModel.intent(ScanningContract.Event.CloseDialogIsConnectedEvent) },
+            onCloseDialogIsNotFind = { scanningViewModel.intent(ScanningContract.Event.CloseDialogIsNotFindEvent) }
         )
         }
 }
