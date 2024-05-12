@@ -2,7 +2,6 @@ package com.perfomax.dataviewer.presentation.feeds
 
 import com.perfomax.dataviewer.domain.EMPTY
 import com.perfomax.dataviewer.domain.models.Feed
-import com.perfomax.dataviewer.presentation.scanning.ScanningContract
 import com.perfomax.dataviewer.ui.base.UnidirectionalViewModel
 
 interface FeedsContract:
@@ -29,7 +28,7 @@ interface FeedsContract:
         val openDialogIsConnected: Boolean,
         val openDialogNotProject: Boolean,
         val feedDateElement: String,
-        val removedFeed: String,
+        val removedFeed: Feed,
         val isCountingFeedElements: Boolean,
         val openDialogSelectedFeedElement: Boolean,
         val openDialogFeedUrlErrorElement: Boolean,
@@ -60,7 +59,7 @@ interface FeedsContract:
                 feedUpdateUrl = EMPTY,
                 feedUpdateMainElement = EMPTY,
                 feedDateElement = EMPTY,
-                removedFeed = EMPTY,
+                removedFeed = Feed(EMPTY,EMPTY,EMPTY,EMPTY,0,0,false,EMPTY,EMPTY,EMPTY),
                 isCountingFeedElements = false,
                 openDialogSelectedFeedElement = false,
                 isFeedsList = true,
@@ -89,7 +88,7 @@ interface FeedsContract:
                 feedUpdateUrl = EMPTY,
                 feedUpdateMainElement = EMPTY,
                 feedDateElement = EMPTY,
-                removedFeed = EMPTY,
+                removedFeed = Feed(EMPTY,EMPTY,EMPTY,EMPTY,0,0,false,EMPTY,EMPTY,EMPTY),
                 isCountingFeedElements = false,
                 openDialogSelectedFeedElement = false,
                 isFeedsList = true,
@@ -105,7 +104,7 @@ interface FeedsContract:
         data class FeedUrlChangeEvent(val feedUrl: String): Event
         data class SelectFeedElementEvent(val selectedFeedElement: String): Event
         data class SelectFeedDateElementEvent(val selectedFeedDataElement: String): Event
-        data class SelectRemovedFeedEvent(val removedFeed: String): Event
+        data class SelectRemovedFeedEvent(val removedFeed: Feed): Event
         data object RemoveFeedClickEvent : Event
         data class FeedNameEvent(val feedName: String): Event
         data object OpenDialogSelectedFeedElementEvent: Event

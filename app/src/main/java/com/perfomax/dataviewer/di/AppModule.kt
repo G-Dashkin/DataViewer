@@ -63,8 +63,9 @@ object AppModule {
         feedApi: FeedApi,
         dispatcher: CoroutineDispatcher = Dispatchers.IO,
         feedsStorage: FeedsStorage,
-        settingsStorage: SettingsStorage
-    ): FeedsRepository = FeedsRepositoryImpl(feedApi, dispatcher, feedsStorage, settingsStorage)
+        settingsStorage: SettingsStorage,
+        projectsStorage: ProjectsStorage
+    ): FeedsRepository = FeedsRepositoryImpl(feedApi, dispatcher, feedsStorage, settingsStorage, projectsStorage)
 
     @Singleton
     @Provides

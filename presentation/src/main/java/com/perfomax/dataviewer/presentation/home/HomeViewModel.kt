@@ -2,6 +2,7 @@ package com.perfomax.dataviewer.presentation.home
 
 import android.content.Context
 import android.content.Intent
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.perfomax.dataviewer.domain.EMPTY
@@ -9,6 +10,7 @@ import com.perfomax.dataviewer.domain.usecases.feeds.CountFeedElementsUseCase
 import com.perfomax.dataviewer.domain.usecases.feeds.GetAllFeedsUseCase
 import com.perfomax.dataviewer.domain.usecases.projects.GetSelectedProjectUseCase
 import com.perfomax.dataviewer.domain.usecases.scheduler.SetScheduleUseCase
+import com.perfomax.dataviewer.domain.usecases.settings.GetNotificationUseCase
 import com.perfomax.dataviewer.domain.usecases.settings.GetUpdateIntoBackgroundUseCase
 import com.perfomax.dataviewer.domain.usecases.settings.GetUpdatePeriodUseCase
 import com.perfomax.dataviewer.ui.utils.isConnected
@@ -34,7 +36,7 @@ class HomeViewModel @Inject constructor(
     private val countFeedElementsUseCase: CountFeedElementsUseCase,
 
     private val setScheduleUseCase: SetScheduleUseCase,
-
+    private val getNotificationUseCase: GetNotificationUseCase,
     private val getUpdateIntoBackgroundUseCase: GetUpdateIntoBackgroundUseCase,
     private val getUpdatePeriodUseCase: GetUpdatePeriodUseCase,
 ): ViewModel(), HomeContract {
@@ -90,10 +92,9 @@ class HomeViewModel @Inject constructor(
     private fun updateFeedsList() {
         viewModelScope.launch {
             _uiState.update { currentState ->
-                val feedsList = getAllFeedsUseCase.execute(getSelectedProjectUseCase.execute())
-
                 currentState.copy(
-                    feedsList = feedsList
+                    feedsList = getAllFeedsUseCase.execute(getSelectedProjectUseCase.execute()),
+                    isOnAlertCountFeedDifference = getNotificationUseCase.execute()
                 )
             }
         }
@@ -123,6 +124,9 @@ class HomeViewModel @Inject constructor(
         if (context.isConnected()) {
             viewModelScope.launch {
                 _uiState.update { currentState -> currentState.copy(isUpdatingFeedList = true) }
+                Log.d("MyLog", ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> feedsList in HomeViewModel")
+                Log.d("MyLog", "feedsList:${_uiState.value.feedsList}")
+                Log.d("MyLog", "-----------------------------------------------------------------")
                 countFeedElementsUseCase.execute(_uiState.value.feedsList)
                 _uiState.update { currentState -> currentState.copy(isUpdatingFeedList = false) }
                 updateFeedsList()

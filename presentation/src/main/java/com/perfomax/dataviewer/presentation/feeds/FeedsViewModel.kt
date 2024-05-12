@@ -1,12 +1,11 @@
 package com.perfomax.dataviewer.presentation.feeds
 
 import android.app.Application
-import android.os.Build
 import android.util.Log
-import androidx.annotation.RequiresApi
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.perfomax.dataviewer.domain.EMPTY
+import com.perfomax.dataviewer.domain.models.Feed
 import com.perfomax.dataviewer.domain.usecases.feeds.CountFeedElementsUseCase
 import com.perfomax.dataviewer.domain.usecases.feeds.GetAllFeedsUseCase
 import com.perfomax.dataviewer.domain.usecases.feeds.LoadFeedUseCase
@@ -15,7 +14,6 @@ import com.perfomax.dataviewer.domain.usecases.feeds.SaveFeedUseCase
 import com.perfomax.dataviewer.domain.usecases.feeds.UpdateFeedUseCase
 import com.perfomax.dataviewer.domain.usecases.projects.GetSelectedProjectUseCase
 import com.perfomax.dataviewer.domain.utils.getLastId
-import com.perfomax.dataviewer.presentation.scanning.ScanningContract
 import com.perfomax.dataviewer.ui.utils.isConnected
 import com.perfomax.ui.R
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -159,10 +157,12 @@ class FeedsViewModel @Inject constructor(
                                 currentState.copy(
                                     loadedFeed = loadedFeed
                                 )
-                            } } else {
-                                _uiState.update { currentState ->
-                                    currentState.copy(
-                                        loadedFeed = loadedFeed
+                            }
+                        } else {
+                            // если все нормально то вот это
+                            _uiState.update { currentState ->
+                                currentState.copy(
+                                    loadedFeed = loadedFeed
                                 )
                             }
                         }
@@ -240,10 +240,10 @@ class FeedsViewModel @Inject constructor(
         }
     }
 
-    private fun onSelectRemovedFeed(removeFeedName: String) {
+    private fun onSelectRemovedFeed(removeFeed: Feed) {
         _uiState.update { currentState ->
             currentState.copy(
-                removedFeed = removeFeedName
+                removedFeed = removeFeed
             )
         }
         openDialogRemoveFeed()
@@ -342,12 +342,21 @@ class FeedsViewModel @Inject constructor(
                 loadFeedsList()
                 onSwitchToFeedsList()
 
-                _uiState.update {currentState -> currentState.copy(isCountingFeedElements = true)}
+                _uiState.update { currentState -> currentState.copy(isCountingFeedElements = true)}
                 val project2 = getSelectedProjectUseCase.execute()
                 val allFeeds = getAllFeedsUseCase.execute(project2)
-                val newFeed = allFeeds.find { it.feedName == feedName }
+                val newFeed = allFeeds.find { it.feedName == feedName && it.projectName == project }
+                Log.d("MyLog", ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> newFeed in onAddNewFeed() [FeedsViewModel]")
+                Log.d("MyLog", newFeed.toString())
+                Log.d("MyLog", "----------------------------------------------------------")
                 countFeedElementsUseCase.execute(listOf(newFeed!!))
-                _uiState.update {currentState -> currentState.copy(isCountingFeedElements = false)}
+                _uiState.update { currentState -> currentState.copy(isCountingFeedElements = false)}
+                _uiState.update { currentState ->
+                    currentState.copy(
+                        isFeedsList = true,
+                        loadedFeed = emptyList()
+                    )
+                }
 
             } else if(feedNameValid2) {
                 _uiState.update { state ->

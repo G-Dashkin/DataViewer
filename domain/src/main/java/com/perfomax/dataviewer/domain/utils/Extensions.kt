@@ -46,6 +46,10 @@ fun String.getAlertPercent(): Float {
 fun String.getFeedId(): String {
     return this.split("feedId:")[1].split(";")[0]
 }
+fun String.getProjectName(): String {
+    return this.split("projectName:")[1].split(";")[0]
+}
+
 
 fun String.getFeedElementValue(): String {
     return if (this.isNotEmpty()) this.split(":\"")[1].split("\"")[0] else ""
@@ -65,16 +69,23 @@ fun String.removeProject(removedProject: String): String {
     return this.split("|").filter { it != removedProject }.joinToString("|")
 }
 
-fun String.removeFeed(feedName: String): String {
+fun String.removeFeed(removedFeedId: String, selectedProject: String): String {
+
+    val filteredFeed = this.split("|").filter {
+        it.getProjectName() == selectedProject
+    }.filter {
+        it.getFeedId() == removedFeedId
+    }
     return this.split("|").filter {
-        it.split("feedName:")[1].split(";")[0] != feedName
+        it != filteredFeed.first()
     }.joinToString("|")
+
 }
 
 fun String.updateFeed(feed: String): String {
     var newFeed = ""
     this.split("|").forEach {
-        newFeed += if(it.getFeedId() == feed.getFeedId()) "$feed|"
+        newFeed += if(it.getFeedId() == feed.getFeedId() && it.getProjectName() == feed.getProjectName()) "$feed|"
                    else "$it|"
     }
     return newFeed.dropLast(1)

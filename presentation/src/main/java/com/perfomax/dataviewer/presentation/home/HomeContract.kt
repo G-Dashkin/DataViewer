@@ -11,6 +11,7 @@ interface HomeContract:
     data class State(
         val feedsList: List<Feed>,
         val isUpdatingFeedList: Boolean,
+        val isOnAlertCountFeedDifference: Boolean,
         val openDialogIsConnected: Boolean,
         val selectedFeedName: String,
         val selectedFeedUrl: String,
@@ -21,6 +22,7 @@ interface HomeContract:
             fun initial(): State = State(
                 feedsList = emptyList(),
                 isUpdatingFeedList = false,
+                isOnAlertCountFeedDifference = false,
                 openDialogIsConnected = false,
                 selectedFeedName = EMPTY,
                 selectedFeedUrl = EMPTY,
@@ -31,6 +33,7 @@ interface HomeContract:
             fun notCorrect(): State = State(
                 feedsList = emptyList(),
                 isUpdatingFeedList = false,
+                isOnAlertCountFeedDifference = false,
                 openDialogIsConnected = false,
                 selectedFeedName = EMPTY,
                 selectedFeedUrl = EMPTY,

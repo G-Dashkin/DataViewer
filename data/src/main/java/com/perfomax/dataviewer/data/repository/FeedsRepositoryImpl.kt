@@ -5,7 +5,9 @@ import com.perfomax.dataviewer.data.mappers.toDomainFeed
 import com.perfomax.dataviewer.data.network.api.FeedApi
 import com.perfomax.dataviewer.data.network.api.Parser
 import com.perfomax.dataviewer.data.storage.api.FeedsStorage
+import com.perfomax.dataviewer.data.storage.api.ProjectsStorage
 import com.perfomax.dataviewer.data.storage.api.SettingsStorage
+import com.perfomax.dataviewer.domain.EMPTY
 import com.perfomax.dataviewer.domain.models.Feed
 import com.perfomax.dataviewer.domain.repository.FeedsRepository
 import com.perfomax.dataviewer.domain.utils.getAlertPercent
@@ -20,12 +22,13 @@ class FeedsRepositoryImpl @Inject constructor(
     private val feedApi: FeedApi,
     private val dispatcher: CoroutineDispatcher = Dispatchers.IO,
     private val feedsStorage: FeedsStorage,
-    private val settingsStorage: SettingsStorage
+    private val settingsStorage: SettingsStorage,
+    private val projectsStorage: ProjectsStorage
 ): FeedsRepository {
 
     private val feedList: ArrayList<String> = ArrayList()
 
-    private var searchedElement = ""
+    private var searchedElement = EMPTY
     private var searchedElementCounter = 0
     private val searchedElementsList: ArrayList<String> = ArrayList()
     private val searchedList: ArrayList<String> = ArrayList()
@@ -40,14 +43,16 @@ class FeedsRepositoryImpl @Inject constructor(
     }
 
     override suspend fun countFeedElements(feedList: List<Feed>) = withContext(dispatcher) {
+        val selectedProject = projectsStorage.getSelected()
         val updatedFeedList = mutableListOf<Feed>()
         var countElementsDifferent = 0.0f
-        val differentValue = if(settingsStorage.getPercentForAlert().isEmpty()) {"0.1"}
-                             else { settingsStorage.getPercentForAlert().split("comparisonPercent:")[1] }
-
+        val differentValue = if(settingsStorage.getPercentForAlert().isEmpty()) "0.1"
+                             else settingsStorage.getPercentForAlert().split("comparisonPercent:")[1]
         val selectedAlertPercent = differentValue.toFloat()
 
+        var testCounter = 0
         feedList.forEach { feed ->
+            testCounter+=1
             val updatedFeedData = feedApi.updateFeedElements(feed)
             if (feed.oldFeedElementCount != 0 || updatedFeedData.feedElementCount != feed.feedElementCount){
                 countElementsDifferent = 1-(updatedFeedData.feedElementCount).toFloat()/(feed.feedElementCount).toFloat()
@@ -64,18 +69,18 @@ class FeedsRepositoryImpl @Inject constructor(
                 feedUpdateTime = updatedFeedData.feedUpdateTime,
                 feedLoadTime = updatedFeedData.feedLoadTime
             )
-
             updatedFeedList.add(updatedFeed)
         }
-        feedsStorage.update(updatedFeedList.parsToString())
+        feedsStorage.update(feedName = updatedFeedList.parsToString(), selectedProject = selectedProject)
     }
 
-    override suspend fun saveFeed(feedName: String) {
-        feedsStorage.add(feedName)
+    override suspend fun saveFeed(newFeed: String) {
+        val selectedProject = projectsStorage.getSelected()
+        feedsStorage.add(newFeed = newFeed, selectedProject = selectedProject)
     }
 
-    override suspend fun remove(feedName: String) {
-        feedsStorage.remove(feedName)
+    override suspend fun remove(removedFeed: Feed) {
+        feedsStorage.remove(removedFeedId = removedFeed.feedId, selectedProject = removedFeed.projectName)
     }
 
     override suspend fun getAllFeedsByProject(project: String): List<Feed> {
@@ -118,6 +123,7 @@ class FeedsRepositoryImpl @Inject constructor(
     }
 
     override suspend fun updateFeedElement(updatedFeed: String) {
-        feedsStorage.update(updatedFeed)
+        val selectedProject = projectsStorage.getSelected()
+        feedsStorage.update(feedName = updatedFeed, selectedProject = selectedProject)
     }
 }

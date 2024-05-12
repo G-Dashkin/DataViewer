@@ -82,6 +82,7 @@ fun HomeScreen(
                     countElements = element.feedElementCount,
                     oldCountElements = element.oldFeedElementCount,
                     isAlertCountFeedDifference = element.isAlertCountFeedDifference,
+                    isOnAlertCountFeedDifference = uiState.isOnAlertCountFeedDifference,
                     updateTime = element.feedUpdateTime.getFeedElementValue(),
                     loadTime = element.feedLoadTime,
                     onClickFeedElement = onClickFeedElement

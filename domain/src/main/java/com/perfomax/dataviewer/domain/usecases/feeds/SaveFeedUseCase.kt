@@ -9,7 +9,7 @@ class SaveFeedUseCase @Inject constructor(
     private val repository: FeedsRepository
 ): UseCaseWithParams<Unit, String> {
 
-    override suspend fun execute(feedName: String) {
-        repository.saveFeed(feedName = feedName)
+    override suspend fun execute(newFeed: String) {
+        repository.saveFeed(newFeed = newFeed)
     }
 }

@@ -37,7 +37,7 @@ import com.perfomax.ui.R
 @Composable
 fun ItemFeedSettings(
     feedName: String,
-    onRemove: (String) -> Unit = {},
+    onRemove: () -> Unit = {},
     onRemoveBottom: Boolean = false,
     onClickFeedElement: (String) -> Unit = {},
     onOpenChangeFeedDialog: (String) -> Unit = {},
@@ -81,7 +81,7 @@ fun ItemFeedSettings(
                         end = padding10,
                         bottom = zeroVal,
                     ),
-                    onClick = { onRemove.invoke(feedName) }
+                    onClick = onRemove
                 ) {
                     Text(text = stringResource(id = R.string.delete),
                          color = MaterialTheme.colorScheme.onSecondary,

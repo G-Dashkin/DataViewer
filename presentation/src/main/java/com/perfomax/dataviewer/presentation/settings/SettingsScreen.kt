@@ -53,7 +53,7 @@ fun SettingsScreen(
     var isExpandedUpdateTime by remember { mutableStateOf(false) }
     var isExpandedUpdatePercent by remember { mutableStateOf(false) }
 
-//    var selectedUpdateTime by remember { mutableStateOf(uiState.listOfUpdateTime[0]) }
+    var selectedUpdateTime by remember { mutableStateOf(uiState.listOfUpdateTime[0]) }
 
     Column(modifier = Modifier.fillMaxSize()
                               .padding(padding15),
@@ -99,15 +99,15 @@ fun SettingsScreen(
                 expanded = isExpandedUpdateTime,
                 onExpandedChange = { isExpandedUpdateTime = !isExpandedUpdateTime }
             ) {
-//                TextField(
-//                    modifier = Modifier.menuAnchor(),
-//                    value = selectedUpdateTime,
-//                    onValueChange = {  },
-//                    readOnly = true,
-//                    trailingIcon = {
-//                        ExposedDropdownMenuDefaults.TrailingIcon(expanded = isExpandedUpdateTime)
-//                    }
-//                )
+                TextField(
+                    modifier = Modifier.menuAnchor(),
+                    value = selectedUpdateTime,
+                    onValueChange = {  },
+                    readOnly = true,
+                    trailingIcon = {
+                        ExposedDropdownMenuDefaults.TrailingIcon(expanded = isExpandedUpdateTime)
+                    }
+                )
                 ExposedDropdownMenu(
                     expanded = isExpandedUpdateTime,
                     onDismissRequest = { isExpandedUpdateTime = false }) {

@@ -29,6 +29,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.perfomax.dataviewer.domain.models.Feed
 import com.perfomax.dataviewer.ui.theme.DataViewerTheme
 import com.perfomax.dataviewer.ui.theme.border1
 import com.perfomax.dataviewer.ui.theme.cornerShape8
@@ -65,7 +66,7 @@ fun FeedsScreen(
     onFeedNameFieldChange: (String) -> Unit,
     onSelectFeedElement: (String) -> Unit,
     onSelectFeedDateElement: (String) -> Unit,
-    onSelectRemovedFeedNameClick:(String) -> Unit,
+    onSelectRemovedFeedNameClick:(Feed) -> Unit,
     onCloseDialogRemoveFeedClick:() -> Unit,
     onRemoveFeedClick:() -> Unit,
     onAddNewFeed:() -> Unit,
@@ -151,7 +152,9 @@ fun FeedsScreen(
                         ItemFeedSettings(
                             feedName = element.feedName,
                             onRemoveBottom = true,
-                            onRemove = onSelectRemovedFeedNameClick,
+                            onRemove = {
+                                onSelectRemovedFeedNameClick.invoke(element)
+                            },
                             onOpenChangeFeedDialog = onOpenChangeFeedDialog
                         )
                     }
@@ -242,7 +245,7 @@ fun FeedsScreen(
     // DialogView for delete feed
     DialogViewDefault(
         textValue = uiState.feedName,
-        title = stringResource(id = R.string.delete_feed) + " ${uiState.removedFeed}",
+        title = stringResource(id = R.string.delete_feed) + " ${uiState.removedFeed.feedName}",
         openDialog = uiState.openDialogRemoveFeed,
         onCancel = onCloseDialogRemoveFeedClick,
         onConfirm = onRemoveFeedClick
