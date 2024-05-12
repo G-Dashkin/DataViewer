@@ -33,6 +33,9 @@ fun NavGraphBuilder.navigateToSettings(){
             },
             onSwitchNotification = { value ->
                 settingsViewModel.intent(SettingsContract.Event.SwitchNotificationWorkEvent(value))
+            },
+            onSetUpdateTime = { updateTime ->
+                settingsViewModel.intent(SettingsContract.Event.UpdatePeriodChangeEvent(updateTime))
             }
         )
     }

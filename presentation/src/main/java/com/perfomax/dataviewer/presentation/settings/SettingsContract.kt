@@ -14,7 +14,7 @@ interface SettingsContract:
         val comparisonAlertPercentName: String,
         val isNotificationWork: Boolean,
         val listOfAlertPercent: Map<Float, String>,
-        val listOfUpdateTime: List<String>,
+        val listOfUpdateTime: Map<Int, String>,
 
         ) {
         companion object {
@@ -26,7 +26,7 @@ interface SettingsContract:
                 comparisonAlertPercentName = EMPTY,
                 isNotificationWork = false,
                 listOfAlertPercent = mapOf(),
-                listOfUpdateTime = listOf()
+                listOfUpdateTime = mapOf()
             )
             fun notCorrect(): State = State(
                 isUpdateFeedsIntoBackground = false,
@@ -36,7 +36,7 @@ interface SettingsContract:
                 comparisonAlertPercentName = EMPTY,
                 isNotificationWork = false,
                 listOfAlertPercent = mapOf(),
-                listOfUpdateTime = listOf()
+                listOfUpdateTime = mapOf()
             )
         }
     }

@@ -47,13 +47,12 @@ fun SettingsScreen(
     onSetUpdatePeriod:(String) -> Unit,
     onSwitchFeedUpdateWithWIFI:(Boolean) -> Unit,
     onSetPercentForAlert:(String) -> Unit,
+    onSetUpdateTime:(String) -> Unit,
     onSwitchNotification:(Boolean) -> Unit
 ) {
 
     var isExpandedUpdateTime by remember { mutableStateOf(false) }
     var isExpandedUpdatePercent by remember { mutableStateOf(false) }
-
-    var selectedUpdateTime by remember { mutableStateOf(uiState.listOfUpdateTime[0]) }
 
     Column(modifier = Modifier.fillMaxSize()
                               .padding(padding15),
@@ -94,40 +93,42 @@ fun SettingsScreen(
         }
         Spacer(modifier = Modifier.heightIn(height15))
         Row(horizontalArrangement = Arrangement.Start) {
-            ExposedDropdownMenuBox(
-                modifier = Modifier.fillMaxWidth(maxWidth051),
+        ExposedDropdownMenuBox(
+            modifier = Modifier.fillMaxWidth(maxWidth051),
+            expanded = isExpandedUpdateTime,
+            onExpandedChange = { isExpandedUpdateTime = !isExpandedUpdateTime }
+        ) {
+            TextField(
+                modifier = Modifier.menuAnchor(),
+                value = uiState.updatePeriod,
+                onValueChange = {  },
+                readOnly = true,
+                trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = isExpandedUpdateTime) }
+            )
+            ExposedDropdownMenu(
                 expanded = isExpandedUpdateTime,
-                onExpandedChange = { isExpandedUpdateTime = !isExpandedUpdateTime }
-            ) {
-                TextField(
-                    modifier = Modifier.menuAnchor(),
-                    value = selectedUpdateTime,
-                    onValueChange = {  },
-                    readOnly = true,
-                    trailingIcon = {
-                        ExposedDropdownMenuDefaults.TrailingIcon(expanded = isExpandedUpdateTime)
-                    }
-                )
-                ExposedDropdownMenu(
-                    expanded = isExpandedUpdateTime,
-                    onDismissRequest = { isExpandedUpdateTime = false }) {
-                    uiState.listOfUpdateTime.forEachIndexed { index, text ->
-                        DropdownMenuItem(
-                            text = { Text(text = text, style = MaterialTheme.typography.labelMedium) },
-                            onClick = {
-//                                selectedUpdateTime = uiState.listOfUpdateTime[index]
-//                                isExpandedUpdateTime = false
-                            },
-                            contentPadding = ExposedDropdownMenuDefaults.ItemContentPadding
-                        )
-                    }
+                onDismissRequest = { isExpandedUpdateTime = false }) {
+                uiState.listOfUpdateTime.keys.forEachIndexed { index, text ->
+                    DropdownMenuItem(
+                        text = {
+                            Text(text = uiState.listOfUpdateTime.getOrDefault(text, EMPTY),
+                                 style = MaterialTheme.typography.labelMedium)
+                        },
+                        onClick = {
+                            isExpandedUpdateTime = false
+                            onSetUpdateTime.invoke(uiState.listOfUpdateTime.getOrDefault(text, EMPTY))
+                        },
+                        contentPadding = ExposedDropdownMenuDefaults.ItemContentPadding
+                    )
                 }
             }
-            Text(modifier = Modifier.fillMaxWidth()
-                                    .padding(start = padding5),
-                text = stringResource(id = R.string.update_periodic),
-                color = MaterialTheme.colorScheme.onBackground,
-                style = MaterialTheme.typography.titleLarge)
+        }
+
+        Text(modifier = Modifier.fillMaxWidth()
+                                .padding(start = padding5),
+            text = stringResource(id = R.string.update_periodic),
+            color = MaterialTheme.colorScheme.onBackground,
+            style = MaterialTheme.typography.titleLarge)
         }
         Spacer(modifier = Modifier.heightIn(height15))
         Row(horizontalArrangement = Arrangement.Start) {
@@ -176,17 +177,17 @@ fun SettingsScreen(
     }
 }
 
-@Preview(showBackground = true)
-@Composable
-fun SettingsScreenPreview() {
-    DataViewerTheme {
-        SettingsScreen(
-            uiState = SettingsContract.State.initial(),
-            onSetPercentForAlert = {},
-            onSwitchFeedUpdateIntoBackground = {},
-            onSetUpdatePeriod = {},
-            onSwitchFeedUpdateWithWIFI = {},
-            onSwitchNotification = {}
-        )
-    }
-}
+//@Preview(showBackground = true)
+//@Composable
+//fun SettingsScreenPreview() {
+//    DataViewerTheme {
+//        SettingsScreen(
+//            uiState = SettingsContract.State.initial(),
+//            onSetPercentForAlert = {},
+//            onSwitchFeedUpdateIntoBackground = {},
+//            onSetUpdatePeriod = {},
+//            onSwitchFeedUpdateWithWIFI = {},
+//            onSwitchNotification = {}
+//        )
+//    }
+//}
