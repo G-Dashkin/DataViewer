@@ -10,14 +10,12 @@ import com.perfomax.dataviewer.navigation.TopLevelDestination
 import com.perfomax.dataviewer.presentation.feeds.FeedsContract
 import com.perfomax.dataviewer.presentation.feeds.FeedsScreen
 import com.perfomax.dataviewer.presentation.feeds.FeedsViewModel
-import com.perfomax.dataviewer.presentation.scanning.ScanningContract
 import com.perfomax.ui.R
 
 fun NavGraphBuilder.navigateToFeeds(){
     composable(route = FeedsDestination.route) {
         val feedsViewModel = hiltViewModel<FeedsViewModel>()
         val feedsUiState by feedsViewModel.uiState.collectAsStateWithLifecycle()
-//        val feedsEffects by feedsViewModel.effect.collectAsStateWithLifecycle()
 
         FeedsScreen(
             uiState = feedsUiState,

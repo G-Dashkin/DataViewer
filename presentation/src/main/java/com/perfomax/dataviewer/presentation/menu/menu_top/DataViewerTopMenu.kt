@@ -1,6 +1,5 @@
 package com.perfomax.dataviewer.presentation.menu.menu_top
 
-import android.util.Log
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height

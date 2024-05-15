@@ -1,7 +1,6 @@
 package com.perfomax.dataviewer.presentation.settings
 
 import android.app.Application
-import com.perfomax.ui.R
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.perfomax.dataviewer.domain.EMPTY
@@ -17,8 +16,8 @@ import com.perfomax.dataviewer.domain.usecases.settings.SetUpdateIntoBackgroundU
 import com.perfomax.dataviewer.domain.usecases.settings.SetUpdatePeriodUseCase
 import com.perfomax.dataviewer.domain.usecases.settings.SetUpdateWithWIFIUseCase
 import com.perfomax.dataviewer.domain.utils.parsAlertPercent
+import com.perfomax.ui.R
 import dagger.hilt.android.lifecycle.HiltViewModel
-import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow

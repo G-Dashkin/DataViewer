@@ -1,6 +1,5 @@
 package com.perfomax.dataviewer.data.mappers
 
-import com.perfomax.dataviewer.domain.models.Feed
 import com.perfomax.dataviewer.domain.models.User
 
 internal fun String.toDomainUser(): User {

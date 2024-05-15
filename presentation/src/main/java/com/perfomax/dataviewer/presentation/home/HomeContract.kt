@@ -2,7 +2,6 @@ package com.perfomax.dataviewer.presentation.home
 
 import com.perfomax.dataviewer.domain.EMPTY
 import com.perfomax.dataviewer.domain.models.Feed
-import com.perfomax.dataviewer.presentation.scanning.ScanningContract
 import com.perfomax.dataviewer.ui.base.UnidirectionalViewModel
 
 interface HomeContract:

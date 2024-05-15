@@ -45,20 +45,6 @@ class FeedsViewModel @Inject constructor(
     private val _effect = MutableStateFlow<FeedsContract.Effect?>(null)
     override val effect: StateFlow<FeedsContract.Effect?> = _effect.asStateFlow()
 
-    init {
-        _uiState.update { currentState->
-            currentState.copy(
-//                feedUrl = "https://citilink.ru"
-//                feedUrl = "citilink.в"
-                feedUrl = "https://feeds-mic.s1.citilink.ru/yandex_offer/spb_cl.xml"
-//                feedUrl = "https://api.kiparo.ru/pizza/"
-//                feedUrl = "https://api2.kiparo.com/static/it_news.json"
-//                feedUrl = "https://feeds-mic.s1.citilink.ru/yandex_offer/spb_cl.xml"
-//                feedUrl = "https://api2.kiparo.com/static/it_news.xml"
-            )
-        }
-    }
-
     override fun intent(event: FeedsContract.Event) {
         when(event) {
             is FeedsContract.Event.FeedUrlChangeEvent -> onFeedUrlChangeEvent(event.feedUrl)

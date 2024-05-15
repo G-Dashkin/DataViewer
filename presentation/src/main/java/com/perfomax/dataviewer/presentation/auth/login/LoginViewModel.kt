@@ -1,14 +1,10 @@
 package com.perfomax.dataviewer.presentation.auth.login
 
 import android.app.Application
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.perfomax.dataviewer.domain.usecases.auth.GetAuthUseCase
 import com.perfomax.dataviewer.domain.usecases.auth.GetUsersUseCase
-import com.perfomax.dataviewer.domain.usecases.auth.RegisterUseCase
 import com.perfomax.dataviewer.domain.usecases.auth.SetAuthUseCase
-import com.perfomax.dataviewer.presentation.auth.registration.RegisterContract
 import com.perfomax.ui.R
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow

@@ -7,7 +7,6 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import com.perfomax.dataviewer.navigation.NavigationDestination
 import com.perfomax.dataviewer.navigation.TopLevelDestination
-import com.perfomax.dataviewer.presentation.auth.login.LoginContract
 import com.perfomax.dataviewer.presentation.home.HomeContract
 import com.perfomax.dataviewer.presentation.home.HomeScreen
 import com.perfomax.dataviewer.presentation.home.HomeViewModel

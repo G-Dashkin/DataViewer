@@ -21,7 +21,6 @@ import com.perfomax.dataviewer.presentation.projects.navigation.navigateToProjec
 import com.perfomax.dataviewer.presentation.scanning.navigation.navigateToScanning
 import com.perfomax.dataviewer.presentation.scanning.navigation.scanning
 import com.perfomax.dataviewer.presentation.settings.navigation.navigateToSettings
-import com.perfomax.dataviewer.ui.theme.DataViewerTheme
 
 @Composable
 fun MenuScreen(

@@ -1,7 +1,6 @@
 package com.perfomax.dataviewer.domain.usecases.projects
 
 import com.perfomax.dataviewer.domain.repository.ProjectsRepository
-import com.perfomax.dataviewer.domain.usecases.UseCaseWithParams
 import com.perfomax.dataviewer.domain.usecases.UseCaseWithoutParams
 import javax.inject.Inject
 

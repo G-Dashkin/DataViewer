@@ -4,10 +4,8 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
-import com.perfomax.dataviewer.navigation.NavigationDestination
 import com.perfomax.dataviewer.presentation.auth.navigation.AuthenticationTopLevelDestination
 import com.perfomax.dataviewer.presentation.auth.navigation.authentication
-import com.perfomax.dataviewer.presentation.auth.navigation.logout
 import com.perfomax.dataviewer.presentation.auth.navigation.navigateToLogin
 import com.perfomax.dataviewer.presentation.auth.navigation.navigateToRegister
 import com.perfomax.dataviewer.presentation.auth.navigation.navigateToReset
@@ -15,7 +13,6 @@ import com.perfomax.dataviewer.presentation.feeds.navigation.FeedsTopLevelDestin
 import com.perfomax.dataviewer.presentation.home.navigation.HomeTopLevelDestination
 import com.perfomax.dataviewer.presentation.projects.navigation.ProjectsTopLevelDestination
 import com.perfomax.dataviewer.presentation.scanning.navigation.ScanningTopLevelDestination
-import com.perfomax.dataviewer.presentation.scanning.navigation.navigateToScanning
 import com.perfomax.dataviewer.presentation.settings.navigation.SettingsTopLevelDestination
 import com.perfomax.dataviewer.presentation.start.navigation.StartDestination
 import com.perfomax.dataviewer.presentation.start.navigation.start

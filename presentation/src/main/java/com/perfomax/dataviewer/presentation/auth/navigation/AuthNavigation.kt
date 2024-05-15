@@ -1,10 +1,8 @@
 package com.perfomax.dataviewer.presentation.auth.navigation
 
-import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
@@ -20,7 +18,6 @@ import com.perfomax.dataviewer.presentation.auth.registration.RegisterViewModel
 import com.perfomax.dataviewer.presentation.auth.reset.ResetContract
 import com.perfomax.dataviewer.presentation.auth.reset.ResetScreen
 import com.perfomax.dataviewer.presentation.auth.reset.ResetViewModel
-import com.perfomax.dataviewer.presentation.home.HomeViewModel
 import com.perfomax.dataviewer.ui.base.useEffects
 import com.perfomax.ui.R
 

@@ -18,7 +18,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.perfomax.dataviewer.ui.theme.DataViewerTheme
 import com.perfomax.dataviewer.ui.theme.width100
-import com.perfomax.dataviewer.ui.theme.width300
 import com.perfomax.ui.R
 
 @Composable

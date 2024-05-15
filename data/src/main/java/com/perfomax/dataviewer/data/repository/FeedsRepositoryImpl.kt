@@ -1,6 +1,5 @@
 package com.perfomax.dataviewer.data.repository
 
-import android.util.Log
 import com.perfomax.dataviewer.data.mappers.toDomainFeed
 import com.perfomax.dataviewer.data.network.api.FeedApi
 import com.perfomax.dataviewer.data.network.api.Parser
@@ -10,13 +9,11 @@ import com.perfomax.dataviewer.data.storage.api.SettingsStorage
 import com.perfomax.dataviewer.domain.EMPTY
 import com.perfomax.dataviewer.domain.models.Feed
 import com.perfomax.dataviewer.domain.repository.FeedsRepository
-import com.perfomax.dataviewer.domain.utils.getAlertPercent
-import com.perfomax.dataviewer.domain.utils.parsToString
 import com.perfomax.dataviewer.domain.utils.parsToShortList
+import com.perfomax.dataviewer.domain.utils.parsToString
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import java.net.URL
 import javax.inject.Inject
 
 class FeedsRepositoryImpl @Inject constructor(
@@ -93,7 +90,6 @@ class FeedsRepositoryImpl @Inject constructor(
     }
 
     override suspend fun searchFeedElement(searchedFeedElement: String): List<String> = withContext(dispatcher) {
-        Log.d("MyLog","1")
         var searchedElementIndex = 0
         if (searchedElement != searchedFeedElement) {
             searchedElement = searchedFeedElement
@@ -101,12 +97,8 @@ class FeedsRepositoryImpl @Inject constructor(
             searchedElementCounter = 0
             searchedElementsList.addAll(feedList.filter { it.contains(searchedFeedElement) })
         }
-        Log.d("MyLog","2")
         try {
             searchedElementIndex = feedList.indexOf(searchedElementsList[searchedElementCounter])
-
-//        val searchedElementIndex = feedList.indexOf(searchedElementsList[searchedElementCounter])
-        Log.d("MyLog","3")
         if (feedList.size < 500) {
             searchedList.clear()
             searchedList.addAll(feedList.subList(0, feedList.size))
@@ -120,18 +112,10 @@ class FeedsRepositoryImpl @Inject constructor(
             searchedList.clear()
             searchedList.addAll(feedList.subList(searchedElementIndex - 250, searchedElementIndex + 250))
         }
-        Log.d("MyLog","4")
         if (searchedElementCounter < searchedElementsList.size-1) {
             searchedElementCounter = searchedElementCounter.inc()
         } else { searchedElementCounter = 0 }
-        Log.d("MyLog","5")
-
-        } catch (e:Exception){
-            searchedElementIndex  = -1
-//            searchedList = ArrayList<String>()
-        }
-
-
+        } catch (e:Exception){ }
         searchedList
     }
 

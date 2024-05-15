@@ -1,7 +1,5 @@
 package com.perfomax.dataviewer.data.network.api
 
-import android.util.Log
-
 class Parser {
 
     companion object {

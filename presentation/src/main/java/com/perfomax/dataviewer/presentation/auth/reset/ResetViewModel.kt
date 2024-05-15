@@ -1,11 +1,7 @@
 package com.perfomax.dataviewer.presentation.auth.reset
 
 import android.app.Application
-import androidx.compose.runtime.Immutable
 import androidx.lifecycle.ViewModel
-import com.perfomax.dataviewer.domain.EMPTY
-import com.perfomax.dataviewer.presentation.auth.login.LoginContract
-import com.perfomax.dataviewer.presentation.auth.registration.RegisterContract
 import com.perfomax.ui.R
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow

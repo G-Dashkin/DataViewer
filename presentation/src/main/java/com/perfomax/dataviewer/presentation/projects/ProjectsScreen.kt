@@ -22,9 +22,9 @@ import com.perfomax.dataviewer.ui.theme.cornerShape8
 import com.perfomax.dataviewer.ui.theme.height5
 import com.perfomax.dataviewer.ui.theme.padding10
 import com.perfomax.dataviewer.ui.theme.padding15
+import com.perfomax.dataviewer.ui.widgets.DialogViewCreateNewProject
 import com.perfomax.dataviewer.ui.widgets.DialogViewDefault
 import com.perfomax.dataviewer.ui.widgets.ItemProject
-import com.perfomax.dataviewer.ui.widgets.DialogViewCreateNewProject
 import com.perfomax.ui.R
 
 @Composable

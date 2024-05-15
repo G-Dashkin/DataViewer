@@ -1,7 +1,6 @@
 package com.perfomax.dataviewer.presentation.scanning
 
 import android.app.Application
-import android.util.Log
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -95,14 +94,8 @@ class ScanningViewModel @AssistedInject constructor(
 
     private fun onSearchFeedValueEvent() {
         viewModelScope.launch {
-            Log.d("MyLog","start")
-            Log.d("MyLog","_uiState.value.feedSearchValue: ${_uiState.value.feedSearchValue}")
             val loadedFeed = searchFeedElementUseCase.execute(searchedFeedElement = _uiState.value.feedSearchValue)
-            Log.d("MyLog","loadedFeed:")
-            Log.d("MyLog",loadedFeed.toString())
             val feedSearchValueIndex = loadedFeed.indexOf(loadedFeed.find { it.contains(_uiState.value.feedSearchValue) })
-            Log.d("MyLog","feedSearchValueIndex:")
-            Log.d("MyLog",feedSearchValueIndex.toString())
             if (feedSearchValueIndex != -1) {
                 _uiState.update { currentState ->
                     currentState.copy(

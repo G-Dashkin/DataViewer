@@ -2,7 +2,6 @@ package com.perfomax.dataviewer.presentation.home
 
 import android.content.Context
 import android.content.Intent
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.perfomax.dataviewer.domain.EMPTY
@@ -13,7 +12,6 @@ import com.perfomax.dataviewer.domain.usecases.scheduler.SetScheduleUseCase
 import com.perfomax.dataviewer.domain.usecases.settings.GetNotificationUseCase
 import com.perfomax.dataviewer.domain.usecases.settings.GetUpdateIntoBackgroundUseCase
 import com.perfomax.dataviewer.domain.usecases.settings.GetUpdatePeriodUseCase
-import com.perfomax.dataviewer.presentation.auth.login.LoginContract
 import com.perfomax.dataviewer.ui.utils.isConnected
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext

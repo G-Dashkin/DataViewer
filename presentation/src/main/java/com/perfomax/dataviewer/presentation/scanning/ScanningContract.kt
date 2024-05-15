@@ -2,7 +2,6 @@ package com.perfomax.dataviewer.presentation.scanning
 
 import androidx.compose.foundation.lazy.LazyListState
 import com.perfomax.dataviewer.domain.EMPTY
-import com.perfomax.dataviewer.presentation.feeds.FeedsContract
 import com.perfomax.dataviewer.ui.base.UnidirectionalViewModel
 
 

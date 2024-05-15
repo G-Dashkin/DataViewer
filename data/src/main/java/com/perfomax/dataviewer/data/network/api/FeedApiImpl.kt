@@ -1,6 +1,5 @@
 package com.perfomax.dataviewer.data.network.api
 
-import android.util.Log
 import com.perfomax.dataviewer.domain.models.Feed
 import com.perfomax.dataviewer.domain.utils.parsToShortList
 import java.net.HttpURLConnection
