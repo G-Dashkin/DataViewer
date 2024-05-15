@@ -29,6 +29,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.DpOffset
 import androidx.compose.ui.unit.dp
 import com.perfomax.dataviewer.navigation.TopLevelDestination
+import com.perfomax.dataviewer.presentation.auth.navigation.LoginDestination
 import com.perfomax.dataviewer.presentation.scanning.navigation.ScanningDestination
 import com.perfomax.dataviewer.ui.theme.border1
 import com.perfomax.dataviewer.ui.theme.height2
@@ -82,7 +83,7 @@ fun DataViewerTopMenu(
                         text = { Text(text = stringResource(id = item.titleId)) },
                         onClick = {
                             dropDownMenuExpanded = false
-                            if (item.route != "login") {
+                            if (item.route != LoginDestination.route) {
                                 onNavigateToTopLevel(item.route)
                                 updateMainProject.invoke()
                             } else {
