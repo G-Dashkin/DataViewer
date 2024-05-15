@@ -27,10 +27,8 @@ import com.perfomax.dataviewer.ui.theme.DataViewerTheme
 fun MenuScreen(
     uiState: MenuContract.State,
     topLevelDestinations: List<TopLevelDestination>,
-    onLogout: () -> Unit,
     onAuthentication: () -> Unit,
-    updateMainProject: () -> Unit,
-    onScanning: (String) -> Unit
+    updateMainProject: () -> Unit
 ) {
 
     val navController: NavHostController = rememberNavController()

@@ -17,6 +17,8 @@ fun NavGraphBuilder.navigateToFeeds(){
     composable(route = FeedsDestination.route) {
         val feedsViewModel = hiltViewModel<FeedsViewModel>()
         val feedsUiState by feedsViewModel.uiState.collectAsStateWithLifecycle()
+//        val feedsEffects by feedsViewModel.effect.collectAsStateWithLifecycle()
+
         FeedsScreen(
             uiState = feedsUiState,
             onFeedUrlFieldChange = { feedUrl ->

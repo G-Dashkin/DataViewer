@@ -26,10 +26,7 @@ object MenuDestination: NavigationDestination {
 
 fun NavGraphBuilder.menu(
     topLevelDestinations: List<TopLevelDestination>,
-    onLogout: () -> Unit,
-    onAuthentication: () -> Unit,
-    onNavigateUp: () -> Unit,
-    onNavigateToScanning: (String) -> Unit
+    onAuthentication: () -> Unit
 ) {
     navigation(
         startDestination = MenuDestination.route,
@@ -37,18 +34,14 @@ fun NavGraphBuilder.menu(
     ) {
         menuInner(
             topLevelDestinations = topLevelDestinations,
-            onLogout = onLogout,
-            onAuthentication = onAuthentication,
-            onScanning = onNavigateToScanning
+            onAuthentication = onAuthentication
         )
     }
 }
 
 private fun NavGraphBuilder.menuInner(
-    onLogout: () -> Unit,
     onAuthentication: () -> Unit,
-    topLevelDestinations: List<TopLevelDestination>,
-    onScanning: (String) -> Unit
+    topLevelDestinations: List<TopLevelDestination>
 ) {
     composable(MenuDestination.route) {
         val menuViewModel = hiltViewModel<MenuViewModel>()
@@ -56,10 +49,8 @@ private fun NavGraphBuilder.menuInner(
         MenuScreen(
             uiState = menuUiState,
             topLevelDestinations = topLevelDestinations,
-            onLogout = onLogout,
             onAuthentication = onAuthentication,
-            updateMainProject = { menuViewModel.intent(MenuContract.Event.UpdateProjectEvent) },
-            onScanning = onScanning
+            updateMainProject = { menuViewModel.intent(MenuContract.Event.UpdateProjectEvent) }
         )
     }
 }

@@ -7,9 +7,11 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import com.perfomax.dataviewer.navigation.NavigationDestination
 import com.perfomax.dataviewer.navigation.TopLevelDestination
+import com.perfomax.dataviewer.presentation.auth.login.LoginContract
 import com.perfomax.dataviewer.presentation.home.HomeContract
 import com.perfomax.dataviewer.presentation.home.HomeScreen
 import com.perfomax.dataviewer.presentation.home.HomeViewModel
+import com.perfomax.dataviewer.ui.base.useEffects
 import com.perfomax.ui.R
 
 fun NavGraphBuilder.navigateToHome(
@@ -19,6 +21,14 @@ fun NavGraphBuilder.navigateToHome(
     composable(route = HomeDestination.route) {
         val homeViewModel = hiltViewModel<HomeViewModel>()
         val homeUiState by homeViewModel.uiState.collectAsStateWithLifecycle()
+        val homeEffects by homeViewModel.effect.collectAsStateWithLifecycle()
+
+        homeViewModel.useEffects {
+            when(homeEffects) {
+                is HomeContract.Effect.Scanning -> onNavigateToScan((homeEffects as HomeContract.Effect.Scanning).feedUrl)
+                null -> Unit
+            }
+        }
 
         HomeScreen(
             uiState = homeUiState,
@@ -29,7 +39,7 @@ fun NavGraphBuilder.navigateToHome(
                 homeViewModel.intent(HomeContract.Event.ClickFeedNameEvent(clickedFeed))
             },
             onFindSelectedElement = { onFeedSelected ->
-                onNavigateToScan.invoke(onFeedSelected)
+                homeViewModel.intent(HomeContract.Event.ScanningEvent(onFeedSelected))
             },
             onClickUpdateFeed = { homeViewModel.intent(HomeContract.Event.UpdateFeedEvent) },
             onCloseDialogClick = { homeViewModel.intent(HomeContract.Event.CloseDialogClickEvent) },

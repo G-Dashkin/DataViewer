@@ -50,10 +50,7 @@ fun DataViewerNavHost() {
                 AuthenticationTopLevelDestination,
                 SettingsTopLevelDestination
             ),
-            onNavigateUp = navController::popBackStack,
-            onLogout = navController::logout,
-            onAuthentication = navController::navigateToLogin,
-            onNavigateToScanning = navController::navigateToScanning
+            onAuthentication = navController::navigateToLogin
         )
     }
 

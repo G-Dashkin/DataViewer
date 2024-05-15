@@ -13,6 +13,7 @@ import com.perfomax.dataviewer.domain.usecases.scheduler.SetScheduleUseCase
 import com.perfomax.dataviewer.domain.usecases.settings.GetNotificationUseCase
 import com.perfomax.dataviewer.domain.usecases.settings.GetUpdateIntoBackgroundUseCase
 import com.perfomax.dataviewer.domain.usecases.settings.GetUpdatePeriodUseCase
+import com.perfomax.dataviewer.presentation.auth.login.LoginContract
 import com.perfomax.dataviewer.ui.utils.isConnected
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -52,8 +53,7 @@ class HomeViewModel @Inject constructor(
         when(event) {
             is HomeContract.Event.ClickFeedNameEvent -> openDialogHomeScreenFeed(event.feedName)
             is HomeContract.Event.ClickFindFeedElement -> onFindFeedElementChange(event.findFeedElement)
-            is HomeContract.Event.ChangeFeedEvent -> {  }
-            HomeContract.Event.FindFeedElementsEvent -> {  }
+            is HomeContract.Event.ScanningEvent -> onScanning(event.feedUrl)
             HomeContract.Event.CountFeedElementEvent -> countFeedElements()
             HomeContract.Event.UpdateFeedsListEvent -> updateFeedsList()
             HomeContract.Event.UpdateFeedEvent -> updateSelectedFeed()
@@ -87,6 +87,12 @@ class HomeViewModel @Inject constructor(
 
     override fun consume() {
         _effect.update { null }
+    }
+
+    private fun onScanning(feedUrl: String) {
+        _effect.update {
+            HomeContract.Effect.Scanning(feedUrl)
+        }
     }
 
     private fun updateFeedsList() {

@@ -66,7 +66,7 @@ fun NavGraphBuilder.authentication(
     onNavigateToLogin: () -> Unit,
     onNavigateToRegister: () -> Unit,
     onNavigateToReset: () -> Unit
-){0
+){
     navigation(startDestination = LoginDestination.route, route = AUTH_GRAPH){
 
         composable(route = LoginDestination.route) {

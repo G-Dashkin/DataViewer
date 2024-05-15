@@ -49,15 +49,14 @@ interface HomeContract:
         data object CountFeedElementEvent: Event
         data class ClickFeedNameEvent(val feedName: String): Event
         data class ClickFindFeedElement(val findFeedElement: String): Event
-        data class ChangeFeedEvent(val feedName: String): Event
-        data object FindFeedElementsEvent : Event
         data object UpdateFeedEvent: Event
         data object CloseDialogClickEvent: Event
         data object CloseDialogIsConnectedEvent : Event
+        data class ScanningEvent(val feedUrl: String) : Event
     }
 
     sealed interface Effect {
-        data object Click : Effect
+        data class Scanning(val feedUrl: String) : Effect
     }
 
 }
