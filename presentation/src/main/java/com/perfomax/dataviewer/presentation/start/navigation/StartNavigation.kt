@@ -11,8 +11,6 @@ fun NavGraphBuilder.start(onStartNavigate:() -> Unit) {
     }
 }
 
-
-
 object StartDestination: NavigationDestination {
     override val route = "start"
 }

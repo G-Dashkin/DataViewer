@@ -51,8 +51,6 @@ interface ProjectsContract:
         data object CloseDialogRemoveEvent : Event
     }
 
-    sealed interface Effect {
-
-    }
+    sealed interface Effect
 
 }

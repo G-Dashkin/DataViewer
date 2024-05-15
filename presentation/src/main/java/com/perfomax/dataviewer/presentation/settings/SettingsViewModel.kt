@@ -50,7 +50,6 @@ class SettingsViewModel @Inject constructor(
     init {
         setSettings()
         getSettings()
-//        setService()
     }
 
     override fun intent(event: SettingsContract.Event) {

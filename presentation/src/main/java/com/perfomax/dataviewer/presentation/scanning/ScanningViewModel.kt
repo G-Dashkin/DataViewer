@@ -110,7 +110,6 @@ class ScanningViewModel @AssistedInject constructor(
                     )
                 }
             }
-
         }
     }
 
@@ -134,5 +133,4 @@ class ScanningViewModel @AssistedInject constructor(
     interface ScanningViewModelFactory {
         fun create(feedUrl: String): ScanningViewModel
     }
-
 }

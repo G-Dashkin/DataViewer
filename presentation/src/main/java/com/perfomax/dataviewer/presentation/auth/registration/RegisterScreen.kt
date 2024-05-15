@@ -40,7 +40,6 @@ import com.perfomax.dataviewer.ui.theme.zeroVal
 import com.perfomax.dataviewer.ui.widgets.FormTextFieldAuth
 import com.perfomax.ui.R
 
-
 @Composable
 fun RegisterScreen(
     uiState: RegisterContract.State,

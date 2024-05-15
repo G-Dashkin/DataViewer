@@ -26,7 +26,9 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
 import com.perfomax.dataviewer.domain.EMPTY
+import com.perfomax.dataviewer.ui.theme.DataViewerTheme
 import com.perfomax.dataviewer.ui.theme.height15
 import com.perfomax.dataviewer.ui.theme.height60
 import com.perfomax.dataviewer.ui.theme.maxWidth051
@@ -51,8 +53,9 @@ fun SettingsScreen(
     var isExpandedUpdateTime by remember { mutableStateOf(false) }
     var isExpandedUpdatePercent by remember { mutableStateOf(false) }
 
-    Column(modifier = Modifier.fillMaxSize()
-                              .padding(padding15),
+    Column(modifier = Modifier
+        .fillMaxSize()
+        .padding(padding15),
            horizontalAlignment = Alignment.Start
     ) {
         Row(verticalAlignment = Alignment.CenterVertically,
@@ -120,7 +123,6 @@ fun SettingsScreen(
                 }
             }
         }
-
         Text(modifier = Modifier.fillMaxWidth()
                                 .padding(start = padding5),
             text = stringResource(id = R.string.update_periodic),
@@ -174,17 +176,18 @@ fun SettingsScreen(
     }
 }
 
-//@Preview(showBackground = true)
-//@Composable
-//fun SettingsScreenPreview() {
-//    DataViewerTheme {
-//        SettingsScreen(
-//            uiState = SettingsContract.State.initial(),
-//            onSetPercentForAlert = {},
-//            onSwitchFeedUpdateIntoBackground = {},
-//            onSetUpdatePeriod = {},
-//            onSwitchFeedUpdateWithWIFI = {},
-//            onSwitchNotification = {}
-//        )
-//    }
-//}
+@Preview(showBackground = true)
+@Composable
+fun SettingsScreenPreview() {
+    DataViewerTheme {
+        SettingsScreen(
+            uiState = SettingsContract.State.initial(),
+            onSetPercentForAlert = {},
+            onSwitchFeedUpdateIntoBackground = {},
+            onSetUpdatePeriod = {},
+            onSwitchFeedUpdateWithWIFI = {},
+            onSwitchNotification = {},
+            onSetUpdateTime = {}
+        )
+    }
+}

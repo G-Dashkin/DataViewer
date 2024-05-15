@@ -50,5 +50,4 @@ fun DataViewerNavHost() {
             onAuthentication = navController::navigateToLogin
         )
     }
-
 }

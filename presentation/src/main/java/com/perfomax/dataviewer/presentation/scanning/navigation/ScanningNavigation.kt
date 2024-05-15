@@ -15,7 +15,6 @@ import com.perfomax.dataviewer.presentation.scanning.ScanningScreen
 import com.perfomax.dataviewer.presentation.scanning.ScanningViewModel
 import com.perfomax.ui.R
 
-
 fun NavHostController.navigateToScanning(feedUrl: String) {
     popBackStack()
     navigate("${ScanningDestination.route}/${feedUrl.replace("/","|")}")
@@ -45,7 +44,7 @@ fun NavGraphBuilder.scanning(){
             onCloseDialogIsConnected = { scanningViewModel.intent(ScanningContract.Event.CloseDialogIsConnectedEvent) },
             onCloseDialogIsNotFind = { scanningViewModel.intent(ScanningContract.Event.CloseDialogIsNotFindEvent) }
         )
-        }
+    }
 }
 
 object ScanningDestination : NavigationDestination {

@@ -22,7 +22,6 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-
 private const val RECEIVER_FEED_ACTION = "com.perfomax.dataviewer.RECEIVER_FEED_ACTION"
 private const val RECEIVER_FEED_EXTRAS = "receiver_feed_extras"
 private const val RECEIVER_FEED_TIME_EXTRAS = "receiver_feed_time_extras"

@@ -20,7 +20,6 @@ interface ScanningContract:
         val feedSearchValue: String,
         val feedSearchValueError: Boolean,
         val isFeedScanningResponse: Boolean,
-
         val listState: LazyListState
     ) {
         companion object {
@@ -62,8 +61,6 @@ interface ScanningContract:
         data object CloseDialogIsNotFindEvent : Event
     }
 
-    sealed interface Effect {
+    sealed interface Effect
 
-    }
-
-    }
+}

@@ -12,7 +12,6 @@ import com.perfomax.dataviewer.presentation.settings.SettingsScreen
 import com.perfomax.dataviewer.presentation.settings.SettingsViewModel
 import com.perfomax.ui.R
 
-
 fun NavGraphBuilder.navigateToSettings(){
     composable(route = SettingsDestination.route) {
         val settingsViewModel = hiltViewModel<SettingsViewModel>()

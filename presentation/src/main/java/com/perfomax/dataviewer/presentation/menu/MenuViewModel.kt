@@ -47,7 +47,6 @@ class MenuViewModel @Inject constructor(
         }
     }
 
-
     private fun getSelectedProject() {
         viewModelScope.launch {
             _uiState.update { currentState ->

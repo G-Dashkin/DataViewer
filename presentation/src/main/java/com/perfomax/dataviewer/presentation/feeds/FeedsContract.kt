@@ -125,8 +125,6 @@ interface FeedsContract:
         data object CloseDialogNotProjectEvent : Event
     }
 
-    sealed interface Effect {
-//        data object Click : Effect
-    }
+    sealed interface Effect
 
 }

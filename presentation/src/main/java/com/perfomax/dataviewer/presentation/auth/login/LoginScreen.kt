@@ -95,7 +95,6 @@ fun LoginScreen(
                  color = MaterialTheme.colorScheme.onSecondary,
                  style = MaterialTheme.typography.titleLarge)
         }
-
         Spacer(modifier = Modifier.height(height15))
         Row {
             Text(text = stringResource(id = R.string.not_member),
@@ -126,7 +125,6 @@ fun LoginScreen(
                  color = Color.Black,
                  style = MaterialTheme.typography.bodyLarge)
         }
-
     }
 }
 

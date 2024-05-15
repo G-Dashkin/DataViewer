@@ -24,12 +24,8 @@ interface MenuContract:
 
     sealed interface Event {
         data object UpdateProjectEvent : Event
-
     }
 
-    sealed interface Effect {
-
-    }
-
+    sealed interface Effect
 
 }

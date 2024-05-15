@@ -49,8 +49,6 @@ interface SettingsContract:
         data class SwitchNotificationWorkEvent(val isNotificationWor: Boolean) : Event
     }
 
-    sealed interface Effect {
-        data object Click : Effect
-    }
+    sealed interface Effect
 
 }

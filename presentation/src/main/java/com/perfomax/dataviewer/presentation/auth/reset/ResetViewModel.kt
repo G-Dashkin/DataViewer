@@ -65,5 +65,4 @@ class ResetViewModel @Inject constructor(
             }
         }
     }
-
 }
