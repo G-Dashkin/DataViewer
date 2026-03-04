@@ -23,5 +23,13 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "DataViewer"
+
 include(":app")
- 
+include(":core:di")
+include(":core:ui")
+include(":core:utils")
+include(":core:parser")
+include(":feature:filepicker")
+include(":feature:treeview")
+include(":feature:search")
+include(":feature:nodedetail")
